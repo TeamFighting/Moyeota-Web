@@ -15,9 +15,8 @@ function CurrentLocation() {
     const intervalId = setInterval(() => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
-        console.log('위치받기 성공');
       }
-    }, 10000000000);
+    }, 5000);
 
     function success(position: GeolocationPosition) {
       setLocation({
