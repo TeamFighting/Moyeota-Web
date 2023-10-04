@@ -317,6 +317,7 @@ const Route = styled.div`
     display: flex;
     flex-direction: column;
     gap: 7px;
+    padding-bottom: 18px;
 `;
 const Explanation = styled.div`
     display: flex;
