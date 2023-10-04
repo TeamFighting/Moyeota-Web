@@ -6,7 +6,7 @@ const BottomSheetContent = () => {
     <S.ModalContent>
       <S.ContentWrapper>
         <ContentHeader />
-        <SingleContent />
+        <SingleContent  />
         <SingleContent />
         <SingleContent />
         <SingleContent />

@@ -4,10 +4,17 @@ import ArrowRight from '../../../../../public/svg/ArrowRight.svg';
 import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
 import Clock from '../../../../../public/svg/Clock.svg';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 function SingleContent() {
+  const navigate = useNavigate();
+
+  const navigateToDetail = () => {
+    navigate('/detailpage');
+  };
+
   return (
-    <S.SingleContent>
+    <S.SingleContent onClick = {navigateToDetail}>
       <Profile />
       <S.ContentTitle>공덕팟</S.ContentTitle>
       <S.Info>
