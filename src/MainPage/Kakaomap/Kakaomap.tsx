@@ -57,13 +57,13 @@ function Kakaomap({ mapRef }: { mapRef: MutableRefObject<any> }) {
     }
   };
 
-  const geocoder = new kakao.maps.services.Geocoder();
-  const callback = (result: any, status: any) => {
-    if (status === kakao.maps.services.Status.OK) {
-      console.log(result);
-    }
-  };
-  console.log(geocoder.addressSearch('서울특별시 노원구 공릉로 232', callback));
+  // const geocoder = new kakao.maps.services.Geocoder();
+  // const callback = (result: any, status: any) => {
+  //   if (status === kakao.maps.services.Status.OK) {
+  //     console.log(result);
+  //   }
+  // };
+  // console.log(geocoder.addressSearch('서울특별시 노원구 공릉로 232', callback));
 
   useEffect(() => {
     kakao.maps.load(() => initMap());

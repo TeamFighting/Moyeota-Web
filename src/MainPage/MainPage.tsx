@@ -5,17 +5,27 @@ import { useEffect, useRef } from 'react';
 import BottomSheet from './BottomSheet/Components/BottomSheet';
 import LocationHeader from './BottomSheet/Components/LocationHeader';
 import { HEADER_HEIGHT } from '../Constants/constant';
+import axios from "axios";
+
 // import NaverMap from './NaverMap/NaverMap';
 
 function MainPage() {
   const mapRef = useRef<HTMLElement | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  console.log('hi11')
 
   useEffect(() => {
-      console.log('hi')
-  }
-  ,[])
+    fetchData();
+}, []);
+
+
+  async function fetchData() {
+    try {
+        const res = await axios.get('http://moyeota.shop/api/posts?page=0');
+        console.log(res.data);
+    } catch (e) {
+        console.log(e);
+    }
+}
   
   return (
     <Container>
