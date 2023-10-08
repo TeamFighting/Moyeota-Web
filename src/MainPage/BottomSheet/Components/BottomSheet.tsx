@@ -4,12 +4,14 @@ import { BOTTOM_SHEET_HEIGHT, WINDOWHEIGHT } from '../../../Constants/constant';
 import useBottomSheet from '../Hook/useBottonSheet';
 import BottomSheetContent from './BottomSheetContent';
 import BottomSheetHandle from './BottomSheetHandle';
+import ContentHeader from './SingleContent/ContentHeader';
 
 function BottomSheet() {
   const { sheet, content } = useBottomSheet();
   return (
     <Wrapper ref={sheet}>
       <BottomSheetHandle />
+      <ContentHeader />
       <BottomSheetContentWrapper ref={content}>
         <BottomSheetContent />
       </BottomSheetContentWrapper>
@@ -28,6 +30,7 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
   height: ${BOTTOM_SHEET_HEIGHT}px;
   transition: transform 400ms ease-out;
+  background-color: white;
 `;
 const BottomSheetContentWrapper = styled.div`
   width: 100%;

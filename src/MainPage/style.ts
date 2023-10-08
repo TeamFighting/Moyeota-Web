@@ -33,6 +33,8 @@ export const ContentHeader = styled.div`
   gap: 50%;
   width: 100vw;
   position: sticky;
+  background-color: white;
+  margin-bottom: 17px;
 `;
 
 export const Left = styled.div`

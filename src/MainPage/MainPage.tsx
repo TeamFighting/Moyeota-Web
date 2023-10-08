@@ -1,15 +1,22 @@
 import styled from 'styled-components';
 import Kakaomap from './Kakaomap/Kakaomap';
 import Chevronleft from '../../public/svg/Chevronleft.svg';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import BottomSheet from './BottomSheet/Components/BottomSheet';
 import LocationHeader from './BottomSheet/Components/LocationHeader';
+import { HEADER_HEIGHT } from '../Constants/constant';
 // import NaverMap from './NaverMap/NaverMap';
 
 function MainPage() {
   const mapRef = useRef<HTMLElement | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  console.log('hi11')
 
+  useEffect(() => {
+      console.log('hi')
+  }
+  ,[])
+  
   return (
     <Container>
       <Header>
@@ -35,7 +42,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  height: 64px;
+  height: ${HEADER_HEIGHT}px;
   position: sticky;
   background-color: #ffffff;
   display: flex;
