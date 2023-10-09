@@ -4,13 +4,6 @@ const BottomSheetContent = () => {
   return (
     <S.ModalContent>
       <S.ContentWrapper>
-        <SingleContent  />
-        <SingleContent />
-        <SingleContent />
-        <SingleContent />
-        <SingleContent />
-        <SingleContent />
-        <SingleContent />
         <SingleContent />
       </S.ContentWrapper>
     </S.ModalContent>
