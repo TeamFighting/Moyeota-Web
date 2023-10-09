@@ -1,16 +1,31 @@
 import * as S from '../../../style';
 import ProfileSample from '../../../../../public/svg/ProfileSample.svg';
-function Profile() {
+
+interface ProfileProps {
+  index: number;
+  userName: string;
+  userGender: boolean;
+}
+
+function Profile({ userName, index, userGender }: ProfileProps) {
+  let gender: string;
+
+  if (userGender) {
+    gender = '여';
+  } else {
+    gender = '남';
+  }
+
   return (
-    <S.ProfileInfo>
+    <S.ProfileInfo key={index}>
       <S.ProfileLeft>
         <ProfileSample />
-        <S.ProfileName>효린</S.ProfileName>
-        <S.ProfileSex>여</S.ProfileSex>
+        <S.ProfileName>{userName}</S.ProfileName>
+        <S.ProfileSex>{gender}</S.ProfileSex>
         <S.Dot />
-        <S.ProfileTime>2시간 전</S.ProfileTime>
+        {/* <S.ProfileTime>{data.createAt}</S.ProfileTime> */}
       </S.ProfileLeft>
-      <S.ProfileDistance>18km</S.ProfileDistance>
+      {/* <S.ProfileDistance>{data.fare}원</S.ProfileDistance> */}
     </S.ProfileInfo>
   );
 }

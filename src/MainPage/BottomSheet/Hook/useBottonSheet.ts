@@ -99,8 +99,8 @@ export default function useBottomSheet() {
       }
     };
 
-    const handleTouchEnd = (e: TouchEvent) => {
-      console.log('e', e);
+    const handleTouchEnd = () => {
+      // console.log('e', e);
       document.body.style.overflowY = 'auto';
       const { touchMove } = metrics.current;
 
