@@ -47,12 +47,9 @@ function Kakaomap({ mapRef }: { mapRef: MutableRefObject<any> }) {
       });
 
       marker.setMap(map);
-      // console.log(isModalOpen);
       (mapRef as MutableRefObject<any>).current = map;
       kakao.maps.event.addListener(marker, 'click', function () {
-        // console.log('click');
         setIsModalOpen(!isModalOpen);
-        // console.log(isModalOpen);
       });
     }
   };
