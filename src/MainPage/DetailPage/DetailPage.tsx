@@ -1,34 +1,21 @@
 import styled from 'styled-components';
-import CheveronLeft from '../../../public/svg/Chevronleft.svg';
-import ChevronRight from '../../../public/svg/ChevronRight.svg';
-import CancelIcon from '../../../public/svg/CancelIcon.svg';
-import { HEADER_HEIGHT } from '../../Constants/constant';
-import LionProfile from '../../../public/svg/LionProfile.svg';
-import LocationFrom from '../../../public/svg/LocationFrom.svg';
-import LocationMarker from '../../../public/svg/LocationMarker.svg';
-import Divider from '../../../public/svg/Divider.svg';
-import Calendar from '../../../public/svg/Calendar.svg';
-import Clock from '../../../public/svg/Clock.svg';
-import Dollar from '../../../public/svg/Dollar.svg';
 import ApplyButton from '../BottomSheet/Components/ApplyButton/ApplyButton';
-
+import DetailHeader from './DetailHeader';
+import {
+  Calendar,
+  ChevronRight,
+  Clock,
+  Divider,
+  Dollar,
+  LionProfile,
+  LocationFrom,
+  LocationMarker,
+} from '../../assets/svg';
 function DetailPage() {
-  const goBack = () => {
-    window.history.back();
-  };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-
   return (
     <>
       <Container>
-        <Header>
-          <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
-            <CheveronLeft width="24" height="24" />
-          </Icon>
-          <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
-            <CancelIcon width="24" height="24" />
-          </Icon>
-        </Header>
+        <DetailHeader />
         <Body>
           <Profile>
             <LionProfile width="86px" height="86px" />
@@ -202,6 +189,10 @@ const PartyOne = styled.div`
   justify-content: center;
   /* height: 569px; */
 `;
+const Icon = styled.div`
+  cursor: pointer;
+  align-self: flex-start;
+`;
 
 const Description = styled.div`
   width: 335px;
@@ -372,19 +363,6 @@ const ContentDetail = styled.div`
   font-family: Pretendard;
   font-size: 14px;
   font-weight: 500;
-`;
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: end;
-  height: ${HEADER_HEIGHT}px;
-  justify-content: space-between;
-  padding: 0 4%;
-`;
-
-const Icon = styled.div`
-  cursor: pointer;
-  align-self: flex-start;
 `;
 
 const Body = styled.div`

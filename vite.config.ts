@@ -6,12 +6,14 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig({
   plugins: [
     react(),
-    svgr({
+    svgr(
+      {
       exportAsDefault: true,
       svgrOptions: {
         icon: true,
       },
-    }),
+    }
+    ),
   ],
   server: {
     port: 3000,

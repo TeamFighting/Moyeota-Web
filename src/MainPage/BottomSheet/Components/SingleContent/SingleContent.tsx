@@ -13,7 +13,7 @@ function SingleContent() {
   const navigate = useNavigate();
 
   const navigateToDetail = () => {
-    navigate('/detailpage');
+    navigate('/detailpage', { replace: true });
   };
 
   const { totalData } = useStore((state) => state);

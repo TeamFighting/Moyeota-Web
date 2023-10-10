@@ -19,9 +19,6 @@ function Profile({ userName, index, userGender, createAt }: ProfileProps) {
   const now = new Date();
   const createAtDate = new Date(createAt);
   const timeDiff = now.getTime() - createAtDate.getTime();
-  console.log('now.getTime', now.getTime());
-  console.log('createAtDate.getTime', createAtDate.getTime());
-  // console.log('timeDiff', timeDiff);
   const millisecondsMonth = 1000 * 60 * 60 * 24 * 30;
   const millisecondsDay = 1000 * 60 * 60 * 24;
   const millisecondsHour = 1000 * 60 * 60;
@@ -47,7 +44,6 @@ function Profile({ userName, index, userGender, createAt }: ProfileProps) {
   } else {
     ago = '방금 전';
   }
-  console.log('ago', ago);
   return (
     <S.ProfileInfo key={index}>
       <S.ProfileLeft>
