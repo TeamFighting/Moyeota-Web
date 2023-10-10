@@ -1,8 +1,14 @@
 import styled from 'styled-components';
+import ModalStore from '../../../../zustand/store/ModalStore';
 
 function ApplyButton() {
+  const { setIsOpen } = ModalStore((state) => state);
+  const handleClick = () => {
+    console.log('hello');
+    setIsOpen(true);
+  };
   return (
-    <Wrapper>
+    <Wrapper onClick={handleClick}>
       <Button type="button">매칭 신청하기</Button>
     </Wrapper>
   );

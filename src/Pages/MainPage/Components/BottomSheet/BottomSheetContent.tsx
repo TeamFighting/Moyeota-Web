@@ -24,7 +24,7 @@ const BottomSheetContent = () => {
             fontSize: '32px',
             fontFamily: 'pretendard',
             color: ' #9A9A9A',
-            fontWeight: 'bold',
+            fontWeight: 500,
           }}
         >
           데이터가 없습니다 :(

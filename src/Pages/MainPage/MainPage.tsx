@@ -8,8 +8,6 @@ import LocationHeader from './LocationHeader';
 import BottomSheet from './Components/BottomSheet';
 import { Chevronleft } from '../../assets/svg';
 
-// import NaverMap from './NaverMap/NaverMap';
-
 function MainPage() {
   const mapRef = useRef<HTMLElement | null>(null);
   const { updateTotalData } = useStore((state) => state);
@@ -28,7 +26,7 @@ function MainPage() {
         alert(res.status + '에러');
       }
     } catch (e) {
-      alert('서버와의 통신에 실패했습니다.');
+      // alert('서버와의 통신에 실패했습니다.');
       console.log(e);
     }
   }
