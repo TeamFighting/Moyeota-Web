@@ -19,18 +19,18 @@ function SingleContent() {
   const { totalData } = useStore((state) => state);
 
   return totalData.map((data, index) => {
+    const year = data.departureTime.slice(0, 4);
     const month = data.departureTime.slice(5, 7);
     const date = data.departureTime.slice(8, 10);
 
     const days = ['일', '월', '화', '수', '목', '금', '토'];
-
     const newDate = new Date(data.departureTime); // 요일을 영어로 얻기 위함
     const day = days[newDate.getDay()];
 
     let timePart = data.departureTime.match(/\d{2}:\d{2}/)[0];
     const hour = timePart.split(':')[0];
     const minute = timePart.split(':')[1];
-
+    const splitedTime = [year, month, date, hour, minute];
     if (hour < 12) {
       timePart = '오전 ' + hour + ':' + minute;
     } else {
@@ -39,6 +39,8 @@ function SingleContent() {
     return (
       <S.SingleContent onClick={navigateToDetail}>
         <Profile
+          createAt={data.createAt}
+          splitedTime={splitedTime}
           index={index}
           userName={data.userName}
           userGender={data.userGender}
