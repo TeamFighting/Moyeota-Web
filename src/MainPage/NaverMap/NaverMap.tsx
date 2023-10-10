@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 declare global {
   interface Window {
@@ -8,7 +8,7 @@ declare global {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-function NaverMap({ mapRef }: { mapRef: MutableRefObject<any> }) {
+function NaverMap() {
   const mapElement = useRef(null);
   const { naver } = window;
 

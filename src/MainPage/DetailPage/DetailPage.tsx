@@ -11,10 +11,7 @@ import {
   LocationFrom,
   LocationMarker,
 } from '../../assets/svg';
-
 function DetailPage() {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-
   return (
     <>
       <Container>
