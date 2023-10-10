@@ -12,8 +12,8 @@ import ModalStore from '../../zustand/store/ModalStore';
 
 function DetailPage() {
   const location = useLocation();
-  // const { id } = location.state;
-
+  const { id } = location.state;
+  console.log('id', id);
   const { totalData } = useStore((state) => state);
   console.log('Totaldata', totalData);
   const { isOpen, setIsOpen } = ModalStore((state) => state);
