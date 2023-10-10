@@ -5,43 +5,86 @@ import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
 import Clock from '../../../../../public/svg/Clock.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import useStore from '../../../../zustand/store/ContentStore';
+// import { useEffect, useState } from 'react';
 
 function SingleContent() {
+  // const [isTotalDataHere, setIsTotalDataHere] = useState(false);
   const navigate = useNavigate();
 
   const navigateToDetail = () => {
     navigate('/detailpage');
   };
 
-  return (
-    <S.SingleContent onClick = {navigateToDetail}>
-      <Profile />
-      <S.ContentTitle>공덕팟</S.ContentTitle>
-      <S.Info>
-        <S.Route>
-          <LocationMarker />
-          <S.From> 공덕역 5호선 </S.From>
-          <ArrowRight />
-          <S.To> 공덕역 6호선 </S.To>
-        </S.Route>
-        <S.Time>
-          <Clock />
-          <S.StartTime>08월 15일 (화) 오전 11:30 출발 </S.StartTime>
-        </S.Time>
-      </S.Info>
-      <S.Line />
-      <Bottom>
-        <Tags>
-          <Tag>일반택시</Tag>
-          <Tag>성별무관</Tag>
-          <Tag>출퇴근</Tag>
-        </Tags>
-        <Status>
-          <GaterStatus>모집중 1/4</GaterStatus>
-        </Status>
-      </Bottom>
-    </S.SingleContent>
-  );
+  const { totalData } = useStore((state) => state);
+
+  return totalData.map((data, index) => {
+    const year = data.departureTime.slice(0, 4);
+    const month = data.departureTime.slice(5, 7);
+    const date = data.departureTime.slice(8, 10);
+
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+    const newDate = new Date(data.departureTime); // 요일을 영어로 얻기 위함
+    const day = days[newDate.getDay()];
+
+    let timePart = data.departureTime.match(/\d{2}:\d{2}/)[0];
+    const hour = timePart.split(':')[0];
+    const minute = timePart.split(':')[1];
+    const splitedTime = [year, month, date, hour, minute];
+    if (hour < 12) {
+      timePart = '오전 ' + hour + ':' + minute;
+    } else {
+      timePart = '오후 ' + (hour - 12) + ':' + minute;
+    }
+    return (
+      <S.SingleContent onClick={navigateToDetail}>
+        <Profile
+          createAt={data.createAt}
+          splitedTime={splitedTime}
+          index={index}
+          userName={data.userName}
+          userGender={data.userGender}
+        />
+        <S.ContentTitle>{data.title}</S.ContentTitle>
+        <div key={index}>
+          <S.Info>
+            <S.Route>
+              <LocationMarker />
+              <S.From> {data.departure} </S.From>
+              <ArrowRight />
+              <S.To> {data.destination} </S.To>
+            </S.Route>
+            <S.Time>
+              <Clock />
+              <S.StartTime>
+                {/* {data.departureTime} */}
+                {month}월{date}일 ({day}) {timePart} 출발
+                {/* 8월 15일 (화) 오전 11:30 출발 */}
+              </S.StartTime>
+            </S.Time>
+          </S.Info>
+          <S.Line />
+          <Bottom>
+            <Tags>
+              <Tag>{data.vehicle}</Tag>
+              {!data.sameGenderStatus && <Tag>성별무관</Tag>}
+              {data.sameGenderStatus && data.userGender && <Tag>여자만</Tag>}
+              {data.sameGenderStatus && !data.userGender && <Tag>남자만</Tag>}
+              <Tag>{data.category}</Tag>
+            </Tags>
+            <Status>
+              {data.status === 'RECRUITING' && (
+                <GaterStatus>
+                  모집중 {data.numberOfParticipants} /{' '}
+                  {data.numberOfRecruitment}
+                </GaterStatus>
+              )}
+            </Status>
+          </Bottom>
+        </div>
+      </S.SingleContent>
+    );
+  });
 }
 
 export default SingleContent;

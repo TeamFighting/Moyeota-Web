@@ -5,17 +5,36 @@ import { useEffect, useRef } from 'react';
 import BottomSheet from './BottomSheet/Components/BottomSheet';
 import LocationHeader from './BottomSheet/Components/LocationHeader';
 import { HEADER_HEIGHT } from '../Constants/constant';
+import axios from "axios";
+import useStore from '../zustand/store/ContentStore';
+
 // import NaverMap from './NaverMap/NaverMap';
 
 function MainPage() {
   const mapRef = useRef<HTMLElement | null>(null);
+  const {updateTotalData} = useStore((state) => state);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  console.log('hi11')
 
   useEffect(() => {
-      console.log('hi')
-  }
-  ,[])
+    fetchData();
+}, []);
+
+
+  async function fetchData() {
+    try {
+        const res = await axios.get('http://moyeota.shop/api/posts?page=0');
+        if(res.status === 200) {
+            console.log("전체", res.data.data.content);
+            updateTotalData(res.data.data.content);
+        }
+        else {
+          alert(res.status + "에러");
+        }
+    } catch (e) {
+      alert("서버와의 통신에 실패했습니다.");
+        console.log(e);
+    }
+}
   
   return (
     <Container>
@@ -26,7 +45,7 @@ function MainPage() {
       <Body>
         <Kakaomap mapRef={mapRef} />
         <Bottom>
-          <BottomSheet />
+          <BottomSheet  />
         </Bottom>
       </Body>
     </Container>

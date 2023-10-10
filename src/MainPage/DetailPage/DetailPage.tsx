@@ -7,8 +7,6 @@ import LionProfile from "../../../public/svg/LionProfile.svg";
 import LocationFrom from "../../../public/svg/LocationFrom.svg";
 import LocationMarker from "../../../public/svg/LocationMarker.svg";
 import Divider from "../../../public/svg/Divider.svg";
-import { useEffect } from "react";
-import axios from "axios";
 import Calendar from "../../../public/svg/Calendar.svg";
 import Clock from "../../../public/svg/Clock.svg";
 import Dollar from "../../../public/svg/Dollar.svg";
@@ -18,19 +16,8 @@ function DetailPage() {
         window.history.back();
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
-async function fetchData() {
-    try {
-        const res = await axios.get('http://moyeota.shop/api/posts?page=0');
-        console.log(res);
-    } catch (e) {
-        console.log(e);
-    }
-}
 
-useEffect(() => {
-    console.log('hi');
-    fetchData();
-}, []);
+
 
   return (
     <Container>

@@ -9,6 +9,8 @@ export const ModalContent = styled.div`
   font-family: Pretendard;
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
+  margin-bottom: 40px;
+
 `;
 
 export const ContentWrapper = styled.div`
@@ -217,10 +219,9 @@ export const ProfileDistance = styled.span`
   margin-right: 15px;
 `;
 export const Line = styled.div`
-  width: 304px;
+  width: 100%;
   height: 1px;
   background-color: #ebebeb;
   margin-top: 14px;
-  /* margin-top: 100px; */
   align-self: center;
 `;

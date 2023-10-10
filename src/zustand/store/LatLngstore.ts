@@ -1,13 +1,13 @@
 import create from 'zustand';
 
-interface Store {
+interface LatLngStore {
   currentLat: number;
   currentLng: number;
   setLatLng: (currentLat: number, currentLng: number) => void;
   removeAll: () => void;
 }
 
-const LatLngStore = create<Store>((set) => ({
+const LatLngStore = create<LatLngStore>((set) => ({
   currentLat: 0,
   currentLng: 0,
   setLatLng: (Lat, Lng) => set(() => ({ currentLat: Lat, currentLng: Lng })),
