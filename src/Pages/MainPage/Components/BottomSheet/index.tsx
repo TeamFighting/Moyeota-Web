@@ -1,31 +1,23 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-
 import useBottomSheet from '../../BottomSheetHook/useBottonSheet';
 import BottomSheetContent from './BottomSheetContent';
 import BottomSheetHandle from './BottomSheetHandle';
 import ContentHeader from '../SingleContent/ContentHeader';
-import ApplyButton from '../ApplyButton/ApplyButton';
 
 import {
   BOTTOM_SHEET_HEIGHT,
   WINDOWHEIGHT,
 } from '../../../../Constants/constant';
-import ModalStore from '../../../../zustand/store/ModalStore';
-import ApplyModal from '../ApplyButton/ApplyModal';
 
 function BottomSheet() {
   const { sheet, content } = useBottomSheet();
-  const { isOpen, setIsOpen } = ModalStore((state) => state);
-
   return (
     <Wrapper ref={sheet}>
       <BottomSheetHandle />
       <ContentHeader />
       <BottomSheetContentWrapper ref={content}>
         <BottomSheetContent />
-        <ApplyButton />
-        {isOpen && <ApplyModal setIsOpen={setIsOpen} />}
       </BottomSheetContentWrapper>
     </Wrapper>
   );

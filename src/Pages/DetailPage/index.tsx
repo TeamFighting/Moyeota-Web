@@ -7,6 +7,8 @@ import { Divider } from '../../assets/svg';
 import ApplyButton from '../MainPage/Components/ApplyButton/ApplyButton';
 import { useLocation } from 'react-router';
 import useStore from '../../zustand/store/ContentStore';
+import ApplyModal from '../MainPage/Components/ApplyButton/ApplyModal';
+import ModalStore from '../../zustand/store/ModalStore';
 
 function DetailPage() {
   const location = useLocation();
@@ -15,6 +17,8 @@ function DetailPage() {
 
   const { totalData } = useStore((state) => state);
   console.log('idTotaldata', totalData[id]);
+  const { isOpen, setIsOpen } = ModalStore((state) => state);
+
   return (
     <S.Container>
       <DetailHeader />
@@ -24,6 +28,7 @@ function DetailPage() {
       <Divider width="100%" height="10" />
       <DetailPartySection />
       <ApplyButton />
+      {isOpen && <ApplyModal setIsOpen={setIsOpen} />}
     </S.Container>
   );
 }
