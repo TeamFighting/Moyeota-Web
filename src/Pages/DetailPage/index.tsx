@@ -5,10 +5,16 @@ import DetailBottom from './DetailBottom';
 import DetailPartySection from './DetailPartySection';
 import { Divider } from '../../assets/svg';
 import ApplyButton from '../MainPage/Components/ApplyButton/ApplyButton';
+import { useLocation } from 'react-router';
+import useStore from '../../zustand/store/ContentStore';
 
 function DetailPage() {
-  const { id } = window.history.state;
+  const location = useLocation();
+  const { id } = location.state;
   console.log('id', id);
+
+  const { totalData } = useStore((state) => state);
+  console.log('idTotaldata', totalData[id]);
   return (
     <S.Container>
       <DetailHeader />

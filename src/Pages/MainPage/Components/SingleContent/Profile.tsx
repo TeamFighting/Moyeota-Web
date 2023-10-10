@@ -53,7 +53,7 @@ function Profile({ userName, index, userGender, createAt }: ProfileProps) {
         <S.Dot />
         <S.ProfileTime>{ago}</S.ProfileTime>
       </S.ProfileLeft>
-      {/* <S.ProfileDistance>{data.fare}원</S.ProfileDistance> */}
+      {/* <S.ProfileDistance>{data.fare}km</S.ProfileDistance> */}
     </S.ProfileInfo>
   );
 }

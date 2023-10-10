@@ -17,7 +17,6 @@ function SingleContent() {
   };
 
   const { totalData } = useStore((state) => state);
-  console.log('totalData', totalData);
   return totalData.map((data, index) => {
     const year = data.departureTime.slice(0, 4);
     const month = data.departureTime.slice(5, 7);
@@ -36,8 +35,10 @@ function SingleContent() {
     } else {
       timePart = '오후 ' + (hour - 12) + ':' + minute;
     }
+
     return (
       <S.SingleContent
+        key={index}
         onClick={() => {
           navigateToDetail(index);
         }}
