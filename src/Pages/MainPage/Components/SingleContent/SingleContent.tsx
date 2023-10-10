@@ -1,4 +1,4 @@
-import * as S from '../../../style';
+import * as S from '../../style';
 import Profile from './Profile';
 import ArrowRight from '../../../../../public/svg/ArrowRight.svg';
 import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
@@ -12,8 +12,8 @@ function SingleContent() {
   // const [isTotalDataHere, setIsTotalDataHere] = useState(false);
   const navigate = useNavigate();
 
-  const navigateToDetail = () => {
-    navigate('/detailpage', { replace: true });
+  const navigateToDetail = (index: number) => {
+    navigate('/detailpage', { state: { id: index } });
   };
 
   const { totalData } = useStore((state) => state);
@@ -37,7 +37,11 @@ function SingleContent() {
       timePart = '오후 ' + (hour - 12) + ':' + minute;
     }
     return (
-      <S.SingleContent onClick={navigateToDetail}>
+      <S.SingleContent
+        onClick={() => {
+          navigateToDetail(index);
+        }}
+      >
         <Profile
           createAt={data.createAt}
           splitedTime={splitedTime}

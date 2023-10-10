@@ -1,4 +1,4 @@
-import * as S from '../../../style';
+import * as S from '../../style';
 import ProfileSample from '../../../../../public/svg/ProfileSample.svg';
 
 interface ProfileProps {

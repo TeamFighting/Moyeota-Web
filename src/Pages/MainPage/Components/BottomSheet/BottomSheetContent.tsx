@@ -1,5 +1,5 @@
+import SingleContent from '../SingleContent/SingleContent';
 import * as S from '../../style';
-import SingleContent from './SingleContent/SingleContent';
 const BottomSheetContent = () => {
   return (
     <S.ModalContent>

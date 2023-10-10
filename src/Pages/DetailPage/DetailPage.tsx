@@ -3,7 +3,7 @@ import DetailHeader from './DetailHeader';
 import DetailBody from './DetailBody';
 import DetailBottom from './DetailBottom';
 import DetailPartySection from './DetailPartySection';
-import ApplyButton from '../BottomSheet/Components/ApplyButton/ApplyButton';
+import ApplyButton from '../MainPage/BottomSheet/Components/ApplyButton/ApplyButton';
 import { Divider } from '../../assets/svg';
 
 function DetailPage() {

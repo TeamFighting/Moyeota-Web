@@ -1,4 +1,4 @@
-import * as S from '../../../style';
+import * as S from '../../style';
 import Calendar from '../../../../../public/svg/Calendar.svg';
 import ChevronDown from '../../../../../public/svg/ChevronDown.svg';
 import Switch from '../../../../../public/svg/Switch.svg';

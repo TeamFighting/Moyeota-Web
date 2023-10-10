@@ -1,19 +1,18 @@
 import styled from 'styled-components';
 import Kakaomap from './Kakaomap/Kakaomap';
-import Chevronleft from '../../public/svg/Chevronleft.svg';
 import { useEffect, useRef } from 'react';
-import BottomSheet from './BottomSheet/Components/BottomSheet';
-import LocationHeader from './BottomSheet/Components/LocationHeader';
-import { HEADER_HEIGHT } from '../Constants/constant';
+import { HEADER_HEIGHT } from '../../Constants/constant';
 import axios from 'axios';
-import useStore from '../zustand/store/ContentStore';
+import useStore from '../../zustand/store/ContentStore';
+import LocationHeader from './LocationHeader';
+import BottomSheet from './Components/BottomSheet';
+import { Chevronleft } from '../../assets/svg';
 
 // import NaverMap from './NaverMap/NaverMap';
 
 function MainPage() {
   const mapRef = useRef<HTMLElement | null>(null);
   const { updateTotalData } = useStore((state) => state);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
   useEffect(() => {
     fetchData();
@@ -36,7 +35,7 @@ function MainPage() {
   return (
     <Container>
       <Header>
-        <Chevronleft />
+        <Chevronleft width={24} height={24} />
         <LocationHeader />
       </Header>
       <Body>
