@@ -12,11 +12,10 @@ import ModalStore from '../../zustand/store/ModalStore';
 
 function DetailPage() {
   const location = useLocation();
-  const { id } = location.state;
-  console.log('id', id);
+  // const { id } = location.state;
 
   const { totalData } = useStore((state) => state);
-  console.log('idTotaldata', totalData[id]);
+  console.log('Totaldata', totalData);
   const { isOpen, setIsOpen } = ModalStore((state) => state);
 
   return (
