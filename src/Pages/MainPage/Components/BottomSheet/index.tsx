@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { BOTTOM_SHEET_HEIGHT, WINDOWHEIGHT } from '../../../Constants/constant';
-import useBottomSheet from '../Hook/useBottonSheet';
+import useBottomSheet from '../../BottomSheetHook/useBottonSheet';
 import BottomSheetContent from './BottomSheetContent';
 import BottomSheetHandle from './BottomSheetHandle';
-import ContentHeader from './SingleContent/ContentHeader';
+import ContentHeader from '../SingleContent/ContentHeader';
+
+import {
+  BOTTOM_SHEET_HEIGHT,
+  WINDOWHEIGHT,
+} from '../../../../Constants/constant';
 
 function BottomSheet() {
   const { sheet, content } = useBottomSheet();

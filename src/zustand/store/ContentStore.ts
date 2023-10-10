@@ -1,4 +1,4 @@
-import create from 'zustand';
+import {create} from 'zustand';
 
 interface ContentStore {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

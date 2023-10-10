@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import useStore from '../../zustand/store/LatLngstore';
+import useStore from '../../../zustand/store/LatLngstore';
 
 function CurrentLocation() {
   const [location, setLocation] = useState<
