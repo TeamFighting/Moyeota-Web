@@ -1,8 +1,9 @@
 ## 모여타
+
 택시 혼자 타기는 돈이 너무 많이 들고... <br>
 학교까지 같이 타고 갈 사람 없을까 ? 😥
 <br><br>
-이젠 __모여타__ 에서 안전하고 똑똑하게 택시팟을 매칭해요 ! 🚕
+이젠 **모여타** 에서 안전하고 똑똑하게 택시팟을 매칭해요 ! 🚕
 
 <br>
 
@@ -10,8 +11,6 @@
 <img height='450' alt='온보딩1' src='https://postfiles.pstatic.net/MjAyMzA5MDdfMTg0/MDAxNjk0MDY3MzI4NTA0.-ztrpWOMkLi3mlzlbBOeC4NmaJZSMWLTo6cwlDExYq0g.Q7Ghu1okVS8NCb22YuUSldJwEdM1eWjzukzI3yCaw8Eg.PNG.hyorish03/%EC%98%A8%EB%B3%B4%EB%94%A92.png?type=w966'/>
 <img height='450' alt='온보딩2' src='https://postfiles.pstatic.net/MjAyMzA5MDdfMTMw/MDAxNjk0MDY3MzI4NTA2.CGumwpZx1s8KG2mdOuiVigdIDokfdOZ2QO9H21boOyAg.me2qJmd1WZGMubbfd2GPBYod3wW3F35dUmHriJNMWfMg.PNG.hyorish03/%EC%98%A8%EB%B3%B4%EB%94%A91.png?type=w966'/>
 </div>
-
-
 
 ## 프로젝트 소개
 
@@ -31,7 +30,7 @@
 
 ## Members
 
-<table align="center">
+<table align="center" scroll="no">
   <tr align="center">
     <td>이효린</td>
     <td>송지원</td>
@@ -53,7 +52,7 @@
 
 <div align="left">
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
-<img src="https://img.shields.io/badge/reactnative-61DAFB?style=for-the-badge&logo=react&logoColor=white">
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white">
 
 **상태관리**
 
