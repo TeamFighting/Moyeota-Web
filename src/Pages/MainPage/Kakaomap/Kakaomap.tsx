@@ -1,3 +1,4 @@
+/* global kakao */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MutableRefObject, useEffect, useState } from 'react';
 import CurrentLocation from './CurrentLocation';
