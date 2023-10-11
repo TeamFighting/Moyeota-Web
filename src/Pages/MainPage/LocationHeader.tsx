@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 function LocationHeader() {
   return <Location>서울시 노원구</Location>;
