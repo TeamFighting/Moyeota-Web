@@ -7,10 +7,12 @@ import useStore from "../../zustand/store/ContentStore";
 import LocationHeader from "./LocationHeader";
 import BottomSheet from "./Components/BottomSheet";
 import { Chevronleft } from "../../assets/svg";
+import { useNavigate } from "react-router-dom";
 
 function MainPage() {
   const mapRef = useRef<HTMLElement | null>(null);
   const { updateTotalData } = useStore((state) => state);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -30,6 +32,10 @@ function MainPage() {
     }
   }
 
+  const navigateToCreatePot = () => {
+    navigate("/createPotPage");
+  };
+
   return (
     <Container>
       <Header>
@@ -40,7 +46,9 @@ function MainPage() {
         <Kakaomap mapRef={mapRef} />
         <Bottom>
           <BottomSheet />
-          <CreatePodButton>팟 만들기</CreatePodButton>
+          <CreatePodButton onClick={navigateToCreatePot}>
+            팟 만들기
+          </CreatePodButton>
         </Bottom>
       </Body>
     </Container>
