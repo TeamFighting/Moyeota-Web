@@ -91,3 +91,36 @@ export const InputStyle = styled.input`
   margin-top: 10px;
   font-family: Pretendard;
 `;
+export const Bottom = styled.div`
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+
+  /* width: 100vw; */
+  padding: 37px 25px 28px 25px;
+  /* border-top : 1px soild #fbfbfb; */
+`;
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+`;
+export const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+export const Description = styled.div`
+  font-size: 16px;
+  font-family: Pretendard;
+  color: #9a9a9a;
+  font-weight: 500;
+  lineheight: 21.98;
+`;
+export const BottomTitle = styled.div`
+  font-size: 18px;
+  font-family: Pretendard;
+  font-weight: 700;
+  color: black;
+  lineheight: 28.26;
+  margin-bottom: 10px;
+`;

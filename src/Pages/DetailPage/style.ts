@@ -210,4 +210,3 @@ export const Profile = styled.div`
   height: 86px;
   width: 100%;
 `;
-
