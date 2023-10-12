@@ -124,3 +124,27 @@ export const BottomTitle = styled.div`
   lineheight: 28.26;
   margin-bottom: 10px;
 `;
+
+export const PayBox = styled.div`
+  width: 335px;
+  height: 84px;
+  background: #f5f6f8;
+  border-radius: 12px;
+`;
+
+export const PayBoxTitle = styled.div`
+  text-align: center;
+  color: #343434;
+  font-size: 14px;
+  font-family: Pretendard;
+  font-weight: 700;
+  padding-top: 20px;
+`;
+
+export const PayBoxDescription = styled.div`
+  text-align: center;
+  color: #343434;
+  font-size: 16px;
+  font-family: Pretendard;
+  font-weight: 700;
+`;
