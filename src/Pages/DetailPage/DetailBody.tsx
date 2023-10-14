@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router';
 import {
   ChevronRight,
   LionProfile,
@@ -5,8 +6,11 @@ import {
   LocationMarker,
 } from '../../assets/svg';
 import * as S from './style';
-
+import useStore from '../../zustand/store/ContentStore';
 function DetailBody() {
+  const location = useLocation();
+  const data = location.state.data;
+  console.log('data', data);
   return (
     <S.Body>
       <S.Profile>
@@ -15,7 +19,7 @@ function DetailBody() {
       <S.Content>
         <S.Explanation>
           <S.ContentTitle>
-            <S.Title>세빈 님의 </S.Title>
+            <S.Title>{} 님의 </S.Title>
             <S.Title>'공덕팟'은 어때요?</S.Title>
           </S.ContentTitle>
           <S.ContentDetail>여자/2시간전/7명 조회</S.ContentDetail>

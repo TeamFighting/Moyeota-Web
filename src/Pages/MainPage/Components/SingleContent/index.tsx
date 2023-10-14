@@ -6,19 +6,20 @@ import Clock from '../../../../../public/svg/Clock.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../../../zustand/store/ContentStore';
+import ISOto12 from './ISOto12';
 // import { useEffect, useState } from 'react';
 
 function SingleContent() {
   // const [isTotalDataHere, setIsTotalDataHere] = useState(false);
   const navigate = useNavigate();
 
-  const navigateToDetail = (index: number) => {
-    navigate('/detailpage', { state: { id: index } });
+  const navigateToDetail = (data: object) => {
+    navigate('/detailpage', { state: { data: data } });
   };
 
   const { totalData } = useStore((state) => state);
-  console.log('totalData', totalData);
   return totalData.map((data, index) => {
+    console.log('iso', ISOto12(data.departureTime));
     const year = data.departureTime.slice(0, 4);
     const month = data.departureTime.slice(5, 7);
     const date = data.departureTime.slice(8, 10);
@@ -41,7 +42,7 @@ function SingleContent() {
       <S.SingleContent
         key={index}
         onClick={() => {
-          navigateToDetail(index);
+          navigateToDetail(data);
         }}
       >
         <Profile
