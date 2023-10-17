@@ -6,24 +6,32 @@ import DetailPartySection from './DetailPartySection';
 import { Divider } from '../../assets/svg';
 import ApplyButton from '../MainPage/Components/ApplyButton/ApplyButton';
 import { useLocation } from 'react-router';
-import useStore from '../../zustand/store/ContentStore';
 import ApplyModal from '../MainPage/Components/ApplyButton/ApplyModal';
 import ModalStore from '../../zustand/store/ModalStore';
+import { useEffect } from 'react';
 
 function DetailPage() {
   const location = useLocation();
-  const { id } = location.state;
-  console.log('id', id);
-  const { totalData } = useStore((state) => state);
-  console.log('Totaldata', totalData);
+  const { id, data, splitedTime, timePart } = location.state;
+  console.log(data);
   const { isOpen, setIsOpen } = ModalStore((state) => state);
+
+  useEffect(() => {
+    console.log('hi');
+  }, []);
 
   return (
     <S.Container>
       <DetailHeader />
-      <DetailBody />
+      <DetailBody data={data} />
       <Divider width="100%" height="10" />
-      <DetailBottom />
+      <DetailBottom
+        fare={data.fare}
+        duration={data.duration}
+        splitedTime={splitedTime}
+        timePart={timePart}
+        data={data}
+      />
       <Divider width="100%" height="10" />
       <DetailPartySection />
       <ApplyButton />

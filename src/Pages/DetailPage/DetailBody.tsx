@@ -6,11 +6,22 @@ import {
   LocationMarker,
 } from '../../assets/svg';
 import * as S from './style';
-import useStore from '../../zustand/store/ContentStore';
-function DetailBody() {
-  const location = useLocation();
-  const data = location.state.data;
-  console.log('data', data);
+import createAgo from '../MainPage/Components/SingleContent/createAgo';
+
+interface DetailBodyProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any;
+}
+function DetailBody({ data }: DetailBodyProps) {
+  console.log(data);
+  const ago = createAgo(data.createAt);
+
+  let gender;
+  if (!data.userGender) {
+    gender = '여';
+  } else {
+    gender = '남';
+  }
   return (
     <S.Body>
       <S.Profile>
@@ -19,10 +30,12 @@ function DetailBody() {
       <S.Content>
         <S.Explanation>
           <S.ContentTitle>
-            <S.Title>{} 님의 </S.Title>
-            <S.Title>'공덕팟'은 어때요?</S.Title>
+            <S.Title>{data.userName} 님의 </S.Title>
+            <S.Title>'{data.title}'은 어때요?</S.Title>
           </S.ContentTitle>
-          <S.ContentDetail>여자/2시간전/7명 조회</S.ContentDetail>
+          <S.ContentDetail>
+            {gender}/{ago}/7명 조회
+          </S.ContentDetail>
         </S.Explanation>
         <S.MapSample
           src="../../../public/png/MapSample.png"
@@ -34,7 +47,7 @@ function DetailBody() {
             <div style={{ display: 'flex', flexDirection: 'row' }}>
               <LocationFrom width="24" height="64" />
               <S.Text>
-                <S.StartPointLocation>공덕역 5호선</S.StartPointLocation>
+                <S.StartPointLocation>{data.departure}</S.StartPointLocation>
                 <S.StartPoint>출발지</S.StartPoint>
               </S.Text>
             </div>
@@ -54,7 +67,7 @@ function DetailBody() {
                 <LocationMarker width="24" height="24" />
               </S.Icon>
               <S.Text>
-                <S.StartPointLocation>판교역 신분당선</S.StartPointLocation>
+                <S.StartPointLocation>{data.destination}</S.StartPointLocation>
                 <S.StartPoint>도착지</S.StartPoint>
               </S.Text>
             </div>

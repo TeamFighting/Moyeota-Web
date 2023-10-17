@@ -3,7 +3,7 @@ import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import MainPage from './Pages/MainPage/MainPage';
-import DetailPage from './Pages/DetailPage';
+import DetailPage from './Pages/DetailPage/index';
 
 const router = createBrowserRouter([
   {

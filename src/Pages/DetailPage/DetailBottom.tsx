@@ -1,7 +1,21 @@
 import { Calendar, Clock, Dollar } from '../../assets/svg';
 import * as S from './style';
 
-function DetailBottom() {
+interface DetailBottomProps {
+  fare: number;
+  duration: number;
+  splitedTime: string[];
+  timePart: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any;
+}
+function DetailBottom({
+  fare,
+  duration,
+  splitedTime,
+  timePart,
+  data,
+}: DetailBottomProps) {
   return (
     <S.Bottom>
       <S.DescriptionTag>
@@ -33,13 +47,13 @@ function DetailBottom() {
           </div>
           <div style={{ flexDirection: 'row', display: 'flex', gap: '11px' }}>
             <Clock width="16" height="16" />
-            <div>1시간 10분 소요</div>
+            <div>{duration}초 소요</div>
           </div>
           <div style={{ flexDirection: 'row', display: 'flex', gap: '11px' }}>
             <Dollar width="16" height="16" />
             <div style={{ flexDirection: 'row', display: 'flex', gap: '5px' }}>
-              <div style={{ color: '#7E7E7E' }}>예상 금액</div>총 29,700원 -
-              1인당 7,425원 (4인)
+              <div style={{ color: '#7E7E7E' }}>예상 금액</div>총 {fare}원 -
+              1인당 7,425원 ({data.numberOfRecruitment}인)
             </div>
           </div>
         </div>
