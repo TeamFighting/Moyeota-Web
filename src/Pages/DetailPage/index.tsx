@@ -8,14 +8,16 @@ import ApplyButton from '../MainPage/Components/ApplyButton/ApplyButton';
 import { useLocation } from 'react-router';
 import ApplyModal from '../MainPage/Components/ApplyButton/ApplyModal';
 import ModalStore from '../../zustand/store/ModalStore';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function DetailPage() {
+  const [isFull, setIsFull] = useState(false);
   const location = useLocation();
-  const { id, data, splitedTime, timePart } = location.state;
-  console.log(data);
+  const { data, splitedTime, timePart } = location.state;
   const { isOpen, setIsOpen } = ModalStore((state) => state);
-
+  if (data.numberOfParticipants == data.numberOfRecruitment) {
+    setIsFull(true);
+  }
   useEffect(() => {
     console.log('hi');
   }, []);
@@ -35,7 +37,13 @@ function DetailPage() {
       <Divider width="100%" height="10" />
       <DetailPartySection />
       <ApplyButton />
-      {isOpen && <ApplyModal setIsOpen={setIsOpen} />}
+      {isOpen && (
+        <ApplyModal
+          setIsOpen={setIsOpen}
+          isFull={isFull}
+          postId={data.postId}
+        />
+      )}
     </S.Container>
   );
 }

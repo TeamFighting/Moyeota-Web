@@ -1,30 +1,93 @@
+import axios from 'axios';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import styled from 'styled-components';
 
 interface ModalProps {
   setIsOpen: (setIsOpen: boolean) => void;
+  isFull: boolean;
+  postId: number;
 }
-function ApplyModal({ setIsOpen }: ModalProps) {
+function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
   const ref = useOnclickOutside(() => {
     setIsOpen(false);
   });
   const closeModal = () => {
     setIsOpen(false);
   };
-  return (
-    <ModalWrapper>
-      <Modal ref={ref}>
-        <Text>
-          <Title>이미 모집 완료된 팟입니다.</Title>
-          <Explain>팟을 만들거나 다른 팟을 이용해보세요</Explain>
-        </Text>
-        <CloseButton onClick={closeModal} type="button">
-          닫기
-        </CloseButton>
-      </Modal>
-    </ModalWrapper>
-  );
+
+  async function applyParty(postId: number) {
+    try {
+      const res = await axios.post(
+        `http://moyeota.shop/api/participation-details/posts/${postId}`,
+        {
+          postId: 0,
+        }
+      );
+      console.log(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  if (isFull) {
+    return (
+      <ModalWrapper>
+        <Modal ref={ref}>
+          <Text>
+            <Title>이미 모집 완료된 팟입니다.</Title>
+            <Explain>팟을 만들거나 다른 팟을 이용해보세요</Explain>
+          </Text>
+          <CloseButton onClick={closeModal} type="button">
+            닫기
+          </CloseButton>
+        </Modal>
+      </ModalWrapper>
+    );
+  } else {
+    return (
+      <ModalWrapper>
+        <Modal ref={ref}>
+          <Text>
+            <Title>매칭을 신청할까요 ?</Title>
+          </Text>
+          <Buttons>
+            <StyledBtn
+              onClick={closeModal}
+              style={{ backgroundColor: '#F5F6F8', color: '#5D5D5D' }}
+            >
+              아니오
+            </StyledBtn>
+            <StyledBtn
+              onClick={() => applyParty(postId)}
+              style={{ backgroundColor: '#1EDD81' }}
+            >
+              예
+            </StyledBtn>
+          </Buttons>
+        </Modal>
+      </ModalWrapper>
+    );
+  }
 }
+const StyledBtn = styled.button`
+  width: 142px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.54px;
+  border: none;
+`;
+const Buttons = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+`;
 const Text = styled.div`
   display: flex;
   flex-direction: column;
