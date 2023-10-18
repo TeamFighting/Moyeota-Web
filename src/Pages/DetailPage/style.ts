@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const PartyoneText = styled.div`
   color: var(--Gray-Text-1, #9a9a9a);
@@ -11,12 +11,12 @@ export const PartyoneText = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 47px;
+  background-color: none;
 `;
 export const PartyOne = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  /* height: 569px; */
+  height: 100%;
 `;
 export const Icon = styled.div`
   cursor: pointer;
@@ -57,7 +57,7 @@ export const Leader = styled.div`
   margin-bottom: 13px;
 `;
 export const Party = styled.div`
-  height: 696px;
+  height: 810px;
   display: flex;
   flex-direction: column;
 `;
@@ -210,4 +210,3 @@ export const Profile = styled.div`
   height: 86px;
   width: 100%;
 `;
-
