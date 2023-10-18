@@ -47,7 +47,7 @@ export const Name = styled.div`
   font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 157%; /* 25.12px */
   margin-right: 7px;
 `;

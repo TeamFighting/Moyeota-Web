@@ -13,7 +13,6 @@ interface DetailBodyProps {
   data: any;
 }
 function DetailBody({ data }: DetailBodyProps) {
-  console.log(data);
   const ago = createAgo(data.createAt);
 
   let gender;

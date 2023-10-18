@@ -33,7 +33,6 @@ function DetailPage() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  console.log('scroll', scroll);
   useEffect(() => {
     // scroll 값이 변경될 때마다 Divider 컴포넌트의 height 값을 업데이트
     if (scroll > 720) {
@@ -42,7 +41,6 @@ function DetailPage() {
       setDividerHeight(6);
     }
   }, [scroll]);
-  console.log('win', window.innerHeight);
   return (
     <S.Container>
       <DetailHeader />
@@ -59,13 +57,14 @@ function DetailPage() {
       />
       <Divider style={{ height: `${dividerHeight}px` }} />
       <DetailPartySection
+        postId={data.postId}
         leaderName={data.userName}
         content={data.content}
         profileImage={data.profileImage}
         gender={data.userGender}
         participants={data.numberOfParticipants}
       />
-      <ApplyButton scroll={scroll} />
+      <ApplyButton />
       {isOpen && (
         <ApplyModal
           setIsOpen={setIsOpen}

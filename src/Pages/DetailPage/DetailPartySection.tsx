@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { LionProfile } from '../../assets/svg';
 import * as S from './style';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   leaderName: string;
@@ -10,6 +10,7 @@ interface Props {
   gender: boolean;
   profileImage: string;
   participants: number;
+  postId: number;
 }
 
 interface PARTYINFO {
@@ -23,28 +24,31 @@ function DetailPartySection({
   content,
   gender,
   participants,
+  postId,
 }: Props) {
   let gender2;
   if (gender) {
-    gender2 = '남';
+    gender2 = '남자';
   } else {
-    gender2 = '여';
+    gender2 = '여자';
   }
-
-  async function getPartyOne() {
+  const [onlyParty, setonlyParty] = useState<PARTYINFO[]>([]);
+  async function getPartyOne(postId: number) {
     try {
       const res = await axios
-        .get(`http://moyeota.shop/api/posts/24/members`, {
+        .get(`http://moyeota.shop/api/posts/${postId}/members`, {
           headers: {
-            Authorization: `Bearer import.meta.env.VITE_AUTH_BEARER_TOKEN`,
+            Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TOKEN}`,
           },
         })
         .then((res) => {
-          if (res.data.status == 'SUCCESS') {
-            const partyInfo: PARTYINFO[] = res.data;
-            partyInfo.forEach((info) => {
-              console.log(info.userName);
+          console.log('res', res.data.data);
+          if (res.status == 200) {
+            const partyInfo: PARTYINFO[] = res.data.data;
+            const participants = partyInfo.filter((value) => {
+              return value.userName !== leaderName;
             });
+            setonlyParty(participants);
           }
         });
     } catch (e) {
@@ -52,17 +56,18 @@ function DetailPartySection({
     }
   }
   useEffect(() => {
-    getPartyOne();
-  }, []);
+    getPartyOne(postId);
+  }, [postId]);
+
   return (
     <S.Party>
       <S.Leader>팟장</S.Leader>
       <Wrapper>
         <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
-          <LionProfile width="46px" height="46px" />
+          <LionProfile width="55px" height="55px" />
         </S.Icon>
         <S.Name>{leaderName}</S.Name>
-        <S.Tags style={{}}>
+        <S.Tags>
           <S.Tag style={{ marginRight: '7px' }}>{gender2}</S.Tag>
           {/* 나잇대 수정필요 */}
           <S.Tag>20대</S.Tag>
@@ -74,12 +79,32 @@ function DetailPartySection({
           <S.Leader>파티원</S.Leader>
           <TagsWrapper>
             <S.Tags style={{}}>
-              <S.Tag style={{ marginRight: '7px' }}>{participants}명</S.Tag>
+              <S.Tag style={{ marginRight: '7px' }}>{participants - 1}명</S.Tag>
             </S.Tags>
           </TagsWrapper>
         </div>
         {/* 나잇대 수정필요 */}
-        <S.PartyoneText>아직 매칭된 파티원이 없어요!</S.PartyoneText>
+        {onlyParty.length > 0 ? (
+          onlyParty.map((value, index) => {
+            return (
+              <Wrapper key={index} style={{ paddingBottom: '16px' }}>
+                <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
+                  <LionProfile width="55px" height="55px" />
+                </S.Icon>
+                <S.Name>{value.userName}</S.Name>
+                <S.Tags style={{}}>
+                  <S.Tag style={{ marginRight: '7px' }}>
+                    {value.userGender ? '남자' : '여자'}
+                  </S.Tag>
+                  {/* 나잇대 수정필요 */}
+                  <S.Tag>20대</S.Tag>
+                </S.Tags>
+              </Wrapper>
+            );
+          })
+        ) : (
+          <S.PartyoneText>아직 매칭된 파티원이 없어요!</S.PartyoneText>
+        )}
       </S.PartyOne>
     </S.Party>
   );

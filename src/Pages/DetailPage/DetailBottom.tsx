@@ -20,6 +20,7 @@ function DetailBottom({
   participants,
   data,
 }: DetailBottomProps) {
+  console.log('splited', splitedTime);
   return (
     <S.Bottom>
       <S.DescriptionTag>
