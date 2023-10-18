@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { HEADER_HEIGHT } from '../../Constants/constant';
 
 export const PartyoneText = styled.div`
   color: var(--Gray-Text-1, #9a9a9a);
@@ -24,12 +25,11 @@ export const Icon = styled.div`
 `;
 
 export const Description = styled.div`
-  width: 295px;
   align-self: center;
-  /* min-height: 50px; */
   height: fit-content;
   flex-shrink: 0;
   border-radius: 12px;
+  margin: 13px 20px 0 20px;
   background: var(--Gray-Icon-Solid, #f5f6f8);
   display: flex;
   padding: 15px 20px 15px 20px;
@@ -40,6 +40,7 @@ export const Description = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 156%; /* 24.96px */
+  width: ${window.innerWidth - 90}px;
 `;
 export const Name = styled.div`
   color: var(--Gray-Text-3, #343434);
@@ -62,6 +63,7 @@ export const Leader = styled.div`
   margin-bottom: 13px;
 `;
 export const Party = styled.div`
+  min-height: 74.3vh;
   height: 810px;
   display: flex;
   flex-direction: column;
@@ -203,7 +205,7 @@ export const Body = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding-top: 4px;
+  padding-top: ${HEADER_HEIGHT}px;
   margin: 0 25px;
   height: 603px;
 `;

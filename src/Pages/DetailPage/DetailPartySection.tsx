@@ -22,7 +22,6 @@ function DetailPartySection({
   leaderName,
   content,
   gender,
-  profileImage,
   participants,
 }: Props) {
   let gender2;
@@ -65,6 +64,7 @@ function DetailPartySection({
         <S.Name>{leaderName}</S.Name>
         <S.Tags style={{}}>
           <S.Tag style={{ marginRight: '7px' }}>{gender2}</S.Tag>
+          {/* 나잇대 수정필요 */}
           <S.Tag>20대</S.Tag>
         </S.Tags>
       </Wrapper>
@@ -78,6 +78,7 @@ function DetailPartySection({
             </S.Tags>
           </TagsWrapper>
         </div>
+        {/* 나잇대 수정필요 */}
         <S.PartyoneText>아직 매칭된 파티원이 없어요!</S.PartyoneText>
       </S.PartyOne>
     </S.Party>

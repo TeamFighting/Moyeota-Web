@@ -36,13 +36,13 @@ function DetailPage() {
   console.log('scroll', scroll);
   useEffect(() => {
     // scroll 값이 변경될 때마다 Divider 컴포넌트의 height 값을 업데이트
-    if (scroll > 800) {
+    if (scroll > 720) {
       setDividerHeight(10);
     } else {
       setDividerHeight(6);
     }
   }, [scroll]);
-
+  console.log('win', window.innerHeight);
   return (
     <S.Container>
       <DetailHeader />
@@ -65,7 +65,7 @@ function DetailPage() {
         gender={data.userGender}
         participants={data.numberOfParticipants}
       />
-      <ApplyButton />
+      <ApplyButton scroll={scroll} />
       {isOpen && (
         <ApplyModal
           setIsOpen={setIsOpen}
