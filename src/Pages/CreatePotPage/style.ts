@@ -182,3 +182,19 @@ export const InputDescription = styled.textarea`
     font-weight: 500;
   }
 `;
+
+export const NoteDescription = styled.div`
+  color:#9A9A9A;
+  font-size:14;
+  font-family:Pretendard;
+  font-weight:500,
+  line-height:21.98;
+  word-wrap:break-word;
+`;
+
+export const NoteWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-left: 0px;
+`;
