@@ -159,6 +159,10 @@ export const Subtitle = styled.div`
   padding-bottom: 23px;
 `;
 
+export const InputDescriptionWrapper = styled.div`
+  position: relative;
+`;
+
 export const InputDescription = styled.textarea`
   width: 335px;
   height: 133px;
@@ -171,7 +175,9 @@ export const InputDescription = styled.textarea`
   font-weight: 500;
   word-wrap: break-word;
   white-space: pre-wrap;
+  outline: none;
   margin: 0 auto;
+  padding: 10px;
   &::placeholder {
     color: #9a9a9a;
     font-family: Pretendard;
@@ -197,4 +203,12 @@ export const NoteWrapper = styled.div`
   flex-direction: column;
   gap: 18px;
   margin-bottom: 128px;
+`;
+
+export const CharacterCount = styled.div`
+  color: #9a9a9a;
+  position: absolute;
+  right: 30px; /* 오른쪽 여백 조절 */
+  bottom: 16px;
+  font-size: 12px;
 `;
