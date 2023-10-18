@@ -90,6 +90,7 @@ export const InputStyle = styled.input`
   font-size: 16px;
   margin-top: 10px;
   font-family: Pretendard;
+  outline: none;
 `;
 export const Bottom = styled.div`
   display: flex;
