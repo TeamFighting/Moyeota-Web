@@ -2,6 +2,7 @@ import * as S from "./style";
 import CreateHeader from "./CreateHeader";
 import CreateBody from "./CreateBody";
 import CreateBottom from "./CreateBottom";
+import CreatePrice from "./CreatePrice";
 import CreateDescription from "./CreateDescription";
 import { Divider } from "../../assets/svg";
 import CreatePotButton from "./CreatePotButton";
@@ -15,8 +16,10 @@ function createPotPage() {
         <Divider width="100%" height="10" />
         <CreateBottom />
         <Divider width="100%" height="10" />
+        <CreatePrice />
+        <Divider width="100%" height="10" />
+        {/* <CreatePotButton /> */}
         <CreateDescription />
-        <CreatePotButton />
       </S.Container>
     </>
   );

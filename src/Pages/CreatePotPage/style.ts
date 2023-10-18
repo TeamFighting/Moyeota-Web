@@ -110,7 +110,7 @@ export const TextWrapper = styled.div`
   flex-direction: column;
 `;
 export const Description = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   font-family: Pretendard;
   color: #9a9a9a;
   font-weight: 500;
@@ -130,6 +130,8 @@ export const PayBox = styled.div`
   height: 84px;
   background: #f5f6f8;
   border-radius: 12px;
+  flex-shrink: 0;
+  margin: 0 auto;
 `;
 
 export const PayBoxTitle = styled.div`
@@ -147,4 +149,36 @@ export const PayBoxDescription = styled.div`
   font-size: 16px;
   font-family: Pretendard;
   font-weight: 700;
+`;
+
+export const Subtitle = styled.div`
+  color: black;
+  font-size: 18;
+  font-family: Pretendard;
+  font-weight: 700;
+  padding-bottom: 23px;
+`;
+
+export const InputDescription = styled.textarea`
+  width: 335px;
+  height: 133px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #f5f6f8;
+  border: none;
+  font-size: 14px;
+  font-family: Pretendard;
+  font-weight: 500;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  margin: 0 auto;
+  &::placeholder {
+    color: #9a9a9a;
+    font-family: Pretendard;
+    padding: 22px 61px 30px 28px;
+    font-size: 14;
+    white-space: pre-line;
+    line-height: 1.8;
+    font-weight: 500;
+  }
 `;
