@@ -104,7 +104,8 @@ export const Bottom = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 7px;
+  align-items: center;
+  justify-content: space-between;
 `;
 export const TextWrapper = styled.div`
   display: flex;
@@ -178,7 +179,8 @@ export const InputDescription = styled.textarea`
   white-space: pre-wrap;
   outline: none;
   margin: 0 auto;
-  padding: 10px;
+  display: flex;
+  justify-content: center;
   &::placeholder {
     color: #9a9a9a;
     font-family: Pretendard;
@@ -209,7 +211,7 @@ export const NoteWrapper = styled.div`
 export const CharacterCount = styled.div`
   color: #9a9a9a;
   position: absolute;
-  right: 30px; /* 오른쪽 여백 조절 */
+  right: 30px;
   bottom: 16px;
   font-size: 12px;
 `;
