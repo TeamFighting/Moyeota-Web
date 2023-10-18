@@ -31,7 +31,7 @@ function DetailBody() {
               </S.Text>
             </div>
             <S.Icon style={{ paddingTop: "3px" }}>
-              <ChevronRight />
+              <ChevronRight width="24" height="24" />
             </S.Icon>
           </S.From>
           <S.From>
@@ -53,7 +53,7 @@ function DetailBody() {
               </S.Text>
             </div>
             <S.Icon style={{ paddingTop: "3px" }}>
-              <ChevronRight />
+              <ChevronRight width="24" height="24" />
             </S.Icon>
           </S.From>
         </S.Route>
