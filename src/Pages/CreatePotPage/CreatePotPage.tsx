@@ -19,7 +19,7 @@ function createPotPage() {
         <Divider width="100%" height="10" />
         <CreatePrice />
         <Divider width="100%" height="10" />
-        {/* <CreatePotButton /> */}
+        <CreatePotButton />
         <CreateDescription />
         <Divider width="100%" height="10" />
         <CreateNote />

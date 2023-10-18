@@ -196,5 +196,5 @@ export const NoteWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 18px;
-  padding-left: 0px;
+  margin-bottom: 128px;
 `;
