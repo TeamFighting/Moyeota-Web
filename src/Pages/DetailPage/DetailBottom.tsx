@@ -8,12 +8,16 @@ interface DetailBottomProps {
   timePart: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data: any;
+  participants: number;
+  recruitment: number;
 }
 function DetailBottom({
   fare,
   duration,
   splitedTime,
   timePart,
+  recruitment,
+  participants,
   data,
 }: DetailBottomProps) {
   return (
@@ -25,7 +29,9 @@ function DetailBottom({
             <S.Tag>성별무관</S.Tag>
             <S.Tag>출퇴근</S.Tag>
           </S.Tags>
-          <S.GateringTag>모집중 1/4</S.GateringTag>
+          <S.GateringTag>
+            모집중 {participants}/{recruitment}
+          </S.GateringTag>
         </S.Staus>
       </S.DescriptionTag>
       <S.TextDescription>
@@ -53,7 +59,7 @@ function DetailBottom({
             <Dollar width="16" height="16" />
             <div style={{ flexDirection: 'row', display: 'flex', gap: '5px' }}>
               <div style={{ color: '#7E7E7E' }}>예상 금액</div>총 {fare}원 -
-              1인당 7,425원 ({data.numberOfRecruitment}인)
+              1인당 {fare / recruitment}원 ({data.numberOfRecruitment}인)
             </div>
           </div>
         </div>

@@ -16,7 +16,6 @@ function DetailPage() {
   const [scroll, setScroll] = useState(0);
   const [dividerHeight, setDividerHeight] = useState(6); // Divider 컴포넌트의 height 값을 상태로 관리
 
-  // scroll 값을 상태로 관리
   const { data, splitedTime, timePart } = location.state;
   const { isOpen, setIsOpen } = ModalStore((state) => state);
   if (data.numberOfParticipants == data.numberOfRecruitment) {
@@ -55,9 +54,17 @@ function DetailPage() {
         splitedTime={splitedTime}
         timePart={timePart}
         data={data}
+        participants={data.numberOfParticipants}
+        recruitment={data.numberOfRecruitment}
       />
       <Divider style={{ height: `${dividerHeight}px` }} />
-      <DetailPartySection />
+      <DetailPartySection
+        leaderName={data.userName}
+        content={data.content}
+        profileImage={data.profileImage}
+        gender={data.userGender}
+        participants={data.numberOfParticipants}
+      />
       <ApplyButton />
       {isOpen && (
         <ApplyModal

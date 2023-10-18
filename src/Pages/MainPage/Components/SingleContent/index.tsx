@@ -36,7 +36,7 @@ function SingleContent() {
     const ago = createAgo(data.createAt);
     let gender;
 
-    if (data.userGender) {
+    if (!data.userGender) {
       gender = '여';
     } else {
       gender = '남';

@@ -18,9 +18,14 @@ function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
   async function applyParty(postId: number) {
     try {
       const res = await axios.post(
-        `http://moyeota.shop/api/participation-details/posts/${postId}`,
+        `http://moyeota.shop/api/participation-details/posts/24`,
         {
-          postId: 0,
+          postId: 24,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TOKEN}`,
+          },
         }
       );
       console.log(res.data);
