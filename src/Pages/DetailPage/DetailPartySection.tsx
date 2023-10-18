@@ -11,6 +11,13 @@ interface Props {
   profileImage: string;
   participants: number;
 }
+
+interface PARTYINFO {
+  userName: string;
+  profileImage: string;
+  userGender: boolean;
+}
+
 function DetailPartySection({
   leaderName,
   content,
@@ -27,19 +34,27 @@ function DetailPartySection({
 
   async function getPartyOne() {
     try {
-      const res = await axios.get(`http://moyeota.shop/api/posts/24/members`, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMCJ9.PGcCqILhOUSbL20g27Rq-6GgaWFlQDVqbtQLd543owg`,
-        },
-      });
-      console.log('res', res.data);
+      const res = await axios
+        .get(`http://moyeota.shop/api/posts/24/members`, {
+          headers: {
+            Authorization: `Bearer import.meta.env.VITE_AUTH_BEARER_TOKEN`,
+          },
+        })
+        .then((res) => {
+          if (res.data.status == 'SUCCESS') {
+            const partyInfo: PARTYINFO[] = res.data;
+            partyInfo.forEach((info) => {
+              console.log(info.userName);
+            });
+          }
+        });
     } catch (e) {
       console.log(e);
     }
   }
-  // useEffect(() => {
-  //   getPartyOne();
-  // }, []);
+  useEffect(() => {
+    getPartyOne();
+  }, []);
   return (
     <S.Party>
       <S.Leader>팟장</S.Leader>

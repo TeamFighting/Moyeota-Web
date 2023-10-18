@@ -24,17 +24,22 @@ export const Icon = styled.div`
 `;
 
 export const Description = styled.div`
-  width: 335px;
-  height: 133px;
+  width: 295px;
+  align-self: center;
+  /* min-height: 50px; */
+  height: fit-content;
   flex-shrink: 0;
   border-radius: 12px;
   background: var(--Gray-Icon-Solid, #f5f6f8);
-  margin-left: 25px;
-  margin-top: 13px;
-  justify-content: center;
   display: flex;
-  align-items: center;
+  padding: 15px 20px 15px 20px;
   font-family: pretendard;
+  color: var(--Gray-Text-3, #343434);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 156%; /* 24.96px */
 `;
 export const Name = styled.div`
   color: var(--Gray-Text-3, #343434);
