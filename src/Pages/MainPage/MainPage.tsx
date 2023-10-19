@@ -107,8 +107,10 @@ const CreatePodButton = styled.button`
   width: 114px;
   height: 48px;
   border-radius: 24px;
-  margin-left: 241px;
-  margin-top: 178px;
+  position: absolute;
+  bottom: 15%;
+  right: 7%;
+
   box-shadow: 0px 4px 4px rgba(171, 171, 171, 0.25);
 `;
 
