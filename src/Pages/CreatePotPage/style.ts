@@ -38,6 +38,7 @@ export const ContentTitle = styled.div`
 export const Title = styled.div`
   font-size: 22px;
   font-weight: 700;
+  font-family: Pretendard;
 `;
 export const MapSample = styled.img``;
 
@@ -214,4 +215,17 @@ export const CharacterCount = styled.div`
   right: 30px;
   bottom: 16px;
   font-size: 12px;
+`;
+
+export const CompleteNote = styled.div`
+  color: #9a9a9a;
+  font-size: 14px;
+  font-family: Pretendard;
+  font-weight: 500;
+  margin-top: 45px;
+  text-align: center;
+`;
+
+export const CompleteWrapper = styled.div`
+  text-align: center;
 `;

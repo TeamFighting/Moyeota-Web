@@ -1,9 +1,16 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function CreatePotButton() {
+  const navigate = useNavigate();
+  const navigateToCreateComplete = () => {
+    navigate("/createComplete");
+  };
   return (
     <Wrapper>
-      <Button type="button">팟 생성 완료</Button>
+      <Button type="button" onClick={navigateToCreateComplete}>
+        팟 생성 완료
+      </Button>
     </Wrapper>
   );
 }
