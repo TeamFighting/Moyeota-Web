@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Check from "../../../../assets/svg/Check";
+
 interface TimeModalProps {
   closeModal: () => void;
 }
@@ -10,23 +12,36 @@ function TimeModal({ closeModal }: TimeModalProps) {
   return (
     <ModalWrapper>
       <Modal>
-        <Text>
-          <Title>이동 수단 및 인원</Title>
-          <Explain>일반 승용 택시</Explain>
-        </Text>
+        <Title>이동 수단 및 인원</Title>
+        <CarWrapper>
+          <Text>
+            <Explain>일반 승용 택시</Explain>
+            <SubExplain>최대 4인</SubExplain>
+          </Text>
+
+          <Check style={{ width: 24, height: 24, marginLeft: 120 }} />
+        </CarWrapper>
+        <CarWrapper>
+          <Text style={{ marginRight: 183 }}>
+            <Explain>밴 택시</Explain>
+            <SubExplain>최대 5인</SubExplain>
+          </Text>
+          {/* <Check style={{ width: 24, height: 24, marginLeft: 159 }} /> */}
+        </CarWrapper>
         <CloseButton onClick={handleModalClose}>선택완료</CloseButton>
       </Modal>
     </ModalWrapper>
   );
 }
+const CarWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 38px;
+`;
+
 const Text = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  padding-top: 30px;
-  padding-bottom: 22px;
+  gap: 7px;
 `;
 const Title = styled.div`
   color: #000;
@@ -34,14 +49,24 @@ const Title = styled.div`
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
+  align-items: center;
+  justify-content: center;
+  padding-top: 21px;
+  padding-bottom: 40px;
 `;
 const Explain = styled.div`
   color: var(--Gray-Text-3, #343434);
-  text-align: center;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+`;
+const SubExplain = styled.div`
+  color: #9a9a9a;
   font-family: Pretendard;
   font-size: 12px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 157%; /* 18.84px */
 `;
 const CloseButton = styled.button`
