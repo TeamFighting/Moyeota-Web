@@ -30,8 +30,8 @@ function CreateBottom() {
           height="24"
           style={{ marginLeft: "100px", marginTop: "13px" }}
         />
-        {isModalOpen && <TimeModal closeModal={() => setIsModalOpen(false)} />}
       </S.Wrapper>
+      {isModalOpen && <TimeModal closeModal={() => setIsModalOpen(false)} />}
     </S.Bottom>
   );
 }

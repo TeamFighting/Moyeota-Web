@@ -1,10 +1,12 @@
 import styled from "styled-components";
-
 interface TimeModalProps {
   closeModal: () => void;
 }
 
 function TimeModal({ closeModal }: TimeModalProps) {
+  const handleModalClose = () => {
+    closeModal();
+  };
   return (
     <ModalWrapper>
       <Modal>
@@ -12,7 +14,7 @@ function TimeModal({ closeModal }: TimeModalProps) {
           <Title>이동 수단 및 인원</Title>
           <Explain>일반 승용 택시</Explain>
         </Text>
-        <CloseButton onClick={closeModal}>닫기</CloseButton>
+        <CloseButton onClick={handleModalClose}>선택완료</CloseButton>
       </Modal>
     </ModalWrapper>
   );
@@ -43,7 +45,7 @@ const Explain = styled.div`
   line-height: 157%; /* 18.84px */
 `;
 const CloseButton = styled.button`
-  width: 291px;
+  width: 287px;
   height: 48px;
   flex-shrink: 0;
   border-radius: 12px;
@@ -75,12 +77,12 @@ const ModalWrapper = styled.div`
 const Modal = styled.div`
   width: 309px;
   position: relative;
-  height: 167px;
+  height: 424px;
   flex-direction: column;
   background-color: white;
   align-items: center;
-  border-radius: 12px;
-  z-index: 100;
+  border-radius: 11px;
+  z-index: 1000;
   display: flex;
   box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
     0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
