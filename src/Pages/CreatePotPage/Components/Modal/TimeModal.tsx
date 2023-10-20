@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Check from "../../../../assets/svg/Check";
 import Minus from "../../../../assets/svg/Minus";
 import Plus from "../../../../assets/svg/Plus";
+import { useState } from "react";
 
 interface TimeModalProps {
   closeModal: () => void;
@@ -10,6 +11,15 @@ interface TimeModalProps {
 function TimeModal({ closeModal }: TimeModalProps) {
   const handleModalClose = () => {
     closeModal();
+  };
+  const [count, setCount] = useState(3);
+  const handlePlusClick = () => {
+    setCount(count + 1);
+  };
+  const handleMinusClick = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
   };
   return (
     <ModalWrapper>
@@ -32,11 +42,22 @@ function TimeModal({ closeModal }: TimeModalProps) {
         </CarWrapper>
         <Box style={{ marginBottom: 15 }}>
           <BoxTitle>총 인원 수 (본인 포함)</BoxTitle>
-          <Minus style={{ marginTop: 30, marginBottom: 26, marginLeft: 56 }} />
+          <Minus
+            style={{
+              marginTop: 30,
+              marginBottom: 26,
+              marginLeft: 56,
+              cursor: "pointer",
+            }}
+            onClick={handleMinusClick}
+          />
           <InnerBox>
-            <Number>3</Number>
+            <Number>{count}</Number>
           </InnerBox>
-          <Plus style={{ marginTop: 23, marginBottom: 21 }} />
+          <Plus
+            style={{ marginTop: 23, marginBottom: 21, cursor: "pointer" }}
+            onClick={handlePlusClick}
+          />
         </Box>
         <Box style={{ marginBottom: 22 }}>
           <BoxTitle>동성끼리 탑승</BoxTitle>
