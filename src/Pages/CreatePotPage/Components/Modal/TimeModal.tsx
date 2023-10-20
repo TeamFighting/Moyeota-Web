@@ -71,7 +71,7 @@ const ModalWrapper = styled.div`
   background-color: #00000023;
   justify-content: center;
   display: flex;
-  z-index: 1;
+  z-index: 999;
   flex-direction: column;
 `;
 const Modal = styled.div`
