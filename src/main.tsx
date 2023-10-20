@@ -5,6 +5,7 @@ import App from "./App";
 import MainPage from "./Pages/MainPage/MainPage";
 import DetailPage from "./Pages/DetailPage";
 import CreatePotPage from "./Pages/CreatePotPage/CreatePotPage";
+import CreateComplete from "./Pages/CreatePotPage/CreateComplete";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/createPotPage",
     element: <CreatePotPage />,
+  },
+  {
+    path: "/createComplete",
+    element: <CreateComplete />,
   },
 ]);
 
