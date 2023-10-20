@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Check from "../../../../assets/svg/Check";
+import Minus from "../../../../assets/svg/Minus";
+import Plus from "../../../../assets/svg/Plus";
 
 interface TimeModalProps {
   closeModal: () => void;
@@ -28,6 +30,17 @@ function TimeModal({ closeModal }: TimeModalProps) {
           </Text>
           {/* <Check style={{ width: 24, height: 24, marginLeft: 159 }} /> */}
         </CarWrapper>
+        <Box style={{ marginBottom: 15 }}>
+          <BoxTitle>총 인원 수 (본인 포함)</BoxTitle>
+          <Minus style={{ marginTop: 30, marginBottom: 26, marginLeft: 56 }} />
+          <InnerBox>
+            <Number>3</Number>
+          </InnerBox>
+          <Plus style={{ marginTop: 23, marginBottom: 21 }} />
+        </Box>
+        <Box style={{ marginBottom: 22 }}>
+          <BoxTitle>동성끼리 탑승</BoxTitle>
+        </Box>
         <CloseButton onClick={handleModalClose}>선택완료</CloseButton>
       </Modal>
     </ModalWrapper>
@@ -38,7 +51,39 @@ const CarWrapper = styled.div`
   flex-direction: row;
   padding-bottom: 38px;
 `;
-
+const BoxTitle = styled.div`
+  color: #343434;
+  font-size: 14px;
+  font-family: Pretendard;
+  font-weight: 600;
+  padding-top: 17px;
+  padding-bottom: 17px;
+  padding-left: 19px;
+`;
+const Box = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 287px;
+  height: 56px;
+  background-color: #f5f6f8;
+  border-radius: 12px;
+`;
+const Number = styled.div`
+  font-size: 16px;
+  font-weight: 500;
+  font-family: Pretendard;
+  color: #7e7e7e;
+`;
+const InnerBox = styled.div`
+  width: 29px;
+  height: 29px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px 8px 12px 8px;
+`;
 const Text = styled.div`
   display: flex;
   gap: 7px;
