@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import ModalStore from '../../../../zustand/store/ModalStore';
+import styled from "styled-components";
+import ModalStore from "../../../../zustand/store/ModalStore";
 
 function ApplyButton() {
   const { setIsOpen } = ModalStore((state) => state);
   const handleClick = () => {
-    console.log('hello');
+    console.log("hello");
     setIsOpen(true);
   };
   return (
