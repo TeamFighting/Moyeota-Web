@@ -21,6 +21,18 @@ function TimeModal({ closeModal }: TimeModalProps) {
       setCount(count - 1);
     }
   };
+  const [isSameGender, setIsSameGender] = useState(false); // 초기값은 false로 설정
+
+  // 슬라이더를 드래그할 때 호출되는 함수
+  const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // event.target.value는 슬라이더의 값(0부터 1)을 나타냅니다.
+    const value = parseFloat(event.target.value);
+    // 0.5를 기준으로 true 또는 false로 설정 (0.5 이상은 true, 미만은 false)
+    setIsSameGender(value >= 0.5);
+  };
+  const handleToggle = () => {
+    setIsSameGender((prev) => !prev);
+  };
   return (
     <ModalWrapper>
       <Modal>
@@ -61,12 +73,50 @@ function TimeModal({ closeModal }: TimeModalProps) {
         </Box>
         <Box style={{ marginBottom: 22 }}>
           <BoxTitle>동성끼리 탑승</BoxTitle>
+          <SwitchWrapper>
+            <SwitchInput
+              type="checkbox"
+              id="genderSwitch"
+              checked={isSameGender}
+              onChange={handleToggle}
+            />
+          </SwitchWrapper>
         </Box>
         <CloseButton onClick={handleModalClose}>선택완료</CloseButton>
       </Modal>
     </ModalWrapper>
   );
 }
+const SwitchWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0px 16px 135px;
+`;
+
+const SwitchInput = styled.input`
+  position: relative;
+  appearance: none;
+  width: 40px;
+  height: 24px;
+  background: ${(props) => (props.checked ? "#1edd81" : "#ccc")};
+  border-radius: 30px;
+  outline: none;
+  transition: background 0.3s;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    top: 2px;
+    background: #ffffff;
+    transform: translateX(${(props) => (props.checked ? "18px" : "1.5px")});
+    transition: transform 0.3s;
+  }
+`;
 const CarWrapper = styled.div`
   display: flex;
   flex-direction: row;
