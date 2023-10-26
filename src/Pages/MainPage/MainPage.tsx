@@ -8,6 +8,8 @@ import LocationHeader from "./LocationHeader";
 import BottomSheet from "./Components/BottomSheet";
 import { Chevronleft } from "../../assets/svg";
 import { useNavigate } from "react-router-dom";
+import SvgRefreshButton from "../../assets/svg/RefreshButton";
+import SvgBacktoCurrentButton from "../../assets/svg/BacktoCurrentButton";
 
 function MainPage() {
   const mapRef = useRef<HTMLElement | null>(null);
@@ -43,6 +45,20 @@ function MainPage() {
         <LocationHeader />
       </Header>
       <Body>
+        <Icon>
+          <SvgRefreshButton
+            style={{
+              width: "48px",
+              height: "48px",
+            }}
+          />
+          <SvgBacktoCurrentButton
+            style={{
+              width: "48px",
+              height: "48px",
+            }}
+          />
+        </Icon>
         <Kakaomap mapRef={mapRef} />
         <Bottom>
           <BottomSheet />
@@ -54,7 +70,16 @@ function MainPage() {
     </Container>
   );
 }
-
+const Icon = styled.div`
+  z-index: 10;
+  position: absolute;
+  top: 58%;
+  right: 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const Container = styled.div`
   flex: 1;
   display: flex;
