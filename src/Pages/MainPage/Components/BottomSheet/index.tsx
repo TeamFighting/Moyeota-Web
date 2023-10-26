@@ -1,14 +1,14 @@
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import useBottomSheet from '../../BottomSheetHook/useBottonSheet';
-import BottomSheetContent from './BottomSheetContent';
-import BottomSheetHandle from './BottomSheetHandle';
-import ContentHeader from '../SingleContent/ContentHeader';
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import useBottomSheet from "../../BottomSheetHook/useBottonSheet";
+import BottomSheetContent from "./BottomSheetContent";
+import BottomSheetHandle from "./BottomSheetHandle";
+import ContentHeader from "../SingleContent/ContentHeader";
 
 import {
   BOTTOM_SHEET_HEIGHT,
   WINDOWHEIGHT,
-} from '../../../../Constants/constant';
+} from "../../../../Constants/constant";
 
 function BottomSheet() {
   const { sheet, content } = useBottomSheet();
@@ -27,7 +27,7 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
   display: flex;
   flex-direction: column;
   position: fixed;
-  z-index: 1;
+  z-index: 10000;
   width: 100%;
   height: ${WINDOWHEIGHT}px;
   border-radius: 26px 26px 0 0;
