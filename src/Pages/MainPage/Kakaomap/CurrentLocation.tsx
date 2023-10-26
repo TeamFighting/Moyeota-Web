@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import useStore from '../../../zustand/store/LatLngstore';
+import { useEffect, useState } from "react";
+import useStore from "../../../zustand/store/LatLngstore";
 
 function CurrentLocation() {
   const [location, setLocation] = useState<
@@ -16,7 +16,7 @@ function CurrentLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
       }
-    }, 5000);
+    }, 500);
 
     function success(position: GeolocationPosition) {
       setLocation({
@@ -31,7 +31,7 @@ function CurrentLocation() {
         latitude: 37.483034,
         longitude: 126.902435,
       });
-      console.log('위치받기 실패');
+      console.log("위치받기 실패");
     }
     return () => clearInterval(intervalId);
   }, [location, setLatLng]);

@@ -1,7 +1,7 @@
 /* global kakao */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MutableRefObject, useEffect, useState } from 'react';
-import CurrentLocation from './CurrentLocation';
+import { MutableRefObject, useEffect, useState } from "react";
+import CurrentLocation from "./CurrentLocation";
 // import SlideModal from '../SlideModal/SlideModal';
 
 declare global {
@@ -17,14 +17,14 @@ function Kakaomap({ mapRef }: { mapRef: MutableRefObject<any> }) {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const initMap = () => {
-    if (typeof location != 'string') {
-      const container = document.getElementById('map');
+    if (typeof location != "string") {
+      const container = document.getElementById("map");
       const options = {
         center: new kakao.maps.LatLng(location.latitude, location.longitude),
-        level: 3,
+        level: 5,
       };
 
-      const imgsrc = '../../../public/svg/CurrentLocationIcon.svg';
+      const imgsrc = "../../../public/svg/CurrentLocationIcon.svg";
 
       const imageSize = new kakao.maps.Size(45, 45);
       const imageOption = { offset: new kakao.maps.Point(27, 69) };
@@ -49,19 +49,11 @@ function Kakaomap({ mapRef }: { mapRef: MutableRefObject<any> }) {
 
       marker.setMap(map);
       (mapRef as MutableRefObject<any>).current = map;
-      kakao.maps.event.addListener(marker, 'click', function () {
+      kakao.maps.event.addListener(marker, "click", function () {
         setIsModalOpen(!isModalOpen);
       });
     }
   };
-
-  // const geocoder = new kakao.maps.services.Geocoder();
-  // const callback = (result: any, status: any) => {
-  //   if (status === kakao.maps.services.Status.OK) {
-  //     console.log(result);
-  //   }
-  // };
-  // console.log(geocoder.addressSearch('서울특별시 노원구 공릉로 232', callback));
 
   useEffect(() => {
     kakao.maps.load(() => initMap());
@@ -71,7 +63,7 @@ function Kakaomap({ mapRef }: { mapRef: MutableRefObject<any> }) {
     <>
       <div
         id="map"
-        style={{ position: 'relative', width: '100%', height: '100%' }}
+        style={{ position: "relative", width: "100%", height: "100%" }}
       ></div>
     </>
   );
