@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useState } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import styled from "styled-components";
 
@@ -14,9 +15,9 @@ function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
   const closeModal = () => {
     setIsOpen(false);
   };
-  async function applyParty(postId: number) {
-    console.log(import.meta.env.VITE_AUTH_BEARER_TOKEN);
+  const [errorCode, setErrorCode] = useState<number>(0);
 
+  async function applyParty(postId: number) {
     try {
       const res = await axios.post(
         `http://moyeota.shop/api/participation-details/posts/${postId}`,
@@ -29,11 +30,13 @@ function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
           },
         }
       );
-      console.log(res.data);
-    } catch (e) {
-      console.log(e);
+    } catch (e: unknown) {
+      // console.log("e", e.response.data.code);
+      const eCode = e.response.data.code;
+      setErrorCode(eCode);
     }
   }
+  console.log("errorCode", errorCode);
   if (isFull) {
     return (
       <ModalWrapper>
@@ -63,7 +66,9 @@ function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
               아니오
             </StyledBtn>
             <StyledBtn
-              onClick={() => applyParty(postId)}
+              onClick={() => {
+                applyParty(postId);
+              }}
               style={{ backgroundColor: "#1EDD81" }}
             >
               예
