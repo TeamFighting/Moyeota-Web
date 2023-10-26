@@ -1,6 +1,6 @@
-import axios from 'axios';
-import useOnclickOutside from 'react-cool-onclickoutside';
-import styled from 'styled-components';
+import axios from "axios";
+import useOnclickOutside from "react-cool-onclickoutside";
+import styled from "styled-components";
 
 interface ModalProps {
   setIsOpen: (setIsOpen: boolean) => void;
@@ -58,13 +58,13 @@ function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
           <Buttons>
             <StyledBtn
               onClick={closeModal}
-              style={{ backgroundColor: '#F5F6F8', color: '#5D5D5D' }}
+              style={{ backgroundColor: "#F5F6F8", color: "#5D5D5D" }}
             >
               아니오
             </StyledBtn>
             <StyledBtn
               onClick={() => applyParty(postId)}
-              style={{ backgroundColor: '#1EDD81' }}
+              style={{ backgroundColor: "#1EDD81" }}
             >
               예
             </StyledBtn>
@@ -99,9 +99,7 @@ const Text = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  padding-top: 30px;
-  padding-bottom: 22px;
+  margin-top: 38px;
 `;
 const Title = styled.div`
   color: #000;
@@ -152,11 +150,12 @@ const ModalWrapper = styled.div`
 const Modal = styled.div`
   width: 309px;
   position: relative;
-  height: 167px;
+  height: 161px;
   flex-direction: column;
   background-color: white;
   align-items: center;
   border-radius: 12px;
+  gap: 29px;
   z-index: 100;
   display: flex;
   box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
