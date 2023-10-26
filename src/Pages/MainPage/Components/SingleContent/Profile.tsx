@@ -1,6 +1,5 @@
-import * as S from '../../style';
-import ProfileSample from '../../../../../public/svg/ProfileSample.svg';
-import createAgo from './createAgo';
+import * as S from "../../style";
+import ProfileSample from "../../../../../public/svg/ProfileSample.svg";
 
 interface ProfileProps {
   index: number;

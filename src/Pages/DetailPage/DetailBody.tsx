@@ -1,12 +1,11 @@
-import { useLocation } from 'react-router';
 import {
   ChevronRight,
   LionProfile,
   LocationFrom,
   LocationMarker,
-} from '../../assets/svg';
-import * as S from './style';
-import createAgo from '../MainPage/Components/SingleContent/createAgo';
+} from "../../assets/svg";
+import * as S from "./style";
+import createAgo from "../MainPage/Components/SingleContent/createAgo";
 
 interface DetailBodyProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,9 +16,9 @@ function DetailBody({ data }: DetailBodyProps) {
 
   let gender;
   if (!data.userGender) {
-    gender = '여';
+    gender = "여";
   } else {
-    gender = '남';
+    gender = "남";
   }
   return (
     <S.Body>
@@ -43,24 +42,24 @@ function DetailBody({ data }: DetailBodyProps) {
         />
         <S.Route>
           <S.From>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
               <LocationFrom width="24" height="64" />
               <S.Text>
                 <S.StartPointLocation>{data.departure}</S.StartPointLocation>
                 <S.StartPoint>출발지</S.StartPoint>
               </S.Text>
             </div>
-            <S.Icon style={{ paddingTop: '3px' }}>
+            <S.Icon style={{ paddingTop: "3px" }}>
               <ChevronRight />
             </S.Icon>
           </S.From>
           <S.From>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ display: "flex", flexDirection: "row" }}>
               <S.Icon
                 style={{
-                  height: '100%',
-                  alignItems: 'flex-start',
-                  display: 'flex',
+                  height: "100%",
+                  alignItems: "flex-start",
+                  display: "flex",
                 }}
               >
                 <LocationMarker width="24" height="24" />
@@ -70,7 +69,7 @@ function DetailBody({ data }: DetailBodyProps) {
                 <S.StartPoint>도착지</S.StartPoint>
               </S.Text>
             </div>
-            <S.Icon style={{ paddingTop: '3px' }}>
+            <S.Icon style={{ paddingTop: "3px" }}>
               <ChevronRight />
             </S.Icon>
           </S.From>

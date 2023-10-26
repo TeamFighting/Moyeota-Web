@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { LionProfile } from '../../assets/svg';
-import * as S from './style';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import styled from "styled-components";
+import { LionProfile } from "../../assets/svg";
+import * as S from "./style";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface Props {
   leaderName: string;
@@ -28,21 +28,21 @@ function DetailPartySection({
 }: Props) {
   let gender2;
   if (gender) {
-    gender2 = '남자';
+    gender2 = "남자";
   } else {
-    gender2 = '여자';
+    gender2 = "여자";
   }
   const [onlyParty, setonlyParty] = useState<PARTYINFO[]>([]);
   async function getPartyOne(postId: number) {
     try {
-      const res = await axios
+      await axios
         .get(`http://moyeota.shop/api/posts/${postId}/members`, {
           headers: {
             Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TOKEN}`,
           },
         })
         .then((res) => {
-          console.log('res', res.data.data);
+          console.log("res", res.data.data);
           if (res.status == 200) {
             const partyInfo: PARTYINFO[] = res.data.data;
             const participants = partyInfo.filter((value) => {
@@ -63,23 +63,23 @@ function DetailPartySection({
     <S.Party>
       <S.Leader>팟장</S.Leader>
       <Wrapper>
-        <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
+        <S.Icon style={{ marginLeft: "24px", marginRight: "13px" }}>
           <LionProfile width="55px" height="55px" />
         </S.Icon>
         <S.Name>{leaderName}</S.Name>
         <S.Tags>
-          <S.Tag style={{ marginRight: '7px' }}>{gender2}</S.Tag>
+          <S.Tag style={{ marginRight: "7px" }}>{gender2}</S.Tag>
           {/* 나잇대 수정필요 */}
           <S.Tag>20대</S.Tag>
         </S.Tags>
       </Wrapper>
       <S.Description>{content}</S.Description>
       <S.PartyOne>
-        <div style={{ flexDirection: 'row', display: 'flex' }}>
+        <div style={{ flexDirection: "row", display: "flex" }}>
           <S.Leader>파티원</S.Leader>
           <TagsWrapper>
             <S.Tags style={{}}>
-              <S.Tag style={{ marginRight: '7px' }}>{participants - 1}명</S.Tag>
+              <S.Tag style={{ marginRight: "7px" }}>{participants - 1}명</S.Tag>
             </S.Tags>
           </TagsWrapper>
         </div>
@@ -87,14 +87,14 @@ function DetailPartySection({
         {onlyParty.length > 0 ? (
           onlyParty.map((value, index) => {
             return (
-              <Wrapper key={index} style={{ paddingBottom: '16px' }}>
-                <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
+              <Wrapper key={index} style={{ paddingBottom: "16px" }}>
+                <S.Icon style={{ marginLeft: "24px", marginRight: "13px" }}>
                   <LionProfile width="55px" height="55px" />
                 </S.Icon>
                 <S.Name>{value.userName}</S.Name>
                 <S.Tags style={{}}>
-                  <S.Tag style={{ marginRight: '7px' }}>
-                    {value.userGender ? '남자' : '여자'}
+                  <S.Tag style={{ marginRight: "7px" }}>
+                    {value.userGender ? "남자" : "여자"}
                   </S.Tag>
                   {/* 나잇대 수정필요 */}
                   <S.Tag>20대</S.Tag>

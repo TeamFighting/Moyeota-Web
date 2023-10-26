@@ -1,5 +1,5 @@
-import { Calendar, Clock, Dollar } from '../../assets/svg';
-import * as S from './style';
+import { Calendar, Clock, Dollar } from "../../assets/svg";
+import * as S from "./style";
 
 interface DetailBottomProps {
   fare: number;
@@ -15,12 +15,11 @@ function DetailBottom({
   fare,
   duration,
   splitedTime,
-  timePart,
   recruitment,
   participants,
   data,
 }: DetailBottomProps) {
-  console.log('splited', splitedTime);
+  console.log("splited", splitedTime);
   return (
     <S.Bottom>
       <S.DescriptionTag>
@@ -39,27 +38,27 @@ function DetailBottom({
         <div>일정 및 시간</div>
         <div
           style={{
-            marginTop: '12px',
-            fontSize: '14px',
-            display: 'flex',
-            gap: '10px',
-            flexDirection: 'column',
+            marginTop: "12px",
+            fontSize: "14px",
+            display: "flex",
+            gap: "10px",
+            flexDirection: "column",
           }}
         >
-          <div style={{ flexDirection: 'row', display: 'flex', gap: '11px' }}>
+          <div style={{ flexDirection: "row", display: "flex", gap: "11px" }}>
             <Calendar width="16" height="16" />
             <div>
               <div>08월 15일 (화) 오전 11:30 출발</div>
             </div>
           </div>
-          <div style={{ flexDirection: 'row', display: 'flex', gap: '11px' }}>
+          <div style={{ flexDirection: "row", display: "flex", gap: "11px" }}>
             <Clock width="16" height="16" />
             <div>{duration}초 소요</div>
           </div>
-          <div style={{ flexDirection: 'row', display: 'flex', gap: '11px' }}>
+          <div style={{ flexDirection: "row", display: "flex", gap: "11px" }}>
             <Dollar width="16" height="16" />
-            <div style={{ flexDirection: 'row', display: 'flex', gap: '5px' }}>
-              <div style={{ color: '#7E7E7E' }}>예상 금액</div>총 {fare}원 -
+            <div style={{ flexDirection: "row", display: "flex", gap: "5px" }}>
+              <div style={{ color: "#7E7E7E" }}>예상 금액</div>총 {fare}원 -
               1인당 {fare / recruitment}원 ({data.numberOfRecruitment}인)
             </div>
           </div>
