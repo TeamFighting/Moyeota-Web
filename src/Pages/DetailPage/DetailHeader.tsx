@@ -27,7 +27,11 @@ const Header = styled.div`
   align-items: end;
   height: ${HEADER_HEIGHT}px;
   justify-content: space-between;
-  padding: 0 4%;
+  position: fixed;
+  top: 0;
+  align-self: center;
+  width: 92.5%;
+  background-color: white;
 `;
 const Icon = styled.div`
   cursor: pointer;

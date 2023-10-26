@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { HEADER_HEIGHT } from '../../Constants/constant';
 
 export const PartyoneText = styled.div`
   color: var(--Gray-Text-1, #9a9a9a);
@@ -11,12 +12,12 @@ export const PartyoneText = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 47px;
+  background-color: none;
 `;
 export const PartyOne = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  /* height: 569px; */
+  height: 100%;
 `;
 export const Icon = styled.div`
   cursor: pointer;
@@ -24,24 +25,29 @@ export const Icon = styled.div`
 `;
 
 export const Description = styled.div`
-  width: 335px;
-  height: 133px;
+  align-self: center;
+  height: fit-content;
   flex-shrink: 0;
   border-radius: 12px;
+  margin: 13px 20px 0 20px;
   background: var(--Gray-Icon-Solid, #f5f6f8);
-  margin-left: 25px;
-  margin-top: 13px;
-  justify-content: center;
   display: flex;
-  align-items: center;
+  padding: 15px 20px 15px 20px;
   font-family: pretendard;
+  color: var(--Gray-Text-3, #343434);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 156%; /* 24.96px */
+  width: ${window.innerWidth - 90}px;
 `;
 export const Name = styled.div`
   color: var(--Gray-Text-3, #343434);
   font-family: Pretendard;
   font-size: 16px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 157%; /* 25.12px */
   margin-right: 7px;
 `;
@@ -57,7 +63,8 @@ export const Leader = styled.div`
   margin-bottom: 13px;
 `;
 export const Party = styled.div`
-  height: 696px;
+  min-height: 74.3vh;
+  height: 810px;
   display: flex;
   flex-direction: column;
 `;
@@ -198,7 +205,7 @@ export const Body = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding-top: 4px;
+  padding-top: ${HEADER_HEIGHT}px;
   margin: 0 25px;
   height: 603px;
 `;

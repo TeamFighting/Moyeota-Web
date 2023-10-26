@@ -6,50 +6,54 @@ import Clock from '../../../../../public/svg/Clock.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import useStore from '../../../../zustand/store/ContentStore';
+import ISOto12 from './ISOto12';
+import getDays from './getDays';
+import createAgo from './createAgo';
 // import { useEffect, useState } from 'react';
 
 function SingleContent() {
-  // const [isTotalDataHere, setIsTotalDataHere] = useState(false);
   const navigate = useNavigate();
 
-  const navigateToDetail = (index: number) => {
-    navigate('/detailpage', { state: { id: index } });
+  const navigateToDetail = (
+    data: object,
+    splitedDay: string[],
+    timePart: string
+  ) => {
+    navigate('/detailpage', {
+      state: {
+        data: data,
+        splitedDay: splitedDay,
+        timePart: timePart,
+      },
+    });
   };
 
   const { totalData } = useStore((state) => state);
-  console.log('totalData', totalData);
+  console.log(totalData);
   return totalData.map((data, index) => {
-    const year = data.departureTime.slice(0, 4);
-    const month = data.departureTime.slice(5, 7);
-    const date = data.departureTime.slice(8, 10);
+    const splitedDay = getDays(data.departureTime);
+    const timePart = ISOto12(data.departureTime);
+    const ago = createAgo(data.createAt);
+    let gender;
 
-    const days = ['일', '월', '화', '수', '목', '금', '토'];
-    const newDate = new Date(data.departureTime); // 요일을 영어로 얻기 위함
-    const day = days[newDate.getDay()];
-
-    let timePart = data.departureTime.match(/\d{2}:\d{2}/)[0];
-    const hour = timePart.split(':')[0];
-    const minute = timePart.split(':')[1];
-    const splitedTime = [year, month, date, hour, minute];
-    if (hour < 12) {
-      timePart = '오전 ' + hour + ':' + minute;
+    if (!data.userGender) {
+      gender = '여';
     } else {
-      timePart = '오후 ' + (hour - 12) + ':' + minute;
+      gender = '남';
     }
-
     return (
       <S.SingleContent
         key={index}
         onClick={() => {
-          navigateToDetail(index);
+          navigateToDetail(data, splitedDay, timePart);
         }}
       >
         <Profile
-          createAt={data.createAt}
-          splitedTime={splitedTime}
+          ago={ago}
           index={index}
           userName={data.userName}
-          userGender={data.userGender}
+          gender={gender}
+          distance={data.distance}
         />
         <S.ContentTitle>{data.title}</S.ContentTitle>
         <div key={index}>
@@ -63,9 +67,8 @@ function SingleContent() {
             <S.Time>
               <Clock />
               <S.StartTime>
-                {/* {data.departureTime} */}
-                {month}월{date}일 ({day}) {timePart} 출발
-                {/* 8월 15일 (화) 오전 11:30 출발 */}
+                {splitedDay[1]}월{splitedDay[2]}일 ({splitedDay[3]}) {timePart}{' '}
+                출발
               </S.StartTime>
             </S.Time>
           </S.Info>
