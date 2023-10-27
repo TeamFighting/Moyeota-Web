@@ -180,6 +180,7 @@ export const InputDescription = styled.textarea`
   white-space: pre-wrap;
   outline: none;
   margin: 0 auto;
+
   display: flex;
   justify-content: center;
   &::placeholder {

@@ -12,7 +12,7 @@ function TimeModal({ closeModal }: TimeModalProps) {
   const handleModalClose = () => {
     closeModal();
   };
-  const [count, setCount] = useState(3);
+  const [count, setCount] = useState(2);
   const handlePlusClick = () => {
     setCount(count + 1);
   };
@@ -176,6 +176,7 @@ const SubExplain = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 157%; /* 18.84px */
+  margin-top: 2px;
 `;
 const CloseButton = styled.button`
   width: 287px;
