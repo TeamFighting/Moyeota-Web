@@ -7,6 +7,7 @@ function ApplyButton() {
     console.log("hello");
     setIsOpen(true);
   };
+
   return (
     <Wrapper onClick={handleClick}>
       <Button type="button">매칭 신청하기</Button>
