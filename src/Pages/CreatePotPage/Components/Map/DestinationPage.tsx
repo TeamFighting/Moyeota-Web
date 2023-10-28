@@ -25,6 +25,7 @@ function DestinationPage() {
             zIndex: 1,
             position: "absolute",
             paddingLeft: 30,
+            paddingTop: 1,
           }}
         />
       </Header>
@@ -62,7 +63,7 @@ const Header = styled.div`
 const InputStyle = styled.input`
   background-color: #ffffff;
   border-radius: 12px;
-  width: calc(100% - 100px);
+  width: calc(100% - 90px);
   height: 48px;
   flex-shrink: 0;
   margin: 0 auto;
@@ -76,7 +77,7 @@ const InputStyle = styled.input`
   font-weight: 500;
   line-height: 21.98px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
-  padding-left: 58px;
+  padding-left: 43px;
 
   &::placeholder {
     color: var(--Gray-Text-1, #9a9a9a);
