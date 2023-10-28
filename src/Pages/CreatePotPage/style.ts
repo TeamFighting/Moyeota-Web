@@ -129,8 +129,9 @@ export const BottomTitle = styled.div`
 `;
 
 export const PayBox = styled.div`
-  width: 335px;
+  width: ${window.innerWidth - 55}px;
   height: 84px;
+  align-self: center;
   background: #f5f6f8;
   border-radius: 12px;
   flex-shrink: 0;
@@ -167,8 +168,9 @@ export const InputDescriptionWrapper = styled.div`
 `;
 
 export const InputDescription = styled.textarea`
-  width: 335px;
-  height: 133px;
+  width: ${window.innerWidth - 140}px;
+  height: 100px;
+  align-self: center;
   flex-shrink: 0;
   border-radius: 12px;
   background: #f5f6f8;
@@ -180,12 +182,12 @@ export const InputDescription = styled.textarea`
   white-space: pre-wrap;
   outline: none;
   margin: 0 auto;
+  padding: 22px 61px 30px 28px;
   display: flex;
   justify-content: center;
   &::placeholder {
     color: #9a9a9a;
     font-family: Pretendard;
-    padding: 22px 61px 30px 28px;
     font-size: 14;
     white-space: pre-line;
     line-height: 1.8;
