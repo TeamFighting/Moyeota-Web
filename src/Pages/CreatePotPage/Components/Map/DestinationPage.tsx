@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { HEADER_HEIGHT } from "../../../../Constants/constant";
 import { useNavigate } from "react-router-dom";
 import BottomSheet from "./BottomSheet";
+import DestinationButton from "../Button/DestinationButtom";
 
 function DestinationPage() {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ function DestinationPage() {
         <Kakaomap mapRef={mapRef} />
         <Bottom>
           <BottomSheet />
+          <DestinationButton />
         </Bottom>
       </Body>
     </Container>
