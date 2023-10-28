@@ -30,12 +30,12 @@ export const ContentHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* height: fit-content; */
   gap: 50%;
   width: 100vw;
   position: sticky;
   background-color: white;
   padding-bottom: 17px;
+  padding-top: 17px;
 `;
 
 export const Left = styled.div`

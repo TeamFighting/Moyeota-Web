@@ -49,6 +49,7 @@ function MainPage() {
   const goTop = () => {
     console.log("goTop");
   };
+
   return (
     <Container>
       <Header>
@@ -75,7 +76,6 @@ function MainPage() {
           </Icon>
         </Icons>
         <Kakaomap mapRef={mapRef} />
-
         <Bottom>
           <BottomSheet />
           <CreatePodButton onClick={navigateToCreatePot}>

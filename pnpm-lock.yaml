@@ -23,6 +23,9 @@ dependencies:
   framer-motion:
     specifier: ^10.16.4
     version: 10.16.4(react-dom@18.2.0)(react@18.2.0)
+  ios-style-picker:
+    specifier: ^0.0.6
+    version: 0.0.6(react-dom@18.2.0)(react@18.2.0)
   kakao.maps.d.ts:
     specifier: ^0.1.39
     version: 0.1.39
@@ -3194,6 +3197,16 @@ packages:
     dependencies:
       css-in-js-utils: 3.1.0
       fast-loops: 1.1.3
+    dev: false
+
+  /ios-style-picker@0.0.6(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Kv65U0RILEgeaJfX0Q9vAQZRsCyu1j+NklAgCzrovlMpJ1IuxXRRFh5vwP70sUTkR22pmW3RGKHFCH4v9ErlDA==}
+    peerDependencies:
+      react: '>=17.0.0'
+      react-dom: '>=17.0.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /is-arrayish@0.2.1:

@@ -12,14 +12,10 @@ import {
 } from "../../../../Constants/constant";
 
 function BottomSheet() {
-  const { sheet, content } = useBottomSheet();
-  const goTop = () => {
-    console.log("goTop");
-  };
+  const { sheet, content, handleUp } = useBottomSheet();
   return (
     <Wrapper ref={sheet}>
-      <OpenBotton onClick={goTop}>
-        {" "}
+      <OpenBotton onClick={handleUp}>
         <List style={{ width: "16px", height: "16px", flexShrink: "0" }} />
         <p style={{ paddingTop: "3px" }}> 목록 보기</p>
       </OpenBotton>
@@ -29,6 +25,7 @@ function BottomSheet() {
           width: "100%",
           height: "100%",
           backgroundColor: "white",
+          borderRadius: "26px 26px 0 0",
         }}
       >
         <BottomSheetHandle />
@@ -69,10 +66,8 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
   width: 100%;
   height: ${WINDOWHEIGHT}px;
   border-radius: 26px 26px 0 0;
-  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25); */
   height: ${BOTTOM_SHEET_HEIGHT}px;
   transition: transform 400ms ease-out;
-  /* background-color: white; */
 `;
 const BottomSheetContentWrapper = styled.div`
   width: 100%;
