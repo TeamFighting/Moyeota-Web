@@ -39,7 +39,6 @@ function CreatePotPage() {
         <CreateHeader />
         <CreateBody />
         <Divider style={{ height: "10px" }} />
-        <CreateBottom />
         <Divider style={{ height: `${dividerHeight}px` }} />
         <CreatePrice />
         <Divider style={{ height: "6px" }} />
