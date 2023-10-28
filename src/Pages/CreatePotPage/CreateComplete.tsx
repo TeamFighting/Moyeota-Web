@@ -2,7 +2,6 @@ import * as S from "./style";
 import CreateHeader from "./CreateHeader";
 import { Divider } from "../../assets/svg";
 import CreateExitButton from "./Components/Button/CreateExitButton";
-import RobotProfile from "../../../public/png/RobotProfile.png";
 
 function createComplete() {
   return (
