@@ -4,6 +4,7 @@ import useBottomSheet from "../../BottomSheetHook/useBottonSheet";
 import BottomSheetContent from "./BottomSheetContent";
 import BottomSheetHandle from "./BottomSheetHandle";
 import ContentHeader from "../SingleContent/ContentHeader";
+import { List } from "../../../../assets/svg";
 
 import {
   BOTTOM_SHEET_HEIGHT,
@@ -12,17 +13,54 @@ import {
 
 function BottomSheet() {
   const { sheet, content } = useBottomSheet();
+  const goTop = () => {
+    console.log("goTop");
+  };
   return (
     <Wrapper ref={sheet}>
-      <BottomSheetHandle />
-      <ContentHeader />
-      <BottomSheetContentWrapper ref={content}>
-        <BottomSheetContent />
-      </BottomSheetContentWrapper>
+      <OpenBotton onClick={goTop}>
+        {" "}
+        <List style={{ width: "16px", height: "16px", flexShrink: "0" }} />
+        <p style={{ paddingTop: "3px" }}> 목록 보기</p>
+      </OpenBotton>
+      <div
+        style={{
+          marginTop: "17px",
+          width: "100%",
+          height: "100%",
+          backgroundColor: "white",
+        }}
+      >
+        <BottomSheetHandle />
+        <ContentHeader />
+        <BottomSheetContentWrapper ref={content}>
+          <BottomSheetContent />
+        </BottomSheetContentWrapper>
+      </div>
     </Wrapper>
   );
 }
-
+const OpenBotton = styled.div`
+  width: 96px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 18px;
+  background: var(--Gray-Button-Text, #5d5d5d);
+  z-index: 10;
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 157%; /* 21.98px */
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  align-items: center;
+  display: flex;
+  z-index: 1000001;
+  gap: 5px;
+`;
 const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
   display: flex;
   flex-direction: column;
@@ -31,10 +69,10 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
   width: 100%;
   height: ${WINDOWHEIGHT}px;
   border-radius: 26px 26px 0 0;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25); */
   height: ${BOTTOM_SHEET_HEIGHT}px;
   transition: transform 400ms ease-out;
-  background-color: white;
+  /* background-color: white; */
 `;
 const BottomSheetContentWrapper = styled.div`
   width: 100%;
