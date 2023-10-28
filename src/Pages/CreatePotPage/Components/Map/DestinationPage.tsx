@@ -16,7 +16,17 @@ function DestinationPage() {
   return (
     <Container>
       <Header>
-        <Chevronleft width={24} height={24} onClick={goBack} />
+        <InputStyle type="text" placeholder="도착지를 검색해보세요" />
+        <Chevronleft
+          onClick={goBack}
+          style={{
+            width: 24,
+            height: 24,
+            zIndex: 1,
+            position: "absolute",
+            paddingLeft: 30,
+          }}
+        />
       </Header>
       <Body>
         <Kakaomap mapRef={mapRef} />
@@ -38,14 +48,44 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  height: ${HEADER_HEIGHT}px;
-  position: sticky;
-  background-color: #ffffff;
+  background-color: transparent;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding-left: 4%;
   z-index: 1000000;
+  position: fixed;
+  top: 19px;
+  width: 100%;
+  height: ${HEADER_HEIGHT}px;
+`;
+
+const InputStyle = styled.input`
+  background-color: #ffffff;
+  border-radius: 12px;
+  width: calc(100% - 100px);
+  height: 48px;
+  flex-shrink: 0;
+  margin: 0 auto;
+  padding: 0px 20px;
+
+  border: none;
+  outline: none;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 21.98px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+  padding-left: 58px;
+
+  &::placeholder {
+    color: var(--Gray-Text-1, #9a9a9a);
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21.98px;
+  }
 `;
 
 const Bottom = styled.div`
