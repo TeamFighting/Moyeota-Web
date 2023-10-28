@@ -10,15 +10,20 @@ import DestinationButton from "../Button/DestinationButtom";
 function DestinationPage() {
   const navigate = useNavigate();
   const mapRef = useRef<HTMLElement | null>(null);
-  const goBack = () => {
-    navigate("/createPotPage");
+
+  const goToSearchResults = () => {
+    navigate("/searchResults");
   };
+
   return (
     <Container>
       <Header>
-        <InputStyle type="text" placeholder="도착지를 검색해보세요" />
+        <InputStyle
+          type="text"
+          placeholder="도착지를 검색해보세요"
+          onClick={goToSearchResults}
+        />
         <Chevronleft
-          onClick={goBack}
           style={{
             width: 24,
             height: 24,
