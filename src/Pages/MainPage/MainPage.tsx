@@ -6,7 +6,7 @@ import axios from "axios";
 import useStore from "../../zustand/store/ContentStore";
 import LocationHeader from "./LocationHeader";
 import BottomSheet from "./Components/BottomSheet";
-import { Chevronleft, List } from "../../assets/svg";
+import { Chevronleft } from "../../assets/svg";
 import { useNavigate } from "react-router-dom";
 import SvgRefreshButton from "../../assets/svg/RefreshButton";
 import SvgBacktoCurrentButton from "../../assets/svg/BacktoCurrentButton";
@@ -44,10 +44,6 @@ function MainPage() {
 
   const goCurrent = () => {
     console.log("goCurrent");
-  };
-
-  const goTop = () => {
-    console.log("goTop");
   };
 
   return (
