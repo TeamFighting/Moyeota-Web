@@ -1,7 +1,8 @@
 import * as S from "./style";
 import CreateHeader from "./CreateHeader";
-import { Divider, RobotProfile } from "../../assets/svg";
+import { Divider } from "../../assets/svg";
 import CreateExitButton from "./Components/Button/CreateExitButton";
+import SvgRobotProfile from "../../assets/svg/RobotProfile";
 
 function createComplete() {
   return (
@@ -18,7 +19,9 @@ function createComplete() {
             height: `calc(100vh - 252px)`,
           }}
         >
-          <RobotProfile style={{ width: 84, height: 84, marginBottom: 37 }} />
+          <SvgRobotProfile
+            style={{ width: 84, height: 84, marginBottom: 37 }}
+          />
           <S.CompleteWrapper>
             <S.Title>모연두 님의</S.Title>
             <S.Title>팟 생성이 완료되었어요!</S.Title>
