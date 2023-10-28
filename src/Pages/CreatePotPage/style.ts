@@ -63,7 +63,7 @@ export const Text = styled.div`
   padding-left: 7px;
 `;
 export const StartPointLocation = styled.div`
-  color: var(--Gray-Text-3, #343434);
+  color: #343434;
   font-family: Pretendard;
   font-size: 16px;
   font-style: normal;

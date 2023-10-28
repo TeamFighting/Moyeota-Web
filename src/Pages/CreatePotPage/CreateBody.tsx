@@ -1,7 +1,12 @@
 import { ChevronRight, LocationFrom, LocationMarker } from "../../assets/svg";
 import * as S from "./style";
+import { useNavigate } from "react-router-dom";
 
 function DetailBody() {
+  const navigate = useNavigate();
+  const NavigateToDestination = () => {
+    navigate("/destinationPage");
+  };
   return (
     <S.Body>
       <S.Content>
@@ -34,7 +39,7 @@ function DetailBody() {
               <ChevronRight width="24" height="24" />
             </S.Icon>
           </S.From>
-          <S.From>
+          <S.From onClick={NavigateToDestination}>
             <div style={{ display: "flex", flexDirection: "row" }}>
               <S.Icon
                 style={{
@@ -47,7 +52,7 @@ function DetailBody() {
               </S.Icon>
               <S.Text>
                 <S.StartPointLocation>
-                  건국대학교 생명과학관부속동
+                  도착지를 입력해주세요
                 </S.StartPointLocation>
                 <S.StartPoint>도착지</S.StartPoint>
               </S.Text>
