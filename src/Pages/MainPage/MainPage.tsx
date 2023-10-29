@@ -8,6 +8,9 @@ import LocationHeader from "./LocationHeader";
 import BottomSheet from "./Components/BottomSheet";
 import { Chevronleft } from "../../assets/svg";
 import { useNavigate } from "react-router-dom";
+import SvgRefreshButton from "../../assets/svg/RefreshButton";
+import SvgBacktoCurrentButton from "../../assets/svg/BacktoCurrentButton";
+import { Icon } from "../DetailPage/style";
 
 function MainPage() {
   const mapRef = useRef<HTMLElement | null>(null);
@@ -17,23 +20,30 @@ function MainPage() {
   useEffect(() => {
     fetchData();
   }, []);
-
   async function fetchData() {
     try {
       const res = await axios.get("http://moyeota.shop/api/posts?page=0");
       if (res.status === 200) {
         updateTotalData(res.data.data.content);
+        console.log(res.data.data.content);
       } else {
         alert(res.status + "에러");
       }
     } catch (e) {
-      // alert('서버와의 통신에 실패했습니다.');
       console.log(e);
     }
   }
 
   const navigateToCreatePot = () => {
     navigate("/createPotPage");
+  };
+
+  const refresh = () => {
+    console.log("refresh");
+  };
+
+  const goCurrent = () => {
+    console.log("goCurrent");
   };
 
   return (
@@ -43,6 +53,24 @@ function MainPage() {
         <LocationHeader />
       </Header>
       <Body>
+        <Icons>
+          <Icon onClick={refresh}>
+            <SvgRefreshButton
+              style={{
+                width: "48px",
+                height: "48px",
+              }}
+            />
+          </Icon>
+          <Icon onClick={goCurrent}>
+            <SvgBacktoCurrentButton
+              style={{
+                width: "48px",
+                height: "48px",
+              }}
+            />
+          </Icon>
+        </Icons>
         <Kakaomap mapRef={mapRef} />
         <Bottom>
           <BottomSheet />
@@ -55,6 +83,16 @@ function MainPage() {
   );
 }
 
+const Icons = styled.div`
+  z-index: 10;
+  position: absolute;
+  top: 58%;
+  right: 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 const Container = styled.div`
   flex: 1;
   display: flex;

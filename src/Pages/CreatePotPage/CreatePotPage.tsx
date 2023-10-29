@@ -1,7 +1,6 @@
 import * as S from "./style";
 import CreateHeader from "./CreateHeader";
 import CreateBody from "./CreateBody";
-import CreateBottom from "./CreateBottom";
 import CreatePrice from "./CreatePrice";
 import CreateDescription from "./CreateDescription";
 import CreatePotButton from "./Components/Button/CreatePotButton";
@@ -40,7 +39,6 @@ function CreatePotPage() {
         <CreateHeader />
         <CreateBody />
         <Divider style={{ height: "10px" }} />
-        <CreateBottom />
         <Divider style={{ height: `${dividerHeight}px` }} />
         <CreatePrice />
         <Divider style={{ height: "6px" }} />

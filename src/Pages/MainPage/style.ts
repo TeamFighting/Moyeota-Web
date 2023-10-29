@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ModalContent = styled.div`
   flex-direction: row;
@@ -10,7 +10,6 @@ export const ModalContent = styled.div`
   overflow: scroll;
   -webkit-overflow-scrolling: touch;
   margin-bottom: 40px;
-
 `;
 
 export const ContentWrapper = styled.div`
@@ -31,12 +30,12 @@ export const ContentHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: fit-content;
   gap: 50%;
   width: 100vw;
   position: sticky;
   background-color: white;
-  margin-bottom: 17px;
+  padding-bottom: 17px;
+  padding-top: 17px;
 `;
 
 export const Left = styled.div`
