@@ -17,6 +17,7 @@
     "axios": "^1.5.1",
     "dotenv": "^16.3.1",
     "framer-motion": "^10.16.4",
+    "ios-style-picker": "^0.0.6",
     "kakao.maps.d.ts": "^0.1.39",
     "react": "^18.2.0",
     "react-cool-onclickoutside": "^1.7.0",
