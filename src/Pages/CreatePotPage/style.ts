@@ -88,11 +88,24 @@ export const InputStyle = styled.input`
   padding: 8px;
   border-radius: 4px;
   width: 95%;
-  font-size: 16px;
+  font-size: 18px;
   margin-top: 10px;
   font-family: Pretendard;
   outline: none;
+  font-style: normal;
+  line-height: 28.26px;
+  color: var(--Gray-Text-3, #343434);
+
+  &::placeholder {
+    color: var(--placeholder-color, #9a9a9a);
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25.12px;
+  }
 `;
+
 export const Bottom = styled.div`
   display: flex;
   flex-direction: column;
