@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 declare global {
   interface Window {
@@ -32,7 +32,7 @@ function NaverMap() {
 
   return (
     <>
-      <div ref={mapElement} style={{ height: '100%' }} />
+      <div ref={mapElement} style={{ height: "100%" }} />
     </>
   );
 }

@@ -6,6 +6,8 @@ import MainPage from "./Pages/MainPage/MainPage";
 import DetailPage from "./Pages/DetailPage";
 import CreatePotPage from "./Pages/CreatePotPage/CreatePotPage";
 import CreateComplete from "./Pages/CreatePotPage/CreateComplete";
+import DestinationPage from "./Pages/CreatePotPage/Components/Map/DestinationPage";
+import SearchResults from "./Pages/CreatePotPage/Components/Map/SearchResults";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
   {
     path: "/createComplete",
     element: <CreateComplete />,
+  },
+  {
+    path: "/destinationPage",
+    element: <DestinationPage />,
+  },
+  {
+    path: "/SearchResults",
+    element: <SearchResults />,
   },
 ]);
 
