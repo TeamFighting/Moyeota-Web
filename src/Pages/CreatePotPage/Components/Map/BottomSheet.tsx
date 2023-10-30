@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import LocationMarkerGreen from "../../../../assets/svg/LocationmarkerGreen";
+import LocationMarkerGreen from "../../../../assets/svg/LocationMarkerGreen";
 import {
   BOTTOM_SHEET_HEIGHT,
   WINDOWHEIGHT,
