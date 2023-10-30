@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import Kakaomap from "../../../MainPage/Kakaomap/Kakaomap";
+import NaverMap from "../../../MainPage/NaverMap/NaverMap";
 import { Chevronleft } from "../../../../assets/svg";
-import { useRef } from "react";
 import { HEADER_HEIGHT } from "../../../../Constants/constant";
 import { useNavigate } from "react-router-dom";
 import BottomSheet from "./BottomSheet";
@@ -9,7 +8,6 @@ import DestinationButton from "../Button/DestinationButtom";
 
 function DestinationPage() {
   const navigate = useNavigate();
-  const mapRef = useRef<HTMLElement | null>(null);
 
   const goToSearchResults = () => {
     navigate("/searchResults");
@@ -35,7 +33,7 @@ function DestinationPage() {
         />
       </Header>
       <Body>
-        <Kakaomap mapRef={mapRef} />
+        <NaverMap />
         <Bottom>
           <BottomSheet />
           <DestinationButton />

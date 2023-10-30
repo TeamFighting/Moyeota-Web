@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { useRef } from "react";
 import { HEADER_HEIGHT } from "../../../../Constants/constant";
 import { useNavigate } from "react-router-dom";
 import CheveronLeft from "../../../../assets/svg/Chevronleft";
 import My_location from "../../../../assets/svg/My_location";
+import MapIcon from "../../../../assets/svg/MapIcon";
+import Star from "../../../../assets/svg/Star";
 
 function SearchResults() {
   const navigate = useNavigate();
@@ -32,6 +33,34 @@ function SearchResults() {
           top: "80px",
         }}
       />
+      <Body>
+        <Title>최근 검색</Title>
+        <Star
+          style={{
+            width: 8,
+            height: 7,
+            flexShrink: 0,
+            paddingRight: "8px",
+            paddingTop: "9px",
+          }}
+        />
+        <Favorite style={{ paddingTop: "2px" }}>즐겨찾기</Favorite>
+        <MapIcon
+          style={{
+            width: 24,
+            height: 24,
+            flexShrink: 0,
+            position: "absolute",
+            right: 55,
+          }}
+        />
+      </Body>
+      <DividerContainer>
+        <Divider />
+      </DividerContainer>
+      <RecordContainer>
+        <Favorite>최근 검색 기록이 없어요</Favorite>
+      </RecordContainer>
     </Container>
   );
 }
@@ -40,7 +69,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  overflow: scroll;
+  overflow: hidden;
 `;
 
 const Header = styled.div`
@@ -84,4 +113,47 @@ const InputStyle = styled.input`
   }
 `;
 
+const Body = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-left: 23px;
+  padding-top: 13px;
+`;
+
+const Title = styled.div`
+  color: var(--Gray-Text-3, #343434);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 157%; /* 25.12px */
+  padding-right: 22px;
+`;
+
+const Favorite = styled.div`
+  color: var(--Gray-Text-1, #9a9a9a);
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 157%; /* 21.98px */
+`;
+const DividerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+`;
+const Divider = styled.div`
+  width: calc(100% - 50px);
+  height: 2px;
+  background-color: #e0e0e0;
+`;
+const RecordContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45vh;
+`;
 export default SearchResults;
