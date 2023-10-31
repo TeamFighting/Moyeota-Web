@@ -2,7 +2,7 @@ import { ChevronRight, LocationFrom, LocationMarker } from "../../assets/svg";
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 
-function DetailBody() {
+function CreateBody({ destination }: { destination: string | null }) {
   const navigate = useNavigate();
   const NavigateToDestination = () => {
     navigate("/destinationPage");
@@ -52,7 +52,7 @@ function DetailBody() {
               </S.Icon>
               <S.Text>
                 <S.StartPointLocation>
-                  도착지를 입력해주세요
+                  {destination || "도착지를 입력해주세요"}
                 </S.StartPointLocation>
                 <S.StartPoint>도착지</S.StartPoint>
               </S.Text>
@@ -67,4 +67,4 @@ function DetailBody() {
   );
 }
 
-export default DetailBody;
+export default CreateBody;

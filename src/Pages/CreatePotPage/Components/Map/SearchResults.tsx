@@ -11,7 +11,7 @@ function SearchResults() {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate("./DestinationPage");
+    navigate("/destinationPage");
   };
 
   const [destination, setDestination] = useState("");
@@ -26,13 +26,13 @@ function SearchResults() {
     if (destination) {
       navigate(`/DestinationPage?destination=${destination}`);
     } else {
-      console.log("검색 에러");
+      alert("검색어를 입력해주세요");
     }
   };
   return (
     <Container>
       <Header>
-        <Icon onClick={() => goBack}>
+        <Icon onClick={goBack}>
           <CheveronLeft width="24" height="24" />
         </Icon>
       </Header>
