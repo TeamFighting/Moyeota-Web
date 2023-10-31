@@ -1,21 +1,20 @@
-import * as S from './style';
-import DetailHeader from './DetailHeader';
-import DetailBody from './DetailBody';
-import DetailBottom from './DetailBottom';
-import DetailPartySection from './DetailPartySection';
-import ApplyButton from '../MainPage/Components/ApplyButton/ApplyButton';
-import { useLocation } from 'react-router';
-import ApplyModal from '../MainPage/Components/ApplyButton/ApplyModal';
-import ModalStore from '../../zustand/store/ModalStore';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import * as S from "./style";
+import DetailHeader from "./DetailHeader";
+import DetailBody from "./DetailBody";
+import DetailBottom from "./DetailBottom";
+import DetailPartySection from "./DetailPartySection";
+import ApplyButton from "../MainPage/Components/ApplyButton/ApplyButton";
+import { useLocation } from "react-router";
+import ApplyModal from "../MainPage/Components/ApplyButton/ApplyModal";
+import ModalStore from "../../zustand/store/ModalStore";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 function DetailPage() {
   const [isFull, setIsFull] = useState(false);
   const location = useLocation();
   const [scroll, setScroll] = useState(0);
-  const [dividerHeight, setDividerHeight] = useState(6); // Divider 컴포넌트의 height 값을 상태로 관리
-
+  const [dividerHeight, setDividerHeight] = useState(6);
   const { data, splitedTime, timePart } = location.state;
   const { isOpen, setIsOpen } = ModalStore((state) => state);
   if (data.numberOfParticipants == data.numberOfRecruitment) {
@@ -27,10 +26,10 @@ function DetailPage() {
       setScroll(position);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
   useEffect(() => {
@@ -41,11 +40,12 @@ function DetailPage() {
       setDividerHeight(6);
     }
   }, [scroll]);
+
   return (
     <S.Container>
       <DetailHeader />
       <DetailBody data={data} />
-      <Divider style={{ height: '10px' }} />
+      <Divider style={{ height: "10px" }} />
       <DetailBottom
         fare={data.fare}
         duration={data.duration}
@@ -64,7 +64,8 @@ function DetailPage() {
         gender={data.userGender}
         participants={data.numberOfParticipants}
       />
-      <ApplyButton />
+
+      <ApplyButton postId={data.postId} />
       {isOpen && (
         <ApplyModal
           setIsOpen={setIsOpen}
