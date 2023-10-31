@@ -11,7 +11,7 @@ function DestinationButton() {
     if (destination) {
       navigate(`/createPotPage?destination=${destination}`);
     } else {
-      alert("검색어를 입력해주세요");
+      alert("도착지를 입력해주세요");
     }
   };
   return (
