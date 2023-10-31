@@ -15,7 +15,7 @@ function CreatePotPage() {
   const [scroll, setScroll] = useState(0);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const destination = searchParams.get("destination");
+  const destination = searchParams.get("destination") || undefined;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,4 +61,5 @@ const Divider = styled.div`
   width: 100vw;
   background-color: #f5f6f8;
 `;
+
 export default CreatePotPage;

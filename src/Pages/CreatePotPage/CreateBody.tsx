@@ -2,7 +2,11 @@ import { ChevronRight, LocationFrom, LocationMarker } from "../../assets/svg";
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 
-function CreateBody({ destination }: { destination: string | null }) {
+interface CreateBodyProps {
+  destination?: string;
+}
+
+function CreateBody({ destination }: CreateBodyProps) {
   const navigate = useNavigate();
   const NavigateToDestination = () => {
     navigate("/destinationPage");
