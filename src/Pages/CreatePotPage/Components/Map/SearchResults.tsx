@@ -5,25 +5,45 @@ import CheveronLeft from "../../../../assets/svg/Chevronleft";
 import My_location from "../../../../assets/svg/My_location";
 import MapIcon from "../../../../assets/svg/MapIcon";
 import Star from "../../../../assets/svg/Star";
+import { useState } from "react";
 
 function SearchResults() {
   const navigate = useNavigate();
+
   const goBack = () => {
-    navigate("/DestinationPage");
+    navigate("./DestinationPage");
   };
 
+  const [destination, setDestination] = useState("");
+
+  const handleDestinationChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setDestination(event.target.value);
+  };
+
+  const goTomap = () => {
+    if (destination) {
+      navigate(`/DestinationPage?destination=${destination}`);
+    } else {
+      console.log("검색 에러");
+    }
+  };
   return (
     <Container>
       <Header>
-        <Icon onClick={goBack}>
+        <Icon onClick={() => goBack}>
           <CheveronLeft width="24" height="24" />
         </Icon>
       </Header>
       <InputStyle
         type="text"
         placeholder="찾고 싶은 장소나 주소를 입력하세요"
+        value={destination}
+        onChange={handleDestinationChange}
       />
       <My_location
+        onClick={goTomap}
         style={{
           width: 18,
           height: 18,
@@ -79,6 +99,7 @@ const Header = styled.div`
   justify-content: space-between;
   padding: 0 4%;
 `;
+
 const Icon = styled.div`
   cursor: pointer;
   align-self: flex-start;
@@ -93,7 +114,6 @@ const InputStyle = styled.input`
   flex-shrink: 0;
   margin: 0 auto;
   padding: 0px 20px;
-
   border: none;
   outline: none;
   font-family: Pretendard;
@@ -102,7 +122,6 @@ const InputStyle = styled.input`
   font-weight: 500;
   line-height: 21.98px;
   padding-left: 14px;
-
   &::placeholder {
     color: var(--Gray-Text-1, #9a9a9a);
     font-family: Pretendard;
@@ -140,20 +159,24 @@ const Favorite = styled.div`
   font-weight: 500;
   line-height: 157%; /* 21.98px */
 `;
+
 const DividerContainer = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 10px;
 `;
+
 const Divider = styled.div`
   width: calc(100% - 50px);
   height: 2px;
   background-color: #e0e0e0;
 `;
+
 const RecordContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   height: 45vh;
 `;
+
 export default SearchResults;

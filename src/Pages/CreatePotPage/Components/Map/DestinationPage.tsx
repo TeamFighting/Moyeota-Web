@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Kakaomap from "./Kakaomap/Kakaomap";
 import { Chevronleft } from "../../../../assets/svg";
 import { HEADER_HEIGHT } from "../../../../Constants/constant";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import BottomSheet from "./BottomSheet";
 import DestinationButton from "../Button/DestinationButtom";
 import { useRef } from "react";
@@ -13,6 +13,10 @@ function DestinationPage() {
   const goToSearchResults = () => {
     navigate("/searchResults");
   };
+  const location = useLocation();
+  const destination = (new URLSearchParams(location.search).get(
+    "destination"
+  ) || undefined) as string | undefined;
 
   return (
     <Container>
@@ -21,6 +25,8 @@ function DestinationPage() {
           type="text"
           placeholder="도착지를 검색해보세요"
           onClick={goToSearchResults}
+          value={destination || ""}
+          readOnly
         />
         <Chevronleft
           style={{
@@ -36,7 +42,7 @@ function DestinationPage() {
       <Body>
         <Kakaomap mapRef={mapRef} />
         <Bottom>
-          <BottomSheet />
+          <BottomSheet destination={destination} />
           <DestinationButton />
         </Bottom>
       </Body>
