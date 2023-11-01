@@ -9,6 +9,7 @@ import CreateComplete from "./Pages/CreatePotPage/CreateComplete";
 import DestinationPage from "./Pages/CreatePotPage/Components/Map/DestinationPage";
 import SearchResults from "./Pages/CreatePotPage/Components/Map/SearchResults";
 import QuickMatch from "./Pages/QuickMatch/QuickMatch";
+import QuickMatchFinding from "./Pages/QuickMatch/QuickMatchFinding";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/quickMatch",
     element: <QuickMatch />,
+  },
+  {
+    path: "/quickMatchFinding",
+    element: <QuickMatchFinding />,
   },
 ]);
 
