@@ -8,34 +8,18 @@ interface ApplyButtonProps {
 }
 
 function ApplyButton({ postId }: ApplyButtonProps) {
-  const { setIsOpen } = ModalStore((state) => state);
+  const { setIsModalOpen, modalOpen } = ModalStore();
   const { appliedParty, deleteAppliedParty } = useAppliedPartyStore();
   console.log("appliedParty", appliedParty);
-  const handleClick = () => {
-    setIsOpen(true);
-  };
-  const handleCancel = (postId: number) => {
-    cancelParty(postId);
-  };
-  async function cancelParty(postId: number) {
-    deleteAppliedParty(postId);
 
-    try {
-      const res = await axios.post(
-        `http://moyeota.shop/api/participation-details/${postId}`,
-        {
-          postId: postId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
-          },
-        }
-      );
-    } catch (e: unknown) {
-      console.log(e);
-    }
-  }
+  const handleApply = () => {
+    setIsModalOpen(true, "apply");
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(true, "cancel");
+  };
+
   if (appliedParty.length !== 0) {
     return appliedParty.map((party) => {
       if (party.postId === postId) {
@@ -43,7 +27,7 @@ function ApplyButton({ postId }: ApplyButtonProps) {
           <Wrapper>
             <ButtonCancel
               onClick={() => {
-                handleCancel(postId);
+                handleCancel();
               }}
               type="button"
             >
@@ -54,7 +38,7 @@ function ApplyButton({ postId }: ApplyButtonProps) {
       } else {
         return (
           <Wrapper>
-            <Button onClick={handleClick} type="button">
+            <Button onClick={handleApply} type="button">
               매칭 신청하기
             </Button>
           </Wrapper>
@@ -64,7 +48,7 @@ function ApplyButton({ postId }: ApplyButtonProps) {
   } else {
     return (
       <Wrapper>
-        <Button onClick={handleClick} type="button">
+        <Button onClick={handleApply} type="button">
           매칭 신청하기
         </Button>
       </Wrapper>
@@ -118,4 +102,5 @@ const Button = styled.button`
   line-height: normal;
   letter-spacing: 0.54px;
 `;
+
 export default ApplyButton;

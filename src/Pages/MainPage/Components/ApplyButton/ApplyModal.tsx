@@ -3,26 +3,26 @@ import { useState } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import styled from "styled-components";
 import { useAppliedPartyStore } from "../../../../zustand/store/AppliedPartyStore";
+import ModalStore from "../../../../zustand/store/ModalStore";
 
 interface ModalProps {
-  setIsOpen: (setIsOpen: boolean) => void;
   isFull: boolean;
   postId: number;
 }
-function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
-  const [setErrorCode] = useState<number>(0);
-  const { setAppliedParty } = useAppliedPartyStore();
-  const [isApplied, setIsApplied] = useState<boolean>(false);
+function ApplyModal({ postId, isFull }: ModalProps) {
+  const { setAppliedParty, deleteAppliedParty } = useAppliedPartyStore();
+  const { modalOpen, setIsModalOpen } = ModalStore();
+
   const ref = useOnclickOutside(() => {
-    setIsOpen(false);
+    setIsModalOpen(false, "apply");
   });
   const closeModal = () => {
-    setIsOpen(false);
+    setIsModalOpen(false, "apply");
   };
 
   async function applyParty(postId: number) {
     try {
-      const res = await axios
+      await axios
         .post(
           `http://moyeota.shop/api/participation-details/posts/${postId}`,
           {
@@ -38,16 +38,38 @@ function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
           if (res.data.status === "SUCCESS") {
             console.log("신청 완료");
             setAppliedParty(postId);
-            setIsApplied(true);
+            setIsModalOpen(true, "applySuccess");
           }
         });
     } catch (e) {
       if ((e as any)?.response?.data?.code === 422) {
         console.log("이미 신청한 팟입니다.");
         setAppliedParty(postId);
-        setIsApplied(true);
+        setIsModalOpen(true, "applySuccess");
       }
     }
+  }
+
+  async function cancelParty(postId: number) {
+    deleteAppliedParty(postId);
+    setIsModalOpen(true, "cancel");
+
+    try {
+      const res = await axios.post(
+        `http://moyeota.shop/api/participation-details/${postId}`,
+        {
+          postId: postId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
+          },
+        }
+      );
+    } catch (e: unknown) {
+      console.log(e);
+    }
+    closeModal();
   }
   if (isFull) {
     return (
@@ -63,7 +85,7 @@ function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
         </Modal>
       </ModalWrapper>
     );
-  } else if (!isApplied) {
+  } else if (modalOpen.status == "apply") {
     return (
       <ModalWrapper>
         <Modal ref={ref}>
@@ -89,7 +111,7 @@ function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
         </Modal>
       </ModalWrapper>
     );
-  } else if (isApplied) {
+  } else if (modalOpen.status == "applySuccess") {
     return (
       <ModalWrapper>
         <Modal style={{ height: "186px" }} ref={ref}>
@@ -101,6 +123,33 @@ function ApplyModal({ setIsOpen, postId, isFull }: ModalProps) {
           <CloseButton onClick={closeModal} type="button">
             닫기
           </CloseButton>
+        </Modal>
+      </ModalWrapper>
+    );
+  } else if (modalOpen.status == "cancel") {
+    return (
+      <ModalWrapper>
+        <Modal ref={ref}>
+          <Text>
+            <Explain>팟 신청을 취소하시겠습니까?</Explain>
+            <Explain>잦은 취소는 이용에 제한이 있을 수 있어요 !</Explain>
+          </Text>
+          <Buttons>
+            <StyledBtn
+              onClick={closeModal}
+              style={{ backgroundColor: "#F5F6F8", color: "#5D5D5D" }}
+            >
+              아니오
+            </StyledBtn>
+            <StyledBtn
+              onClick={() => {
+                cancelParty(postId);
+              }}
+              style={{ backgroundColor: "#1EDD81" }}
+            >
+              예
+            </StyledBtn>
+          </Buttons>
         </Modal>
       </ModalWrapper>
     );

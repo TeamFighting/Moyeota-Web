@@ -16,7 +16,7 @@ function DetailPage() {
   const [scroll, setScroll] = useState(0);
   const [dividerHeight, setDividerHeight] = useState(6);
   const { data, splitedTime, timePart } = location.state;
-  const { isOpen, setIsOpen } = ModalStore((state) => state);
+  const { modalOpen, setIsModalOpen } = ModalStore();
   if (data.numberOfParticipants == data.numberOfRecruitment) {
     setIsFull(true);
   }
@@ -66,13 +66,7 @@ function DetailPage() {
       />
 
       <ApplyButton postId={data.postId} />
-      {isOpen && (
-        <ApplyModal
-          setIsOpen={setIsOpen}
-          isFull={isFull}
-          postId={data.postId}
-        />
-      )}
+      {modalOpen.isOpen && <ApplyModal isFull={isFull} postId={data.postId} />}
     </S.Container>
   );
 }
