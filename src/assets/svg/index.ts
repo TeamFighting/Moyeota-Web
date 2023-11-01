@@ -23,6 +23,6 @@ export { default as LocationMarker } from "./LocationMarker";
 export { default as Logo } from "./Logo";
 export { default as ProfileSample } from "./ProfileSample";
 export { default as RefreshButton } from "./RefreshButton";
-export { default as RobotProfile } from "./RobotProfile";
+export { default as RobotProfile } from "./robotProfile";
 export { default as Switch } from "./Switch";
 export { default as CaretRight } from "./CaretRight";

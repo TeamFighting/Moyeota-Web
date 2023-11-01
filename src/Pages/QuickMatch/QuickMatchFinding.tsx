@@ -14,7 +14,6 @@ import * as S from "./style";
 import {
   ChevronRight,
   DesPangyo,
-  Destination,
   GreenOpacity,
   LocationFrom,
   LocationMarker,
@@ -24,7 +23,7 @@ import MatchKaKao from "./MatchKakao/MatchKakao";
 function QuickMatchFinding() {
   const mapRef = useRef<HTMLElement | null>(null);
   const location = useLocation();
-  const { time, destination } = location.state;
+  const { destination } = location.state;
   return (
     <div>
       <DetailHeader />
