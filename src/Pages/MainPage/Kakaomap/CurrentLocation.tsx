@@ -10,7 +10,6 @@ function CurrentLocation() {
   });
 
   const { setLatLng } = useStore((state) => state);
-
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (navigator.geolocation) {
@@ -19,11 +18,16 @@ function CurrentLocation() {
     }, 5000);
 
     function success(position: GeolocationPosition) {
+      localStorage.setItem("latitude", position.coords.latitude.toString());
+      localStorage.setItem("longitude", position.coords.longitude.toString());
       setLocation({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
+        latitude: localStorage.getItem("latitude") as unknown as number,
+        longitude: localStorage.getItem("longitude") as unknown as number,
       });
-      setLatLng(position.coords.latitude, position.coords.longitude);
+      setLatLng(
+        localStorage.getItem("latitude") as unknown as number,
+        localStorage.getItem("longitude") as unknown as number
+      );
     }
 
     function error() {

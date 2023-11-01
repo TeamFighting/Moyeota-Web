@@ -1,29 +1,29 @@
-import * as S from '../../style';
-import SingleContent from '../SingleContent';
-import useStore from '../../../../zustand/store/ContentStore';
+import * as S from "../../style";
+import SingleContent from "../SingleContent";
+import useStore from "../../../../zustand/store/ContentStore";
 
 const BottomSheetContent = () => {
   const { totalData } = useStore((state) => state);
 
-  if (totalData.length === 0) {
+  if (totalData === undefined || null) {
     return (
       <div
         style={{
-          width: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '50px',
-          marginTop: '100px',
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          gap: "50px",
+          marginTop: "100px",
         }}
       >
         <img src="../../../../../public/png/Simbol.png" />
         <p
           style={{
-            fontSize: '32px',
-            fontFamily: 'pretendard',
-            color: ' #9A9A9A',
+            fontSize: "32px",
+            fontFamily: "pretendard",
+            color: " #9A9A9A",
             fontWeight: 500,
           }}
         >
