@@ -8,7 +8,7 @@ interface ModalProps {
   isFull: boolean;
   postId: number;
 }
-function ApplyModal({ postId, isFull }: ModalProps) {
+function MatchApplyModal({ postId, isFull }: ModalProps) {
   const { setAppliedParty, deleteAppliedParty } = useAppliedPartyStore();
   const { modalOpen, setIsModalOpen } = ModalStore();
 
@@ -40,7 +40,7 @@ function ApplyModal({ postId, isFull }: ModalProps) {
             setIsModalOpen(true, "applySuccess");
           }
         });
-    } catch (e) {
+    } catch (e: unknown) {
       if ((e as any)?.response?.data?.code === 422) {
         console.log("이미 신청한 팟입니다.");
         setAppliedParty(postId);
@@ -247,4 +247,4 @@ const CloseButton = styled.button`
   background: var(--Green-Button, #1edd81);
 `;
 
-export default ApplyModal;
+export default MatchApplyModal;
