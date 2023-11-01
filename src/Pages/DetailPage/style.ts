@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../Constants/constant';
+import styled from "styled-components";
+import { HEADER_HEIGHT } from "../../Constants/constant";
 
 export const PartyoneText = styled.div`
   color: var(--Gray-Text-1, #9a9a9a);
@@ -14,11 +14,13 @@ export const PartyoneText = styled.div`
   margin-top: 47px;
   background-color: none;
 `;
+
 export const PartyOne = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
+
 export const Icon = styled.div`
   cursor: pointer;
   align-self: flex-start;
@@ -42,6 +44,7 @@ export const Description = styled.div`
   line-height: 156%; /* 24.96px */
   width: ${window.innerWidth - 90}px;
 `;
+
 export const Name = styled.div`
   color: var(--Gray-Text-3, #343434);
   font-family: Pretendard;
@@ -51,6 +54,7 @@ export const Name = styled.div`
   line-height: 157%; /* 25.12px */
   margin-right: 7px;
 `;
+
 export const Leader = styled.div`
   color: #000;
   font-family: Pretendard;
@@ -62,12 +66,14 @@ export const Leader = styled.div`
   margin-left: 28px;
   margin-bottom: 13px;
 `;
+
 export const Party = styled.div`
   min-height: 74.3vh;
   height: 810px;
   display: flex;
   flex-direction: column;
 `;
+
 export const TextDescription = styled.div`
   color: #000;
   font-family: Pretendard;
@@ -76,6 +82,7 @@ export const TextDescription = styled.div`
   font-weight: 700;
   margin-top: 28px;
 `;
+
 export const GateringTag = styled.div`
   border-radius: 4px;
   border: 1px solid #ebebeb;
@@ -93,6 +100,7 @@ export const GateringTag = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 export const Staus = styled.div`
   height: fit-content;
   display: flex;
@@ -107,6 +115,7 @@ export const Tags = styled.div`
   align-items: center;
   text-align: center;
 `;
+
 export const Tag = styled.div`
   font-size: 10px;
   font-weight: 600;
@@ -117,22 +126,23 @@ export const Tag = styled.div`
   background-color: #f5f6f8;
   padding: 2px 4px;
 `;
+
 export const DescriptionTag = styled.div``;
+
 export const Bottom = styled.div`
   display: flex;
   flex-direction: column;
   bottom: 0;
-
-  /* width: 100vw; */
   padding: 37px 25px 28px 25px;
-  /* border-top : 1px soild #fbfbfb; */
 `;
+
 export const Text = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 3px;
   padding-left: 7px;
 `;
+
 export const StartPoint = styled.div`
   color: var(--Gray-Text-1, #9a9a9a);
   font-family: Pretendard;
@@ -140,6 +150,7 @@ export const StartPoint = styled.div`
   font-style: normal;
   font-weight: 400;
 `;
+
 export const StartPointLocation = styled.div`
   color: var(--Gray-Text-3, #343434);
   font-family: Pretendard;
@@ -156,17 +167,20 @@ export const From = styled.div`
   padding-right: 10px;
   justify-content: space-between;
 `;
+
 export const Route = styled.div`
   display: flex;
   flex-direction: column;
   gap: 7px;
   padding-bottom: 18px;
 `;
+
 export const Explanation = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
 `;
+
 export const MapSample = styled.img``;
 
 export const Container = styled.div`
@@ -182,15 +196,18 @@ export const Content = styled.div`
   flex-direction: column;
   gap: 47px;
 `;
+
 export const ContentTitle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
+
 export const Title = styled.div`
   font-size: 22px;
   font-weight: 700;
 `;
+
 export const ContentDetail = styled.div`
   display: flex;
   flex-direction: row;
@@ -209,6 +226,7 @@ export const Body = styled.div`
   margin: 0 25px;
   height: 603px;
 `;
+
 export const Profile = styled.div`
   display: flex;
   flex-direction: row;

@@ -3,9 +3,9 @@ import DetailHeader from "./DetailHeader";
 import DetailBody from "./DetailBody";
 import DetailBottom from "./DetailBottom";
 import DetailPartySection from "./DetailPartySection";
-import ApplyButton from "../MainPage/Components/ApplyButton/ApplyButton";
+import MatchApplyButton from "../MainPage/Components/MatchApplyButton/MatchApplyButton";
 import { useLocation } from "react-router";
-import ApplyModal from "../MainPage/Components/ApplyButton/ApplyModal";
+import MatchApplyModal from "../MainPage/Components/MatchApplyButton/MatchApplyModal";
 import ModalStore from "../../zustand/store/ModalStore";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -65,8 +65,10 @@ function DetailPage() {
         participants={data.numberOfParticipants}
       />
 
-      <ApplyButton postId={data.postId} />
-      {modalOpen.isOpen && <ApplyModal isFull={isFull} postId={data.postId} />}
+      <MatchApplyButton postId={data.postId} />
+      {modalOpen.isOpen && (
+        <MatchApplyModal isFull={isFull} postId={data.postId} />
+      )}
     </S.Container>
   );
 }

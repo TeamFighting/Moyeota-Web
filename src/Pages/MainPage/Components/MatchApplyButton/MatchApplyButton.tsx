@@ -6,7 +6,7 @@ interface ApplyButtonProps {
   postId: number;
 }
 
-function ApplyButton({ postId }: ApplyButtonProps) {
+function MatchApplyButton({ postId }: ApplyButtonProps) {
   const { setIsModalOpen } = ModalStore();
   const { appliedParty } = useAppliedPartyStore();
   console.log("appliedParty", appliedParty);
@@ -102,4 +102,4 @@ const Button = styled.button`
   letter-spacing: 0.54px;
 `;
 
-export default ApplyButton;
+export default MatchApplyButton;
