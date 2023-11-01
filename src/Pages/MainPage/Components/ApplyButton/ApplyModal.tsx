@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useState } from "react";
 import useOnclickOutside from "react-cool-onclickoutside";
 import styled from "styled-components";
 import { useAppliedPartyStore } from "../../../../zustand/store/AppliedPartyStore";
@@ -55,7 +54,7 @@ function ApplyModal({ postId, isFull }: ModalProps) {
     setIsModalOpen(true, "cancel");
 
     try {
-      const res = await axios.post(
+      await axios.post(
         `http://moyeota.shop/api/participation-details/${postId}`,
         {
           postId: postId,

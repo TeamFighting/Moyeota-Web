@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import ModalStore from "../../../../zustand/store/ModalStore";
-import axios from "axios";
 import { useAppliedPartyStore } from "../../../../zustand/store/AppliedPartyStore";
 
 interface ApplyButtonProps {
@@ -8,8 +7,8 @@ interface ApplyButtonProps {
 }
 
 function ApplyButton({ postId }: ApplyButtonProps) {
-  const { setIsModalOpen, modalOpen } = ModalStore();
-  const { appliedParty, deleteAppliedParty } = useAppliedPartyStore();
+  const { setIsModalOpen } = ModalStore();
+  const { appliedParty } = useAppliedPartyStore();
   console.log("appliedParty", appliedParty);
 
   const handleApply = () => {
