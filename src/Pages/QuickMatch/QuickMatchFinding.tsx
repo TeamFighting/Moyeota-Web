@@ -20,10 +20,17 @@ import {
 } from "../../assets/svg";
 import { useLocation } from "react-router";
 import MatchKaKao from "./MatchKakao/MatchKakao";
+import CurrentLocationStore from "../../zustand/store/CurrentLocation";
+
 function QuickMatchFinding() {
   const mapRef = useRef<HTMLElement | null>(null);
+
   const location = useLocation();
+
   const { destination } = location.state;
+
+  const { currentLocation } = CurrentLocationStore();
+  const currentBuildingName = currentLocation?.building_name;
   return (
     <div>
       <DetailHeader />
@@ -100,9 +107,7 @@ function QuickMatchFinding() {
             <div style={{ display: "flex", flexDirection: "row" }}>
               <LocationFrom width="24" height="64" />
               <Text>
-                <StartPointLocation>
-                  서울과학기술대학교 어의관
-                </StartPointLocation>
+                <StartPointLocation>{currentBuildingName}</StartPointLocation>
                 <StartPoint>출발지</StartPoint>
               </Text>
             </div>
