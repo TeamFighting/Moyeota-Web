@@ -55,7 +55,6 @@ export default function useBottomSheet() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      console.log("touchmove", e);
       const { touchStart, touchMove } = metrics.current;
       const currentTouch = e.touches[0];
 

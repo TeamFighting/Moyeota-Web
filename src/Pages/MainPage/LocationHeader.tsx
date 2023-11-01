@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import LatLngStore from "../../zustand/store/LatLngstore";
 import { useState } from "react";
 
 function LocationHeader() {
   const geocoder = new kakao.maps.services.Geocoder();
-  const currentLat = LatLngStore((state) => state.currentLat);
-  const currentLng = LatLngStore((state) => state.currentLng);
-  const coord = new kakao.maps.LatLng(currentLat, currentLng);
+  const latitude = Number(localStorage.getItem("latitude"));
+  const longitude = Number(localStorage.getItem("longitude"));
+  const coord = new kakao.maps.LatLng(latitude, longitude);
   const [location, setLocation] = useState<string>("");
   const callback = function (
     result: {
