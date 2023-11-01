@@ -76,7 +76,9 @@ function MainPage() {
         <Bottom>
           <BottomSheet />
           <Buttons>
-            <CreatePotButton>빠른매칭</CreatePotButton>
+            <CreatePotButton onClick={() => navigate("/quickMatch")}>
+              빠른매칭
+            </CreatePotButton>
             <CreatePotButton onClick={navigateToCreatePot}>
               팟 만들기
             </CreatePotButton>
