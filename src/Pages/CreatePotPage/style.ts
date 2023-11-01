@@ -40,6 +40,7 @@ export const Title = styled.div`
   font-weight: 700;
   font-family: Pretendard;
 `;
+
 export const MapSample = styled.img``;
 
 export const Route = styled.div`
@@ -48,6 +49,7 @@ export const Route = styled.div`
   gap: 7px;
   padding-bottom: 18px;
 `;
+
 export const From = styled.div`
   display: flex;
   flex-direction: row;
@@ -62,6 +64,7 @@ export const Text = styled.div`
   padding-top: 3px;
   padding-left: 7px;
 `;
+
 export const StartPointLocation = styled.div`
   color: #343434;
   font-family: Pretendard;
@@ -70,6 +73,7 @@ export const StartPointLocation = styled.div`
   font-weight: 600;
   flex-direction: column;
 `;
+
 export const StartPoint = styled.div`
   color: var(--Gray-Text-1, #9a9a9a);
   font-family: Pretendard;
@@ -77,6 +81,7 @@ export const StartPoint = styled.div`
   font-style: normal;
   font-weight: 400;
 `;
+
 export const Icon = styled.div`
   cursor: pointer;
   align-self: flex-start;
@@ -110,34 +115,33 @@ export const Bottom = styled.div`
   display: flex;
   flex-direction: column;
   bottom: 0;
-
-  /* width: 100vw; */
   padding: 37px 25px 28px 25px;
-  /* border-top : 1px soild #fbfbfb; */
 `;
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 `;
+
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 export const Description = styled.div`
   font-size: 14px;
   font-family: Pretendard;
   color: #9a9a9a;
   font-weight: 500;
-  lineheight: 21.98;
 `;
+
 export const BottomTitle = styled.div`
   font-size: 18px;
   font-family: Pretendard;
   font-weight: 700;
   color: black;
-  lineheight: 28.26;
   margin-bottom: 10px;
 `;
 
@@ -209,12 +213,12 @@ export const InputDescription = styled.textarea`
 `;
 
 export const NoteDescription = styled.div`
-  color:#9A9A9A;
-  font-size:14;
-  font-family:Pretendard;
-  font-weight:500,
-  line-height:21.98;
-  word-wrap:break-word;
+  color: #9a9a9a;
+  font-size: 14;
+  font-family: Pretendard;
+  font-weight: 500;
+  line-height: 21.98;
+  word-wrap: break-word;
 `;
 
 export const NoteWrapper = styled.div`
