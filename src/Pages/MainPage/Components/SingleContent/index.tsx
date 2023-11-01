@@ -1,14 +1,14 @@
-import * as S from '../../style';
-import Profile from './Profile';
-import ArrowRight from '../../../../../public/svg/ArrowRight.svg';
-import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
-import Clock from '../../../../../public/svg/Clock.svg';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import useStore from '../../../../zustand/store/ContentStore';
-import ISOto12 from './ISOto12';
-import getDays from './getDays';
-import createAgo from './createAgo';
+import * as S from "../../style";
+import Profile from "./Profile";
+import ArrowRight from "../../../../../public/svg/ArrowRight.svg";
+import LocationMarker from "../../../../../public/svg/LocationMarker.svg";
+import Clock from "../../../../../public/svg/Clock.svg";
+import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import useStore from "../../../../zustand/store/ContentStore";
+import ISOto12 from "./ISOto12";
+import getDays from "./getDays";
+import createAgo from "./createAgo";
 // import { useEffect, useState } from 'react';
 
 function SingleContent() {
@@ -19,7 +19,7 @@ function SingleContent() {
     splitedDay: string[],
     timePart: string
   ) => {
-    navigate('/detailpage', {
+    navigate("/detailpage", {
       state: {
         data: data,
         splitedDay: splitedDay,
@@ -37,9 +37,9 @@ function SingleContent() {
     let gender;
 
     if (!data.userGender) {
-      gender = '여';
+      gender = "여";
     } else {
-      gender = '남';
+      gender = "남";
     }
     return (
       <S.SingleContent
@@ -67,7 +67,7 @@ function SingleContent() {
             <S.Time>
               <Clock />
               <S.StartTime>
-                {splitedDay[1]}월{splitedDay[2]}일 ({splitedDay[3]}) {timePart}{' '}
+                {splitedDay[1]}월{splitedDay[2]}일 ({splitedDay[3]}) {timePart}{" "}
                 출발
               </S.StartTime>
             </S.Time>
@@ -77,14 +77,14 @@ function SingleContent() {
             <Tags>
               <Tag>{data.vehicle}</Tag>
               {!data.sameGenderStatus && <Tag>성별무관</Tag>}
-              {data.sameGenderStatus && data.userGender && <Tag>여자만</Tag>}
-              {data.sameGenderStatus && !data.userGender && <Tag>남자만</Tag>}
+              {data.sameGenderStatus && data.userGender && <Tag>남자만</Tag>}
+              {data.sameGenderStatus && !data.userGender && <Tag>여자만</Tag>}
               <Tag>{data.category}</Tag>
             </Tags>
             <Status>
-              {data.status === 'RECRUITING' && (
+              {data.status === "RECRUITING" && (
                 <GaterStatus>
-                  모집중 {data.numberOfParticipants} /{' '}
+                  모집중 {data.numberOfParticipants} /{" "}
                   {data.numberOfRecruitment}
                 </GaterStatus>
               )}
