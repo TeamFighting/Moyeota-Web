@@ -13,7 +13,9 @@ import {
 import * as S from "./style";
 import {
   ChevronRight,
+  DesPangyo,
   Destination,
+  GreenOpacity,
   LocationFrom,
   LocationMarker,
 } from "../../assets/svg";
@@ -37,7 +39,7 @@ function QuickMatchFinding() {
         <div
           style={{
             width: "100vw",
-            height: "330px",
+            height: "44vh",
             backgroundColor: "white",
             zIndex: "2",
             opacity: "0.5",
@@ -48,19 +50,32 @@ function QuickMatchFinding() {
           style={{
             position: "absolute",
             zIndex: 3,
-            top: "310px",
+            top: "35vh",
             left: "43vw",
             marginLeft: "-50px",
           }}
         >
-          <Destination width="150" height="50" />
+          <DesPangyo width="150" height="50" />
         </Icon>
+        <div
+          style={{
+            position: "absolute",
+            zIndex: 3,
+            top: "30vh",
+
+            left: "36vw",
+            width: "200px",
+            marginLeft: "-50px",
+          }}
+        >
+          <GreenOpacity width="200" height="200" />
+        </div>
         <div
           style={{
             position: "absolute",
             top: "200px",
             width: "100vw",
-            height: "440px",
+            height: "320px",
             backgroundColor: "aliceblue",
           }}
         >
@@ -69,7 +84,7 @@ function QuickMatchFinding() {
         <Route
           style={{
             position: "absolute",
-            top: "517px",
+            top: "66%",
             height: "115px",
             zIndex: "2",
             backgroundColor: "white",
@@ -80,23 +95,25 @@ function QuickMatchFinding() {
         >
           <From
             style={{
-              width: `${window.innerWidth - 100}px`,
+              width: `${window.innerWidth - 50}px`,
             }}
           >
             <div style={{ display: "flex", flexDirection: "row" }}>
               <LocationFrom width="24" height="64" />
               <Text>
-                <StartPointLocation>공덕역 5호선</StartPointLocation>
+                <StartPointLocation>
+                  서울과학기술대학교 어의관
+                </StartPointLocation>
                 <StartPoint>출발지</StartPoint>
               </Text>
             </div>
-            <Icon style={{ paddingTop: "3px" }}>
+            <Icon style={{ paddingTop: "3px", width: "24px" }}>
               <ChevronRight />
             </Icon>
           </From>
           <From
             style={{
-              width: `${window.innerWidth - 100}px`,
+              width: `${window.innerWidth - 50}px`,
             }}
           >
             <div style={{ display: "flex", flexDirection: "row" }}>
@@ -114,7 +131,7 @@ function QuickMatchFinding() {
                 <StartPoint>도착지</StartPoint>
               </Text>
             </div>
-            <Icon style={{ paddingTop: "3px" }}>
+            <Icon style={{ paddingTop: "3px", width: "24px" }}>
               <ChevronRight />
             </Icon>
           </From>

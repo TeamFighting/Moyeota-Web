@@ -63,7 +63,7 @@ function MatchKaKao({ mapRef }: { mapRef: MutableRefObject<any> }) {
     <>
       <div
         id="map"
-        style={{ position: "relative", width: "100%", height: "100%" }}
+        style={{ position: "relative", width: "100vw", height: "50vh" }}
       ></div>
     </>
   );
