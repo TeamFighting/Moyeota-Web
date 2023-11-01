@@ -76,10 +76,10 @@ function MainPage() {
         <Bottom>
           <BottomSheet />
           <Buttons>
-            <CreatePodButton>빠른매칭</CreatePodButton>
-            <CreatePodButton onClick={navigateToCreatePot}>
+            <CreatePotButton>빠른매칭</CreatePotButton>
+            <CreatePotButton onClick={navigateToCreatePot}>
               팟 만들기
-            </CreatePodButton>
+            </CreatePotButton>
           </Buttons>
         </Bottom>
       </Body>
@@ -147,7 +147,7 @@ const Buttons = styled.div`
   gap: 10px;
 `;
 
-const CreatePodButton = styled.button`
+const CreatePotButton = styled.button`
   background-color: #1edd81;
   color: #fff;
   font-size: 16px;
@@ -162,6 +162,7 @@ const CreatePodButton = styled.button`
   width: 114px;
   height: 48px;
   border-radius: 24px;
+  right: 7%;
   box-shadow: 0px 4px 4px rgba(171, 171, 171, 0.25);
 `;
 
