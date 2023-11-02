@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import Kakaomap from "./Kakaomap/Kakaomap";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { HEADER_HEIGHT } from "../../Constants/constant";
 import axios from "axios";
 import useStore from "../../zustand/store/ContentStore";
@@ -11,9 +10,9 @@ import { useNavigate } from "react-router-dom";
 import SvgRefreshButton from "../../assets/svg/RefreshButton";
 import SvgBacktoCurrentButton from "../../assets/svg/BacktoCurrentButton";
 import { Icon } from "../DetailPage/style";
+import NaverMap from "./NaverMap/NaverMap";
 
 function MainPage() {
-  const mapRef = useRef<HTMLElement | null>(null);
   const { updateTotalData } = useStore((state) => state);
   const navigate = useNavigate();
 
@@ -72,7 +71,8 @@ function MainPage() {
             />
           </Icon>
         </Icons>
-        <Kakaomap mapRef={mapRef} />
+        {/* <Kakaomap mapRef={mapRef} /> */}
+        <NaverMap />
         <Bottom>
           <BottomSheet />
           <Buttons>

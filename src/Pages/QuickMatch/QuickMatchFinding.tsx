@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import DetailHeader from "../DetailPage/DetailHeader";
 import {
   ContentDetail,
@@ -19,12 +18,11 @@ import {
   LocationMarker,
 } from "../../assets/svg";
 import { useLocation } from "react-router";
-import MatchKaKao from "./MatchKakao/MatchKakao";
 import CurrentLocationStore from "../../zustand/store/CurrentLocation";
+import NaverMap from "../MainPage/NaverMap/NaverMap";
+import styled from "styled-components";
 
 function QuickMatchFinding() {
-  const mapRef = useRef<HTMLElement | null>(null);
-
   const location = useLocation();
 
   const { destination } = location.state;
@@ -35,23 +33,14 @@ function QuickMatchFinding() {
     <div>
       <DetailHeader />
       <S.Container style={{ gap: "9px" }}>
-        <S.Discription style={{ marginTop: "10px" }}>
+        <S.Discription style={{ marginTop: "10px", zIndex: 3 }}>
           <Title>
             지금 가까운 팟을 <br />
             찾고 있어요
           </Title>
           <ContentDetail>조금만 기다려주세요</ContentDetail>
         </S.Discription>
-        <div
-          style={{
-            width: "100vw",
-            height: "44vh",
-            backgroundColor: "white",
-            zIndex: "2",
-            opacity: "0.5",
-            marginTop: "10px",
-          }}
-        />
+        <WhiteOpacity />
         <Icon
           style={{
             position: "absolute",
@@ -66,9 +55,8 @@ function QuickMatchFinding() {
         <div
           style={{
             position: "absolute",
-            zIndex: 3,
-            top: "30vh",
-
+            zIndex: 4,
+            top: "31vh",
             left: "36vw",
             width: "200px",
             marginLeft: "-50px",
@@ -76,23 +64,14 @@ function QuickMatchFinding() {
         >
           <GreenOpacity width="200" height="200" />
         </div>
-        <div
-          style={{
-            position: "absolute",
-            top: "200px",
-            width: "100vw",
-            height: "320px",
-            backgroundColor: "aliceblue",
-          }}
-        >
-          <MatchKaKao mapRef={mapRef} />
-        </div>
+        <MapWrapper>
+          <NaverMap />
+        </MapWrapper>
         <Route
           style={{
-            position: "absolute",
-            top: "66%",
+            display: "flex",
             height: "115px",
-            zIndex: "2",
+            zIndex: "3",
             backgroundColor: "white",
             paddingTop: "31px",
             paddingLeft: "25px",
@@ -145,4 +124,20 @@ function QuickMatchFinding() {
   );
 }
 
+const WhiteOpacity = styled.div`
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  background-color: white;
+  z-index: 2;
+  opacity: 0.5;
+  margin-top: 10px;
+`;
+
+const MapWrapper = styled.div`
+  z-index: 1;
+  width: 100vw;
+  height: 44vh;
+  background-color: aliceblue;
+`;
 export default QuickMatchFinding;
