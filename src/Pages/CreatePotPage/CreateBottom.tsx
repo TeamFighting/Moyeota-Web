@@ -30,9 +30,7 @@ function CreateBottom() {
   };
 
   const isSelectionComplete =
-    selectedVehicle !== "일반 승용 택시" ||
-    totalPeople >= 1 ||
-    isSameGenderRide;
+    selectedVehicle !== "일반 승용 택시" || totalPeople > 0;
 
   return (
     <S.Bottom>
@@ -57,7 +55,7 @@ function CreateBottom() {
                 {isSameGenderRide ? "동성끼리 탑승" : "혼성탑승"}
               </S.SelectedInfo>
             ) : (
-              "이동수단을 선택해주세요"
+              "이동수단 및 인원을 선택해주세요"
             )}
           </S.Description>
         </S.TextWrapper>
