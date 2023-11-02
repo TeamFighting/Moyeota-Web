@@ -244,3 +244,12 @@ export const CompleteNote = styled.div`
 export const CompleteWrapper = styled.div`
   text-align: center;
 `;
+
+export const SelectedInfo = styled.div`
+  color: var(--Gray-Text-3, #343434);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 157%; /* 25.12px */
+`;

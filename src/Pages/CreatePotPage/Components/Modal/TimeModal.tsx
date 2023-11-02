@@ -2,29 +2,40 @@ import styled from "styled-components";
 import Check from "../../../../assets/svg/Check";
 import Minus from "../../../../assets/svg/Minus";
 import Plus from "../../../../assets/svg/Plus";
-import { useState } from "react";
+import React from "react";
 
 interface TimeModalProps {
   closeModal: () => void;
+  selectedVehicle: string;
+  totalPeople: number;
+  isSameGenderRide: boolean;
+  onVehicleSelection: (vehicle: string) => void;
+  onTotalPeopleChange: (count: number) => void;
+  onSameGenderRideToggle: () => void;
 }
 
-function TimeModal({ closeModal }: TimeModalProps) {
+function TimeModal({
+  closeModal,
+  totalPeople,
+  isSameGenderRide,
+  onVehicleSelection,
+  onTotalPeopleChange,
+  onSameGenderRideToggle,
+}: TimeModalProps) {
   const handleModalClose = () => {
     closeModal();
   };
-  const [count, setCount] = useState(2);
+
   const handlePlusClick = () => {
-    setCount(count + 1);
+    onTotalPeopleChange(totalPeople + 1);
   };
+
   const handleMinusClick = () => {
-    if (count > 0) {
-      setCount(count - 1);
+    if (totalPeople > 0) {
+      onTotalPeopleChange(totalPeople - 1);
     }
   };
-  const [isSameGender, setIsSameGender] = useState(false);
-  const handleToggle = () => {
-    setIsSameGender((prev) => !prev);
-  };
+
   return (
     <ModalWrapper>
       <Modal>
@@ -34,15 +45,16 @@ function TimeModal({ closeModal }: TimeModalProps) {
             <Explain>일반 승용 택시</Explain>
             <SubExplain>최대 4인</SubExplain>
           </Text>
-
-          <Check style={{ width: 24, height: 24, marginLeft: 120 }} />
+          <Check
+            style={{ width: 24, height: 24, marginLeft: 120 }}
+            onClick={() => onVehicleSelection("일반 승용 택시")}
+          />
         </CarWrapper>
         <CarWrapper>
           <Text style={{ marginRight: 183 }}>
             <Explain>밴 택시</Explain>
             <SubExplain>최대 5인</SubExplain>
           </Text>
-          {/* <Check style={{ width: 24, height: 24, marginLeft: 159 }} /> */}
         </CarWrapper>
         <Box style={{ marginBottom: 15 }}>
           <BoxTitle>총 인원 수 (본인 포함)</BoxTitle>
@@ -56,7 +68,7 @@ function TimeModal({ closeModal }: TimeModalProps) {
             onClick={handleMinusClick}
           />
           <InnerBox>
-            <Number>{count}</Number>
+            <Number>{totalPeople}</Number>
           </InnerBox>
           <Plus
             style={{ marginTop: 23, marginBottom: 21, cursor: "pointer" }}
@@ -69,8 +81,8 @@ function TimeModal({ closeModal }: TimeModalProps) {
             <SwitchInput
               type="checkbox"
               id="genderSwitch"
-              checked={isSameGender}
-              onChange={handleToggle}
+              checked={isSameGenderRide}
+              onChange={onSameGenderRideToggle}
             />
           </SwitchWrapper>
         </Box>
@@ -79,6 +91,7 @@ function TimeModal({ closeModal }: TimeModalProps) {
     </ModalWrapper>
   );
 }
+
 const SwitchWrapper = styled.div`
   display: flex;
   align-items: center;
