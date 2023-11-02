@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import DetailHeader from "../DetailPage/DetailHeader";
 import {
   ContentDetail,

@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import Kakaomap from "./Kakaomap/Kakaomap";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { HEADER_HEIGHT } from "../../Constants/constant";
 import axios from "axios";
 import useStore from "../../zustand/store/ContentStore";
@@ -14,7 +13,6 @@ import { Icon } from "../DetailPage/style";
 import NaverMap from "./NaverMap/NaverMap";
 
 function MainPage() {
-  const mapRef = useRef<HTMLElement | null>(null);
   const { updateTotalData } = useStore((state) => state);
   const navigate = useNavigate();
 
