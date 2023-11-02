@@ -21,6 +21,7 @@ import {
 import { useLocation } from "react-router";
 import MatchKaKao from "./MatchKakao/MatchKakao";
 import CurrentLocationStore from "../../zustand/store/CurrentLocation";
+import useStore from "../../zustand/store/ContentStore";
 
 function QuickMatchFinding() {
   const mapRef = useRef<HTMLElement | null>(null);
@@ -30,7 +31,20 @@ function QuickMatchFinding() {
   const { destination } = location.state;
 
   const { currentLocation } = CurrentLocationStore();
+
   const currentBuildingName = currentLocation?.building_name;
+
+  const { totalData } = useStore((state) => state);
+
+  const pot = totalData.filter((data) => {
+    for (let i = 0; i < destination.length; i++) {
+      if (data.destination[i] === destination[i]) {
+        return true;
+      }
+    }
+  });
+  console.log(pot);
+
   return (
     <div>
       <DetailHeader />
