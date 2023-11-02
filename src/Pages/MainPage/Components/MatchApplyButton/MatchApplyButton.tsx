@@ -9,7 +9,6 @@ interface ApplyButtonProps {
 function MatchApplyButton({ postId }: ApplyButtonProps) {
   const { setIsModalOpen } = ModalStore();
   const { appliedParty } = useAppliedPartyStore();
-  console.log("appliedParty", appliedParty);
 
   const handleApply = () => {
     setIsModalOpen(true, "apply");

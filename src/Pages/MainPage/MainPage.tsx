@@ -11,17 +11,20 @@ import SvgRefreshButton from "../../assets/svg/RefreshButton";
 import SvgBacktoCurrentButton from "../../assets/svg/BacktoCurrentButton";
 import { Icon } from "../DetailPage/style";
 import NaverMap from "./NaverMap/NaverMap";
+import useCurrentLocation from "./Kakaomap/CurrentLocation";
 
 function MainPage() {
   const { updateTotalData } = useStore((state) => state);
   const navigate = useNavigate();
 
+  useCurrentLocation();
   useEffect(() => {
     fetchData();
   }, []);
+
   async function fetchData() {
     try {
-      const res = await axios.get("http://moyeota.shop/api/posts?page=0");
+      const res = await axios.get("http://moyeota.shop/api/posts?page=1");
       console.log(res);
       if (res.status === 200) {
         updateTotalData(res.data.data.content);

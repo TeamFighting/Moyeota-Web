@@ -9,6 +9,17 @@ declare global {
   }
 }
 
+interface ArrayElement {
+  data: {
+    x: number;
+    y: number;
+    place_name: string;
+    road_address_name: string;
+  };
+  status: string;
+  message: string;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 function NaverMap() {
   const mapElement = useRef(null);
@@ -21,39 +32,33 @@ function NaverMap() {
 
   const { totalData } = ContentStore();
 
-  const destination = useMemo(
-    () => totalData.map((data) => data.destination),
+  const departure = useMemo(
+    () => totalData.map((data) => data.departure),
     [totalData]
   );
 
-  const [array, setArray] = useState([{}]);
+  const [array, setArray] = useState<ArrayElement[]>([]);
 
   useEffect(() => {
     const fetchDestinations = async () => {
-      const promises = destination.map((data) =>
+      const promises = departure.map((data) =>
         axios.get(`http://moyeota.shop/api/distance/keyword`, {
           params: { query: `${data}` },
         })
       );
       const results = await Promise.all(promises);
       const data = results.map((result) => result.data);
-      console.log("data", data);
       setArray(data);
     };
 
     fetchDestinations();
-  }, [destination]);
-
-  console.log("array", array);
+  }, [departure]);
 
   useEffect(() => {
     if (!mapElement.current || !naver) return;
 
     const location = new naver.maps.LatLng(latitude, longitude);
 
-    // const markerlocation = array.map(
-    //   (data) => new naver.maps.LatLng(data.data.x, longitude)
-    // );
     const mapOptions = {
       center: location,
       zoom: 15,
@@ -62,6 +67,23 @@ function NaverMap() {
 
     const map = new naver.maps.Map(mapElement.current, mapOptions);
 
+    if (array.length !== 0) {
+      console.log("테스트", array);
+      array.map((data) => {
+        console.log(data);
+        console.log(data.data.x, data.data.y);
+        new naver.maps.Marker({
+          position: new naver.maps.LatLng(data.data.y, data.data.x),
+          map,
+          icon: {
+            url: "../../../public/svg/GreenLocationMarker.svg",
+            size: new naver.maps.Size(50, 52),
+            origin: new naver.maps.Point(0, 0),
+            anchor: new naver.maps.Point(25, 26),
+          },
+        });
+      });
+    }
     new naver.maps.Marker({
       position: location,
       map,
@@ -72,7 +94,7 @@ function NaverMap() {
         anchor: new naver.maps.Point(25, 26),
       },
     });
-  }, []);
+  }, [array]);
 
   return (
     <>
