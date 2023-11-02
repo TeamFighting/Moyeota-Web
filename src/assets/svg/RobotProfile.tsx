@@ -1,5 +1,6 @@
 import type { SVGProps } from "react";
 const SvgRobotProfile = (props: SVGProps<SVGSVGElement>) => (
+  
   <svg
     width="100"
     height="101"
