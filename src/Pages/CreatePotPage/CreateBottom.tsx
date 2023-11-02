@@ -1,20 +1,25 @@
 import { ChevronRight } from "../../assets/svg";
 import * as S from "./style";
 import TimeModal from "./Components/Modal/TimeModal";
+import DateModal from "./Components/Modal/DateModal";
 import { SetStateAction, useState } from "react";
 
 function CreateBottom() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState("일반 승용 택시");
   const [totalPeople, setTotalPeople] = useState(0);
   const [isSameGenderRide, setIsSameGenderRide] = useState(false);
+  const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
-  const handleTimeModal = () => {
-    setIsModalOpen(true);
+  const openTimeModal = () => {
+    setSelectedModal("time");
+  };
+
+  const openDateModal = () => {
+    setSelectedModal("date");
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
+    setSelectedModal(null);
   };
 
   const handleVehicleSelection = (vehicle: SetStateAction<string>) => {
@@ -38,14 +43,15 @@ function CreateBottom() {
         style={{
           paddingBottom: "40px",
         }}
+        onClick={openDateModal}
       >
-        <S.TextWrapper>
+        <S.TextWrapper onClick={openDateModal}>
           <S.BottomTitle>출발시간</S.BottomTitle>
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
         <ChevronRight width="24" height="24" />
       </S.Wrapper>
-      <S.Wrapper style={{ paddingBottom: "10px" }} onClick={handleTimeModal}>
+      <S.Wrapper style={{ paddingBottom: "10px" }} onClick={openTimeModal}>
         <S.TextWrapper>
           <S.BottomTitle>이동수단 및 인원</S.BottomTitle>
           <S.Description>
@@ -61,7 +67,7 @@ function CreateBottom() {
         </S.TextWrapper>
         <ChevronRight width="24" height="24" style={{ marginTop: "13px" }} />
       </S.Wrapper>
-      {isModalOpen && (
+      {selectedModal === "time" && (
         <TimeModal
           closeModal={closeModal}
           selectedVehicle={selectedVehicle}
@@ -72,8 +78,8 @@ function CreateBottom() {
           onSameGenderRideToggle={handleSameGenderRideToggle}
         />
       )}
+      {selectedModal === "date" && <DateModal closeModal={closeModal} />}
     </S.Bottom>
   );
 }
-
 export default CreateBottom;
