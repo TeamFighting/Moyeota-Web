@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import SvgRefreshButton from "../../assets/svg/RefreshButton";
 import SvgBacktoCurrentButton from "../../assets/svg/BacktoCurrentButton";
 import { Icon } from "../DetailPage/style";
+import NaverMap from "./NaverMap/NaverMap";
 
 function MainPage() {
   const mapRef = useRef<HTMLElement | null>(null);
@@ -72,7 +73,8 @@ function MainPage() {
             />
           </Icon>
         </Icons>
-        <Kakaomap mapRef={mapRef} />
+        {/* <Kakaomap mapRef={mapRef} /> */}
+        <NaverMap />
         <Bottom>
           <BottomSheet />
           <Buttons>

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import CurrentLocation from "../Kakaomap/CurrentLocation";
 
 declare global {
   interface Window {
@@ -11,22 +12,30 @@ declare global {
 function NaverMap() {
   const mapElement = useRef(null);
   const { naver } = window;
+  const currentLocation = CurrentLocation();
+  const latitude = Number(localStorage.getItem("latitude"));
+  const longitude = Number(localStorage.getItem("longitude"));
 
   useEffect(() => {
     if (!mapElement.current || !naver) return;
 
-    // 지도에 표시할 위치의 위도와 경도 좌표를 파라미터로 넣어줍니다.
-    const location = new naver.maps.LatLng(37.5656, 126.9769);
+    const location = new naver.maps.LatLng(latitude, longitude);
     const mapOptions = {
       center: location,
-      zoom: 17,
-      zoomControl: true,
+      zoom: 15,
+      zoomControl: false,
     };
 
     const map = new naver.maps.Map(mapElement.current, mapOptions);
     new naver.maps.Marker({
       position: location,
       map,
+      icon: {
+        url: "../../../public/svg/CurrentLocationIcon.svg",
+        size: new naver.maps.Size(50, 52),
+        origin: new naver.maps.Point(0, 0),
+        anchor: new naver.maps.Point(25, 26),
+      },
     });
   }, []);
 
