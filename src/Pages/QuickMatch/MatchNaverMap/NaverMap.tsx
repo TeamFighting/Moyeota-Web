@@ -8,7 +8,7 @@ declare global {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-function NaverMap() {
+function MatchNaverMap() {
   const mapElement = useRef(null);
   const { naver } = window;
   const latitude = Number(localStorage.getItem("latitude"));
@@ -44,4 +44,4 @@ function NaverMap() {
   );
 }
 
-export default NaverMap;
+export default MatchNaverMap;
