@@ -1,12 +1,9 @@
-import type { SVGProps } from "react";
-const SvgDestination = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width="41"
     height="59"
     viewBox="0 0 41 59"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    {...props}
   >
     <path
       fill-rule="evenodd"
@@ -19,5 +16,3 @@ const SvgDestination = (props: SVGProps<SVGSVGElement>) => (
       fill="white"
     />
   </svg>
-);
-export default SvgDestination;

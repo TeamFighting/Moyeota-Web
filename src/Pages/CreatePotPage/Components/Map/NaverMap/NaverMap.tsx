@@ -7,40 +7,69 @@ declare global {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-function NaverMap() {
+interface NaverMapProps {
+  destination: string | undefined;
+}
+
+function NaverMap({ destination }: NaverMapProps) {
   const mapElement = useRef(null);
   const { naver } = window;
 
   useEffect(() => {
     if (!mapElement.current || !naver) return;
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        const location = new naver.maps.LatLng(latitude, longitude);
 
-        const mapOptions = {
-          center: location,
-          zoom: 15,
-          zoomControl: false,
-        };
+    if (destination) {
+      const [latitude, longitude] = destination.split(",").map(parseFloat);
+      const location = new naver.maps.LatLng(latitude, longitude);
 
-        const map = new naver.maps.Map(mapElement.current, mapOptions);
-        new naver.maps.Marker({
-          position: location,
-          map,
-          icon: {
-            url: "../../../public/svg/CurrentLocationIcon.svg",
-            size: new naver.maps.Size(50, 52),
-            origin: new naver.maps.Point(0, 0),
-            anchor: new naver.maps.Point(25, 26),
-          },
-        });
+      const mapOptions = {
+        center: location,
+        zoom: 15,
+        zoomControl: false,
+      };
+
+      const map = new naver.maps.Map(mapElement.current, mapOptions);
+
+      new naver.maps.Marker({
+        position: location,
+        map,
+        icon: {
+          url: "../../../public/svg/DestinationLocationIcon.svg",
+          size: new naver.maps.Size(50, 52),
+          origin: new naver.maps.Point(0, 0),
+          anchor: new naver.maps.Point(25, 26),
+        },
       });
     } else {
-      console.log("실패");
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+          const location = new naver.maps.LatLng(latitude, longitude);
+
+          const mapOptions = {
+            center: location,
+            zoom: 15,
+            zoomControl: false,
+          };
+
+          const map = new naver.maps.Map(mapElement.current, mapOptions);
+
+          new naver.maps.Marker({
+            position: location,
+            map,
+            icon: {
+              url: "../../../public/svg/CurrentLocationIcon.svg",
+              size: new naver.maps.Size(50, 52),
+              origin: new naver.maps.Point(0, 0),
+              anchor: new naver.maps.Point(25, 26),
+            },
+          });
+        });
+      } else {
+        console.log("실패");
+      }
     }
-  }, []);
+  }, [destination]);
 
   return (
     <>
