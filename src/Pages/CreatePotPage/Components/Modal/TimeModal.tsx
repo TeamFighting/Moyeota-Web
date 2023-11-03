@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Check from "../../../../assets/svg/Check";
 import Minus from "../../../../assets/svg/Minus";
 import Plus from "../../../../assets/svg/Plus";
-import React from "react";
 
 interface TimeModalProps {
   closeModal: () => void;

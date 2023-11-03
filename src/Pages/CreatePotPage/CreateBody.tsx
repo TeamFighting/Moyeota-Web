@@ -1,7 +1,7 @@
 import { ChevronRight, LocationFrom, LocationMarker } from "../../assets/svg";
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface CreateBodyProps {
   destination?: string;
