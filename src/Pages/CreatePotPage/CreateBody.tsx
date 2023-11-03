@@ -1,12 +1,46 @@
 import { ChevronRight, LocationFrom, LocationMarker } from "../../assets/svg";
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-function DetailBody() {
+interface CreateBodyProps {
+  destination?: string;
+}
+
+function CreateBody({ destination }: CreateBodyProps) {
   const navigate = useNavigate();
   const NavigateToDestination = () => {
     navigate("/destinationPage");
   };
+
+  const [currentLocation, setCurrentLocation] = useState<string | null>(null);
+
+  const getCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        const geocoder = new window.kakao.maps.services.Geocoder();
+        geocoder.coord2Address(
+          longitude,
+          latitude,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (result: any, status: any) => {
+            if (status === window.kakao.maps.services.Status.OK) {
+              const address = result[0].address.address_name;
+              setCurrentLocation(address);
+            }
+          }
+        );
+      });
+    }
+  };
+
+  useEffect(() => {
+    getCurrentLocation();
+  }, []);
+
   return (
     <S.Body>
       <S.Content>
@@ -30,7 +64,9 @@ function DetailBody() {
               <LocationFrom width="24" height="64" />
               <S.Text>
                 <S.StartPointLocation>
-                  서울 송파구 거여동 697
+                  {currentLocation
+                    ? currentLocation
+                    : "현재 위치를 가져오는 중..."}
                 </S.StartPointLocation>
                 <S.StartPoint>출발지</S.StartPoint>
               </S.Text>
@@ -52,7 +88,7 @@ function DetailBody() {
               </S.Icon>
               <S.Text>
                 <S.StartPointLocation>
-                  도착지를 입력해주세요
+                  {destination || "도착지를 입력해주세요"}
                 </S.StartPointLocation>
                 <S.StartPoint>도착지</S.StartPoint>
               </S.Text>
@@ -67,4 +103,4 @@ function DetailBody() {
   );
 }
 
-export default DetailBody;
+export default CreateBody;

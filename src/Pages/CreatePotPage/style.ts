@@ -205,7 +205,7 @@ export const InputDescription = styled.textarea`
   &::placeholder {
     color: #9a9a9a;
     font-family: Pretendard;
-    font-size: 14;
+    font-size: 14px;
     white-space: pre-line;
     line-height: 1.8;
     font-weight: 500;
@@ -214,10 +214,10 @@ export const InputDescription = styled.textarea`
 
 export const NoteDescription = styled.div`
   color: #9a9a9a;
-  font-size: 14;
+  font-size: 14px;
   font-family: Pretendard;
   font-weight: 500;
-  line-height: 21.98;
+
   word-wrap: break-word;
 `;
 
@@ -247,4 +247,13 @@ export const CompleteNote = styled.div`
 
 export const CompleteWrapper = styled.div`
   text-align: center;
+`;
+
+export const SelectedInfo = styled.div`
+  color: var(--Gray-Text-3, #343434);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 157%; /* 25.12px */
 `;

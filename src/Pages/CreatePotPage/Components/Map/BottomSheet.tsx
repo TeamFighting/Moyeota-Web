@@ -5,7 +5,11 @@ import {
   WINDOWHEIGHT,
 } from "../../../../Constants/constant";
 
-function BottomSheet() {
+interface BottomSheetProps {
+  destination?: string;
+}
+
+function BottomSheet({ destination }: BottomSheetProps) {
   return (
     <Wrapper>
       <HeaderWrapper>
@@ -14,10 +18,14 @@ function BottomSheet() {
       <TextWrapper>
         <Title>도착지를 설정해주세요</Title>
         <DestinationWrapper>
-          <LocationMarkerGreen
-            style={{ width: 24, height: 24, paddingRight: 4 }}
-          />
-          <Destination>건국대학교 생명과학관부속동</Destination>
+          {destination && (
+            <>
+              <LocationMarkerGreen
+                style={{ width: 24, height: 24, paddingRight: 4 }}
+              />
+              <Destination>{destination}</Destination>
+            </>
+          )}
         </DestinationWrapper>
       </TextWrapper>
     </Wrapper>
