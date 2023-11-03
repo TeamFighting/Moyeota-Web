@@ -43,14 +43,14 @@ function NaverMap({ destination }: NaverMapProps) {
             map: map,
             icon: {
               url: "../../../public/svg/DestinationLocationIcon.svg",
-              size: new naver.maps.Size(50, 52),
+              size: new naver.maps.Size(41, 58),
               origin: new naver.maps.Point(0, 0),
               anchor: new naver.maps.Point(25, 26),
             },
           });
         })
-        .catch((error) => {
-          console.error("API 호출 오류:", error);
+        .catch(() => {
+          alert("주소를 바르게 입력하세요");
         });
     } else if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
