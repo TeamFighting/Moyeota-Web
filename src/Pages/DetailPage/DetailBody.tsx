@@ -16,9 +16,9 @@ function DetailBody({ data }: DetailBodyProps) {
 
   let gender;
   if (!data.userGender) {
-    gender = "여";
-  } else {
     gender = "남";
+  } else {
+    gender = "여";
   }
   return (
     <S.Body>

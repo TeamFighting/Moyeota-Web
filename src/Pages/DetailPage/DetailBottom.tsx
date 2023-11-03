@@ -14,12 +14,10 @@ interface DetailBottomProps {
 function DetailBottom({
   fare,
   duration,
-  splitedTime,
   recruitment,
   participants,
   data,
 }: DetailBottomProps) {
-  console.log("splited", splitedTime);
   return (
     <S.Bottom>
       <S.DescriptionTag>

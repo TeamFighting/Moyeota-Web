@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useStore from "../../../zustand/store/LatLngstore";
 
-function useCurrentLocation() {
+function CurrentLocation() {
   const [location, setLocation] = useState<
     { latitude: number; longitude: number } | string
   >({
@@ -13,24 +13,17 @@ function useCurrentLocation() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log("interval");
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
       }
     }, 5000);
 
     function success(position: GeolocationPosition) {
-      console.log(position.coords.latitude, position.coords.longitude);
-      localStorage.setItem("latitude", position.coords.latitude.toString());
-      localStorage.setItem("longitude", position.coords.longitude.toString());
       setLocation({
-        latitude: localStorage.getItem("latitude") as unknown as number,
-        longitude: localStorage.getItem("longitude") as unknown as number,
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
       });
-      setLatLng(
-        localStorage.getItem("latitude") as unknown as number,
-        localStorage.getItem("longitude") as unknown as number
-      );
+      setLatLng(position.coords.latitude, position.coords.longitude);
     }
 
     function error() {
@@ -41,9 +34,9 @@ function useCurrentLocation() {
       console.log("위치받기 실패");
     }
     return () => clearInterval(intervalId);
-  }, [setLatLng]);
+  }, [location, setLatLng]);
 
   return location;
 }
 
-export default useCurrentLocation;
+export default CurrentLocation;

@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import Kakaomap from "./Kakaomap/Kakaomap";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { HEADER_HEIGHT } from "../../Constants/constant";
 import axios from "axios";
 import useStore from "../../zustand/store/ContentStore";
@@ -11,18 +10,22 @@ import { useNavigate } from "react-router-dom";
 import SvgRefreshButton from "../../assets/svg/RefreshButton";
 import SvgBacktoCurrentButton from "../../assets/svg/BacktoCurrentButton";
 import { Icon } from "../DetailPage/style";
+import NaverMap from "./NaverMap/NaverMap";
+import useCurrentLocation from "./Kakaomap/CurrentLocation";
 
 function MainPage() {
-  const mapRef = useRef<HTMLElement | null>(null);
   const { updateTotalData } = useStore((state) => state);
   const navigate = useNavigate();
 
+  useCurrentLocation();
   useEffect(() => {
     fetchData();
   }, []);
+
   async function fetchData() {
     try {
-      const res = await axios.get("http://moyeota.shop/api/posts?page=0");
+      const res = await axios.get("http://moyeota.shop/api/posts?page=1");
+      console.log(res);
       if (res.status === 200) {
         updateTotalData(res.data.data.content);
         console.log(res.data.data.content);
@@ -71,12 +74,18 @@ function MainPage() {
             />
           </Icon>
         </Icons>
-        <Kakaomap mapRef={mapRef} />
+        {/* <Kakaomap mapRef={mapRef} /> */}
+        <NaverMap />
         <Bottom>
           <BottomSheet />
-          <CreatePodButton onClick={navigateToCreatePot}>
-            팟 만들기
-          </CreatePodButton>
+          <Buttons>
+            <CreatePotButton onClick={() => navigate("/quickMatch")}>
+              빠른매칭
+            </CreatePotButton>
+            <CreatePotButton onClick={navigateToCreatePot}>
+              팟 만들기
+            </CreatePotButton>
+          </Buttons>
         </Bottom>
       </Body>
     </Container>
@@ -130,7 +139,20 @@ const Body = styled.div`
   background-color: aliceblue;
 `;
 
-const CreatePodButton = styled.button`
+const Buttons = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  bottom: 15%;
+  right: 7%;
+  width: 114px;
+  height: 100px;
+  background-color: black;
+  gap: 10px;
+`;
+
+const CreatePotButton = styled.button`
   background-color: #1edd81;
   color: #fff;
   font-size: 16px;
@@ -145,10 +167,7 @@ const CreatePodButton = styled.button`
   width: 114px;
   height: 48px;
   border-radius: 24px;
-  position: absolute;
-  bottom: 15%;
   right: 7%;
-
   box-shadow: 0px 4px 4px rgba(171, 171, 171, 0.25);
 `;
 

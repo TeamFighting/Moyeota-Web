@@ -38,7 +38,7 @@ function DetailPartySection({
       await axios
         .get(`http://moyeota.shop/api/posts/${postId}/members`, {
           headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TOKEN}`,
+            Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
           },
         })
         .then((res) => {

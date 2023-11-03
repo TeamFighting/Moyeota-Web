@@ -1,13 +1,19 @@
 import { create } from "zustand";
 
-interface ModalStore {
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-}
+type State = {
+  modalOpen: {
+    isOpen: boolean;
+    status: string;
+  };
+  setIsModalOpen: (isOpen: boolean, status: string) => void;
+};
 
-const ModalStore = create<ModalStore>((set) => ({
-  isOpen: false,
-  setIsOpen: (isOpen) => set(() => ({ isOpen })),
+const ModalStore = create<State>((set) => ({
+  modalOpen: { isOpen: false, status: "" },
+  setIsModalOpen: (isOpen, status) =>
+    set(() => ({
+      modalOpen: { isOpen, status },
+    })),
 }));
 
 export default ModalStore;

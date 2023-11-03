@@ -10,19 +10,17 @@ declare global {
   }
 }
 
-function Kakaomap({ mapRef }: { mapRef: MutableRefObject<any> }) {
+function MatchKaKao({ mapRef }: { mapRef: MutableRefObject<any> }) {
   const [isModalOpen, setIsModalOpen] = useState(true);
 
   const location = CurrentLocation();
-  const latitude = Number(localStorage.getItem("latitude"));
-  const longitude = Number(localStorage.getItem("longitude"));
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const initMap = () => {
     if (typeof location != "string") {
       const container = document.getElementById("map");
       const options = {
-        center: new kakao.maps.LatLng(latitude, longitude),
+        center: new kakao.maps.LatLng(location.latitude, location.longitude),
         level: 5,
       };
 
@@ -38,7 +36,10 @@ function Kakaomap({ mapRef }: { mapRef: MutableRefObject<any> }) {
 
       const map = new kakao.maps.Map(container as HTMLElement, options);
 
-      const markerPosition = new kakao.maps.LatLng(latitude, longitude);
+      const markerPosition = new kakao.maps.LatLng(
+        location.latitude,
+        location.longitude
+      );
 
       const marker = new kakao.maps.Marker({
         position: markerPosition,
@@ -62,10 +63,10 @@ function Kakaomap({ mapRef }: { mapRef: MutableRefObject<any> }) {
     <>
       <div
         id="map"
-        style={{ position: "relative", width: "100%", height: "100%" }}
+        style={{ position: "relative", width: "100vw", height: "50vh" }}
       ></div>
     </>
   );
 }
 
-export default Kakaomap;
+export default MatchKaKao;
