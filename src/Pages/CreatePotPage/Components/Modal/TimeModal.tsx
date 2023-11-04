@@ -30,12 +30,24 @@ function TimeModal({
   };
 
   const handlePlusClick = () => {
-    onTotalPeopleChange(totalPeople + 1);
+    if (totalPeople < 5) {
+      onTotalPeopleChange(totalPeople + 1);
+
+      if (totalPeople === 4) {
+        onVehicleSelection("밴 택시");
+      }
+    } else {
+      alert("인원 초과");
+    }
   };
 
   const handleMinusClick = () => {
     if (totalPeople > 0) {
       onTotalPeopleChange(totalPeople - 1);
+
+      if (totalPeople <= 4) {
+        onVehicleSelection("일반 승용 택시");
+      }
     }
   };
 
@@ -256,4 +268,5 @@ const Modal = styled.div`
   animation: fadeIn 400ms;
   transition: all 400ms ease-in-out 2s;
 `;
+
 export default TimeModal;
