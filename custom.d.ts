@@ -16,7 +16,6 @@ declare global {
   interface Window {
     ReactNativeWebView: {
       postMessage: (message: string) => void;
-      // 다른 메서드 및 속성을 추가할 수 있습니다.
     };
   }
 }
