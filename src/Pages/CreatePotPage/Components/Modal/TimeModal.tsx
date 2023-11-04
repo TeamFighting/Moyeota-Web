@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import { useState } from "react";
+
 import Check from "../../../../assets/svg/Check";
 import Minus from "../../../../assets/svg/Minus";
 import Plus from "../../../../assets/svg/Plus";
+import SelectedOff from "../../../../assets/svg/SelectedOff";
 
 interface TimeModalProps {
   closeModal: () => void;
@@ -20,6 +23,7 @@ function TimeModal({
   onVehicleSelection,
   onTotalPeopleChange,
   onSameGenderRideToggle,
+  selectedVehicle,
 }: TimeModalProps) {
   const handleModalClose = () => {
     closeModal();
@@ -35,6 +39,10 @@ function TimeModal({
     }
   };
 
+  const [isNormalTaxiSelected, setIsNormalTaxiSelected] = useState(
+    selectedVehicle === "일반 승용 택시"
+  );
+
   return (
     <ModalWrapper>
       <Modal>
@@ -44,10 +52,23 @@ function TimeModal({
             <Explain>일반 승용 택시</Explain>
             <SubExplain>최대 4인</SubExplain>
           </Text>
-          <Check
-            style={{ width: 24, height: 24, marginLeft: 120 }}
-            onClick={() => onVehicleSelection("일반 승용 택시")}
-          />
+          {isNormalTaxiSelected ? (
+            <Check
+              style={{ width: 24, height: 24, marginLeft: 120 }}
+              onClick={() => {
+                setIsNormalTaxiSelected(false);
+                onVehicleSelection("밴 택시");
+              }}
+            />
+          ) : (
+            <SelectedOff
+              style={{ width: 24, height: 24, marginLeft: 120 }}
+              onClick={() => {
+                setIsNormalTaxiSelected(true);
+                onVehicleSelection("일반 승용 택시");
+              }}
+            />
+          )}
         </CarWrapper>
         <CarWrapper>
           <Text style={{ marginRight: 183 }}>

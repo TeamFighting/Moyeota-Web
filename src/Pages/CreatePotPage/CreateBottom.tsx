@@ -34,8 +34,7 @@ function CreateBottom() {
     setIsSameGenderRide(!isSameGenderRide);
   };
 
-  const isSelectionComplete =
-    selectedVehicle !== "일반 승용 택시" || totalPeople > 0;
+  const isSelectionComplete = totalPeople > 0;
 
   return (
     <S.Bottom>
