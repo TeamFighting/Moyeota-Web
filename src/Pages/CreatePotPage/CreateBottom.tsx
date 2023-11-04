@@ -1,7 +1,7 @@
 import { ChevronRight } from "../../assets/svg";
 import * as S from "./style";
 import TimeModal from "./Components/Modal/TimeModal";
-import DateModal from "./Components/Modal/DateModal";
+// import DateModal from "./Components/Modal/DateModal";
 import { SetStateAction, useState } from "react";
 
 interface CreateBottomProps {

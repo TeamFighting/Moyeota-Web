@@ -16,12 +16,7 @@ function CreateBody({ destination }: CreateBodyProps) {
 
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);
 
-  const {
-    estimatedDuration,
-    estimatedFare,
-    setEstimatedDuration,
-    setEstimatedFare,
-  } = DurationFareStore();
+  const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
 
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
