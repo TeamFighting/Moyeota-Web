@@ -49,7 +49,7 @@ export const Left = styled.div`
 
 export const HeaderP = styled.span`
   color: #7e7e7e;
-  font-family: pretendard;
+  font-family: Pretendard;
   font-size: 14px;
   margin-left: 3px;
   display: flex;

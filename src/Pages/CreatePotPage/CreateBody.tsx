@@ -2,6 +2,8 @@ import { ChevronRight, LocationFrom, LocationMarker } from "../../assets/svg";
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import { response } from "express";
 
 interface CreateBodyProps {
   destination?: string;
@@ -14,6 +16,11 @@ function CreateBody({ destination }: CreateBodyProps) {
   };
 
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);
+  const [estimatedDuration, setEstimatedDuration] = useState<string | null>("");
+  const [estimatedFare, setEstimatedFare] = useState<number | null>(null);
+  const [convertedDestination, setConvertedDestination] = useState<
+    string | null
+  >("");
 
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
@@ -40,6 +47,55 @@ function CreateBody({ destination }: CreateBodyProps) {
   useEffect(() => {
     getCurrentLocation();
   }, []);
+
+  const convertDestinationToRoadAddress = (destination: string) => {
+    return axios
+      .get("http://moyeota.shop:80/api/distance/keyword", {
+        params: {
+          query: destination,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        console.log(data.data.road_address_name);
+        const roadAddress = data.data.road_address_name;
+        return roadAddress;
+      });
+  };
+
+  const getEstimatedDurationAndFare = (origin: string, destination: string) => {
+    convertDestinationToRoadAddress(destination)
+      .then((roadDestination) => {
+        if (roadDestination) {
+          axios
+            .get("http://moyeota.shop:80/api/distance/duration/fare", {
+              params: {
+                origin: origin,
+                destination: roadDestination,
+              },
+            })
+            .then((response) => {
+              const data = response.data;
+              setEstimatedDuration(data.duration);
+              setEstimatedFare(data.fare);
+              console.log(data);
+            })
+            .catch((error) => {
+              console.error("API 호출 오류:", error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error("도로명 주소 변환 오류:", error);
+      });
+  };
+
+  useEffect(() => {
+    getCurrentLocation();
+    if (currentLocation && destination) {
+      getEstimatedDurationAndFare(currentLocation, destination);
+    }
+  }, [currentLocation, destination]);
 
   return (
     <S.Body>
