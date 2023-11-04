@@ -4,9 +4,13 @@ import TimeModal from "./Components/Modal/TimeModal";
 import DateModal from "./Components/Modal/DateModal";
 import { SetStateAction, useState } from "react";
 
-function CreateBottom() {
+interface CreateBottomProps {
+  totalPeople: number;
+  onTotalPeopleChange: (count: SetStateAction<number>) => void;
+}
+
+function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   const [selectedVehicle, setSelectedVehicle] = useState("일반 승용 택시");
-  const [totalPeople, setTotalPeople] = useState(0);
   const [isSameGenderRide, setIsSameGenderRide] = useState(false);
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
@@ -14,9 +18,9 @@ function CreateBottom() {
     setSelectedModal("time");
   };
 
-  const openDateModal = () => {
-    setSelectedModal("date");
-  };
+  // const openDateModal = () => {
+  //   setSelectedModal("date");
+  // };
 
   const closeModal = () => {
     setSelectedModal(null);
@@ -24,10 +28,6 @@ function CreateBottom() {
 
   const handleVehicleSelection = (vehicle: SetStateAction<string>) => {
     setSelectedVehicle(vehicle);
-  };
-
-  const handleTotalPeopleChange = (count: SetStateAction<number>) => {
-    setTotalPeople(count);
   };
 
   const handleSameGenderRideToggle = () => {
@@ -42,9 +42,9 @@ function CreateBottom() {
         style={{
           paddingBottom: "40px",
         }}
-        onClick={openDateModal}
+        // onClick={openDateModal}
       >
-        <S.TextWrapper onClick={openDateModal}>
+        <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
@@ -73,11 +73,11 @@ function CreateBottom() {
           totalPeople={totalPeople}
           isSameGenderRide={isSameGenderRide}
           onVehicleSelection={handleVehicleSelection}
-          onTotalPeopleChange={handleTotalPeopleChange}
+          onTotalPeopleChange={onTotalPeopleChange}
           onSameGenderRideToggle={handleSameGenderRideToggle}
         />
       )}
-      {selectedModal === "date" && <DateModal closeModal={closeModal} />}
+      {/* {selectedModal === "date" && <DateModal closeModal={closeModal} />} */}
     </S.Bottom>
   );
 }

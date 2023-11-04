@@ -77,6 +77,7 @@ function CreateBody({ destination }: CreateBodyProps) {
             const data = response.data;
             setEstimatedDuration(data.data.duration);
             setEstimatedFare(data.data.fare);
+            console.log(data.data.fare);
           })
           .catch((error) => {
             console.error("API 호출 오류:", error);
