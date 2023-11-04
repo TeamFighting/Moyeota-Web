@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import ContentStore from "../../../../../zustand/store/ContentStore";
+import { useEffect, useRef } from "react";
 import axios from "axios";
 
 declare global {
@@ -9,92 +8,78 @@ declare global {
   }
 }
 
-interface ArrayElement {
-  data: {
-    x: number;
-    y: number;
-    place_name: string;
-    road_address_name: string;
-  };
-  status: string;
-  message: string;
+interface NaverMapProps {
+  destination: string | undefined;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-function NaverMap() {
+function NaverMap({ destination }: NaverMapProps) {
   const mapElement = useRef(null);
-
   const { naver } = window;
-
-  const latitude = Number(localStorage.getItem("latitude"));
-
-  const longitude = Number(localStorage.getItem("longitude"));
-
-  const { totalData } = ContentStore();
-
-  const departure = useMemo(
-    () => totalData.map((data) => data.departure),
-    [totalData]
-  );
-
-  const [array, setArray] = useState<ArrayElement[]>([]);
-
-  useEffect(() => {
-    const fetchDestinations = async () => {
-      const promises = departure.map((data) =>
-        axios.get(`http://moyeota.shop/api/distance/keyword`, {
-          params: { query: `${data}` },
-        })
-      );
-      const results = await Promise.all(promises);
-      const data = results.map((result) => result.data);
-      setArray(data);
-    };
-
-    fetchDestinations();
-  }, [departure]);
 
   useEffect(() => {
     if (!mapElement.current || !naver) return;
 
-    const location = new naver.maps.LatLng(latitude, longitude);
+    if (destination) {
+      axios
+        .get(`http://moyeota.shop/api/distance/keyword`, {
+          params: { query: destination },
+        })
+        .then((response) => {
+          const data = response.data;
+          const latitude = data.data.y;
+          const longitude = data.data.x;
+          const location = new naver.maps.LatLng(latitude, longitude);
 
-    const mapOptions = {
-      center: location,
-      zoom: 15,
-      zoomControl: false,
-    };
+          const mapOptions = {
+            center: location,
+            zoom: 15,
+            zoomControl: false,
+          };
 
-    const map = new naver.maps.Map(mapElement.current, mapOptions);
+          const map = new naver.maps.Map(mapElement.current, mapOptions);
 
-    if (array.length !== 0) {
-      console.log("테스트", array);
-      array.map((data) => {
-        console.log(data);
-        console.log(data.data.x, data.data.y);
+          new naver.maps.Marker({
+            position: location,
+            map: map,
+            icon: {
+              url: "../../../public/svg/DestinationLocationIcon.svg",
+              size: new naver.maps.Size(41, 58),
+              origin: new naver.maps.Point(0, 0),
+              anchor: new naver.maps.Point(25, 26),
+            },
+          });
+        })
+        .catch(() => {
+          alert("주소를 바르게 입력하세요");
+        });
+    } else if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        const location = new naver.maps.LatLng(latitude, longitude);
+
+        const mapOptions = {
+          center: location,
+          zoom: 15,
+          zoomControl: false,
+        };
+
+        const map = new naver.maps.Map(mapElement.current, mapOptions);
+
         new naver.maps.Marker({
-          position: new naver.maps.LatLng(data.data.y, data.data.x),
-          map,
+          position: location,
+          map: map,
           icon: {
-            url: "../../../public/svg/GreenLocationMarker.svg",
+            url: "../../../public/svg/CurrentLocationIcon.svg",
             size: new naver.maps.Size(50, 52),
             origin: new naver.maps.Point(0, 0),
             anchor: new naver.maps.Point(25, 26),
           },
         });
       });
+    } else {
+      console.log("실패");
     }
-    new naver.maps.Marker({
-      position: location,
-      map,
-      icon: {
-        url: "../../../public/svg/CurrentLocationIcon.svg",
-        size: new naver.maps.Size(50, 52),
-        origin: new naver.maps.Point(0, 0),
-        anchor: new naver.maps.Point(25, 26),
-      },
-    });
-  }, [array]);
+  }, [destination]);
 
   return (
     <>

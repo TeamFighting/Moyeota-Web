@@ -38,7 +38,7 @@ function DestinationPage() {
         />
       </Header>
       <Body>
-        <NaverMap />
+        <NaverMap destination={destination} />
         <Bottom>
           <BottomSheet destination={destination} />
           <DestinationButton />
