@@ -1,7 +1,10 @@
 import styled from "styled-components";
+import { useState } from "react";
+
 import Check from "../../../../assets/svg/Check";
 import Minus from "../../../../assets/svg/Minus";
 import Plus from "../../../../assets/svg/Plus";
+import SelectedOff from "../../../../assets/svg/SelectedOff";
 
 interface TimeModalProps {
   closeModal: () => void;
@@ -20,20 +23,37 @@ function TimeModal({
   onVehicleSelection,
   onTotalPeopleChange,
   onSameGenderRideToggle,
+  selectedVehicle,
 }: TimeModalProps) {
   const handleModalClose = () => {
     closeModal();
   };
 
   const handlePlusClick = () => {
-    onTotalPeopleChange(totalPeople + 1);
+    if (totalPeople < 5) {
+      onTotalPeopleChange(totalPeople + 1);
+
+      if (totalPeople === 4) {
+        onVehicleSelection("밴 택시");
+      }
+    } else {
+      alert("인원 초과");
+    }
   };
 
   const handleMinusClick = () => {
     if (totalPeople > 0) {
       onTotalPeopleChange(totalPeople - 1);
+
+      if (totalPeople <= 4) {
+        onVehicleSelection("일반 승용 택시");
+      }
     }
   };
+
+  const [isNormalTaxiSelected, setIsNormalTaxiSelected] = useState(
+    selectedVehicle === "일반 승용 택시"
+  );
 
   return (
     <ModalWrapper>
@@ -44,10 +64,23 @@ function TimeModal({
             <Explain>일반 승용 택시</Explain>
             <SubExplain>최대 4인</SubExplain>
           </Text>
-          <Check
-            style={{ width: 24, height: 24, marginLeft: 120 }}
-            onClick={() => onVehicleSelection("일반 승용 택시")}
-          />
+          {isNormalTaxiSelected ? (
+            <Check
+              style={{ width: 24, height: 24, marginLeft: 120 }}
+              onClick={() => {
+                setIsNormalTaxiSelected(false);
+                onVehicleSelection("밴 택시");
+              }}
+            />
+          ) : (
+            <SelectedOff
+              style={{ width: 24, height: 24, marginLeft: 120 }}
+              onClick={() => {
+                setIsNormalTaxiSelected(true);
+                onVehicleSelection("일반 승용 택시");
+              }}
+            />
+          )}
         </CarWrapper>
         <CarWrapper>
           <Text style={{ marginRight: 183 }}>
@@ -235,4 +268,5 @@ const Modal = styled.div`
   animation: fadeIn 400ms;
   transition: all 400ms ease-in-out 2s;
 `;
+
 export default TimeModal;

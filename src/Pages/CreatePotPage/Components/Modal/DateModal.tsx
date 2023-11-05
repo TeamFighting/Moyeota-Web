@@ -1,10 +1,22 @@
+import React from "react";
 import styled from "styled-components";
-
+import { DatePicker } from "ios-style-picker";
+import "../../../../../node_modules/ios-style-picker/dist/style.css";
 interface DateModalProps {
   closeModal: () => void;
+  onChange: (year: number, month: number, day: number) => void;
+  fromDate?: Date;
+  toDate?: Date;
+  initDate?: Date;
 }
 
-function DateModal({ closeModal }: DateModalProps) {
+const DateModal: React.FC<DateModalProps> = ({
+  closeModal,
+  fromDate,
+  toDate,
+  initDate,
+  onChange,
+}) => {
   const handleModalClose = () => {
     closeModal();
   };
@@ -13,11 +25,21 @@ function DateModal({ closeModal }: DateModalProps) {
     <ModalWrapper>
       <Modal>
         <Title>출발시간</Title>
+        <DatePicker
+          fromDate={fromDate}
+          toDate={toDate}
+          initDate={initDate}
+          onChange={(y: number, m: number, d: number) => {
+            onChange(y, m, d);
+          }}
+          className="custom-datepicker"
+        />
+
         <CloseButton onClick={handleModalClose}>선택완료</CloseButton>
       </Modal>
     </ModalWrapper>
   );
-}
+};
 
 const Title = styled.div`
   color: #000;
@@ -48,6 +70,7 @@ const CloseButton = styled.button`
   border: none;
   background: var(--Green-Button, #1edd81);
 `;
+
 const ModalWrapper = styled.div`
   width: 100vw;
   height: 100vh;
@@ -61,6 +84,7 @@ const ModalWrapper = styled.div`
   z-index: 999;
   flex-direction: column;
 `;
+
 const Modal = styled.div`
   width: 309px;
   position: relative;
@@ -76,4 +100,5 @@ const Modal = styled.div`
   animation: fadeIn 400ms;
   transition: all 400ms ease-in-out 2s;
 `;
+
 export default DateModal;

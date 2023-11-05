@@ -2,7 +2,8 @@ import { ChevronRight, LocationFrom, LocationMarker } from "../../assets/svg";
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import axios from "axios";
+import DurationFareStore from "../../zustand/store/DurationFareStore";
 interface CreateBodyProps {
   destination?: string;
 }
@@ -14,6 +15,8 @@ function CreateBody({ destination }: CreateBodyProps) {
   };
 
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);
+
+  const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
 
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
@@ -40,6 +43,50 @@ function CreateBody({ destination }: CreateBodyProps) {
   useEffect(() => {
     getCurrentLocation();
   }, []);
+
+  const convertDestinationToRoadAddress = (destination: string) => {
+    return axios
+      .get("http://moyeota.shop:80/api/distance/keyword", {
+        params: {
+          query: destination,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        const roadAddress = data.data.road_address_name;
+        return roadAddress;
+      });
+  };
+
+  const getEstimatedDurationAndFare = (origin: string, destination: string) => {
+    convertDestinationToRoadAddress(destination).then((roadDestination) => {
+      if (roadDestination) {
+        axios
+          .get("http://moyeota.shop:80/api/distance/duration/fare", {
+            params: {
+              origin: origin,
+              destination: roadDestination,
+            },
+          })
+          .then((response) => {
+            const data = response.data;
+            setEstimatedDuration(data.data.duration);
+            setEstimatedFare(data.data.fare);
+            console.log(data.data.fare);
+          })
+          .catch((error) => {
+            console.error("API 호출 오류:", error);
+          });
+      }
+    });
+  };
+
+  useEffect(() => {
+    getCurrentLocation();
+    if (currentLocation && destination) {
+      getEstimatedDurationAndFare(currentLocation, destination);
+    }
+  }, [currentLocation, destination]);
 
   return (
     <S.Body>
