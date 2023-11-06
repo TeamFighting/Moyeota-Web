@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import * as S from "./style";
 import { useState } from "react";
 import ContentStore from "../../zustand/store/ContentStore";
+import { useQuickPotStore } from "../../zustand/store/QuickPotStore";
 
 function QuickMatch() {
   const navigate = useNavigate();
@@ -23,15 +24,25 @@ function QuickMatch() {
     setTime(e.target.value);
   };
 
-  const pot = totalData
-    .filter((data) => {
-      if (data.destination.toLowerCase().includes(destination.toLowerCase())) {
+  const { setQuickPot } = useQuickPotStore();
+
+  const handleClick = () => {
+    const pot = totalData
+      .filter((data) => {
+        if (
+          data.destination.toLowerCase().includes(destination.toLowerCase())
+        ) {
+          return data;
+        }
+      })
+      .map((data: object) => {
         return data;
-      }
-    })
-    .map((data: object) => {
-      return data;
+      });
+    setQuickPot(pot);
+    navigate("/quickMatchFinding", {
+      state: { time: time, destination: destination },
     });
+  };
   return (
     <div>
       <DetailHeader />
@@ -81,16 +92,7 @@ function QuickMatch() {
             </Icon>
           </S.Wrapper>
         </S.Inputs>
-        <S.Submit
-          onClick={() => pot}
-          // onClick={() =>
-          //   navigate("/quickMatchFinding", {
-          //     state: { time: time, destination: destination },
-          //   })
-          // }
-        >
-          완료
-        </S.Submit>
+        <S.Submit onClick={() => handleClick()}>완료</S.Submit>
       </S.Container>
     </div>
   );

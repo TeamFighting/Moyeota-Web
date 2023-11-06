@@ -6,7 +6,7 @@ import useStore from "../../zustand/store/ContentStore";
 import LocationHeader from "./LocationHeader";
 import BottomSheet from "./Components/BottomSheet";
 import { Chevronleft } from "../../assets/svg";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SvgRefreshButton from "../../assets/svg/RefreshButton";
 import SvgBacktoCurrentButton from "../../assets/svg/BacktoCurrentButton";
 import { Icon } from "../DetailPage/style";
@@ -74,7 +74,6 @@ function MainPage() {
             />
           </Icon>
         </Icons>
-        {/* <Kakaomap mapRef={mapRef} /> */}
         <NaverMap />
         <Bottom>
           <BottomSheet />

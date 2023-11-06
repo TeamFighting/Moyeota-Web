@@ -17,9 +17,8 @@ import {
   LocationFrom,
   LocationMarker,
 } from "../../assets/svg";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import CurrentLocationStore from "../../zustand/store/CurrentLocation";
-import useStore from "../../zustand/store/ContentStore";
 import NaverMap from "../MainPage/NaverMap/NaverMap";
 import styled from "styled-components";
 
@@ -32,10 +31,11 @@ function QuickMatchFinding() {
 
   const currentBuildingName = currentLocation?.building_name;
 
-  const { totalData } = useStore((state) => state);
+  const navigate = useNavigate();
 
-  const pot = totalData.filter((data) => {});
-  console.log(pot);
+  setTimeout(() => {
+    navigate("/mainPage");
+  }, 1000);
 
   return (
     <div>
