@@ -52,8 +52,14 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     return () => window.removeEventListener("message", onMessageEvent);
   }, []);
 
-  window.addEventListener("message", (e) => alert(e.data));
-  document.addEventListener("message", (e) => alert(e));
+  window.addEventListener("message", (e) => {
+    alert(e.data);
+    console.log(e.data);
+  });
+  document.addEventListener("message", (e) => {
+    alert(e);
+    console.log(e);
+  });
 
   const messageToRN = () => {
     console.log("hello");

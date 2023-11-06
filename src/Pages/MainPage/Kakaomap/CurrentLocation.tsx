@@ -13,14 +13,14 @@ function useCurrentLocation() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      console.log("interval");
+      // console.log("interval");
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
       }
     }, 5000);
 
     function success(position: GeolocationPosition) {
-      console.log(position.coords.latitude, position.coords.longitude);
+      // console.log(position.coords.latitude, position.coords.longitude);
       localStorage.setItem("latitude", position.coords.latitude.toString());
       localStorage.setItem("longitude", position.coords.longitude.toString());
       setLocation({
