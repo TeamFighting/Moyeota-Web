@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useStore from "../../../zustand/store/LatLngstore";
 
-function CurrentLocation() {
+function useCurrentLocation() {
   const [location, setLocation] = useState<
     { latitude: number; longitude: number } | string
   >({
@@ -10,14 +10,17 @@ function CurrentLocation() {
   });
 
   const { setLatLng } = useStore((state) => state);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
+      // console.log("interval");
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
       }
     }, 5000);
 
     function success(position: GeolocationPosition) {
+      // console.log(position.coords.latitude, position.coords.longitude);
       localStorage.setItem("latitude", position.coords.latitude.toString());
       localStorage.setItem("longitude", position.coords.longitude.toString());
       setLocation({
@@ -38,9 +41,9 @@ function CurrentLocation() {
       console.log("위치받기 실패");
     }
     return () => clearInterval(intervalId);
-  }, [location, setLatLng]);
+  }, [setLatLng]);
 
   return location;
 }
 
-export default CurrentLocation;
+export default useCurrentLocation;

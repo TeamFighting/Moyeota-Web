@@ -3,13 +3,20 @@
 import { MutableRefObject, useEffect, useState } from "react";
 import CurrentLocation from "./CurrentLocation";
 // import SlideModal from '../SlideModal/SlideModal';
-
 declare global {
   interface Window {
-    kakao: any;
+    kakao: {
+      maps: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        LatLng: any;
+        services: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          Geocoder: any;
+        };
+      };
+    };
   }
 }
-
 function Kakaomap({ mapRef }: { mapRef: MutableRefObject<any> }) {
   const [isModalOpen, setIsModalOpen] = useState(true);
 

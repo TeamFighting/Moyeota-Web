@@ -29,7 +29,7 @@ function SingleContent() {
   };
 
   const { totalData } = useStore((state) => state);
-  console.log(totalData);
+  // console.log(totalData);
   return totalData.map((data, index) => {
     const splitedDay = getDays(data.departureTime);
     const timePart = ISOto12(data.departureTime);

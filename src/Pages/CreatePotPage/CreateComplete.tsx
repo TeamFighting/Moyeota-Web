@@ -22,7 +22,7 @@ function createComplete() {
             <img
               width="84"
               height="84"
-              src="/png/RobotProfile.png"
+              src="/svg/yondo.svg"
               alt="로봇 프로필"
             />
           </div>

@@ -1,12 +1,24 @@
-import styled from "styled-components";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 import CurrentLocationStore from "../../zustand/store/CurrentLocation";
+declare global {
+  interface Window {
+    kakao: {
+      maps: {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        LatLng: any;
+        services: {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          Geocoder: any;
+        };
+      };
+    };
+  }
+}
 
 function LocationHeader() {
-  const geocoder = new kakao.maps.services.Geocoder();
   const latitude = Number(localStorage.getItem("latitude"));
   const longitude = Number(localStorage.getItem("longitude"));
-  // const coord = new kakao.maps.LatLng(latitude, longitude);
   const [location, setLocation] = useState<string>("");
   const { setCurrentLocation } = CurrentLocationStore();
 
@@ -33,7 +45,10 @@ function LocationHeader() {
   };
 
   useEffect(() => {
-    geocoder.coord2Address(longitude, latitude, callback);
+    if (window.kakao && window.kakao.maps) {
+      const geocoder = new kakao.maps.services.Geocoder();
+      geocoder.coord2Address(longitude, latitude, callback);
+    }
   }, [latitude, longitude]);
 
   return <Location>{location}</Location>;
