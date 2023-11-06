@@ -1,10 +1,18 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function DestinationButton() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const destination = searchParams.get("destination");
+
   const navigateToCreateComplete = () => {
-    navigate("/createPotPage");
+    if (destination) {
+      navigate(`/createPotPage?destination=${destination}`);
+    } else {
+      alert("도착지를 입력해주세요");
+    }
   };
   return (
     <Wrapper>
