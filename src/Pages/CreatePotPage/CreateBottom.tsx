@@ -27,12 +27,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     setSelectedModal("time");
   };
 
-  const [e, setE] = useState<string>("");
-
-  // const openDateModal = () => {
-  //   setSelectedModal("date");
-  // };
-
   const closeModal = () => {
     setSelectedModal(null);
   };
@@ -45,6 +39,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     setIsSameGenderRide(!isSameGenderRide);
   };
 
+  const [e, setE] = useState<any>(null);
   const isSelectionComplete = totalPeople > 0;
   const onMessageEvent = (e: MessageEvent) => {
     e.stopPropagation();
@@ -56,11 +51,12 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   }, []);
 
   window.addEventListener("message", (e) => {
-    // console.log("e", e.data);
+    console.log("e", e.data);
     setE(e.data);
   });
   document.addEventListener("message", (e) => {
     console.log(e);
+    setE(e);
   });
 
   const messageToRN = () => {
@@ -78,7 +74,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
       >
         <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
-          <div>{e}</div>
+          <div>{JSON.stringify(e)}</div>
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
         <ChevronRight width="24" height="24" />
