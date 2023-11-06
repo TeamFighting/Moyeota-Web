@@ -42,9 +42,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   };
 
   const isSelectionComplete = totalPeople > 0;
-  const onMessageEvent = (e: MessageEvent) => {
-    e.stopPropagation();
-  };
 
   const listener = ({ data }: { data: MessageEvent["data"] }) => {
     const message = JSON.parse(data);
