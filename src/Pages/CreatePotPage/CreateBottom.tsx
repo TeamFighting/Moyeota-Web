@@ -23,6 +23,8 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
+  const [selectedTime, setSelectedTime] = useState<string>("");
+
   const openTimeModal = () => {
     setSelectedModal("time");
   };
@@ -39,25 +41,24 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     setIsSameGenderRide(!isSameGenderRide);
   };
 
-  const [e, setE] = useState<any>(null);
   const isSelectionComplete = totalPeople > 0;
   const onMessageEvent = (e: MessageEvent) => {
     e.stopPropagation();
   };
 
-  useEffect(() => {
-    window.addEventListener("message", onMessageEvent, { capture: true });
-    return () => window.removeEventListener("message", onMessageEvent);
-  }, []);
+  const listener = ({ data }: { data: MessageEvent["data"] }) => {
+    const message = JSON.parse(data);
+    setSelectedTime(message);
+  };
 
-  window.addEventListener("message", (e) => {
-    console.log("e", e.data);
-    setE(e.data);
-  });
-  document.addEventListener("message", (e) => {
-    console.log(e);
-    setE(e);
-  });
+  useEffect(() => {
+    // document.addEventListener("message", listener);
+    window.addEventListener("message", listener);
+    return () => {
+      // document.removeEventListener("message", listener);
+      window.removeEventListener("message", listener);
+    };
+  }, []);
 
   const messageToRN = () => {
     // console.log("hello");
