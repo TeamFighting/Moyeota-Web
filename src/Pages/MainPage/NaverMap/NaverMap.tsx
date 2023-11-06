@@ -61,7 +61,7 @@ function NaverMap() {
 
     const mapOptions = {
       center: location,
-      zoom: 15,
+      zoom: 13,
       zoomControl: false,
     };
 
