@@ -56,8 +56,6 @@ function NaverMap() {
         });
         const results = await Promise.all(promises);
         console.log("results", results);
-        // const data = results.map((result) => result.data);
-        // setArray(data);
       } else {
         const promises = departures.map((data) =>
           axios.get(`http://moyeota.shop/api/distance/keyword`, {

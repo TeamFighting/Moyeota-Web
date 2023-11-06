@@ -6,7 +6,7 @@ import useStore from "../../zustand/store/ContentStore";
 import LocationHeader from "./LocationHeader";
 import BottomSheet from "./Components/BottomSheet";
 import { Chevronleft } from "../../assets/svg";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SvgRefreshButton from "../../assets/svg/RefreshButton";
 import SvgBacktoCurrentButton from "../../assets/svg/BacktoCurrentButton";
 import { Icon } from "../DetailPage/style";
