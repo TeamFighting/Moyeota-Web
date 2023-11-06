@@ -56,7 +56,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   }, []);
 
   window.addEventListener("message", (e) => {
-    console.log(e.data);
+    // console.log("e", e.data);
     setE(e.data);
   });
   document.addEventListener("message", (e) => {
@@ -64,19 +64,19 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   });
 
   const messageToRN = () => {
-    console.log("hello");
+    // console.log("hello");
     window.ReactNativeWebView.postMessage("helloworld");
   };
 
   return (
     <S.Bottom>
       <S.Wrapper
+        onClick={messageToRN}
         style={{
           paddingBottom: "40px",
         }}
-        onClick={postMessage}
       >
-        <S.TextWrapper onClick={messageToRN}>
+        <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
           <div>{e}</div>
           <S.Description>탑승일시를 선택해주세요</S.Description>
