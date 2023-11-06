@@ -18,9 +18,11 @@ interface CreateBottomProps {
 
 function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   const [selectedVehicle, setSelectedVehicle] = useState("일반 승용 택시");
+
   const [isSameGenderRide, setIsSameGenderRide] = useState(false);
+
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
-  const [data, setData] = useState("");
+
   const openTimeModal = () => {
     setSelectedModal("time");
   };
@@ -44,7 +46,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   const isSelectionComplete = totalPeople > 0;
   const onMessageEvent = (e: MessageEvent) => {
     e.stopPropagation();
-    setData(String(e.data));
+    console.log(e.data);
   };
 
   useEffect(() => {
