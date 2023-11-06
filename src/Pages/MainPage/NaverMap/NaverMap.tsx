@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import ContentStore from "../../../zustand/store/ContentStore";
 import axios from "axios";
+import { useQuickPotStore } from "../../../zustand/store/QuickPotStore";
 
 declare global {
   interface Window {
@@ -32,27 +33,45 @@ function NaverMap() {
 
   const { totalData } = ContentStore();
 
-  const departure = useMemo(
+  const { quickPot } = useQuickPotStore();
+  const departures = useMemo(
     () => totalData.map((data) => data.departure),
     [totalData]
   );
 
   const [array, setArray] = useState<ArrayElement[]>([]);
-
+  console.log("array", array);
   useEffect(() => {
     const fetchDestinations = async () => {
-      const promises = departure.map((data) =>
-        axios.get(`http://moyeota.shop/api/distance/keyword`, {
-          params: { query: `${data}` },
-        })
-      );
-      const results = await Promise.all(promises);
-      const data = results.map((result) => result.data);
-      setArray(data);
+      if (quickPot.length !== 0) {
+        const promises = quickPot.map((data) => {
+          axios
+            .get(`http://moyeota.shop/api/distance/keyword`, {
+              params: { query: `${data.departure}` },
+            })
+            .then((res) => {
+              setArray((prev) => [...prev, res.data]);
+              console.log(res);
+            });
+        });
+        const results = await Promise.all(promises);
+        console.log("results", results);
+        // const data = results.map((result) => result.data);
+        // setArray(data);
+      } else {
+        const promises = departures.map((data) =>
+          axios.get(`http://moyeota.shop/api/distance/keyword`, {
+            params: { query: `${data}` },
+          })
+        );
+        const results = await Promise.all(promises);
+        const data = results.map((result) => result.data);
+        setArray(data);
+      }
     };
 
     fetchDestinations();
-  }, [departure]);
+  }, [departures, quickPot]);
 
   useEffect(() => {
     if (!mapElement.current || !naver) return;
@@ -66,7 +85,6 @@ function NaverMap() {
     };
 
     const map = new naver.maps.Map(mapElement.current, mapOptions);
-
     if (array.length !== 0) {
       array.map((data) => {
         new naver.maps.Marker({
