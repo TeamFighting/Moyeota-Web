@@ -43,6 +43,7 @@ function MainPage() {
 
   const refresh = () => {
     console.log("refresh");
+    window.location.reload();
   };
 
   const goCurrent = () => {
