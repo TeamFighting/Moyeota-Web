@@ -2,8 +2,14 @@ import { ChevronRight } from "../../assets/svg";
 import * as S from "./style";
 import TimeModal from "./Components/Modal/TimeModal";
 // import DateModal from "./Components/Modal/DateModal";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ReactNativeWebView: any;
+  }
+}
 interface CreateBottomProps {
   totalPeople: number;
   onTotalPeopleChange: (count: SetStateAction<number>) => void;
@@ -13,7 +19,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   const [selectedVehicle, setSelectedVehicle] = useState("일반 승용 택시");
   const [isSameGenderRide, setIsSameGenderRide] = useState(false);
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
-
+  const [data, setData] = useState("");
   const openTimeModal = () => {
     setSelectedModal("time");
   };
@@ -35,6 +41,20 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   };
 
   const isSelectionComplete = totalPeople > 0;
+  console.log(data);
+  const onMessageEvent = (e: MessageEvent) => {
+    e.stopPropagation();
+    setData(String(e.data));
+  };
+
+  useEffect(() => {
+    window.addEventListener("message", onMessageEvent, { capture: true });
+    return () => window.removeEventListener("message", onMessageEvent);
+  }, []);
+
+  const messageToRN = () => {
+    window.ReactNativeWebView.postMessage("hello");
+  };
 
   return (
     <S.Bottom>
@@ -42,9 +62,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         style={{
           paddingBottom: "40px",
         }}
-        // onClick={openDateModal}
+        onClick={postMessage}
       >
-        <S.TextWrapper>
+        <S.TextWrapper onClick={messageToRN}>
           <S.BottomTitle>출발시간</S.BottomTitle>
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
