@@ -6,8 +6,9 @@ import { SetStateAction, useEffect, useState } from "react";
 
 declare global {
   interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ReactNativeWebView: any;
+    ReactNativeWebView: {
+      postMessage: (message: string) => void;
+    };
   }
 }
 interface CreateBottomProps {
@@ -41,7 +42,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   };
 
   const isSelectionComplete = totalPeople > 0;
-  console.log(data);
   const onMessageEvent = (e: MessageEvent) => {
     e.stopPropagation();
     setData(String(e.data));
@@ -52,8 +52,12 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     return () => window.removeEventListener("message", onMessageEvent);
   }, []);
 
+  window.addEventListener("message", (e) => alert(e.data));
+  document.addEventListener("message", (e) => alert(e));
+
   const messageToRN = () => {
-    window.ReactNativeWebView.postMessage("hello");
+    console.log("hello");
+    window.ReactNativeWebView.postMessage("helloworld");
   };
 
   return (
