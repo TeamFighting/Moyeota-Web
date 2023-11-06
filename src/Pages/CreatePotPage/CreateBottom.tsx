@@ -2,7 +2,7 @@ import { ChevronRight } from "../../assets/svg";
 import * as S from "./style";
 import TimeModal from "./Components/Modal/TimeModal";
 // import DateModal from "./Components/Modal/DateModal";
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState } from "react";
 
 declare global {
   interface Window {
@@ -23,8 +23,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
-  const [selectedTime, setSelectedTime] = useState<string>("");
-
   const openTimeModal = () => {
     setSelectedModal("time");
   };
@@ -43,20 +41,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
   const isSelectionComplete = totalPeople > 0;
 
-  const listener = ({ data }: { data: MessageEvent["data"] }) => {
-    const message = JSON.parse(data);
-    setSelectedTime(message);
-  };
-
-  useEffect(() => {
-    // document.addEventListener("message", listener);
-    window.addEventListener("message", listener);
-    return () => {
-      // document.removeEventListener("message", listener);
-      window.removeEventListener("message", listener);
-    };
-  }, []);
-
   const messageToRN = () => {
     // console.log("hello");
     window.ReactNativeWebView.postMessage("helloworld");
@@ -72,7 +56,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
       >
         <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
-          <div>{selectedTime}</div>
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
         <ChevronRight width="24" height="24" />
@@ -104,7 +87,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
           onSameGenderRideToggle={handleSameGenderRideToggle}
         />
       )}
-      {/* {selectedModal === "date" && <DateModal closeModal={closeModal} />} */}
     </S.Bottom>
   );
 }
