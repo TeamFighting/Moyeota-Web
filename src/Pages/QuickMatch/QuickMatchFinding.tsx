@@ -34,13 +34,7 @@ function QuickMatchFinding() {
 
   const { totalData } = useStore((state) => state);
 
-  const pot = totalData.filter((data) => {
-    for (let i = 0; i < destination.length; i++) {
-      if (data.destination[i] === destination[i]) {
-        return true;
-      }
-    }
-  });
+  const pot = totalData.filter((data) => {});
   console.log(pot);
 
   return (

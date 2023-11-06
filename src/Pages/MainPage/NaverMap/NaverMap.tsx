@@ -68,10 +68,7 @@ function NaverMap() {
     const map = new naver.maps.Map(mapElement.current, mapOptions);
 
     if (array.length !== 0) {
-      console.log("테스트", array);
       array.map((data) => {
-        console.log(data);
-        console.log(data.data.x, data.data.y);
         new naver.maps.Marker({
           position: new naver.maps.LatLng(data.data.y, data.data.x),
           map,

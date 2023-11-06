@@ -39,7 +39,7 @@ function LocationHeader() {
         " " +
         result[0].road_address?.region_2depth_name;
       setLocation(location);
-      console.log(result[0].road_address);
+      // console.log(result[0].road_address);
       setCurrentLocation(result[0].road_address);
     }
   };

@@ -20,7 +20,6 @@ function useCurrentLocation() {
     }, 5000);
 
     function success(position: GeolocationPosition) {
-      // console.log(position.coords.latitude, position.coords.longitude);
       localStorage.setItem("latitude", position.coords.latitude.toString());
       localStorage.setItem("longitude", position.coords.longitude.toString());
       setLocation({
