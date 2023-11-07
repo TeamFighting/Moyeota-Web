@@ -11,6 +11,9 @@ function DestinationPage() {
   const goToSearchResults = () => {
     navigate("/searchResults");
   };
+  const goToback = () => {
+    navigate("/createPotPage");
+  };
   const location = useLocation();
   const destination = (new URLSearchParams(location.search).get(
     "destination"
@@ -27,6 +30,7 @@ function DestinationPage() {
           readOnly
         />
         <Chevronleft
+          onClick={goToback}
           style={{
             width: 24,
             height: 24,

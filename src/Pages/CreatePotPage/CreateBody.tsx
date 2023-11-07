@@ -1,9 +1,10 @@
 import { ChevronRight, LocationFrom, LocationMarker } from "../../assets/svg";
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import DurationFareStore from "../../zustand/store/DurationFareStore";
+import PotCreateStore from "../../zustand/store/PotCreateStore";
 interface CreateBodyProps {
   destination?: string;
 }
@@ -17,7 +18,7 @@ function CreateBody({ destination }: CreateBodyProps) {
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);
 
   const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
-
+  const { setTitle, setDistance, setDestination } = PotCreateStore();
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -44,6 +45,7 @@ function CreateBody({ destination }: CreateBodyProps) {
     getCurrentLocation();
   }, []);
 
+  //destination값 키워드에서 도로명주소로 변경
   const convertDestinationToRoadAddress = (destination: string) => {
     return axios
       .get("http://moyeota.shop:80/api/distance/keyword", {
@@ -58,6 +60,7 @@ function CreateBody({ destination }: CreateBodyProps) {
       });
   };
 
+  //예상금액 및 예상시간 계산
   const getEstimatedDurationAndFare = (origin: string, destination: string) => {
     convertDestinationToRoadAddress(destination).then((roadDestination) => {
       if (roadDestination) {
@@ -81,6 +84,37 @@ function CreateBody({ destination }: CreateBodyProps) {
     });
   };
 
+  //거리 계산
+  useEffect(() => {
+    if (currentLocation && destination) {
+      convertDestinationToRoadAddress(destination).then((roadDestination) => {
+        if (roadDestination) {
+          axios
+            .get("http://moyeota.shop:80/api/distance/compare", {
+              params: {
+                address1: currentLocation,
+                address2: roadDestination,
+              },
+            })
+            .then((response) => {
+              const data = response.data.data;
+              const distance = parseFloat(data);
+              setDistance(distance);
+            })
+            .catch((error) => {
+              console.error("API 호출 오류:", error);
+            });
+        }
+      });
+      setDestination(destination);
+    }
+  }, [currentLocation, destination]);
+
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setTitle(inputValue);
+  };
+
   useEffect(() => {
     getCurrentLocation();
     if (currentLocation && destination) {
@@ -99,6 +133,7 @@ function CreateBody({ destination }: CreateBodyProps) {
         <S.InputStyle
           type="text"
           placeholder="지역, 목적지가 포함된 제목이면 더 좋아요"
+          onChange={handleTitleChange}
         />
         <S.MapSample
           src="../../../public/png/Map.png"

@@ -1,8 +1,10 @@
-import { useState, ChangeEvent } from "react";
+import { ChangeEvent } from "react";
+import PotCreateStore from "../../zustand/store/PotCreateStore";
 import * as S from "./style";
 
 function CreateDescription() {
-  const [description, setDescription] = useState<string>("");
+  const description = PotCreateStore((state) => state.description);
+  const setDescription = PotCreateStore((state) => state.setDescription);
 
   const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const inputValue = e.target.value;

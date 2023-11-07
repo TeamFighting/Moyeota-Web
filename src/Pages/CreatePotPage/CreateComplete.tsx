@@ -1,14 +1,14 @@
 import * as S from "./style";
 import CreateHeader from "./CreateHeader";
-import { Divider } from "../../assets/svg";
 import CreateExitButton from "./Components/Button/CreateExitButton";
+import styled from "styled-components";
 
 function createComplete() {
   return (
     <>
       <S.Container>
         <CreateHeader />
-        <Divider width="100%" height="10" />
+        <Divider />
         <div
           style={{
             display: "flex",
@@ -22,7 +22,7 @@ function createComplete() {
             <img
               width="84"
               height="84"
-              src="/svg/yondo.svg"
+              src="/svg/Yondo.svg"
               alt="로봇 프로필"
             />
           </div>
@@ -39,5 +39,11 @@ function createComplete() {
     </>
   );
 }
+
+const Divider = styled.div`
+  width: 100vw;
+  background-color: #f5f6f8;
+  height: 10px;
+`;
 
 export default createComplete;

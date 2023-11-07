@@ -3,7 +3,7 @@ import * as S from "./style";
 import TimeModal from "./Components/Modal/TimeModal";
 // import DateModal from "./Components/Modal/DateModal";
 import { SetStateAction, useState } from "react";
-
+import PotCreateStore from "../../zustand/store/PotCreateStore";
 declare global {
   interface Window {
     ReactNativeWebView: {
@@ -31,12 +31,20 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     setSelectedModal(null);
   };
 
+  const setVehicleType = PotCreateStore((state) => state.setVehicleType);
   const handleVehicleSelection = (vehicle: SetStateAction<string>) => {
     setSelectedVehicle(vehicle);
+    if (vehicle === "일반 승용 택시") {
+      setVehicleType("일반");
+    } else if (vehicle === "밴 택시") {
+      setVehicleType("밴");
+    }
   };
+  const setSameGenderRide = PotCreateStore((state) => state.setSameGenderRide);
 
   const handleSameGenderRideToggle = () => {
     setIsSameGenderRide(!isSameGenderRide);
+    setSameGenderRide(isSameGenderRide ? "NO" : "YES");
   };
 
   const isSelectionComplete = totalPeople > 0;
