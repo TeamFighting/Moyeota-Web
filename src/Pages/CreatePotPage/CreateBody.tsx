@@ -45,6 +45,7 @@ function CreateBody({ destination }: CreateBodyProps) {
     getCurrentLocation();
   }, []);
 
+  //destination값 키워드에서 도로명주소로 변경
   const convertDestinationToRoadAddress = (destination: string) => {
     return axios
       .get("http://moyeota.shop:80/api/distance/keyword", {
@@ -59,6 +60,7 @@ function CreateBody({ destination }: CreateBodyProps) {
       });
   };
 
+  //예상금액 및 예상시간 계산
   const getEstimatedDurationAndFare = (origin: string, destination: string) => {
     convertDestinationToRoadAddress(destination).then((roadDestination) => {
       if (roadDestination) {
@@ -81,6 +83,33 @@ function CreateBody({ destination }: CreateBodyProps) {
       }
     });
   };
+
+  const [distance, setDistance] = useState<number | null>(null);
+
+  //거리 계산
+  useEffect(() => {
+    if (currentLocation && destination) {
+      convertDestinationToRoadAddress(destination).then((roadDestination) => {
+        if (roadDestination) {
+          axios
+            .get("http://moyeota.shop:80/api/distance/compare", {
+              params: {
+                address1: currentLocation,
+                address2: roadDestination,
+              },
+            })
+            .then((response) => {
+              const data = response.data;
+              setDistance(data);
+              // console.log("data:", data.data);
+            })
+            .catch((error) => {
+              console.error("API 호출 오류:", error);
+            });
+        }
+      });
+    }
+  }, [currentLocation, destination]);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
