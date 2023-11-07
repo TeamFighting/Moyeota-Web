@@ -1,21 +1,22 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import PotCreateStore from "../../../../zustand/store/PotCreateStore"; // PotCreateStore의 경로를 올바르게 지정
+import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 import DurationFareStore from "../../../../zustand/store/DurationFareStore";
+
 function CreatePotButton() {
   const navigate = useNavigate();
+  const potCreateStore = PotCreateStore();
+  const durationFareStore = DurationFareStore();
 
   const createPost = async () => {
     try {
       const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
-      const title = PotCreateStore((state) => state.title);
-      const content = PotCreateStore((state) => state.description);
-      const distance = PotCreateStore((state) => state.distance);
-      const destination = PotCreateStore((state) => state.destination);
-      const estimatedDuration = DurationFareStore(
-        (state) => state.estimatedDuration
-      );
-      const estimatedFare = DurationFareStore((state) => state.estimatedFare);
+      const title = potCreateStore.title;
+      const content = potCreateStore.description;
+      const distance = potCreateStore.distance;
+      const destination = potCreateStore.destination;
+      const estimatedDuration = durationFareStore.estimatedDuration;
+      const estimatedFare = durationFareStore.estimatedFare;
 
       const response = await fetch("http://moyeota.shop:80/api/posts", {
         method: "POST",
