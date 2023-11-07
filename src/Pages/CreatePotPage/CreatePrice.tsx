@@ -18,8 +18,8 @@ function CreatePrice({ totalPeople }: { totalPeople: number }) {
         <S.PayBoxDescription>
           총 {totalAmount.toLocaleString()}원 /{" "}
           {totalPeople > 0
-            ? `1인당 ${farePerPerson.toLocaleString()}`
-            : `1인당 ${totalAmount.toLocaleString()}`}{" "}
+            ? `1인당 ${farePerPerson.toLocaleString()}원`
+            : `1인당 ${totalAmount.toLocaleString()}원`}{" "}
           (현재시간 기준)
         </S.PayBoxDescription>
       </S.PayBox>
