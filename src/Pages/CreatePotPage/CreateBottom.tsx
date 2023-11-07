@@ -44,7 +44,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
   const handleSameGenderRideToggle = () => {
     setIsSameGenderRide(!isSameGenderRide);
-    setSameGenderRide(isSameGenderRide ? "YES" : "NO");
+    setSameGenderRide(isSameGenderRide ? "NO" : "YES");
   };
 
   const isSelectionComplete = totalPeople > 0;

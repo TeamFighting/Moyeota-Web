@@ -5,8 +5,8 @@ interface StoreState {
   setDescription: (value: string) => void;
   title: string;
   setTitle: (value: string) => void;
-  distance: number | null;
-  setDistance: (value: number | null) => void;
+  distance: number;
+  setDistance: (value: number) => void;
   destination: string | null;
   setDestination: (value: string | null) => void;
   totalPeople: number;
@@ -22,7 +22,7 @@ const usePotCreateStore = create<StoreState>((set) => ({
   setDescription: (value) => set({ description: value }),
   title: "",
   setTitle: (value) => set({ title: value }),
-  distance: null,
+  distance: 0,
   setDistance: (value) => set({ distance: value }),
   destination: null,
   setDestination: (value) => set({ destination: value }),

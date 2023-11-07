@@ -55,7 +55,7 @@ function CreatePotPage() {
         <Divider style={{ height: `${dividerHeight}px` }} />
         <CreatePrice totalPeople={totalPeople} />
         <Divider style={{ height: "6px" }} />
-        <CreatePotButton />
+        <CreatePotButton totalPeople={totalPeople} />
         <CreateDescription />
         <Divider style={{ height: "6px" }} />
         <CreateNote />

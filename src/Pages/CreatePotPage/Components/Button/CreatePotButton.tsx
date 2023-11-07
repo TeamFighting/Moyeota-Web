@@ -4,7 +4,7 @@ import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 import DurationFareStore from "../../../../zustand/store/DurationFareStore";
 import CurrentLocation from "../../../../zustand/store/CurrentLocation";
 
-function CreatePotButton() {
+function CreatePotButton({ totalPeople }: { totalPeople: number }) {
   const navigate = useNavigate();
   const potCreateStore = PotCreateStore();
   const durationFareStore = DurationFareStore();
@@ -21,12 +21,12 @@ function CreatePotButton() {
       const destination = potCreateStore.destination;
       const vehicle = potCreateStore.VehicleType;
       const sameGenderStatus = potCreateStore.sameGenderRide;
-      const numberOfRecruitment = potCreateStore.totalPeople;
+      const numberOfRecruitment = totalPeople;
       const estimatedDuration = durationFareStore.estimatedDuration;
       const estimatedFare = durationFareStore.estimatedFare;
       const departure =
         currentLocationStore.currentLocation?.building_name ?? "미입력";
-
+      console.log("departure:", departure);
       const response = await fetch("http://moyeota.shop:80/api/posts", {
         method: "POST",
         headers: {

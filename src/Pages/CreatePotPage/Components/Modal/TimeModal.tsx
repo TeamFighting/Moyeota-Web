@@ -5,7 +5,6 @@ import Check from "../../../../assets/svg/Check";
 import Minus from "../../../../assets/svg/Minus";
 import Plus from "../../../../assets/svg/Plus";
 import SelectedOff from "../../../../assets/svg/SelectedOff";
-import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 
 interface TimeModalProps {
   closeModal: () => void;
@@ -29,15 +28,13 @@ function TimeModal({
   const handleModalClose = () => {
     closeModal();
   };
+
   const handlePlusClick = () => {
     if (totalPeople < 5) {
-      const updatedTotalPeople = totalPeople + 1;
-      onTotalPeopleChange(updatedTotalPeople);
+      onTotalPeopleChange(totalPeople + 1);
 
-      if (updatedTotalPeople === 4) {
+      if (totalPeople === 4) {
         onVehicleSelection("밴 택시");
-
-        PotCreateStore.setState({ totalPeople: updatedTotalPeople });
       }
     } else {
       alert("인원 초과");
@@ -46,13 +43,10 @@ function TimeModal({
 
   const handleMinusClick = () => {
     if (totalPeople > 0) {
-      const updatedTotalPeople = totalPeople - 1;
-      onTotalPeopleChange(updatedTotalPeople);
+      onTotalPeopleChange(totalPeople - 1);
 
-      if (updatedTotalPeople <= 4) {
+      if (totalPeople <= 4) {
         onVehicleSelection("일반 승용 택시");
-
-        PotCreateStore.setState({ totalPeople: updatedTotalPeople });
       }
     }
   };

@@ -97,7 +97,7 @@ function CreateBody({ destination }: CreateBodyProps) {
               },
             })
             .then((response) => {
-              const data = response.data;
+              const data = response.data.data;
               const distance = parseFloat(data);
               setDistance(distance);
             })
