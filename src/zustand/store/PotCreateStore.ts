@@ -28,10 +28,10 @@ const usePotCreateStore = create<StoreState>((set) => ({
   setDestination: (value) => set({ destination: value }),
   totalPeople: 0,
   setTotalPeople: (value: number) => set({ totalPeople: value }),
-  VehicleType: "일반 승용 택시",
+  VehicleType: "일반",
   setVehicleType: (value) => set({ VehicleType: value }),
   sameGenderRide: "NO",
-  setSameGenderRide: (value) => set({ VehicleType: value }),
+  setSameGenderRide: (value) => set({ sameGenderRide: value }),
 }));
 
 export default usePotCreateStore;

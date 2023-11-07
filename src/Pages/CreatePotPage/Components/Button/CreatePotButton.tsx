@@ -2,11 +2,13 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 import DurationFareStore from "../../../../zustand/store/DurationFareStore";
+import CurrentLocation from "../../../../zustand/store/CurrentLocation";
 
 function CreatePotButton() {
   const navigate = useNavigate();
   const potCreateStore = PotCreateStore();
   const durationFareStore = DurationFareStore();
+  const currentLocationStore = CurrentLocation();
 
   const createPost = async () => {
     try {
@@ -22,6 +24,8 @@ function CreatePotButton() {
       const numberOfRecruitment = potCreateStore.totalPeople;
       const estimatedDuration = durationFareStore.estimatedDuration;
       const estimatedFare = durationFareStore.estimatedFare;
+      const departure =
+        currentLocationStore.currentLocation?.building_name ?? "미입력";
 
       const response = await fetch("http://moyeota.shop:80/api/posts", {
         method: "POST",
@@ -33,7 +37,7 @@ function CreatePotButton() {
           category: "LIFE",
           content: content,
           createdDate: formattedDate,
-          departure: "공릉역 7호선",
+          departure: departure,
           departureTime: formattedDate, //모달 후 수정 필요
           destination: destination,
           distance: distance,
@@ -46,7 +50,6 @@ function CreatePotButton() {
           vehicle: vehicle,
         }),
       });
-      console.log("Request Body:", JSON.stringify(response.body));
       const data = await response.json();
       console.log("responseData", data);
 
