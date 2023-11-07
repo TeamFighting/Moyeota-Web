@@ -43,6 +43,7 @@ function SingleContent() {
     } else {
       gender = "남";
     }
+
     return (
       <S.SingleContent
         key={index}
