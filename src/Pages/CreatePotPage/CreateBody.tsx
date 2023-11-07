@@ -98,7 +98,8 @@ function CreateBody({ destination }: CreateBodyProps) {
             })
             .then((response) => {
               const data = response.data;
-              setDistance(data);
+              const distance = parseFloat(data);
+              setDistance(distance);
             })
             .catch((error) => {
               console.error("API 호출 오류:", error);
