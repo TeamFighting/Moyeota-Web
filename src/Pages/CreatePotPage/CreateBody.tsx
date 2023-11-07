@@ -1,9 +1,10 @@
 import { ChevronRight, LocationFrom, LocationMarker } from "../../assets/svg";
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
 import DurationFareStore from "../../zustand/store/DurationFareStore";
+import PotCreateStore from "../../zustand/store/PotCreateStore";
 interface CreateBodyProps {
   destination?: string;
 }
@@ -17,7 +18,7 @@ function CreateBody({ destination }: CreateBodyProps) {
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);
 
   const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
-
+  const { title, setTitle } = PotCreateStore();
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -81,6 +82,11 @@ function CreateBody({ destination }: CreateBodyProps) {
     });
   };
 
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setTitle(inputValue);
+  };
+
   useEffect(() => {
     getCurrentLocation();
     if (currentLocation && destination) {
@@ -99,6 +105,7 @@ function CreateBody({ destination }: CreateBodyProps) {
         <S.InputStyle
           type="text"
           placeholder="지역, 목적지가 포함된 제목이면 더 좋아요"
+          onChange={handleTitleChange}
         />
         <S.MapSample
           src="../../../public/png/Map.png"

@@ -1,12 +1,20 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
+import PotCreateStore from "../../../../zustand/store/PotCreateStore"; // PotCreateStore의 경로를 올바르게 지정
+import DurationFareStore from "../../../../zustand/store/DurationFareStore";
 function CreatePotButton() {
   const navigate = useNavigate();
 
   const createPost = async () => {
     try {
       const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
+      const title = PotCreateStore((state) => state.title);
+      const content = PotCreateStore((state) => state.description);
+      const estimatedDuration = DurationFareStore(
+        (state) => state.estimatedDuration
+      );
+      const estimatedFare = DurationFareStore((state) => state.estimatedFare);
+
       const response = await fetch("http://moyeota.shop:80/api/posts", {
         method: "POST",
         headers: {
@@ -15,18 +23,18 @@ function CreatePotButton() {
         },
         body: JSON.stringify({
           category: "LIFE",
-          content: "같이 갈 사람 참가 신청 ㄱㄱ",
+          content: content,
           createdDate: "2023-11-06T14:17:41.502Z",
           departure: "공릉역 7호선",
           departureTime: "2023-11-06T14:17:41.502Z",
           destination: "서울과학기술대학교 어의관",
           distance: 0.5,
-          duration: 313,
-          fare: 5200,
+          duration: estimatedDuration,
+          fare: estimatedFare,
           modifiedDate: "2023-11-06T14:17:41.502Z",
           numberOfRecruitment: 4,
           sameGenderStatus: "YES",
-          title: "공릉역에서 어의관 갈사람?",
+          title: title,
           vehicle: "일반",
         }),
       });
