@@ -10,6 +10,8 @@ function CreatePotButton() {
       const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
       const title = PotCreateStore((state) => state.title);
       const content = PotCreateStore((state) => state.description);
+      const distance = PotCreateStore((state) => state.distance);
+      const destination = PotCreateStore((state) => state.destination);
       const estimatedDuration = DurationFareStore(
         (state) => state.estimatedDuration
       );
@@ -27,8 +29,8 @@ function CreatePotButton() {
           createdDate: "2023-11-06T14:17:41.502Z",
           departure: "공릉역 7호선",
           departureTime: "2023-11-06T14:17:41.502Z",
-          destination: "서울과학기술대학교 어의관",
-          distance: 0.5,
+          destination: destination,
+          distance: distance,
           duration: estimatedDuration,
           fare: estimatedFare,
           modifiedDate: "2023-11-06T14:17:41.502Z",

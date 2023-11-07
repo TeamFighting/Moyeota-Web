@@ -18,7 +18,7 @@ function CreateBody({ destination }: CreateBodyProps) {
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);
 
   const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
-  const { title, setTitle } = PotCreateStore();
+  const { setTitle, setDistance, setDestination } = PotCreateStore();
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -84,8 +84,6 @@ function CreateBody({ destination }: CreateBodyProps) {
     });
   };
 
-  const [distance, setDistance] = useState<number | null>(null);
-
   //거리 계산
   useEffect(() => {
     if (currentLocation && destination) {
@@ -101,13 +99,13 @@ function CreateBody({ destination }: CreateBodyProps) {
             .then((response) => {
               const data = response.data;
               setDistance(data);
-              // console.log("data:", data.data);
             })
             .catch((error) => {
               console.error("API 호출 오류:", error);
             });
         }
       });
+      setDestination(destination);
     }
   }, [currentLocation, destination]);
 
