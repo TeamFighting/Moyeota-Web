@@ -9,10 +9,12 @@ function ISOto12(departureTime: string | undefined | null) {
     }
     const hour = parseInt(timePart.split(":")[0]);
     const minute = timePart.split(":")[1];
-    if (hour <= 12) {
+    if (hour < 12) {
       timePart = "오전 " + hour + ":" + minute;
-    } else {
+    } else if (hour > 12) {
       timePart = "오후 " + (hour - 12) + ":" + minute;
+    } else if (hour == 12) {
+      timePart = "오후 " + hour + ":" + minute;
     }
     return timePart;
   }
