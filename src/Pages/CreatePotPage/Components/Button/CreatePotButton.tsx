@@ -10,11 +10,16 @@ function CreatePotButton() {
 
   const createPost = async () => {
     try {
+      const currentDate = new Date();
+      const formattedDate = currentDate.toISOString(); // "2023-11-07T02:23:41.465Z"
       const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
       const title = potCreateStore.title;
       const content = potCreateStore.description;
       const distance = potCreateStore.distance;
       const destination = potCreateStore.destination;
+      const vehicle = potCreateStore.VehicleType;
+      const sameGenderStatus = potCreateStore.sameGenderRide;
+      const numberOfRecruitment = potCreateStore.totalPeople;
       const estimatedDuration = durationFareStore.estimatedDuration;
       const estimatedFare = durationFareStore.estimatedFare;
 
@@ -27,21 +32,21 @@ function CreatePotButton() {
         body: JSON.stringify({
           category: "LIFE",
           content: content,
-          createdDate: "2023-11-06T14:17:41.502Z",
+          createdDate: formattedDate,
           departure: "공릉역 7호선",
-          departureTime: "2023-11-06T14:17:41.502Z",
+          departureTime: formattedDate, //모달 후 수정 필요
           destination: destination,
           distance: distance,
           duration: estimatedDuration,
           fare: estimatedFare,
-          modifiedDate: "2023-11-06T14:17:41.502Z",
-          numberOfRecruitment: 4,
-          sameGenderStatus: "YES",
+          modifiedDate: formattedDate,
+          numberOfRecruitment: numberOfRecruitment,
+          sameGenderStatus: sameGenderStatus,
           title: title,
-          vehicle: "일반",
+          vehicle: vehicle,
         }),
       });
-
+      console.log("Request Body:", JSON.stringify(response.body));
       const data = await response.json();
       console.log("responseData", data);
 
