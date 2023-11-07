@@ -128,7 +128,7 @@ export const Time = styled.span`
   font-weight: 500;
   display: flex;
   align-items: center;
-  margin-left: 2.5px;
+  /* margin-left: 2.5px; */
   color: #7e7e7e;
 `;
 export const StartTime = styled.span`

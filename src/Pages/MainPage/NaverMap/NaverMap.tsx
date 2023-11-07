@@ -40,7 +40,9 @@ function NaverMap() {
   );
 
   const [array, setArray] = useState<ArrayElement[]>([]);
+
   console.log("array", array);
+
   useEffect(() => {
     const fetchDestinations = async () => {
       if (quickPot.length !== 0) {
