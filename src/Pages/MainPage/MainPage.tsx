@@ -24,7 +24,7 @@ function MainPage() {
 
   async function fetchData() {
     try {
-      const res = await axios.get("http://moyeota.shop/api/posts?page=1");
+      const res = await axios.get("http://moyeota.shop/api/posts?page=0");
       // console.log(res);
       if (res.status === 200) {
         updateTotalData(res.data.data.content);
@@ -43,6 +43,7 @@ function MainPage() {
 
   const refresh = () => {
     console.log("refresh");
+    window.location.reload();
   };
 
   const goCurrent = () => {
@@ -74,7 +75,6 @@ function MainPage() {
             />
           </Icon>
         </Icons>
-        {/* <Kakaomap mapRef={mapRef} /> */}
         <NaverMap />
         <Bottom>
           <BottomSheet />
