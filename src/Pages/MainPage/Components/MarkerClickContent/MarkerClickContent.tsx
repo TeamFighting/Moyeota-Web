@@ -10,10 +10,9 @@ import ISOto12 from "../SingleContent/ISOto12";
 
 function MarkerClickContent() {
   const { totalData } = ContentStore((state) => state);
-  console.log("total0", totalData[0]);
 
   const data = totalData[0];
-  const ago = createAgo(data.createdAt);
+  const ago = createAgo(data.createAt);
   const splitedDay = getDays(data.departureTime);
   const timePart = ISOto12(data.departureTime);
 
