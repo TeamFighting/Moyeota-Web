@@ -9,6 +9,7 @@ import useStore from "../../../../zustand/store/ContentStore";
 import ISOto12 from "./ISOto12";
 import getDays from "./getDays";
 import createAgo from "./createAgo";
+import { useQuickPotStore } from "../../../../zustand/store/QuickPotStore";
 // import { useEffect, useState } from 'react';
 
 function SingleContent() {
@@ -27,10 +28,11 @@ function SingleContent() {
       },
     });
   };
-
+  const { quickPot } = useQuickPotStore();
+  console.log(quickPot);
   const { totalData } = useStore((state) => state);
-  console.log(totalData);
-  return totalData.map((data, index) => {
+
+  return (quickPot.length !== 0 ? quickPot : totalData).map((data, index) => {
     const splitedDay = getDays(data.departureTime);
     const timePart = ISOto12(data.departureTime);
     const ago = createAgo(data.createAt);

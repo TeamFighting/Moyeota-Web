@@ -42,7 +42,7 @@ function DetailPartySection({
           },
         })
         .then((res) => {
-          console.log("res", res.data.data);
+          // console.log("res", res.data.data);
           if (res.status == 200) {
             const partyInfo: PARTYINFO[] = res.data.data;
             const participants = partyInfo.filter((value) => {

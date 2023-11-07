@@ -2,12 +2,13 @@ import { ChevronRight } from "../../assets/svg";
 import * as S from "./style";
 import TimeModal from "./Components/Modal/TimeModal";
 // import DateModal from "./Components/Modal/DateModal";
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState } from "react";
 import PotCreateStore from "../../zustand/store/PotCreateStore";
 declare global {
   interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ReactNativeWebView: any;
+    ReactNativeWebView: {
+      postMessage: (message: string) => void;
+    };
   }
 }
 interface CreateBottomProps {
@@ -17,16 +18,14 @@ interface CreateBottomProps {
 
 function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   const [selectedVehicle, setSelectedVehicle] = useState("일반 승용 택시");
+
   const [isSameGenderRide, setIsSameGenderRide] = useState(false);
+
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
-  const [data, setData] = useState("");
+
   const openTimeModal = () => {
     setSelectedModal("time");
   };
-
-  // const openDateModal = () => {
-  //   setSelectedModal("date");
-  // };
 
   const closeModal = () => {
     setSelectedModal(null);
@@ -49,30 +48,21 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   };
 
   const isSelectionComplete = totalPeople > 0;
-  console.log(data);
-  const onMessageEvent = (e: MessageEvent) => {
-    e.stopPropagation();
-    setData(String(e.data));
-  };
-
-  useEffect(() => {
-    window.addEventListener("message", onMessageEvent, { capture: true });
-    return () => window.removeEventListener("message", onMessageEvent);
-  }, []);
 
   const messageToRN = () => {
-    window.ReactNativeWebView.postMessage("hello");
+    // console.log("hello");
+    window.ReactNativeWebView.postMessage("helloworld");
   };
 
   return (
     <S.Bottom>
       <S.Wrapper
+        onClick={messageToRN}
         style={{
           paddingBottom: "40px",
         }}
-        onClick={postMessage}
       >
-        <S.TextWrapper onClick={messageToRN}>
+        <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
@@ -105,7 +95,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
           onSameGenderRideToggle={handleSameGenderRideToggle}
         />
       )}
-      {/* {selectedModal === "date" && <DateModal closeModal={closeModal} />} */}
     </S.Bottom>
   );
 }
