@@ -16,12 +16,13 @@ function MarkerClickContent({ postId: postId }: { postId: number }) {
   const ago = createAgo(data.createAt);
   const splitedDay = getDays(data.departureTime);
   const timePart = ISOto12(data.departureTime);
+
   const goToDetail = () => {
     navigate(`/detailPage/${postId}`, {
       state: { data, splitedDay, timePart },
     });
-    window.location.href = `/detailPage/${postId}`;
   };
+
   let gender = "";
   if (!data.userGender) {
     gender = "여";
@@ -127,6 +128,6 @@ const ShowDetail = styled.div`
   display: flex;
   border-radius: 12px;
   margin: 0 auto;
-  margin-top: 8px;
+  margin-top: 13px;
 `;
 export default MarkerClickContent;
