@@ -32,7 +32,7 @@ function MarkerClickContent({ postId: postId }: { postId: number }) {
         alignContent: "center",
         zIndex: 1000,
         position: "absolute",
-        bottom: "50px",
+        bottom: "17px",
         right: "50%",
         transform: "translate(50%, 0)",
       }}
