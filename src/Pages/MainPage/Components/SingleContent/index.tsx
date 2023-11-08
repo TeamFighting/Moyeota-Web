@@ -18,9 +18,10 @@ function SingleContent() {
   const navigateToDetail = (
     data: object,
     splitedDay: string[],
-    timePart: string
+    timePart: string,
+    postId: number
   ) => {
-    navigate("/detailpage", {
+    navigate(`/detailpage/${postId}`, {
       state: {
         data: data,
         splitedDay: splitedDay,
@@ -35,6 +36,7 @@ function SingleContent() {
     const splitedDay = getDays(data.departureTime);
     const timePart = ISOto12(data.departureTime);
     const ago = createAgo(data.createAt);
+    const postId = data.postId;
     let gender;
 
     if (!data.userGender) {
@@ -47,7 +49,7 @@ function SingleContent() {
       <S.SingleContent
         key={index}
         onClick={() => {
-          navigateToDetail(data, splitedDay, timePart);
+          navigateToDetail(data, splitedDay, timePart, postId);
         }}
       >
         <Profile

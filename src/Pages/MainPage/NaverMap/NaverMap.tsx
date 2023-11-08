@@ -130,13 +130,12 @@ function NaverMap() {
 
     function getClickHandler(seq: any) {
       return function (e: any) {
-        console.log("click", e);
-        console.log("seq", seq);
         const marker = markers[seq];
         setClickedMarker(marker.postId);
       };
     }
 
+    // 클릭 이벤트
     for (let i = 0, ii = markers.length; i < ii; i++) {
       naver.maps.Event.addListener(markers[i], "click", getClickHandler(i));
     }
