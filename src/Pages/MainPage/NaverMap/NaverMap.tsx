@@ -129,7 +129,7 @@ function NaverMap() {
     }
 
     function getClickHandler(seq: any) {
-      return function (e: any) {
+      return function () {
         const marker = markers[seq];
         setClickedMarker(marker.postId);
       };
