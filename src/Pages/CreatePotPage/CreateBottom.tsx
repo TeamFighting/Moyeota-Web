@@ -68,7 +68,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   //   console.log(event.data);
   // });
 
-  const listener = (event: MessageEvent) => {
+  const listener = (event: { data: string }) => {
     console.log("event:", event);
     const data = JSON.parse(event.data);
     console.log("Received data:", data);
