@@ -112,7 +112,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
           {data}
-          {selectedTime}
           {message}
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
