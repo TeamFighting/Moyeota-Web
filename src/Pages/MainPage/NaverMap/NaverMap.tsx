@@ -34,14 +34,13 @@ function NaverMap() {
   const { totalData } = ContentStore();
 
   const { quickPot } = useQuickPotStore();
+
   const departures = useMemo(
     () => totalData.map((data) => data.departure),
     [totalData]
   );
 
   const [array, setArray] = useState<ArrayElement[]>([]);
-
-  console.log("array", array);
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -53,10 +52,11 @@ function NaverMap() {
             })
             .then((res) => {
               setArray((prev) => [...prev, res.data]);
-              console.log(res);
             });
         });
+
         const results = await Promise.all(promises);
+
         console.log("results", results);
       } else {
         const promises = departures.map((data) =>
@@ -64,8 +64,11 @@ function NaverMap() {
             params: { query: `${data}` },
           })
         );
+
         const results = await Promise.all(promises);
+
         const data = results.map((result) => result.data);
+
         setArray(data);
       }
     };
@@ -83,7 +86,6 @@ function NaverMap() {
       zoom: 13,
       zoomControl: false,
     };
-
     const map = new naver.maps.Map(mapElement.current, mapOptions);
     if (array.length !== 0) {
       array.map((data) => {
@@ -95,6 +97,7 @@ function NaverMap() {
             size: new naver.maps.Size(50, 52),
             origin: new naver.maps.Point(0, 0),
             anchor: new naver.maps.Point(25, 26),
+            title: data.data.place_name,
           },
         });
       });

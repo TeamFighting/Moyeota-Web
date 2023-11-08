@@ -29,7 +29,6 @@ function SingleContent() {
     });
   };
   const { quickPot } = useQuickPotStore();
-  console.log(quickPot);
   const { totalData } = useStore((state) => state);
 
   return (quickPot.length !== 0 ? quickPot : totalData).map((data, index) => {

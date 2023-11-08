@@ -13,16 +13,11 @@ import { Icon } from "../DetailPage/style";
 import NaverMap from "./NaverMap/NaverMap";
 import useCurrentLocation from "./Kakaomap/CurrentLocation";
 import MarkerClickContent from "./Components/MarkerClickContent/MarkerClickContent";
-import CurrentLocationStore from "../../zustand/store/CurrentLocation";
 
 function MainPage() {
   const { updateTotalData } = useStore((state) => state);
 
   const navigate = useNavigate();
-
-  const { currentLocation } = CurrentLocationStore();
-
-  console.log("currentLocation", currentLocation);
 
   useCurrentLocation();
   useEffect(() => {
@@ -82,7 +77,7 @@ function MainPage() {
           </Icon>
         </Icons>
         <NaverMap />
-        <MarkerClickContent />
+        {/* <MarkerClickContent /> */}
         <Bottom>
           <BottomSheet />
           <Buttons>
