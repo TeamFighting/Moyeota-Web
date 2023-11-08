@@ -1,9 +1,9 @@
 import { ChevronRight } from "../../assets/svg";
 import * as S from "./style";
 import TimeModal from "./Components/Modal/TimeModal";
-// import DateModal from "./Components/Modal/DateModal";
 import { SetStateAction, useState } from "react";
 import PotCreateStore from "../../zustand/store/PotCreateStore";
+
 declare global {
   interface Window {
     ReactNativeWebView: {
@@ -11,6 +11,7 @@ declare global {
     };
   }
 }
+
 interface CreateBottomProps {
   totalPeople: number;
   onTotalPeopleChange: (count: SetStateAction<number>) => void;
@@ -49,15 +50,28 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
   const isSelectionComplete = totalPeople > 0;
 
-  const messageToRN = () => {
-    // console.log("hello");
-    window.ReactNativeWebView.postMessage("helloworld");
+  const connectToRN = () => {
+    window.ReactNativeWebView.postMessage("h");
   };
+
+  window.addEventListener("message", (event) => {
+    try {
+      const data = JSON.parse(event.data);
+      console.log("Received data:", data);
+
+      if (data.selectedTime) {
+        console.log("Selected Time:", new Date(data.selectedTime));
+      }
+    } catch (error) {
+      console.error("error:", error);
+    }
+    console.log(event.data);
+  });
 
   return (
     <S.Bottom>
       <S.Wrapper
-        onClick={messageToRN}
+        onClick={connectToRN}
         style={{
           paddingBottom: "40px",
         }}
