@@ -24,6 +24,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
+  const [selectedTime, setSelectedTime] = useState<string>("");
   const openTimeModal = () => {
     setSelectedModal("time");
   };
@@ -54,33 +55,25 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     window.ReactNativeWebView.postMessage("h");
   };
 
-  // window.addEventListener("message", (event) => {
-  //   try {
-  //     const data = JSON.parse(event.data);
-  //     console.log("Received data:", data);
-
-  //     if (data.selectedTime) {
-  //       console.log("Selected Time:", new Date(data.selectedTime));
-  //     }
-  //   } catch (error) {
-  //     console.error("error:", error);
-  //   }
-  //   console.log(event.data);
-  // });
-
-  const listener = (event: { data: string }) => {
-    console.log("event:", event);
-    const data = JSON.parse(event.data);
-    console.log("Received data:", data);
-
-    switch (data.type) {
-      case "selectedTime":
+  window.addEventListener("message", (event) => {
+    try {
+      const data = JSON.parse(event.data);
+      console.log("Received data:", data);
+      setSelectedTime(data.selectedTime);
+      if (data.selectedTime) {
         console.log("Selected Time:", new Date(data.selectedTime));
-        break;
+      }
+    } catch (error) {
+      console.error("error:", error);
     }
-  };
+    console.log(event.data);
+  });
 
-  window.addEventListener("message", listener);
+  // const listener = (event: object) => {
+  //   console.log("event:", event);
+  // };
+
+  // window.addEventListener("message", listener);
 
   // window.addEventListener("message", (event) => {
   //   console.log("event:", event.data);
@@ -115,6 +108,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
       >
         <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
+          {selectedTime}
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
         <ChevronRight width="24" height="24" />
