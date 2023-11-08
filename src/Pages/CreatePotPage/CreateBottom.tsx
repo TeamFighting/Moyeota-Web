@@ -68,28 +68,41 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   //   console.log(event.data);
   // });
 
-  window.addEventListener("message", (event) => {
-    console.log("event:", event.data);
+  const listener = (event: MessageEvent) => {
+    const data = JSON.parse(event.data);
+    console.log("Received data:", data);
 
-    try {
-      if (
-        typeof event.data === "string" &&
-        event.data.startsWith("{") &&
-        event.data.endsWith("}")
-      ) {
-        const data = JSON.parse(event.data);
-        console.log("Received data:", data);
-
-        if (data.selectedTime) {
-          console.log("Selected Time:", new Date(data.selectedTime));
-        }
-      } else {
-        console.log("Invalid JSON:", event.data);
-      }
-    } catch (error) {
-      console.error("error:", error);
+    switch (data.type) {
+      case "selectedTime":
+        console.log("Selected Time:", new Date(data.selectedTime));
+        break;
     }
-  });
+  };
+
+  window.addEventListener("message", listener);
+
+  // window.addEventListener("message", (event) => {
+  //   console.log("event:", event.data);
+
+  //   try {
+  //     if (
+  //       typeof event.data === "string" &&
+  //       event.data.startsWith("{") &&
+  //       event.data.endsWith("}")
+  //     ) {
+  //       const data = JSON.parse(event.data);
+  //       console.log("Received data:", data);
+
+  //       if (data.selectedTime) {
+  //         console.log("Selected Time:", new Date(data.selectedTime));
+  //       }
+  //     } else {
+  //       console.log("Invalid JSON:", event.data);
+  //     }
+  //   } catch (error) {
+  //     console.error("error:", error);
+  //   }
+  // });
 
   return (
     <S.Bottom>
