@@ -56,11 +56,12 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     window.ReactNativeWebView.postMessage("h");
   };
 
+  const [message, setMessage] = useState<string>("");
   window.addEventListener("message", (event) => {
     try {
       const data = JSON.parse(event.data);
-      console.log("Received data:", data);
       setSelectedTime(data.selectedTime);
+      setMessage(data.message);
       setData(data);
       if (data.selectedTime) {
         console.log("Selected Time:", new Date(data.selectedTime));
@@ -112,6 +113,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
           <S.BottomTitle>출발시간</S.BottomTitle>
           {data}
           {selectedTime}
+          {message}
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
         <ChevronRight width="24" height="24" />
