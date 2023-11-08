@@ -7,16 +7,21 @@ import createAgo from "../SingleContent/createAgo";
 import { Clock, ProfileSample } from "../../../../assets/svg";
 import getDays from "../SingleContent/getDays";
 import ISOto12 from "../SingleContent/ISOto12";
+import { useNavigate } from "react-router";
 
 function MarkerClickContent({ postId: postId }: { postId: number }) {
+  const navigate = useNavigate();
   const { totalData } = ContentStore((state) => state);
-  console.log("totalData", totalData);
-  console.log("postId", postId);
   const data = totalData.find((data) => data.postId === postId);
-  console.log("data", data);
   const ago = createAgo(data.createAt);
   const splitedDay = getDays(data.departureTime);
   const timePart = ISOto12(data.departureTime);
+
+  const goToDetail = () => {
+    navigate(`/detailPage/${postId}`, {
+      state: { data, splitedDay, timePart },
+    });
+  };
 
   let gender = "";
   if (!data.userGender) {
@@ -73,7 +78,7 @@ function MarkerClickContent({ postId: postId }: { postId: number }) {
               )}
             </S.Time>
           </S.Info>
-          <ShowDetail>팟 자세히 보기</ShowDetail>
+          <ShowDetail onClick={goToDetail}>팟 자세히 보기</ShowDetail>
         </div>
       </BriefWrapper>
     </div>
@@ -123,6 +128,6 @@ const ShowDetail = styled.div`
   display: flex;
   border-radius: 12px;
   margin: 0 auto;
-  margin-top: 8px;
+  margin-top: 13px;
 `;
 export default MarkerClickContent;
