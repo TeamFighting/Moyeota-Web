@@ -25,6 +25,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
   const [selectedTime, setSelectedTime] = useState<string>("");
+  const [data, setData] = useState<string>("");
   const openTimeModal = () => {
     setSelectedModal("time");
   };
@@ -60,6 +61,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
       const data = JSON.parse(event.data);
       console.log("Received data:", data);
       setSelectedTime(data.selectedTime);
+      setData(data);
       if (data.selectedTime) {
         console.log("Selected Time:", new Date(data.selectedTime));
       }
@@ -108,6 +110,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
       >
         <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
+          {data}
           {selectedTime}
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
