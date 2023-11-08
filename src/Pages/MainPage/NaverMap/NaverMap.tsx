@@ -49,6 +49,7 @@ function NaverMap() {
   );
 
   const [finalArray, setFinalArray] = useState<ArrayElement[]>([]);
+  console.log("array", finalArray);
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -59,10 +60,17 @@ function NaverMap() {
               params: { query: `${data.departure}` },
             })
             .then((res) => {
-              setFinalArray((prev) => [...prev, res.data]);
+              setFinalArray((prev) => [
+                ...prev,
+                {
+                  data: res.data.data,
+                  status: res.status,
+                  postId: data.postId,
+                },
+              ]);
             });
         });
-        const results = await Promise.all(promises);
+        await Promise.all(promises);
       } else {
         const promises = departures.map((data) =>
           axios.get(`http://moyeota.shop/api/distance/keyword`, {
@@ -97,7 +105,6 @@ function NaverMap() {
     const map = new naver.maps.Map(mapElement.current, mapOptions);
 
     const markers: any = [];
-    const infoWindows: any[] = [];
 
     for (const key in finalArray) {
       const position = new naver.maps.LatLng(
