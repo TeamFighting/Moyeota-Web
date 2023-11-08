@@ -63,9 +63,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
       // setSelectedTime(data.selectedTime);
       setMessage(data.message);
       setData(data);
-      if (data.selectedTime) {
-        console.log("Selected Time:", new Date(data.selectedTime));
-      }
+      // if (data.selectedTime) {
+      //   console.log("Selected Time:", new Date(data.selectedTime));
+      // }
     } catch (error) {
       console.error("error:", error);
     }
