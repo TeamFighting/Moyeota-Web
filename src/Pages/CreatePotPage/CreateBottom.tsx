@@ -1,7 +1,7 @@
 import { ChevronRight } from "../../assets/svg";
 import * as S from "./style";
 import TimeModal from "./Components/Modal/TimeModal";
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState } from "react";
 import PotCreateStore from "../../zustand/store/PotCreateStore";
 
 declare global {
@@ -67,22 +67,30 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   //   }
   //   console.log(event.data);
   // });
-  const RNListener = () => {
-    const listener = (event: MessageEvent) => {
-      const { data, type } = JSON.parse(event.data);
-      console.log(data, type);
-    };
 
-    if (window.ReactNativeWebView) {
-      window.addEventListener("message", listener);
-    } else {
-      alert("no webview");
+  window.addEventListener("message", (event) => {
+    console.log("event:", event.data);
+
+    try {
+      if (
+        typeof event.data === "string" &&
+        event.data.startsWith("{") &&
+        event.data.endsWith("}")
+      ) {
+        const data = JSON.parse(event.data);
+        console.log("Received data:", data);
+
+        if (data.selectedTime) {
+          console.log("Selected Time:", new Date(data.selectedTime));
+        }
+      } else {
+        console.log("Invalid JSON:", event.data);
+      }
+    } catch (error) {
+      console.error("error:", error);
     }
-  };
+  });
 
-  useEffect(() => {
-    RNListener();
-  }, []);
   return (
     <S.Bottom>
       <S.Wrapper
@@ -127,5 +135,4 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     </S.Bottom>
   );
 }
-
 export default CreateBottom;
