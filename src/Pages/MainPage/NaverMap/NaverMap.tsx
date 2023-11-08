@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useRef, useState } from "react";
 import ContentStore from "../../../zustand/store/ContentStore";
 import axios from "axios";
@@ -17,8 +18,8 @@ interface ArrayElement {
     place_name: string;
     road_address_name: string;
   };
-  status: string;
-  message: string;
+  status: number;
+  postId: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
@@ -36,11 +37,15 @@ function NaverMap() {
   const { quickPot } = useQuickPotStore();
 
   const departures = useMemo(
-    () => totalData.map((data) => data.departure),
+    () =>
+      totalData.map((data) => ({
+        departure: data.departure,
+        postId: data.postId,
+      })),
     [totalData]
   );
 
-  const [array, setArray] = useState<ArrayElement[]>([]);
+  const [finalArray, setFinalArray] = useState<ArrayElement[]>([]);
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -51,28 +56,27 @@ function NaverMap() {
               params: { query: `${data.departure}` },
             })
             .then((res) => {
-              setArray((prev) => [...prev, res.data]);
+              setFinalArray((prev) => [...prev, res.data]);
             });
         });
-
         const results = await Promise.all(promises);
-
-        console.log("results", results);
       } else {
         const promises = departures.map((data) =>
           axios.get(`http://moyeota.shop/api/distance/keyword`, {
-            params: { query: `${data}` },
+            params: { query: `${data.departure}` },
           })
         );
 
         const results = await Promise.all(promises);
 
-        const data = results.map((result) => result.data);
-
-        setArray(data);
+        const finalData = results.map((result) => ({
+          data: result.data.data,
+          status: result.status,
+          postId: departures[results.indexOf(result)].postId,
+        }));
+        setFinalArray(finalData);
       }
     };
-
     fetchDestinations();
   }, [departures, quickPot]);
 
@@ -86,33 +90,58 @@ function NaverMap() {
       zoom: 13,
       zoomControl: false,
     };
+
     const map = new naver.maps.Map(mapElement.current, mapOptions);
-    if (array.length !== 0) {
-      array.map((data) => {
-        new naver.maps.Marker({
-          position: new naver.maps.LatLng(data.data.y, data.data.x),
-          map,
-          icon: {
-            url: "../../../public/svg/GreenLocationMarker.svg",
-            size: new naver.maps.Size(50, 52),
-            origin: new naver.maps.Point(0, 0),
-            anchor: new naver.maps.Point(25, 26),
-            title: data.data.place_name,
-          },
-        });
+
+    const markers: any = [];
+    const infoWindows: any[] = [];
+
+    for (const key in finalArray) {
+      const position = new naver.maps.LatLng(
+        finalArray[key].data.y,
+        finalArray[key].data.x
+      );
+
+      const marker = new naver.maps.Marker({
+        position: position,
+        map: map,
+        icon: {
+          url: "../../../public/svg/GreenLocationMarker.svg",
+          size: new naver.maps.Size(50, 52),
+          origin: new naver.maps.Point(0, 0),
+          anchor: new naver.maps.Point(25, 26),
+          title: finalArray[key].data.place_name,
+        },
       });
+
+      const infoWindow = new naver.maps.InfoWindow({
+        content:
+          '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
+          "helloworld" +
+          '"</b>.</div>',
+      });
+      markers.push(marker);
+      infoWindows.push(infoWindow);
     }
-    new naver.maps.Marker({
-      position: location,
-      map,
-      icon: {
-        url: "../../../public/svg/CurrentLocationIcon.svg",
-        size: new naver.maps.Size(50, 52),
-        origin: new naver.maps.Point(0, 0),
-        anchor: new naver.maps.Point(25, 26),
-      },
-    });
-  }, [array]);
+
+    function getClickHandler(seq: any) {
+      return function (e: any) {
+        console.log("click", e);
+        const marker = markers[seq],
+          infoWindow = infoWindows[seq];
+
+        if (infoWindow.getMap()) {
+          infoWindow.close();
+        } else {
+          infoWindow.open(map, marker);
+        }
+      };
+    }
+
+    for (let i = 0, ii = markers.length; i < ii; i++) {
+      naver.maps.Event.addListener(markers[i], "click", getClickHandler(i));
+    }
+  }, [finalArray]);
 
   return (
     <>
