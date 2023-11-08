@@ -67,8 +67,12 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   //   }
   //   console.log(event.data);
   // });
+
   window.addEventListener("message", (event) => {
-    console.log("event:", event);
+    console.log("event:", event.data);
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage("Received selectedTime");
+    }
     try {
       if (
         typeof event.data === "string" &&
@@ -88,6 +92,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
       console.error("error:", error);
     }
   });
+
   return (
     <S.Bottom>
       <S.Wrapper
