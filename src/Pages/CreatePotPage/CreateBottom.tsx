@@ -1,7 +1,7 @@
 import { ChevronRight } from "../../assets/svg";
 import * as S from "./style";
 import TimeModal from "./Components/Modal/TimeModal";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import PotCreateStore from "../../zustand/store/PotCreateStore";
 
 declare global {
@@ -67,60 +67,65 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   //   }
   //   console.log(event.data);
   // });
-
-  const listener = (event: MessageEvent) => {
-    const { data, type } = JSON.parse(event.data);
-    console.log(data, type);
+  const RNListener = () => {
+    const listener = (event: MessageEvent) => {
+      const { data, type } = JSON.parse(event.data);
+      console.log(data, type);
+    };
 
     if (window.ReactNativeWebView) {
       window.addEventListener("message", listener);
     } else {
       alert("no webview");
     }
-
-    return (
-      <S.Bottom>
-        <S.Wrapper
-          onClick={connectToRN}
-          style={{
-            paddingBottom: "40px",
-          }}
-        >
-          <S.TextWrapper>
-            <S.BottomTitle>출발시간</S.BottomTitle>
-            <S.Description>탑승일시를 선택해주세요</S.Description>
-          </S.TextWrapper>
-          <ChevronRight width="24" height="24" />
-        </S.Wrapper>
-        <S.Wrapper style={{ paddingBottom: "10px" }} onClick={openTimeModal}>
-          <S.TextWrapper>
-            <S.BottomTitle>이동수단 및 인원</S.BottomTitle>
-            <S.Description>
-              {isSelectionComplete ? (
-                <S.SelectedInfo>
-                  {selectedVehicle} / 총 {totalPeople}명 /{" "}
-                  {isSameGenderRide ? "동성끼리 탑승" : "혼성탑승"}
-                </S.SelectedInfo>
-              ) : (
-                "이동수단 및 인원을 선택해주세요"
-              )}
-            </S.Description>
-          </S.TextWrapper>
-          <ChevronRight width="24" height="24" style={{ marginTop: "13px" }} />
-        </S.Wrapper>
-        {selectedModal === "time" && (
-          <TimeModal
-            closeModal={closeModal}
-            selectedVehicle={selectedVehicle}
-            totalPeople={totalPeople}
-            isSameGenderRide={isSameGenderRide}
-            onVehicleSelection={handleVehicleSelection}
-            onTotalPeopleChange={onTotalPeopleChange}
-            onSameGenderRideToggle={handleSameGenderRideToggle}
-          />
-        )}
-      </S.Bottom>
-    );
   };
+
+  useEffect(() => {
+    RNListener();
+  }, []);
+  return (
+    <S.Bottom>
+      <S.Wrapper
+        onClick={connectToRN}
+        style={{
+          paddingBottom: "40px",
+        }}
+      >
+        <S.TextWrapper>
+          <S.BottomTitle>출발시간</S.BottomTitle>
+          <S.Description>탑승일시를 선택해주세요</S.Description>
+        </S.TextWrapper>
+        <ChevronRight width="24" height="24" />
+      </S.Wrapper>
+      <S.Wrapper style={{ paddingBottom: "10px" }} onClick={openTimeModal}>
+        <S.TextWrapper>
+          <S.BottomTitle>이동수단 및 인원</S.BottomTitle>
+          <S.Description>
+            {isSelectionComplete ? (
+              <S.SelectedInfo>
+                {selectedVehicle} / 총 {totalPeople}명 /{" "}
+                {isSameGenderRide ? "동성끼리 탑승" : "혼성탑승"}
+              </S.SelectedInfo>
+            ) : (
+              "이동수단 및 인원을 선택해주세요"
+            )}
+          </S.Description>
+        </S.TextWrapper>
+        <ChevronRight width="24" height="24" style={{ marginTop: "13px" }} />
+      </S.Wrapper>
+      {selectedModal === "time" && (
+        <TimeModal
+          closeModal={closeModal}
+          selectedVehicle={selectedVehicle}
+          totalPeople={totalPeople}
+          isSameGenderRide={isSameGenderRide}
+          onVehicleSelection={handleVehicleSelection}
+          onTotalPeopleChange={onTotalPeopleChange}
+          onSameGenderRideToggle={handleSameGenderRideToggle}
+        />
+      )}
+    </S.Bottom>
+  );
 }
+
 export default CreateBottom;
