@@ -29,7 +29,6 @@ function SingleContent() {
     });
   };
   const { quickPot } = useQuickPotStore();
-  console.log(quickPot);
   const { totalData } = useStore((state) => state);
 
   return (quickPot.length !== 0 ? quickPot : totalData).map((data, index) => {
@@ -43,6 +42,7 @@ function SingleContent() {
     } else {
       gender = "남";
     }
+
     return (
       <S.SingleContent
         key={index}

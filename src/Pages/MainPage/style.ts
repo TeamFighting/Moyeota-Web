@@ -81,7 +81,7 @@ export const ContentTitle = styled.span`
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  width: 100%;
+  /* width: 100%; */
   margin-left: 16px;
   margin-bottom: 10px;
 `;
@@ -120,7 +120,7 @@ export const To = styled.span`
   color: #7e7e7e;
 `;
 
-export const Time = styled.span`
+export const Time = styled.div`
   color: #343434;
   font-family: Pretendard;
   font-size: 12px;
@@ -128,7 +128,8 @@ export const Time = styled.span`
   font-weight: 500;
   display: flex;
   align-items: center;
-  margin-left: 2.5px;
+  justify-content: flex-start;
+  /* margin-left: 2.5px; */
   color: #7e7e7e;
 `;
 export const StartTime = styled.span`

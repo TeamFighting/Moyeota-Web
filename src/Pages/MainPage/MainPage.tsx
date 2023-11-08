@@ -12,11 +12,13 @@ import SvgBacktoCurrentButton from "../../assets/svg/BacktoCurrentButton";
 import { Icon } from "../DetailPage/style";
 import NaverMap from "./NaverMap/NaverMap";
 import useCurrentLocation from "./Kakaomap/CurrentLocation";
+import MarkerClickContent from "./Components/MarkerClickContent/MarkerClickContent";
+import { useClickedMarker } from "../../zustand/store/ClickedMarker";
 
 function MainPage() {
   const { updateTotalData } = useStore((state) => state);
   const navigate = useNavigate();
-
+  const { clickedMarkerId, isClicked } = useClickedMarker();
   useCurrentLocation();
   useEffect(() => {
     fetchData();
@@ -24,7 +26,7 @@ function MainPage() {
 
   async function fetchData() {
     try {
-      const res = await axios.get("http://moyeota.shop/api/posts?page=0");
+      const res = await axios.get("http://moyeota.shop/api/posts?page=3");
       // console.log(res);
       if (res.status === 200) {
         updateTotalData(res.data.data.content);
@@ -76,7 +78,8 @@ function MainPage() {
           </Icon>
         </Icons>
         <NaverMap />
-        <Bottom>
+        {isClicked && <MarkerClickContent postId={clickedMarkerId} />}
+        <Bottom isClicked={isClicked}>
           <BottomSheet />
           <Buttons>
             <CreatePotButton onClick={() => navigate("/quickMatch")}>
@@ -121,13 +124,14 @@ const Header = styled.div`
   z-index: 1000000;
 `;
 
-const Bottom = styled.div`
+const Bottom = styled.div<{ isClicked: boolean }>`
   display: flex;
   flex-direction: column;
   position: absolute;
   width: 100%;
   bottom: 0;
   height: 258px;
+  visibility: ${(props) => (props.isClicked ? "hidden" : "visible")};
 `;
 
 const Body = styled.div`
@@ -159,6 +163,8 @@ const CreatePotButton = styled.button`
   padding: 12px;
   text-align: center;
   border: none;
+  opacity: 0.8;
+
   cursor: pointer;
   z-index: 1000001;
   font-family: pretendard;
