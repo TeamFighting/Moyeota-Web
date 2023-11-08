@@ -6,7 +6,7 @@ function CreateNote() {
       <S.Subtitle>유의사항</S.Subtitle>
       <S.NoteWrapper>
         <S.NoteDescription>
-          • 해당 서비스는 택시 호출서 비스와 함께 이동할 <br />
+          • 해당 서비스는 택시 호출 서비스와 함께 이동할 <br />
           파티원을 찾는 커뮤니티 서비스입니다.
         </S.NoteDescription>
         <S.NoteDescription>
