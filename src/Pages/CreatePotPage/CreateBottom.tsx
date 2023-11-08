@@ -1,7 +1,7 @@
 import { ChevronRight } from "../../assets/svg";
 import * as S from "./style";
 import TimeModal from "./Components/Modal/TimeModal";
-import { SetStateAction, useState, useEffect } from "react";
+import { SetStateAction, useState } from "react";
 import PotCreateStore from "../../zustand/store/PotCreateStore";
 
 declare global {
