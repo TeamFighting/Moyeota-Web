@@ -8,10 +8,12 @@ import { Clock, ProfileSample } from "../../../../assets/svg";
 import getDays from "../SingleContent/getDays";
 import ISOto12 from "../SingleContent/ISOto12";
 
-function MarkerClickContent() {
+function MarkerClickContent({ postId: postId }: { postId: number }) {
   const { totalData } = ContentStore((state) => state);
-
-  const data = totalData[0];
+  console.log("totalData", totalData);
+  console.log("postId", postId);
+  const data = totalData.find((data) => data.postId === postId);
+  console.log("data", data);
   const ago = createAgo(data.createAt);
   const splitedDay = getDays(data.departureTime);
   const timePart = ISOto12(data.departureTime);
@@ -30,7 +32,7 @@ function MarkerClickContent() {
         alignContent: "center",
         zIndex: 1000,
         position: "absolute",
-        bottom: "17px",
+        bottom: "50px",
         right: "50%",
         transform: "translate(50%, 0)",
       }}

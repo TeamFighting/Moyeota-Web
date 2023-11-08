@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import ContentStore from "../../../zustand/store/ContentStore";
 import axios from "axios";
 import { useQuickPotStore } from "../../../zustand/store/QuickPotStore";
+import { useClickedMarker } from "../../../zustand/store/ClickedMarker";
 
 declare global {
   interface Window {
@@ -35,6 +36,8 @@ function NaverMap() {
   const { totalData } = ContentStore();
 
   const { quickPot } = useQuickPotStore();
+
+  const { setClickedMarker } = useClickedMarker();
 
   const departures = useMemo(
     () =>
@@ -112,35 +115,36 @@ function NaverMap() {
           anchor: new naver.maps.Point(25, 26),
           title: finalArray[key].data.place_name,
         },
+        postId: finalArray[key].postId,
       });
 
-      const infoWindow = new naver.maps.InfoWindow({
-        content:
-          '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"' +
-          "helloworld" +
-          '"</b>.</div>',
-      });
       markers.push(marker);
-      infoWindows.push(infoWindow);
     }
 
     function getClickHandler(seq: any) {
       return function (e: any) {
         console.log("click", e);
-        const marker = markers[seq],
-          infoWindow = infoWindows[seq];
-
-        if (infoWindow.getMap()) {
-          infoWindow.close();
-        } else {
-          infoWindow.open(map, marker);
-        }
+        console.log("seq", seq);
+        const marker = markers[seq];
+        setClickedMarker(marker.postId);
       };
     }
 
     for (let i = 0, ii = markers.length; i < ii; i++) {
       naver.maps.Event.addListener(markers[i], "click", getClickHandler(i));
     }
+
+    // 현위치 마커
+    new naver.maps.Marker({
+      position: location,
+      map,
+      icon: {
+        url: "../../../public/svg/CurrentLocationIcon.svg",
+        size: new naver.maps.Size(50, 52),
+        origin: new naver.maps.Point(0, 0),
+        anchor: new naver.maps.Point(25, 26),
+      },
+    });
   }, [finalArray]);
 
   return (
