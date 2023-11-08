@@ -24,8 +24,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
-  // const [selectedTime, setSelectedTime] = useState<string>("");
-  const [data, setData] = useState<string>("");
+  const [selectedTime, setSelectedTime] = useState<string>("");
   const openTimeModal = () => {
     setSelectedModal("time");
   };
@@ -56,13 +55,13 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     window.ReactNativeWebView.postMessage("h");
   };
 
-  const [message, setMessage] = useState<string>("");
+  const [, setMessage] = useState<string>("");
   window.addEventListener("message", (event) => {
     try {
       const data = JSON.parse(event.data);
       // setSelectedTime(data.selectedTime);
       setMessage(data.message);
-      setData(data.selectedTime);
+      setSelectedTime(data.selectedTime);
 
       // if (data.selectedTime) {
       //   console.log("Selected Time:", new Date(data.selectedTime));
@@ -112,7 +111,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
       >
         <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
-          <div>{JSON.stringify(data.splitedTime)}</div>
+          <div>{JSON.stringify(selectedTime)}</div>
           <S.Description>탑승일시를 선택해주세요</S.Description>
         </S.TextWrapper>
         <ChevronRight width="24" height="24" />
