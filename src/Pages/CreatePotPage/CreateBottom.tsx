@@ -76,9 +76,20 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
           <S.Description>
-            {selectedTime
-              ? JSON.stringify(selectedTime)
-              : "탑승일시를 선택해주세요"}
+            {selectedTime ? (
+              <S.SelectedInfo>
+                {new Date(selectedTime).toLocaleString("ko-KR", {
+                  weekday: "long",
+                  month: "numeric",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                })}
+              </S.SelectedInfo>
+            ) : (
+              "탑승일시를 선택해주세요"
+            )}
           </S.Description>
         </S.TextWrapper>
         <ChevronRight width="24" height="24" />
