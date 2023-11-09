@@ -24,7 +24,11 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
-  const [selectedTime, setSelectedTime] = useState<string>("");
+  const { selectedTime, setSelectedTime } = PotCreateStore((state) => ({
+    selectedTime: state.selectedTime,
+    setSelectedTime: state.setSelectedTime,
+  }));
+
   const openTimeModal = () => {
     setSelectedModal("time");
   };
@@ -81,7 +85,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 {new Date(selectedTime)
                   .toLocaleString("ko-KR", {
                     weekday: "short",
-                    year: "numeric",
                     month: "long",
                     day: "numeric",
                     hour: "2-digit",

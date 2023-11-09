@@ -21,6 +21,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
       const destination = potCreateStore.destination;
       const vehicle = potCreateStore.VehicleType;
       const sameGenderStatus = potCreateStore.sameGenderRide;
+      const departureTime = potCreateStore.selectedTime;
       const numberOfRecruitment = totalPeople;
       const estimatedDuration = durationFareStore.estimatedDuration;
       const estimatedFare = durationFareStore.estimatedFare;
@@ -38,7 +39,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
           content: content,
           createdDate: formattedDate,
           departure: departure,
-          departureTime: formattedDate, //모달 후 수정 필요
+          departureTime: departureTime,
           destination: destination,
           distance: distance,
           duration: estimatedDuration,

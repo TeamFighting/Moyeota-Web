@@ -15,6 +15,8 @@ interface StoreState {
   setVehicleType: (value: string | null) => void;
   sameGenderRide: string | null;
   setSameGenderRide: (value: string | null) => void;
+  selectedTime: string;
+  setSelectedTime: (value: string) => void;
 }
 
 const usePotCreateStore = create<StoreState>((set) => ({
@@ -32,6 +34,8 @@ const usePotCreateStore = create<StoreState>((set) => ({
   setVehicleType: (value) => set({ VehicleType: value }),
   sameGenderRide: "NO",
   setSameGenderRide: (value) => set({ sameGenderRide: value }),
+  selectedTime: "",
+  setSelectedTime: (value) => set({ selectedTime: value }),
 }));
 
 export default usePotCreateStore;
