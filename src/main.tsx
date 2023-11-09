@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import MainPage from "./Pages/MainPage/MainPage";
 import DetailPage from "./Pages/DetailPage";
+import CreateDetailPage from "./Pages/CreatePotPage/Components/DetailPage/index";
 import CreatePotPage from "./Pages/CreatePotPage/CreatePotPage";
 import CreateComplete from "./Pages/CreatePotPage/CreateComplete";
 import DestinationPage from "./Pages/CreatePotPage/Components/Map/DestinationPage";
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/quickMatchFinding",
     element: <QuickMatchFinding />,
+  },
+  {
+    path: "/CreateDetailPage",
+    element: <CreateDetailPage />,
   },
 ]);
 

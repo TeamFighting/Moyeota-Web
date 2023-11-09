@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 function CreateExitButton() {
   const navigate = useNavigate();
   const navigateTo = () => {
-    navigate("/mainpage");
+    navigate("/CreateDetailPage");
   };
   return (
     <Wrapper>

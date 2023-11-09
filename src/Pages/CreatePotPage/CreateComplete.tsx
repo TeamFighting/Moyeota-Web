@@ -2,7 +2,6 @@ import * as S from "./style";
 import CreateHeader from "./CreateHeader";
 import CreateExitButton from "./Components/Button/CreateExitButton";
 import styled from "styled-components";
-
 function createComplete() {
   return (
     <>

@@ -27,7 +27,8 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
       const estimatedFare = durationFareStore.estimatedFare;
       const departure =
         currentLocationStore.currentLocation?.building_name ?? "미입력";
-      console.log("departure:", departure);
+      console.log("departureTime:", departureTime);
+
       const response = await fetch("http://moyeota.shop:80/api/posts", {
         method: "POST",
         headers: {
@@ -39,7 +40,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
           content: content,
           createdDate: formattedDate,
           departure: departure,
-          departureTime: departureTime,
+          departureTime: formattedDate, //departureTime 으로 바꾸기
           destination: destination,
           distance: distance,
           duration: estimatedDuration,
