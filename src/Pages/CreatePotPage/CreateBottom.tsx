@@ -78,15 +78,17 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
           <S.Description>
             {selectedTime ? (
               <S.SelectedInfo>
-                {new Date(selectedTime).toLocaleString("ko-KR", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  hour12: true,
-                })}
+                {new Date(selectedTime)
+                  .toLocaleString("ko-KR", {
+                    weekday: "short",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })
+                  .replace(".", "")}
               </S.SelectedInfo>
             ) : (
               "탑승일시를 선택해주세요"
