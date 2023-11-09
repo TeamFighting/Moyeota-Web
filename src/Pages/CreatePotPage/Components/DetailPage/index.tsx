@@ -3,6 +3,7 @@ import DetailHeader from "./DetailHeader";
 import DetailBody from "./DetailBody";
 import DetailBottom from "./DetailBottom";
 import DetailPartySection from "./DetailPartySection";
+import usePostDataStore from "../../../../zustand/store/PostDataStore";
 import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -11,6 +12,7 @@ function DetailPage() {
   const [scroll, setScroll] = useState(0);
   const [dividerHeight, setDividerHeight] = useState(6);
   const { postId } = PotCreateStore();
+  const { data, setPostData } = usePostDataStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,14 +40,15 @@ function DetailPage() {
     if (postId) {
       fetch(`http://moyeota.shop:80/api/posts/${postId}`)
         .then((response) => response.json())
-        .then((data) => {
-          console.log("API 응답 데이터:", data);
+        .then((fetchedData) => {
+          setPostData(fetchedData.data);
+          console.log("API 응답 데이터:", fetchedData.data);
         })
         .catch((error) => {
           console.error("API 호출 중 에러:", error);
         });
     }
-  }, [postId]);
+  }, [postId, setPostData]);
 
   return (
     <S.Container>

@@ -6,11 +6,18 @@ import {
 } from "../../../../assets/svg";
 import * as S from "./style";
 import createAgo from "../../../MainPage/Components/SingleContent/createAgo";
-import useStore from "../../../../zustand/store/DataStore";
+import usePostDataStore from "../../../../zustand/store/PostDataStore";
 
 function DetailBody() {
-  const { totalData } = useStore();
-  console.log("totalData:", totalData);
+  const { data } = usePostDataStore();
+  const ago = createAgo(data.createAt);
+
+  let gender;
+  if (!data.userGender) {
+    gender = "남";
+  } else {
+    gender = "여";
+  }
   return (
     <S.Body>
       <S.Profile>
@@ -19,10 +26,12 @@ function DetailBody() {
       <S.Content>
         <S.Explanation>
           <S.ContentTitle>
-            <S.Title> 님의 </S.Title>
-            <S.Title>'건대팟'은 어때요?</S.Title>
+            <S.Title>{data.userName} 님의 </S.Title>
+            <S.Title>'{data.title}'은 어때요?</S.Title>
           </S.ContentTitle>
-          <S.ContentDetail>여자/2시간전/7명 조회</S.ContentDetail>
+          <S.ContentDetail>
+            {gender}/{ago}/7명 조회
+          </S.ContentDetail>
         </S.Explanation>
         <S.MapSample
           src="../../../public/png/MapSample.png"
@@ -34,9 +43,7 @@ function DetailBody() {
             <div style={{ display: "flex", flexDirection: "row" }}>
               <LocationFrom width="24" height="64" />
               <S.Text>
-                <S.StartPointLocation>
-                  서울 송파구 거여동 697
-                </S.StartPointLocation>
+                <S.StartPointLocation>{data.departure}</S.StartPointLocation>
                 <S.StartPoint>출발지</S.StartPoint>
               </S.Text>
             </div>
@@ -56,9 +63,7 @@ function DetailBody() {
                 <LocationMarker width="24" height="24" />
               </S.Icon>
               <S.Text>
-                <S.StartPointLocation>
-                  건국대학교 생명과학관부속동
-                </S.StartPointLocation>
+                <S.StartPointLocation>{data.destination}</S.StartPointLocation>
                 <S.StartPoint>도착지</S.StartPoint>
               </S.Text>
             </div>
