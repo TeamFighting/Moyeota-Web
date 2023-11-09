@@ -92,6 +92,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                     hour12: true,
                   })
                   .replace(".", "")}
+                {JSON.stringify(selectedTime)};
               </S.SelectedInfo>
             ) : (
               "탑승일시를 선택해주세요"
