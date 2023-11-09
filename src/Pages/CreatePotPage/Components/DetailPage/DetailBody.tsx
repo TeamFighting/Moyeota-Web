@@ -6,8 +6,11 @@ import {
 } from "../../../../assets/svg";
 import * as S from "./style";
 import createAgo from "../../../MainPage/Components/SingleContent/createAgo";
+import useStore from "../../../../zustand/store/DataStore";
 
 function DetailBody() {
+  const { totalData } = useStore();
+  console.log("totalData:", totalData);
   return (
     <S.Body>
       <S.Profile>
@@ -16,7 +19,7 @@ function DetailBody() {
       <S.Content>
         <S.Explanation>
           <S.ContentTitle>
-            <S.Title>모연두 님의 </S.Title>
+            <S.Title> 님의 </S.Title>
             <S.Title>'건대팟'은 어때요?</S.Title>
           </S.ContentTitle>
           <S.ContentDetail>여자/2시간전/7명 조회</S.ContentDetail>

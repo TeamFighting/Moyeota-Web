@@ -1,18 +1,20 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 
 function CreateExitButton() {
   const navigate = useNavigate();
-  const navigateTo = async () => {
+  const { setPostId } = PotCreateStore((state) => state);
+
+  const navigateToDetail = async () => {
     try {
-      // API 호출
       const response = await fetch("http://moyeota.shop:80/api/posts?page=0");
       const data = await response.json();
 
-      // API 호출 성공 시에만 이동
       if (response.ok) {
-        // navigate("/CreateDetailPage");
-        console.log("data:", data.data.content[0]);
+        setPostId(data.data.content[0].postId);
+        console.log("data:", data.data.content[0].postId);
+        navigate("/CreateDetailPage");
       } else {
         console.log("모집글 조회 실패");
       }
@@ -23,7 +25,7 @@ function CreateExitButton() {
 
   return (
     <Wrapper>
-      <Button type="button" onClick={navigateTo}>
+      <Button type="button" onClick={navigateToDetail}>
         닫기
       </Button>
     </Wrapper>

@@ -64,12 +64,10 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
       const data = JSON.parse(event.data);
       setSelectedTime(data.selectedTime);
     } catch (error) {
-      console.error("error:", error);
+      // console.error("error:", error);
     }
-    console.log(event.data);
+    // console.log(event.data);
   });
-
-  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
 
   return (
     <S.Bottom>
@@ -84,7 +82,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
           <S.Description>
             {selectedTime ? (
               <S.SelectedInfo>
-                {new Date(selectedTime + KR_TIME_DIFF)
+                {new Date(selectedTime)
                   .toLocaleString("ko-KR", {
                     weekday: "short",
                     month: "long",
