@@ -3,6 +3,8 @@ import { LionProfile } from "../../../../assets/svg";
 import * as S from "./style";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import usePostDataStore from "../../../../zustand/store/PostDataStore";
+import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 
 interface Props {
   leaderName: string;
@@ -20,6 +22,8 @@ interface PARTYINFO {
 }
 
 function DetailPartySection() {
+  const { data } = usePostDataStore();
+
   // async function getPartyOne(postId: number) {
   //   try {
   //     await axios
@@ -45,7 +49,12 @@ function DetailPartySection() {
   // useEffect(() => {
   //   getPartyOne(postId);
   // }, [postId]);
-
+  let gender;
+  if (!data.userGender) {
+    gender = "남자";
+  } else {
+    gender = "여자";
+  }
   return (
     <S.Party>
       <S.Leader>팟장</S.Leader>
@@ -53,14 +62,14 @@ function DetailPartySection() {
         <S.Icon style={{ marginLeft: "24px", marginRight: "13px" }}>
           <LionProfile width="55px" height="55px" />
         </S.Icon>
-        <S.Name>모연두</S.Name>
+        <S.Name>{data.userName}</S.Name>
         <S.Tags>
-          <S.Tag style={{ marginRight: "7px" }}>여자</S.Tag>
+          <S.Tag style={{ marginRight: "7px" }}>{gender}</S.Tag>
           {/* 나잇대 수정필요 */}
           <S.Tag>20대</S.Tag>
         </S.Tags>
       </Wrapper>
-      <S.Description>송파구에 거주하고 있는 대학생입니다!</S.Description>
+      <S.Description>{data.content}</S.Description>
       <S.PartyOne>
         <div style={{ flexDirection: "row", display: "flex" }}>
           <S.Leader>파티원</S.Leader>
