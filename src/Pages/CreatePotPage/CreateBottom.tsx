@@ -80,7 +80,8 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
               <S.SelectedInfo>
                 {new Date(selectedTime).toLocaleString("ko-KR", {
                   weekday: "long",
-                  month: "numeric",
+                  year: "numeric",
+                  month: "long",
                   day: "numeric",
                   hour: "numeric",
                   minute: "numeric",
