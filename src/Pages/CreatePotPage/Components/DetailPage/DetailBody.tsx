@@ -30,7 +30,7 @@ function DetailBody() {
             <S.Title>'{data.title}'은 어때요?</S.Title>
           </S.ContentTitle>
           <S.ContentDetail>
-            {gender}/{ago}/7명 조회
+            {gender}/{ago}/{data.view}명 조회
           </S.ContentDetail>
         </S.Explanation>
         <S.MapSample
