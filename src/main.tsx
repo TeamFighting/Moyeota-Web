@@ -50,7 +50,7 @@ const router = createBrowserRouter([
     element: <QuickMatchFinding />,
   },
   {
-    path: "/CreateDetailPage",
+    path: "/CreateDetailPage/:postId",
     element: <CreateDetailPage />,
   },
 ]);

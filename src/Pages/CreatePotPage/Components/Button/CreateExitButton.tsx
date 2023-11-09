@@ -3,9 +3,24 @@ import { useNavigate } from "react-router-dom";
 
 function CreateExitButton() {
   const navigate = useNavigate();
-  const navigateTo = () => {
-    navigate("/CreateDetailPage");
+  const navigateTo = async () => {
+    try {
+      // API 호출
+      const response = await fetch("http://moyeota.shop:80/api/posts?page=0");
+      const data = await response.json();
+
+      // API 호출 성공 시에만 이동
+      if (response.ok) {
+        // navigate("/CreateDetailPage");
+        console.log("data:", data.data.content[0]);
+      } else {
+        console.log("모집글 조회 실패");
+      }
+    } catch (error) {
+      console.error("API 호출 중 에러:", error);
+    }
   };
+
   return (
     <Wrapper>
       <Button type="button" onClick={navigateTo}>
@@ -14,6 +29,7 @@ function CreateExitButton() {
     </Wrapper>
   );
 }
+
 const Wrapper = styled.div`
   width: 100%;
   height: 128px;
@@ -44,4 +60,5 @@ const Button = styled.button`
   letter-spacing: 0.54px;
   z-index: 3;
 `;
+
 export default CreateExitButton;
