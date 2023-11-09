@@ -4,6 +4,18 @@ import usePostDataStore from "../../../../zustand/store/PostDataStore";
 
 function DetailBottom() {
   const { data } = usePostDataStore();
+  const departureDateTime = new Date(data.departureTime);
+
+  const formattedDateTime = departureDateTime
+    .toLocaleString("ko-KR", {
+      weekday: "short",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    })
+    .replace(".", "");
   return (
     <S.Bottom>
       <S.DescriptionTag>
@@ -34,7 +46,7 @@ function DetailBottom() {
           <div style={{ flexDirection: "row", display: "flex", gap: "11px" }}>
             <Calendar width="16" height="16" />
             <div>
-              <div>{data.departureTime} 출발</div>
+              <div>{formattedDateTime} 출발</div>
             </div>
           </div>
           <div style={{ flexDirection: "row", display: "flex", gap: "11px" }}>
