@@ -3,6 +3,8 @@ import { HEADER_HEIGHT } from "../../../../Constants/constant";
 import { useNavigate } from "react-router-dom";
 import SvgCancelIcon from "../../../../assets/svg/CancelIcon";
 import CheveronLeft from "../../../../assets/svg/Chevronleft";
+import ThreeDots from "../../../../assets/svg/ThreeDots";
+import UploadIcon from "../../../../assets/svg/UploadIcon";
 
 function DetailHeader() {
   const navigate = useNavigate();
@@ -14,8 +16,10 @@ function DetailHeader() {
       <Icon style={{ alignSelf: "center" }} onClick={goBack}>
         <CheveronLeft width="24" height="24" />
       </Icon>
-      <Icon style={{ alignSelf: "center" }} onClick={goBack}>
-        <SvgCancelIcon width="24" height="24" />
+      <Icon style={{ alignSelf: "center" }}>
+        <ThreeDots style={{ paddingRight: "16px" }} />
+        <UploadIcon style={{ paddingRight: "16px" }} />
+        <SvgCancelIcon onClick={goBack} width="24" height="24" />
       </Icon>
     </Header>
   );
