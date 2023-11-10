@@ -13,13 +13,13 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
 }) => {
   const handleResize = () => {
     const windowHeight = window.innerHeight;
-    const contentHeight = windowHeight * 0.25;
+    const contentHeight = windowHeight * 0.3;
 
     setSheetHeight(contentHeight);
   };
 
   const [sheetHeight, setSheetHeight] = React.useState<number>(() => {
-    return window.innerHeight * 0.25;
+    return window.innerHeight * 0.3;
   });
 
   useEffect(() => {
@@ -36,6 +36,7 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
   return (
     <BottomSheetContainer>
       <BottomSheetContent style={{ height: `${sheetHeight}px` }}>
+        <Handler />
         <UpdateText>팟 수정하기</UpdateText>
         <DeleteText>팟 삭제하기</DeleteText>
         <CancleText onClick={onClose}>취소</CancleText>
@@ -61,14 +62,30 @@ const BottomSheetContainer = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  z-index: 1000;
 `;
-
 const BottomSheetContent = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
   background: white;
   width: 100%;
   overflow-y: auto;
-  padding: 50px;
+  padding: 13px;
   border-radius: 26px 26px 0px 0px;
+`;
+
+const Handler = styled.div`
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  border-radius: 26px;
+  background-color: #ededed;
+  width: 50px;
+  height: 7px;
 `;
 
 const UpdateText = styled.div`
@@ -78,6 +95,8 @@ const UpdateText = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 157%; /* 34.54px */
+  margin-bottom: 30px;
+  text-align: center;
 `;
 
 const DeleteText = styled.div`
@@ -87,7 +106,10 @@ const DeleteText = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 157%; /* 34.54px */
+  margin-bottom: 30px;
+  text-align: center;
 `;
+
 const CancleText = styled.div`
   color: var(--Gray-Text-1, #9a9a9a);
   font-family: Pretendard;
@@ -95,4 +117,5 @@ const CancleText = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: 157%; /* 34.54px */
+  text-align: center;
 `;
