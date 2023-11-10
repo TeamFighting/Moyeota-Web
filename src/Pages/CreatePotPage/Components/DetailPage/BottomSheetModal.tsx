@@ -13,13 +13,13 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
 }) => {
   const handleResize = () => {
     const windowHeight = window.innerHeight;
-    const contentHeight = windowHeight * 0.3;
+    const contentHeight = windowHeight * 0.25;
 
     setSheetHeight(contentHeight);
   };
 
   const [sheetHeight, setSheetHeight] = React.useState<number>(() => {
-    return window.innerHeight * 0.3;
+    return window.innerHeight * 0.25;
   });
 
   useEffect(() => {
@@ -36,8 +36,9 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
   return (
     <BottomSheetContainer>
       <BottomSheetContent style={{ height: `${sheetHeight}px` }}>
-        <CloseButton onClick={onClose}>취소</CloseButton>
-        {children}
+        <UpdateText>팟 수정하기</UpdateText>
+        <DeleteText>팟 삭제하기</DeleteText>
+        <CancleText onClick={onClose}>취소</CancleText>
       </BottomSheetContent>
     </BottomSheetContainer>
   );
@@ -70,6 +71,28 @@ const BottomSheetContent = styled.div`
   border-radius: 26px 26px 0px 0px;
 `;
 
-const CloseButton = styled.button`
-  margin-bottom: 16px;
+const UpdateText = styled.div`
+  color: var(--Gray-Text-3, #343434);
+  font-family: Pretendard;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 157%; /* 34.54px */
+`;
+
+const DeleteText = styled.div`
+  color: var(--Green-Text, #139b59);
+  font-family: Pretendard;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 157%; /* 34.54px */
+`;
+const CancleText = styled.div`
+  color: var(--Gray-Text-1, #9a9a9a);
+  font-family: Pretendard;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 157%; /* 34.54px */
 `;
