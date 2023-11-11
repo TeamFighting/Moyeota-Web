@@ -59,7 +59,7 @@ function DetailPage() {
       <DetailBottom />
       <Divider style={{ height: `${dividerHeight}px` }} />
       <DetailPartySection />
-      <UpdateButton />
+      {/* <UpdateButton /> */}
     </S.Container>
   );
 }

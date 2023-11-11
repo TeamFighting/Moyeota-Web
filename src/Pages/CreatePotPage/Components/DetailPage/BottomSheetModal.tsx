@@ -1,40 +1,23 @@
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import React, { useEffect } from "react";
+import React from "react";
+
 interface BottomSheetModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
+
 const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
   isOpen,
   onClose,
-  children,
 }) => {
-  const handleResize = () => {
-    const windowHeight = window.innerHeight;
-    const contentHeight = windowHeight * 0.3;
-
-    setSheetHeight(contentHeight);
-  };
-
   const [sheetHeight, setSheetHeight] = React.useState<number>(() => {
-    return window.innerHeight * 0.3;
+    return window.innerHeight * (2.5 / 8);
   });
 
-  useEffect(() => {
-    if (isOpen) {
-      window.addEventListener("resize", handleResize);
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }
-  }, [isOpen]);
-
-  if (!isOpen) return null;
-
   return (
-    <BottomSheetContainer>
+    <BottomSheetContainer style={{ display: isOpen ? "flex" : "none" }}>
       <BottomSheetContent style={{ height: `${sheetHeight}px` }}>
         <Handler />
         <UpdateText>팟 수정하기</UpdateText>
@@ -44,6 +27,7 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
     </BottomSheetContainer>
   );
 };
+
 BottomSheetModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
@@ -58,21 +42,20 @@ const BottomSheetContainer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(65, 65, 65, 0.4);
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  z-index: 1000;
 `;
+
 const BottomSheetContent = styled.div`
-  position: fixed;
-  top: 50%;
+  position: absolute;
+  bottom: 0;
   left: 50%;
-  transform: translate(-50%, 50%);
+  transform: translateX(-50%);
   background: white;
   width: 100%;
   overflow-y: auto;
-  padding: 13px;
   border-radius: 26px 26px 0px 0px;
 `;
 
@@ -86,6 +69,7 @@ const Handler = styled.div`
   background-color: #ededed;
   width: 50px;
   height: 7px;
+  margin-top: 14px;
 `;
 
 const UpdateText = styled.div`
@@ -95,8 +79,9 @@ const UpdateText = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 157%; /* 34.54px */
-  margin-bottom: 30px;
+  padding-bottom: 40px;
   text-align: center;
+  padding-top: 50px;
 `;
 
 const DeleteText = styled.div`
@@ -106,7 +91,7 @@ const DeleteText = styled.div`
   font-style: normal;
   font-weight: 700;
   line-height: 157%; /* 34.54px */
-  margin-bottom: 30px;
+  padding-bottom: 40px;
   text-align: center;
 `;
 
