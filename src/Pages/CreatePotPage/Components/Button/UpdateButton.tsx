@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   position: fixed;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 2;
 `;
 
 const Button = styled.button`

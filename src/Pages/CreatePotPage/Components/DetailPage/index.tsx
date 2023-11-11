@@ -8,12 +8,14 @@ import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import UpdateButton from "../Button/UpdateButton";
+import useModalStore from "../../../../zustand/store/UpdateModalStore";
 
 function DetailPage() {
   const [scroll, setScroll] = useState(0);
   const [dividerHeight, setDividerHeight] = useState(6);
   const { postId } = PotCreateStore();
   const { setPostData } = usePostDataStore();
+  const { isModalOpen } = useModalStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +61,7 @@ function DetailPage() {
       <DetailBottom />
       <Divider style={{ height: `${dividerHeight}px` }} />
       <DetailPartySection />
-      <UpdateButton />
+      {!isModalOpen && <UpdateButton />}
     </S.Container>
   );
 }
