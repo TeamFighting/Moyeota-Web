@@ -6,31 +6,26 @@ import CheveronLeft from "../../../../assets/svg/Chevronleft";
 import ThreeDots from "../../../../assets/svg/ThreeDots";
 import UploadIcon from "../../../../assets/svg/UploadIcon";
 import BottomSheetModal from "./BottomSheetModal";
-import { useState } from "react";
+import useUpdateModalStore from "../../../../zustand/store/UpdateModalStore";
 
 function DetailHeader() {
   const navigate = useNavigate();
+  const { isModalOpen, openModal, closeModal } = useUpdateModalStore();
+
   const goBack = () => {
     navigate("/mainpage");
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
   return (
     <Header>
+      <BottomSheetModal isOpen={isModalOpen} onClose={closeModal}>
+        <p>Modal Content</p>
+      </BottomSheetModal>
       <Icon style={{ alignSelf: "center" }} onClick={goBack}>
         <CheveronLeft width="24" height="24" />
       </Icon>
       <Icon style={{ alignSelf: "center" }}>
         <ThreeDots onClick={openModal} style={{ paddingRight: "16px" }} />
-        <BottomSheetModal isOpen={isModalOpen} onClose={closeModal}>
-          <p>Modal Content</p>
-        </BottomSheetModal>
         <UploadIcon style={{ paddingRight: "16px" }} />
         <SvgCancelIcon onClick={goBack} width="24" height="24" />
       </Icon>
@@ -51,6 +46,7 @@ const Header = styled.div`
   padding: 0 3.75%;
   background-color: white;
 `;
+
 const Icon = styled.div`
   cursor: pointer;
   align-self: flex-start;

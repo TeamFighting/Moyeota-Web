@@ -12,7 +12,7 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [sheetHeight, setSheetHeight] = React.useState<number>(() => {
+  const [sheetHeight] = React.useState<number>(() => {
     return window.innerHeight * (2.5 / 8);
   });
 
@@ -46,6 +46,7 @@ const BottomSheetContainer = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  z-index: 3;
 `;
 
 const BottomSheetContent = styled.div`
@@ -57,6 +58,7 @@ const BottomSheetContent = styled.div`
   width: 100%;
   overflow-y: auto;
   border-radius: 26px 26px 0px 0px;
+  z-index: 4;
 `;
 
 const Handler = styled.div`
