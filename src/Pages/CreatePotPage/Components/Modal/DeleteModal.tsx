@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import PotCreateStore from "../../../../zustand/store/PotCreateStore";
+
 interface DeleteModalProps {
   onClose: () => void;
   children?: React.ReactNode;
@@ -7,10 +9,30 @@ interface DeleteModalProps {
 
 function DeleteModal({ onClose }: DeleteModalProps) {
   const [isDeleted, setIsDeleted] = React.useState(false);
-  const handleDelete = () => {
-    //삭제 로직 구현
-    setIsDeleted(true);
+  const { postId } = PotCreateStore();
+
+  const handleDelete = async () => {
+    try {
+      const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
+      const response = await fetch(`/api/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log("Delete res:", response);
+      if (response.ok) {
+        setIsDeleted(true);
+      } else {
+        console.error("삭제 실패");
+      }
+    } catch (error) {
+      console.error("삭제 요청 중 오류 발생", error);
+    }
   };
+
   return (
     <ModalWrapper>
       <Modal>
