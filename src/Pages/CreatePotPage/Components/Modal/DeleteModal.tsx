@@ -1,27 +1,51 @@
+import React from "react";
 import styled from "styled-components";
 interface DeleteModalProps {
   onClose: () => void;
-  children?: React.ReactNode; // children을 선택적으로 변경
+  children?: React.ReactNode;
 }
 
 function DeleteModal({ onClose }: DeleteModalProps) {
+  const [isDeleted, setIsDeleted] = React.useState(false);
+  const handleDelete = () => {
+    //삭제 로직 구현
+    setTimeout(() => {
+      setIsDeleted(true);
+    }, 2000);
+  };
   return (
     <ModalWrapper>
       <Modal>
         <Text>
-          <Title>정말로 삭제하시겠습니까?</Title>
+          <Title>
+            {isDeleted ? "삭제되었습니다" : "정말로 삭제하시겠습니까?"}
+          </Title>
         </Text>
-        <Buttons>
-          <StyledBtn
-            onClick={onClose}
-            style={{ backgroundColor: "#F5F6F8", color: "#5D5D5D" }}
-          >
-            아니오
-          </StyledBtn>
-          <StyledBtn onClick={onClose} style={{ backgroundColor: "#1EDD81" }}>
-            예
-          </StyledBtn>
-        </Buttons>
+        {isDeleted ? (
+          <Buttons>
+            <StyledBtn
+              onClick={onClose}
+              style={{ backgroundColor: "#1EDD81", width: 299 }}
+            >
+              확인
+            </StyledBtn>
+          </Buttons>
+        ) : (
+          <Buttons>
+            <StyledBtn
+              onClick={onClose}
+              style={{ backgroundColor: "#F5F6F8", color: "#5D5D5D" }}
+            >
+              아니오
+            </StyledBtn>
+            <StyledBtn
+              onClick={handleDelete}
+              style={{ backgroundColor: "#1EDD81" }}
+            >
+              예
+            </StyledBtn>
+          </Buttons>
+        )}
       </Modal>
     </ModalWrapper>
   );
@@ -41,7 +65,7 @@ const ModalWrapper = styled.div`
 `;
 
 const Modal = styled.div`
-  width: 309px;
+  width: 334px;
   position: relative;
   height: 161px;
   flex-direction: column;
