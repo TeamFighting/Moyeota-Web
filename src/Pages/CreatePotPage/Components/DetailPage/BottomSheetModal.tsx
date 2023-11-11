@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import React from "react";
