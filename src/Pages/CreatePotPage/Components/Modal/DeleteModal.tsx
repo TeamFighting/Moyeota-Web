@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PotCreateStore from "../../../../zustand/store/PotCreateStore";
+import { useNavigate } from "react-router-dom";
 
 interface DeleteModalProps {
   onClose: () => void;
@@ -10,20 +11,27 @@ interface DeleteModalProps {
 function DeleteModal({ onClose }: DeleteModalProps) {
   const [isDeleted, setIsDeleted] = React.useState(false);
   const { postId } = PotCreateStore();
-
+  const navigate = useNavigate();
+  const ToMainPage = () => {
+    navigate("/mainpage");
+  };
   const handleDelete = async () => {
     try {
       const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
-      const response = await fetch(`/api/posts/${postId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://moyeota.shop:80/api/posts/${postId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      console.log("Delete res:", response);
-      if (response.ok) {
+      console.log("Delete res status:", response.status);
+      console.log("Delete res body:", await response.json());
+      if (response.status == 200) {
         setIsDeleted(true);
       } else {
         console.error("삭제 실패");
@@ -44,7 +52,10 @@ function DeleteModal({ onClose }: DeleteModalProps) {
         {isDeleted ? (
           <Buttons>
             <StyledBtn
-              onClick={onClose}
+              onClick={() => {
+                onClose();
+                ToMainPage(); // Call handleConfirm when the "예" (Yes) button is clicked
+              }}
               style={{ backgroundColor: "#1EDD81", width: 299 }}
             >
               확인

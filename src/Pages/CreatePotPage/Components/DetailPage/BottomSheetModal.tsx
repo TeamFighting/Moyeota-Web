@@ -37,9 +37,7 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
         <CancleText onClick={onClose}>취소</CancleText>
       </BottomSheetContent>
       {isDeleteModalOpen && (
-        <DeleteModal onClose={handleCloseDeleteModal}>
-          {/* DeleteModal에 필요한 내용 전달 */}
-        </DeleteModal>
+        <DeleteModal onClose={handleCloseDeleteModal}></DeleteModal>
       )}
     </BottomSheetContainer>
   );

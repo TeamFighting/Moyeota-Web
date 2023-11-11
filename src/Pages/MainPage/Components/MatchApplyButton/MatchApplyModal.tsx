@@ -41,6 +41,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
           }
         });
     } catch (e: unknown) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if ((e as any)?.response?.data?.code === 422) {
         console.log("이미 신청한 팟입니다.");
         setAppliedParty(postId);
