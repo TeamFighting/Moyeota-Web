@@ -9,9 +9,7 @@ function DeleteModal({ onClose }: DeleteModalProps) {
   const [isDeleted, setIsDeleted] = React.useState(false);
   const handleDelete = () => {
     //삭제 로직 구현
-    setTimeout(() => {
-      setIsDeleted(true);
-    }, 2000);
+    setIsDeleted(true);
   };
   return (
     <ModalWrapper>
