@@ -1,9 +1,16 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 function UpdateButton() {
+  const navigate = useNavigate();
+  const goToUpdate = () => {
+    navigate("/updatePotPage");
+  };
   return (
     <Wrapper>
-      <Button type="button">수정하기</Button>
+      <Button type="button" onClick={goToUpdate}>
+        수정하기
+      </Button>
     </Wrapper>
   );
 }
