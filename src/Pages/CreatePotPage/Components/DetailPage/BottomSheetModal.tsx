@@ -2,7 +2,8 @@
 // @ts-ignore
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
+import DeleteModal from "../Modal/DeleteModal";
 
 interface BottomSheetModalProps {
   isOpen: boolean;
@@ -17,15 +18,27 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
   const [sheetHeight] = React.useState<number>(() => {
     return window.innerHeight * (2.5 / 8);
   });
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+  const handleOpenDeleteModal = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+  };
 
   return (
     <BottomSheetContainer style={{ display: isOpen ? "flex" : "none" }}>
       <BottomSheetContent style={{ height: `${sheetHeight}px` }}>
         <Handler />
         <UpdateText>팟 수정하기</UpdateText>
-        <DeleteText>팟 삭제하기</DeleteText>
+        <DeleteText onClick={handleOpenDeleteModal}>팟 삭제하기</DeleteText>
         <CancleText onClick={onClose}>취소</CancleText>
       </BottomSheetContent>
+      {isDeleteModalOpen && (
+        <DeleteModal onClose={handleCloseDeleteModal}></DeleteModal>
+      )}
     </BottomSheetContainer>
   );
 };
