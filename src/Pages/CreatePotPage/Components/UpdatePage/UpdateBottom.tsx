@@ -40,7 +40,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     setSelectedModal(null);
   };
 
-  const setVehicleType = PotCreateStore((state) => state.setVehicleType);
+  // const setVehicleType = PotCreateStore((state) => state.setVehicleType);
   const handleVehicleSelection = (vehicle: SetStateAction<string>) => {
     setSelectedVehicle(vehicle);
     if (vehicle === "일반 승용 택시") {

@@ -198,6 +198,3 @@ function CreateBody({ destination }: CreateBodyProps) {
 }
 
 export default CreateBody;
-function setPostData(arg0: { destination: string }) {
-  throw new Error("Function not implemented.");
-}
