@@ -46,11 +46,11 @@ function SingleContent() {
 
     const navigate = useNavigate()
     const { totalData } = useStore((state) => state)
-    const navigateToDetail = (data: object, splitedDay: string[], timePart: string, postId: number) => {
+    const navigateToDetail = (data: object, splitedTime: string[], timePart: string, postId: number) => {
         navigate(`/detailpage/${postId}`, {
             state: {
                 data: data,
-                splitedDay: splitedDay,
+                splitedTime: splitedTime,
                 timePart: timePart,
             },
         })
@@ -78,7 +78,14 @@ function SingleContent() {
                     navigateToDetail(data, splitedDay, timePart, postId)
                 }}
             >
-                <Profile ago={ago} index={index} userName={data.userName} gender={gender} distance={data.distance} />
+                <Profile
+                    profileImg={data.profileImage}
+                    ago={ago}
+                    index={index}
+                    userName={data.userName}
+                    gender={gender}
+                    distance={data.distance}
+                />
                 <S.ContentTitle>{data.title}</S.ContentTitle>
                 <div key={index}>
                     <S.Info>

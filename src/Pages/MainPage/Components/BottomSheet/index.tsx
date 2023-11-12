@@ -12,35 +12,6 @@ import { useInView } from 'react-intersection-observer'
 import useStore from '../../../../zustand/store/ContentStore'
 
 function BottomSheet() {
-    // const { sheet, content, handleUp } = useBottomSheet()
-    // const [ref, inView] = useInView()
-    // const [page, setPage] = useState(0) // 현재 페이지 번호 (페이지네이션)
-
-    // const { updateTotalData } = useStore((state) => state)
-
-    // const productFetch = () => {
-    //     axios
-    //         .get(`http://moyeota.shop/api/posts?page=${page}`)
-    //         .then((res) => {
-    //             console.log(res.data.data.content)
-    //             updateTotalData(res.data.data.content)
-    //         })
-    //         .catch((err) => {
-    //             console.log(err)
-    //         })
-    //     setPage((page) => page + 1)
-    //     console.log('page', page)
-    // }
-
-    // useEffect(() => {
-    //     if (inView) {
-    //         console.log(inView, '무한 스크롤 요청')
-    //         productFetch()
-    //     }
-    //     if (!inView) {
-    //         console.log(inView, '무한 스크롤 요청 안함')
-    //     }
-    // }, [inView])
     const { sheet, content, handleUp } = useBottomSheet()
 
     return (
@@ -60,7 +31,6 @@ function BottomSheet() {
             >
                 <BottomSheetHandle />
                 <ContentHeader />
-
                 <BottomSheetContentWrapper ref={content}>
                     <BottomSheetContent />
                 </BottomSheetContentWrapper>
