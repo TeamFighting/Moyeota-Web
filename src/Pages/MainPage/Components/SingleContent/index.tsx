@@ -44,8 +44,6 @@ function SingleContent() {
         }
     }, [inView])
 
-    ////////////////////////////////////////////////
-
     const navigate = useNavigate()
     const { totalData } = useStore((state) => state)
     const navigateToDetail = (data: object, splitedDay: string[], timePart: string, postId: number) => {

@@ -14,10 +14,9 @@ import NaverMap from './NaverMap/NaverMap'
 import useCurrentLocation from './Kakaomap/CurrentLocation'
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent'
 import { useClickedMarker } from '../../zustand/store/ClickedMarker'
-import { useInView } from 'react-intersection-observer'
 
 function MainPage() {
-    const { totalData, updateTotalData } = useStore((state) => state)
+    const { updateTotalData } = useStore((state) => state)
     const navigate = useNavigate()
     const { clickedMarkerId, isClicked } = useClickedMarker()
     useCurrentLocation()
@@ -28,7 +27,6 @@ function MainPage() {
     async function fetchData() {
         try {
             const res = await axios.get('http://moyeota.shop/api/posts?page=3')
-            // console.log(res);
             if (res.status === 200) {
                 updateTotalData(res.data.data.content)
                 console.log(res.data.data.content)
@@ -39,8 +37,6 @@ function MainPage() {
             console.log(e)
         }
     }
-
-    // InfiniteScroll()
 
     const navigateToCreatePot = () => {
         navigate('/createPotPage')
