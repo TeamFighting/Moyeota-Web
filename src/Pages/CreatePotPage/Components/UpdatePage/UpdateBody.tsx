@@ -25,6 +25,13 @@ function CreateBody({ destination }: CreateBodyProps) {
 
   const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
   const { setDistance, setDestination } = PotCreateStore();
+
+  useEffect(() => {
+    if (destination) {
+      usePostDataStore.getState().setPostData({ destination });
+    }
+  }, [destination]);
+
   const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -191,3 +198,6 @@ function CreateBody({ destination }: CreateBodyProps) {
 }
 
 export default CreateBody;
+function setPostData(arg0: { destination: string }) {
+  throw new Error("Function not implemented.");
+}
