@@ -5,7 +5,7 @@ export const ModalContent = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 10000px;
+    height: 30000px;
     font-family: Pretendard;
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
