@@ -18,7 +18,7 @@ interface CreateBodyProps {
 function CreateBody({ destination }: CreateBodyProps) {
   const navigate = useNavigate();
   const NavigateToDestination = () => {
-    navigate("/destinationPage");
+    navigate("/updateDestinationPage");
   };
   const { data } = usePostDataStore();
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);

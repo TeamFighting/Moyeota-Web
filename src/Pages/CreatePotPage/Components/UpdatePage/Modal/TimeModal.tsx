@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { useState } from "react";
-import usePostDataStore from "../../../../zustand/store/PostDataStore";
-import Check from "../../../../assets/svg/Check";
-import Minus from "../../../../assets/svg/Minus";
-import Plus from "../../../../assets/svg/Plus";
-import SelectedOff from "../../../../assets/svg/SelectedOff";
+import usePostDataStore from "../../../../../zustand/store/PostDataStore";
+import Check from "../../../../../assets/svg/Check";
+import Minus from "../../../../../assets/svg/Minus";
+import Plus from "../../../../../assets/svg/Plus";
+import SelectedOff from "../../../../../assets/svg/SelectedOff";
 
 interface TimeModalProps {
   closeModal: () => void;

@@ -12,6 +12,8 @@ import SearchResults from "./Pages/CreatePotPage/Components/Map/SearchResults";
 import QuickMatch from "./Pages/QuickMatch/QuickMatch";
 import QuickMatchFinding from "./Pages/QuickMatch/QuickMatchFinding";
 import UpdatePotPage from "./Pages/CreatePotPage/Components/UpdatePage/UpdatePotPage";
+import UpdateDestinationPage from "./Pages/CreatePotPage/Components/UpdatePage/Map/DestinationPage";
+import UpdateSearchResults from "./Pages/CreatePotPage/Components/UpdatePage/Map/SearchResults";
 
 const router = createBrowserRouter([
   {
@@ -39,8 +41,16 @@ const router = createBrowserRouter([
     element: <DestinationPage />,
   },
   {
+    path: "/updateDestinationPage",
+    element: <UpdateDestinationPage />,
+  },
+  {
     path: "/SearchResults",
     element: <SearchResults />,
+  },
+  {
+    path: "/UpdateSearchResults",
+    element: <UpdateSearchResults />,
   },
   {
     path: "/quickMatch",
