@@ -14,9 +14,10 @@ import NaverMap from "./NaverMap/NaverMap";
 import useCurrentLocation from "./Kakaomap/CurrentLocation";
 import MarkerClickContent from "./Components/MarkerClickContent/MarkerClickContent";
 import { useClickedMarker } from "../../zustand/store/ClickedMarker";
+import InfiniteScrollList from "./InfiniteScroll/InfiniteScroll";
 
 function MainPage() {
-  const { updateTotalData } = useStore((state) => state);
+  const { totalData, updateTotalData } = useStore((state) => state);
   const navigate = useNavigate();
   const { clickedMarkerId, isClicked } = useClickedMarker();
   useCurrentLocation();
@@ -89,6 +90,7 @@ function MainPage() {
               팟 만들기
             </CreatePotButton>
           </Buttons>
+          {/* <InfiniteScrollList fetchData={fetchData} contentData={totalData} /> */}
         </Bottom>
       </Body>
     </Container>
