@@ -4,7 +4,7 @@ import UpdateBody from "./UpdateBody";
 import UpdateBottom from "./UpdateBottom";
 import UpdatePrice from "./UpdatePrice";
 import UpdateDescription from "./UpdateDescription";
-import UpdatePotButton from "../Button/UpdatePotButton";
+import UpdatePotButton from "./Button/UpdatePotButton";
 import UpdateNote from "./UpdateNote";
 import { useState, useEffect, SetStateAction } from "react";
 import styled from "styled-components";

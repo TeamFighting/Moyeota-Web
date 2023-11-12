@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import PotCreateStore from "../../../../zustand/store/PotCreateStore";
-import DurationFareStore from "../../../../zustand/store/DurationFareStore";
-import CurrentLocation from "../../../../zustand/store/CurrentLocation";
-import usePostDataStore from "../../../../zustand/store/PostDataStore";
+import PotCreateStore from "../../../../../zustand/store/PotCreateStore";
+import DurationFareStore from "../../../../../zustand/store/DurationFareStore";
+import CurrentLocation from "../../../../../zustand/store/CurrentLocation";
+import usePostDataStore from "../../../../../zustand/store/PostDataStore";
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
   const navigate = useNavigate();
   const potCreateStore = PotCreateStore();
@@ -18,7 +18,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
       const postId = data.postId;
       const content = data.content;
       const distance = potCreateStore.distance;
-      const destination = potCreateStore.destination;
+      const destination = data.destination;
       const numberOfRecruitment = totalPeople;
       const estimatedDuration = durationFareStore.estimatedDuration;
       const estimatedFare = durationFareStore.estimatedFare;
