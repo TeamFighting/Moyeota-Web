@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import React, { useState } from "react";
 import DeleteModal from "../Modal/DeleteModal";
+import { useNavigate } from "react-router-dom";
 
 interface BottomSheetModalProps {
   isOpen: boolean;
@@ -18,6 +19,10 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
   const [sheetHeight] = React.useState<number>(() => {
     return window.innerHeight * (2.5 / 8);
   });
+  const navigate = useNavigate();
+  const goToUpdate = () => {
+    navigate("/updatePotPage");
+  };
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleOpenDeleteModal = () => {
@@ -32,7 +37,7 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({
     <BottomSheetContainer style={{ display: isOpen ? "flex" : "none" }}>
       <BottomSheetContent style={{ height: `${sheetHeight}px` }}>
         <Handler />
-        <UpdateText>팟 수정하기</UpdateText>
+        <UpdateText onClick={goToUpdate}>팟 수정하기</UpdateText>
         <DeleteText onClick={handleOpenDeleteModal}>팟 삭제하기</DeleteText>
         <CancleText onClick={onClose}>취소</CancleText>
       </BottomSheetContent>
