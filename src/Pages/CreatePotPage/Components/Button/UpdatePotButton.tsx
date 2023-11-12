@@ -16,7 +16,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
       const currentDate = new Date();
       const formattedDate = currentDate.toISOString();
       const postId = data.postId;
-      const content = potCreateStore.description;
+      const content = data.content;
       const distance = potCreateStore.distance;
       const destination = potCreateStore.destination;
       const numberOfRecruitment = totalPeople;
