@@ -30,7 +30,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     setSelectedTime: state.setSelectedTime,
   }));
   useEffect(() => {
-    // 컴포넌트가 마운트될 때 초기값 설정
     onTotalPeopleChange(postDataStore.data.numberOfRecruitment);
   }, []);
   const openTimeModal = () => {

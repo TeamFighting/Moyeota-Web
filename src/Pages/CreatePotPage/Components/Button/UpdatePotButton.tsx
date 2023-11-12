@@ -3,73 +3,70 @@ import { useNavigate } from "react-router-dom";
 import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 import DurationFareStore from "../../../../zustand/store/DurationFareStore";
 import CurrentLocation from "../../../../zustand/store/CurrentLocation";
-
+import usePostDataStore from "../../../../zustand/store/PostDataStore";
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
   const navigate = useNavigate();
   const potCreateStore = PotCreateStore();
   const durationFareStore = DurationFareStore();
   const currentLocationStore = CurrentLocation();
+  const { data } = usePostDataStore();
 
-  const createPost = async () => {
+  const updatePost = async () => {
     try {
       const currentDate = new Date();
-      const formattedDate = currentDate.toISOString(); // "2023-11-07T02:23:41.465Z"
-      const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
-      const title = potCreateStore.title;
+      const formattedDate = currentDate.toISOString();
+      const postId = data.postId;
       const content = potCreateStore.description;
       const distance = potCreateStore.distance;
       const destination = potCreateStore.destination;
-      const vehicle = potCreateStore.VehicleType;
-      const sameGenderStatus = potCreateStore.sameGenderRide;
-      const departureTime = potCreateStore.selectedTime;
       const numberOfRecruitment = totalPeople;
       const estimatedDuration = durationFareStore.estimatedDuration;
       const estimatedFare = durationFareStore.estimatedFare;
+      const vehicle = data.vehicle;
+      const sameGenderStatus = data.sameGenderStatus;
+      const title = data.title;
       const departure =
         currentLocationStore.currentLocation?.building_name ?? "미입력";
-      console.log("departureTime:", departureTime);
+      const response = await fetch(
+        `http://moyeota.shop:80/api/posts/${postId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TOKEN}`,
+          },
+          body: JSON.stringify({
+            category: "LIFE",
+            content: content,
+            departure: departure,
+            departureTime: formattedDate, //departureTime으로 바꾸기
+            destination: destination,
+            distance: distance,
+            duration: estimatedDuration,
+            fare: estimatedFare,
+            numberOfRecruitment: numberOfRecruitment,
+            sameGenderStatus: sameGenderStatus,
+            title: title,
+            vehicle: vehicle,
+          }),
+        }
+      );
 
-      const response = await fetch("http://moyeota.shop:80/api/posts", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          category: "LIFE",
-          content: content,
-          createdDate: formattedDate,
-          departure: departure,
-          departureTime: formattedDate, //departureTime 으로 바꾸기
-          destination: destination,
-          distance: distance,
-          duration: estimatedDuration,
-          fare: estimatedFare,
-          modifiedDate: formattedDate,
-          numberOfRecruitment: numberOfRecruitment,
-          sameGenderStatus: sameGenderStatus,
-          title: title,
-          vehicle: vehicle,
-        }),
-      });
-      const data = await response.json();
-      console.log("responseData", data);
-
-      if (data.status === "SUCCESS") {
-        navigate("/createComplete");
-        console.log("res", response);
+      if (response.status == 200) {
+        console.log("팟이 성공적으로 수정되었습니다.");
+        navigate(`/CreateDetailPage`);
       } else {
-        alert("실패");
-        console.error("API 요청 실패");
+        const errorData = await response.json();
+        console.error("팟 수정에 실패했습니다.", response.status, errorData);
+        console.log("res:", response);
       }
     } catch (error) {
-      console.error("error:", error);
+      console.error("팟 수정 중 오류 발생", error);
     }
   };
-
   return (
     <Wrapper>
-      <Button type="button" onClick={createPost}>
+      <Button type="button" onClick={updatePost}>
         팟 수정 완료
       </Button>
     </Wrapper>
