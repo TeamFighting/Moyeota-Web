@@ -25,7 +25,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   const postDataStore = usePostDataStore();
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
-  const { selectedTime, setSelectedTime } = PotCreateStore((state) => ({
+  const { setSelectedTime } = PotCreateStore((state) => ({
     selectedTime: state.selectedTime,
     setSelectedTime: state.setSelectedTime,
   }));

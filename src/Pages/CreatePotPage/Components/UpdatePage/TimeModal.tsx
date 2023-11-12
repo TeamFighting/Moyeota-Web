@@ -51,7 +51,7 @@ function TimeModal({
     }
   };
 
-  const [isNormalTaxiSelected, setIsNormalTaxiSelected] = useState(
+  const [, setIsNormalTaxiSelected] = useState(
     selectedVehicle === "일반 승용 택시"
   );
 
