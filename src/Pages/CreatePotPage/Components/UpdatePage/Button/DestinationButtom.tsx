@@ -1,15 +1,23 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-function UpdateButton() {
+function DestinationButton() {
   const navigate = useNavigate();
-  const goToUpdate = () => {
-    navigate("/updatePotPage");
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const destination = searchParams.get("destination");
+
+  const navigateToCreateComplete = () => {
+    if (destination) {
+      navigate(`/updatePotPage?destination=${destination}`);
+    } else {
+      alert("도착지를 입력해주세요");
+    }
   };
   return (
     <Wrapper>
-      <Button type="button" onClick={goToUpdate}>
-        수정하기
+      <Button type="button" onClick={navigateToCreateComplete}>
+        도착지로 설정 완료
       </Button>
     </Wrapper>
   );
@@ -23,7 +31,7 @@ const Wrapper = styled.div`
   position: fixed;
   align-items: center;
   justify-content: center;
-  z-index: 2;
+  z-index: 1;
 `;
 
 const Button = styled.button`
@@ -43,4 +51,4 @@ const Button = styled.button`
   line-height: normal;
   letter-spacing: 0.54px;
 `;
-export default UpdateButton;
+export default DestinationButton;
