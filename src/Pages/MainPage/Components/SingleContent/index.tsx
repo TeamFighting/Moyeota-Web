@@ -10,7 +10,7 @@ import getDays from './getDays'
 import createAgo from './createAgo'
 import { useQuickPotStore } from '../../../../zustand/store/QuickPotStore'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import useStore from '../../../../zustand/store/ContentStore'
 
@@ -24,23 +24,20 @@ function SingleContent() {
         axios
             .get(`http://moyeota.shop/api/posts?page=${page}`)
             .then((res) => {
-                console.log(res.data.data.content)
                 updateTotalData(res.data.data.content)
             })
             .catch((err) => {
                 console.log(err)
             })
         setPage((page) => page + 1)
-        console.log('page', page)
     }
 
     useEffect(() => {
         if (inView) {
-            console.log(inView, '무한 스크롤 요청')
             productFetch()
         }
         if (!inView) {
-            console.log(inView, '무한 스크롤 요청 안함')
+            // console.log(inView, '무한 스크롤 요청 안함')
         }
     }, [inView])
 

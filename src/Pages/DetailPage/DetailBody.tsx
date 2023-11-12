@@ -1,4 +1,4 @@
-import { ChevronRight, LionProfile, LocationFrom, LocationMarker } from '../../assets/svg'
+import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg'
 import * as S from './style'
 import createAgo from '../MainPage/Components/SingleContent/createAgo'
 
@@ -8,7 +8,8 @@ interface DetailBodyProps {
 }
 function DetailBody({ data }: DetailBodyProps) {
     const ago = createAgo(data.createAt)
-    const profileImg = data.profileImage
+    const profileImg = data.profileImage ? data.profileImage : '../../../public/png/ProfileRobot.png'
+    console.log(profileImg)
     console.log(typeof profileImg)
     console.log()
     let gender

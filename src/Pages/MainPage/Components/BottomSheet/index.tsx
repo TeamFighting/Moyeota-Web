@@ -6,10 +6,6 @@ import BottomSheetHandle from './BottomSheetHandle'
 import ContentHeader from '../SingleContent/ContentHeader'
 import { List } from '../../../../assets/svg'
 import { BOTTOM_SHEET_HEIGHT, WINDOWHEIGHT } from '../../../../Constants/constant'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { useInView } from 'react-intersection-observer'
-import useStore from '../../../../zustand/store/ContentStore'
 
 function BottomSheet() {
     const { sheet, content, handleUp } = useBottomSheet()

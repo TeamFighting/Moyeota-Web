@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { HEADER_HEIGHT } from '../../Constants/constant'
 import axios from 'axios'
 import useStore from '../../zustand/store/ContentStore'
@@ -84,7 +84,6 @@ function MainPage() {
                         <CreatePotButton onClick={() => navigate('/quickMatch')}>빠른매칭</CreatePotButton>
                         <CreatePotButton onClick={navigateToCreatePot}>팟 만들기</CreatePotButton>
                     </Buttons>
-                    {/* <InfiniteScrollList fetchData={fetchData} contentData={totalData} /> */}
                 </Bottom>
             </Body>
         </Container>

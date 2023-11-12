@@ -17,8 +17,10 @@ function DetailBottom({ fare, splitedTime, timePart, duration, recruitment, part
             <S.DescriptionTag>
                 <S.Staus>
                     <S.Tags>
-                        <S.Tag>{data.vehicle === '일반' ? '일반택시' : '밴택시'}</S.Tag>
-                        <S.Tag>{data.sameGenderStatus === 'YES' ? '동성끼리' : '성별무관'}</S.Tag>
+                        <S.Tag>{data.vehicle}</S.Tag>
+                        {!data.sameGenderStatus && <S.Tag>성별무관</S.Tag>}
+                        {data.sameGenderStatus && data.userGender && <S.Tag>남자만</S.Tag>}
+                        {data.sameGenderStatus && !data.userGender && <S.Tag>여자만</S.Tag>}
                         <S.Tag>{data.category}</S.Tag>
                     </S.Tags>
                     <S.GateringTag>
