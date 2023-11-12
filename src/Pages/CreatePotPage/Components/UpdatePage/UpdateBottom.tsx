@@ -1,8 +1,9 @@
 import { ChevronRight } from "../../../../assets/svg";
 import * as S from "../../style";
-import TimeModal from "../Modal/TimeModal";
+import TimeModal from "./TimeModal";
 import { SetStateAction, useState } from "react";
 import PotCreateStore from "../../../../zustand/store/PotCreateStore";
+import usePostDataStore from "../../../../zustand/store/PostDataStore";
 
 declare global {
   interface Window {
@@ -19,7 +20,7 @@ interface CreateBottomProps {
 
 function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   const [selectedVehicle, setSelectedVehicle] = useState("일반 승용 택시");
-
+  const { data } = usePostDataStore();
   const [isSameGenderRide, setIsSameGenderRide] = useState(false);
 
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
@@ -53,7 +54,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     setSameGenderRide(isSameGenderRide ? "NO" : "YES");
   };
 
-  const isSelectionComplete = totalPeople > 0;
+  const isSelectionComplete = data.numberOfParticipants > 0;
 
   const connectToRN = () => {
     window.ReactNativeWebView.postMessage("h");
@@ -80,9 +81,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
           <S.Description>
-            {selectedTime ? (
+            {data.departureTime ? (
               <S.SelectedInfo>
-                {new Date(selectedTime)
+                {new Date(data.departureTime)
                   .toLocaleString("ko-KR", {
                     weekday: "short",
                     month: "long",
@@ -92,7 +93,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                     hour12: true,
                   })
                   .replace(".", "")}
-                {JSON.stringify(selectedTime)};
               </S.SelectedInfo>
             ) : (
               "탑승일시를 선택해주세요"
@@ -107,8 +107,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
           <S.Description>
             {isSelectionComplete ? (
               <S.SelectedInfo>
-                {selectedVehicle} / 총 {totalPeople}명 /{" "}
-                {isSameGenderRide ? "동성끼리 탑승" : "혼성탑승"}
+                {data.vehicle === "일반" ? "일반 승용 택시" : "밴 택시"} / 총{" "}
+                {data.numberOfParticipants}명 /{" "}
+                {data.sameGenderStatus === "YES" ? "동성끼리 탑승" : "혼성탑승"}
               </S.SelectedInfo>
             ) : (
               "이동수단 및 인원을 선택해주세요"
