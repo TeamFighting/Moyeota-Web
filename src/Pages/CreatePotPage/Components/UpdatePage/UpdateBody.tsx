@@ -7,7 +7,6 @@ import * as S from "../../style";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useEffect, useState } from "react";
 import axios from "axios";
-import usePostDataStore from "../../../../zustand/store/PostDataStore";
 import DurationFareStore from "../../../../zustand/store/DurationFareStore";
 import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 
@@ -20,7 +19,6 @@ function CreateBody({ destination }: CreateBodyProps) {
   const NavigateToDestination = () => {
     navigate("/destinationPage");
   };
-  const { data } = usePostDataStore();
   const [currentLocation, setCurrentLocation] = useState<string | null>(null);
 
   const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
@@ -118,7 +116,7 @@ function CreateBody({ destination }: CreateBodyProps) {
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-    usePostDataStore.getState().setPostData({ title: inputValue });
+    setTitle(inputValue);
   };
 
   useEffect(() => {
@@ -140,7 +138,7 @@ function CreateBody({ destination }: CreateBodyProps) {
           type="text"
           placeholder="지역, 목적지가 포함된 제목이면 더 좋아요"
           onChange={handleTitleChange}
-          value={data.title}
+          value={PotCreateStore.getState().title}
         />
         <S.MapSample
           src="../../../public/png/Map.png"
@@ -176,7 +174,9 @@ function CreateBody({ destination }: CreateBodyProps) {
                 <LocationMarker width="24" height="24" />
               </S.Icon>
               <S.Text>
-                <S.StartPointLocation>{data.destination}</S.StartPointLocation>
+                <S.StartPointLocation>
+                  {PotCreateStore.getState().destination}
+                </S.StartPointLocation>
                 <S.StartPoint>도착지</S.StartPoint>
               </S.Text>
             </div>
