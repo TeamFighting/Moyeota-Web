@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-
+import usePostDataStore from "../../../../zustand/store/PostDataStore";
 import Check from "../../../../assets/svg/Check";
 import Minus from "../../../../assets/svg/Minus";
 import Plus from "../../../../assets/svg/Plus";
@@ -28,7 +28,7 @@ function TimeModal({
   const handleModalClose = () => {
     closeModal();
   };
-
+  const postDataStore = usePostDataStore();
   const handlePlusClick = () => {
     if (totalPeople < 5) {
       onTotalPeopleChange(totalPeople + 1);
@@ -45,7 +45,7 @@ function TimeModal({
     if (totalPeople > 0) {
       onTotalPeopleChange(totalPeople - 1);
 
-      if (totalPeople <= 4) {
+      if (postDataStore.data.numberOfRecruitment <= 4) {
         onVehicleSelection("일반 승용 택시");
       }
     }
@@ -64,7 +64,7 @@ function TimeModal({
             <Explain>일반 승용 택시</Explain>
             <SubExplain>최대 4인</SubExplain>
           </Text>
-          {isNormalTaxiSelected ? (
+          {postDataStore.data.vehicle === "일반" ? (
             <Check
               style={{ width: 24, height: 24, marginLeft: 120 }}
               onClick={() => {

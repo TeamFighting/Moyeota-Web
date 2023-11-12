@@ -1,7 +1,7 @@
 import { ChevronRight } from "../../../../assets/svg";
 import * as S from "../../style";
 import TimeModal from "./TimeModal";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useState, useEffect } from "react";
 import PotCreateStore from "../../../../zustand/store/PotCreateStore";
 import usePostDataStore from "../../../../zustand/store/PostDataStore";
 
@@ -22,14 +22,17 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   const [selectedVehicle, setSelectedVehicle] = useState("일반 승용 택시");
   const { data } = usePostDataStore();
   const [isSameGenderRide, setIsSameGenderRide] = useState(false);
-
+  const postDataStore = usePostDataStore();
   const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
   const { selectedTime, setSelectedTime } = PotCreateStore((state) => ({
     selectedTime: state.selectedTime,
     setSelectedTime: state.setSelectedTime,
   }));
-
+  useEffect(() => {
+    // 컴포넌트가 마운트될 때 초기값 설정
+    onTotalPeopleChange(postDataStore.data.numberOfRecruitment);
+  }, []);
   const openTimeModal = () => {
     setSelectedModal("time");
   };
@@ -42,16 +45,17 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
   const handleVehicleSelection = (vehicle: SetStateAction<string>) => {
     setSelectedVehicle(vehicle);
     if (vehicle === "일반 승용 택시") {
-      setVehicleType("일반");
+      postDataStore.setPostData({ vehicle: "일반" });
     } else if (vehicle === "밴 택시") {
-      setVehicleType("밴");
+      postDataStore.setPostData({ vehicle: "밴" });
     }
   };
-  const setSameGenderRide = PotCreateStore((state) => state.setSameGenderRide);
 
   const handleSameGenderRideToggle = () => {
     setIsSameGenderRide(!isSameGenderRide);
-    setSameGenderRide(isSameGenderRide ? "NO" : "YES");
+    postDataStore.setPostData({
+      sameGenderStatus: isSameGenderRide ? "NO" : "YES",
+    });
   };
 
   const isSelectionComplete = data.numberOfParticipants > 0;
@@ -81,9 +85,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         <S.TextWrapper>
           <S.BottomTitle>출발시간</S.BottomTitle>
           <S.Description>
-            {data.departureTime ? (
+            {postDataStore.data.departureTime ? (
               <S.SelectedInfo>
-                {new Date(data.departureTime)
+                {new Date(postDataStore.data.departureTime)
                   .toLocaleString("ko-KR", {
                     weekday: "short",
                     month: "long",
@@ -107,9 +111,13 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
           <S.Description>
             {isSelectionComplete ? (
               <S.SelectedInfo>
-                {data.vehicle === "일반" ? "일반 승용 택시" : "밴 택시"} / 총{" "}
-                {data.numberOfParticipants}명 /{" "}
-                {data.sameGenderStatus === "YES" ? "동성끼리 탑승" : "혼성탑승"}
+                {postDataStore.data.vehicle === "일반"
+                  ? "일반 승용 택시"
+                  : "밴 택시"}{" "}
+                / 총 {totalPeople}명 /{" "}
+                {postDataStore.data.sameGenderStatus === "YES"
+                  ? "동성끼리 탑승"
+                  : "혼성탑승"}
               </S.SelectedInfo>
             ) : (
               "이동수단 및 인원을 선택해주세요"
