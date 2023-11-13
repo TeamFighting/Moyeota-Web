@@ -1,4 +1,4 @@
-import { ChevronRight, LionProfile, LocationFrom, LocationMarker } from '../../../../assets/svg'
+import { ChevronRight, LocationFrom, LocationMarker } from '../../../../assets/svg'
 import * as S from './style'
 import createAgo from '../../../MainPage/Components/SingleContent/createAgo'
 import usePostDataStore from '../../../../zustand/store/PostDataStore'
