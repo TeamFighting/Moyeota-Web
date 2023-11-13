@@ -53,7 +53,7 @@ function DetailPartySection() {
             <S.Leader>팟장</S.Leader>
             <Wrapper>
                 <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
-                    v<img src={data.profileImage} width="86px" height="86px" style={{ borderRadius: '100%' }} />
+                    <img style={{ borderRadius: '100%' }} src={data.profileImage} width="55px" height="55px" />
                 </S.Icon>
                 <S.Name>{leaderName}</S.Name>
                 <S.Tags>
