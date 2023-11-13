@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import SvgCancelIcon from '../../../assets/svg/CancelIcon'
 import CheveronLeft from '../../../assets/svg/Chevronleft'
 
-function CreateHeader() {
+function UpdateHeader() {
     const navigate = useNavigate()
     const goBack = () => {
         navigate('/mainpage') //마이 페이지로 가도록 수정
@@ -14,6 +14,7 @@ function CreateHeader() {
             <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
                 <CheveronLeft width="24" height="24" />
             </Icon>
+            <HeaderText>계정 관리</HeaderText>
             <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
                 <SvgCancelIcon width="24" height="24" />
             </Icon>
@@ -34,4 +35,14 @@ const Icon = styled.div`
     align-self: flex-start;
 `
 
-export default CreateHeader
+const HeaderText = styled.div`
+    color: #000;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding-bottom: 21px;
+`
+
+export default UpdateHeader

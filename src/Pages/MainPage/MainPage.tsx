@@ -48,7 +48,7 @@ function MainPage() {
     }
 
     const goCurrent = () => {
-        console.log('goCurrent')
+        navigate('/updateProfile') //임시 내정보 페이지
     }
 
     return (

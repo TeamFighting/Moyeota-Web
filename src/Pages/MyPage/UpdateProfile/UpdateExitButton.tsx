@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import PotCreateStore from '../../../zustand/store/PotCreateStore'
 
-function CreateExitButton() {
+function UpdateExitButton() {
     const navigate = useNavigate()
 
     return (
@@ -43,4 +43,4 @@ const Button = styled.button`
     z-index: 3;
 `
 
-export default CreateExitButton
+export default UpdateExitButton

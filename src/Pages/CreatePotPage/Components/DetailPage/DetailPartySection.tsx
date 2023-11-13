@@ -53,7 +53,7 @@ function DetailPartySection() {
             <S.Leader>팟장</S.Leader>
             <Wrapper>
                 <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
-                    <LionProfile width="55px" height="55px" />
+                    v<img src={data.profileImage} width="86px" height="86px" style={{ borderRadius: '100%' }} />
                 </S.Icon>
                 <S.Name>{leaderName}</S.Name>
                 <S.Tags>
