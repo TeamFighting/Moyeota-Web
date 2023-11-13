@@ -39,7 +39,7 @@ function UpdateProfile() {
                             zIndex: 1,
                             position: 'absolute',
                             right: '36px',
-                            top: '405px',
+                            top: '410px',
                         }}
                     />
                 </div>
