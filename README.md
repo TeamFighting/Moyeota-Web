@@ -1,4 +1,3 @@
-<img src="https://capsule-render.vercel.app/api?type=waving&color=auto&height=200&section=header&text=Moyeota!&fontSize=90" />	
 
 <div align=center border="none" width="100%">
 
