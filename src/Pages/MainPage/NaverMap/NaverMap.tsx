@@ -53,38 +53,46 @@ function NaverMap() {
     useEffect(() => {
         const fetchDestinations = async () => {
             if (quickPot.length !== 0) {
-                const promises = quickPot.map((data) => {
-                    axios
-                        .get(`http://moyeota.shop/api/distance/keyword`, {
-                            params: { query: `${data.departure}` },
-                        })
-                        .then((res) => {
-                            setFinalArray((prev) => [
-                                ...prev,
-                                {
-                                    data: res.data.data,
-                                    status: res.status,
-                                    postId: data.postId,
-                                },
-                            ])
-                        })
-                })
-                await Promise.all(promises)
+                try {
+                    const promises = quickPot.map((data) => {
+                        axios
+                            .get(`http://moyeota.shop/api/distance/keyword`, {
+                                params: { query: `${data.departure}` },
+                            })
+                            .then((res) => {
+                                setFinalArray((prev) => [
+                                    ...prev,
+                                    {
+                                        data: res.data.data,
+                                        status: res.status,
+                                        postId: data.postId,
+                                    },
+                                ])
+                            })
+                    })
+                    await Promise.all(promises)
+                } catch (e) {
+                    console.log(e)
+                }
             } else {
-                const promises = departures.map((data) =>
-                    axios.get(`http://moyeota.shop/api/distance/keyword`, {
-                        params: { query: `${data.departure}` },
-                    }),
-                )
+                try {
+                    const promises = departures.map((data) =>
+                        axios.get(`http://moyeota.shop/api/distance/keyword`, {
+                            params: { query: `${data.departure}` },
+                        }),
+                    )
 
-                const results = await Promise.all(promises)
+                    const results = await Promise.all(promises)
 
-                const finalData = results.map((result) => ({
-                    data: result.data.data,
-                    status: result.status,
-                    postId: departures[results.indexOf(result)].postId,
-                }))
-                setFinalArray(finalData)
+                    const finalData = results.map((result) => ({
+                        data: result.data.data,
+                        status: result.status,
+                        postId: departures[results.indexOf(result)].postId,
+                    }))
+                    setFinalArray(finalData)
+                } catch (e) {
+                    console.log(e)
+                }
             }
         }
         fetchDestinations()

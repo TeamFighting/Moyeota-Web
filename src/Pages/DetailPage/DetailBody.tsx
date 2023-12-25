@@ -1,4 +1,4 @@
-import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg'
+import { ChevronRight, LionProfile, LocationFrom, LocationMarker } from '../../assets/svg'
 import * as S from './style'
 import createAgo from '../MainPage/Components/SingleContent/createAgo'
 
@@ -8,10 +8,7 @@ interface DetailBodyProps {
 }
 function DetailBody({ data }: DetailBodyProps) {
     const ago = createAgo(data.createAt)
-    const profileImg = data.profileImage ? data.profileImage : '../../../public/png/ProfileRobot.png'
-    console.log(profileImg)
-    console.log(typeof profileImg)
-    console.log()
+    // const profileImg = data.profileImage ? data.profileImage : '../../../public/png/ProfileRobot.png'
     let gender
     if (!data.userGender) {
         gender = '여'
@@ -21,7 +18,11 @@ function DetailBody({ data }: DetailBodyProps) {
     return (
         <S.Body>
             <S.Profile>
-                <img src={profileImg} width="86px" height="86px" style={{ borderRadius: '100%' }} />
+                {data.profileImage ? (
+                    <img src={data.profileImage} style={{ borderRadius: '100%' }} width="86px" height="86px" />
+                ) : (
+                    <LionProfile width="86px" height="86px" />
+                )}
             </S.Profile>
             <S.Content>
                 <S.Explanation>

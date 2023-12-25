@@ -62,7 +62,6 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                 <S.Name>{leaderName}</S.Name>
                 <S.Tags>
                     <S.Tag style={{ marginRight: '7px' }}>{gender2}</S.Tag>
-                    {/* 나잇대 수정필요 */}
                     <S.Tag>20대</S.Tag>
                 </S.Tags>
             </Wrapper>
@@ -82,7 +81,16 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                         return (
                             <Wrapper key={index} style={{ paddingBottom: '16px' }}>
                                 <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
-                                    <LionProfile width="55px" height="55px" />
+                                    {value.profileImage ? (
+                                        <img
+                                            src={value.profileImage}
+                                            style={{ borderRadius: '100%' }}
+                                            width="55px"
+                                            height="55px"
+                                        />
+                                    ) : (
+                                        <LionProfile width="55px" height="55px" />
+                                    )}
                                 </S.Icon>
                                 <S.Name>{value.userName}</S.Name>
                                 <S.Tags style={{}}>

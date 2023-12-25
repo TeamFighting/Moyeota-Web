@@ -16,7 +16,6 @@ function DetailPage() {
     const [scroll, setScroll] = useState(0)
     const [dividerHeight, setDividerHeight] = useState(6)
     const { data, splitedTime, timePart } = location.state
-    console.log(splitedTime)
     const { modalOpen } = ModalStore()
     if (data.numberOfParticipants == data.numberOfRecruitment) {
         setIsFull(true)

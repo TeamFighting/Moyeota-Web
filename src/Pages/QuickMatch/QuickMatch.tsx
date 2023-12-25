@@ -43,6 +43,7 @@ function QuickMatch() {
       state: { time: time, destination: destination },
     });
   };
+  
   return (
     <div>
       <DetailHeader />
