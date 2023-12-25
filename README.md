@@ -1,4 +1,14 @@
-## 모여타
+
+<div align=center border="none" width="100%">
+
+  ![image](https://github.com/TeamFighting/Moyeota-Web/assets/108210492/5cb7b142-a345-41a9-9ef2-a57b8b13ff76)
+
+
+</div>
+
+
+
+# 모여타 - 실시간 택시 메이트 매칭 서비스
 
 택시 혼자 타기는 돈이 너무 많이 들고... <br>
 학교까지 같이 타고 갈 사람 없을까 ? 😥
@@ -8,9 +18,29 @@
 <br>
 
 <div align='center' flex-direction='row'>
+  <img height='450' alt='온보딩2' src='https://postfiles.pstatic.net/MjAyMzA5MDdfMTMw/MDAxNjk0MDY3MzI4NTA2.CGumwpZx1s8KG2mdOuiVigdIDokfdOZ2QO9H21boOyAg.me2qJmd1WZGMubbfd2GPBYod3wW3F35dUmHriJNMWfMg.PNG.hyorish03/%EC%98%A8%EB%B3%B4%EB%94%A91.png?type=w966'/>
 <img height='450' alt='온보딩1' src='https://postfiles.pstatic.net/MjAyMzA5MDdfMTg0/MDAxNjk0MDY3MzI4NTA0.-ztrpWOMkLi3mlzlbBOeC4NmaJZSMWLTo6cwlDExYq0g.Q7Ghu1okVS8NCb22YuUSldJwEdM1eWjzukzI3yCaw8Eg.PNG.hyorish03/%EC%98%A8%EB%B3%B4%EB%94%A92.png?type=w966'/>
-<img height='450' alt='온보딩2' src='https://postfiles.pstatic.net/MjAyMzA5MDdfMTMw/MDAxNjk0MDY3MzI4NTA2.CGumwpZx1s8KG2mdOuiVigdIDokfdOZ2QO9H21boOyAg.me2qJmd1WZGMubbfd2GPBYod3wW3F35dUmHriJNMWfMg.PNG.hyorish03/%EC%98%A8%EB%B3%B4%EB%94%A91.png?type=w966'/>
+
 </div>
+<br/>
+<br/><br/>
+
+## 🎬구동 영상
+
+<div align='center' flex-direction='column'>
+<h3> ✅ 빠른매칭 기능 및 매칭 신청</h3>
+  
+![빠른매칭 ~ 매칭신청](https://github.com/TeamFighting/MoyeoTa-Mobile/assets/108210492/40f04298-2afa-42b0-bad2-97179f83088f)
+
+<h3> ✅ 무한스크롤 기능 및 매칭 신청</h3>
+
+![무한스크롤 ~ 매칭신청](https://github.com/TeamFighting/MoyeoTa-Mobile/assets/108210492/f0625209-c2a6-4ced-9c0e-efeadeddeb24)
+
+</div>
+
+<br>
+<br>
+
 
 ## 프로젝트 소개
 
@@ -30,7 +60,7 @@
 
 ## Members
 
-<table align="center" scroll="no">
+<table align="center">
   <tr align="center">
     <td>이효린</td>
     <td>송지원</td>
@@ -52,7 +82,8 @@
 
 <div align="left">
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white">
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white">
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white">
+  
 
 **상태관리**
 
@@ -60,7 +91,7 @@
 
 **스타일링**
 
-<img src="https://img.shields.io/badge/Stylesheet-61DAFB?style=for-the-badge&logo=zustand&logoColor=white">
+<img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcomponents&logoColor=white">
 
 **코드검사**
 
