@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import axios from 'axios'
+import { instance } from '../../../../../axios'
 
 declare global {
     interface Window {
@@ -20,8 +20,8 @@ function NaverMap({ destination }: NaverMapProps) {
         if (!mapElement.current || !naver) return
 
         if (destination) {
-            axios
-                .get(`https://moyeota.shop/api/distance/keyword`, {
+            instance
+                .get(` /distance/keyword`, {
                     params: { query: destination },
                 })
                 .then((response) => {

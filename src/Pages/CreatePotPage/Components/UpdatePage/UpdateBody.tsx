@@ -2,10 +2,10 @@ import { ChevronRight, LocationFrom, LocationMarker } from '../../../../assets/s
 import * as S from '../../style'
 import { useNavigate } from 'react-router-dom'
 import { ChangeEvent, useEffect, useState } from 'react'
-import axios from 'axios'
 import usePostDataStore from '../../../../zustand/store/PostDataStore'
 import DurationFareStore from '../../../../zustand/store/DurationFareStore'
 import PotCreateStore from '../../../../zustand/store/PotCreateStore'
+import { instance } from '../../../../axios'
 
 interface CreateBodyProps {
     destination?: string
@@ -56,8 +56,8 @@ function CreateBody({ destination }: CreateBodyProps) {
 
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {
-        return axios
-            .get('https://moyeota.shop:80/api/distance/keyword', {
+        return instance
+            .get(' /distance/keyword', {
                 params: {
                     query: destination,
                 },
@@ -73,8 +73,8 @@ function CreateBody({ destination }: CreateBodyProps) {
     const getEstimatedDurationAndFare = (origin: string, destination: string) => {
         convertDestinationToRoadAddress(destination).then((roadDestination) => {
             if (roadDestination) {
-                axios
-                    .get('https://moyeota.shop:80/api/distance/duration/fare', {
+                instance
+                    .get(' /distance/duration/fare', {
                         params: {
                             origin: origin,
                             destination: roadDestination,
@@ -98,8 +98,8 @@ function CreateBody({ destination }: CreateBodyProps) {
         if (currentLocation && destination) {
             convertDestinationToRoadAddress(destination).then((roadDestination) => {
                 if (roadDestination) {
-                    axios
-                        .get('https://moyeota.shop:80/api/distance/compare', {
+                    instance
+                        .get(' /distance/compare', {
                             params: {
                                 address1: currentLocation,
                                 address2: roadDestination,

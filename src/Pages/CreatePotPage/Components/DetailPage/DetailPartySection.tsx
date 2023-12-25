@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import { LionProfile } from '../../../../assets/svg'
 import * as S from './style'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import usePostDataStore from '../../../../zustand/store/PostDataStore'
+import { instance } from '../../../../axios'
 
 interface PARTYINFO {
     userName: string
@@ -18,8 +18,8 @@ function DetailPartySection() {
     const leaderName = data.userName
     async function getPartyOne(postId: number) {
         try {
-            await axios
-                .get(`https://moyeota.shop/api/posts/${postId}/members`, {
+            await instance
+                .get(` /posts/${postId}/members`, {
                     headers: {
                         Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
                     },

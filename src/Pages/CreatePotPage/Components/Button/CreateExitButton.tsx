@@ -8,7 +8,7 @@ function CreateExitButton() {
 
     const navigateToDetail = async () => {
         try {
-            const response = await fetch('https://moyeota.shop:80/api/posts?page=0')
+            const response = await fetch(' /posts?page=0')
             const data = await response.json()
 
             if (response.ok) {

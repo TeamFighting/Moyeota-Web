@@ -28,7 +28,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             const departure = currentLocationStore.currentLocation?.building_name ?? '미입력'
             console.log('departureTime:', departureTime)
 
-            const response = await fetch('https://moyeota.shop:80/api/posts', {
+            const response = await fetch(' /posts', {
                 method: 'POST',
                 headers: {
                     Authorization: `Bearer ${token}`,

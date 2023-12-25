@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useRef, useState } from 'react'
 import ContentStore from '../../../zustand/store/ContentStore'
-import axios from 'axios'
 import { useQuickPotStore } from '../../../zustand/store/QuickPotStore'
 import { useClickedMarker } from '../../../zustand/store/ClickedMarker'
+import { instance } from '../../../axios'
 
 declare global {
     interface Window {
@@ -55,8 +55,8 @@ function NaverMap() {
             if (quickPot.length !== 0) {
                 try {
                     const promises = quickPot.map((data) => {
-                        axios
-                            .get(`https://moyeota.shop/api/distance/keyword`, {
+                        instance
+                            .get(` /distance/keyword`, {
                                 params: { query: `${data.departure}` },
                             })
                             .then((res) => {
@@ -77,7 +77,7 @@ function NaverMap() {
             } else {
                 try {
                     const promises = departures.map((data) =>
-                        axios.get(`https://moyeota.shop/api/distance/keyword`, {
+                        instance.get(` /distance/keyword`, {
                             params: { query: `${data.departure}` },
                         }),
                     )

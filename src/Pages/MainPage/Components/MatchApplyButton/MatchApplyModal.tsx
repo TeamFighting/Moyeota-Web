@@ -1,8 +1,8 @@
-import axios from 'axios'
 import useOnclickOutside from 'react-cool-onclickoutside'
 import styled from 'styled-components'
 import { useAppliedPartyStore } from '../../../../zustand/store/AppliedPartyStore'
 import ModalStore from '../../../../zustand/store/ModalStore'
+import { instance } from '../../../../axios'
 
 interface ModalProps {
     isFull: boolean
@@ -21,9 +21,9 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
 
     async function applyParty(postId: number) {
         try {
-            await axios
+            await instance
                 .post(
-                    `https://moyeota.shop/api/participation-details/posts/${postId}`,
+                    ` /participation-details/posts/${postId}`,
                     {
                         postId: postId,
                     },
@@ -55,8 +55,8 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
         setIsModalOpen(true, 'cancel')
 
         try {
-            await axios.post(
-                `https://moyeota.shop/api/participation-details/${postId}`,
+            await instance.post(
+                ` /participation-details/${postId}`,
                 {
                     postId: postId,
                 },

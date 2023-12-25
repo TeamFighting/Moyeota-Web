@@ -41,7 +41,7 @@ function DetailPage() {
 
     useEffect(() => {
         if (postId) {
-            fetch(`https://moyeota.shop:80/api/posts/${postId}`)
+            fetch(` /posts/${postId}`)
                 .then((response) => response.json())
                 .then((fetchedData) => {
                     setPostData(fetchedData.data)
