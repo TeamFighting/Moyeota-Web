@@ -22,7 +22,7 @@ function SingleContent() {
 
     const productFetch = () => {
         instance
-            .get(` /posts?page=${page}`)
+            .get(`/posts?page=${page}`)
             .then((res) => {
                 updateTotalData(res.data.data.content)
             })

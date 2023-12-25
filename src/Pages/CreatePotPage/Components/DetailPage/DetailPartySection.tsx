@@ -19,7 +19,7 @@ function DetailPartySection() {
     async function getPartyOne(postId: number) {
         try {
             await instance
-                .get(` /posts/${postId}/members`, {
+                .get(`/posts/${postId}/members`, {
                     headers: {
                         Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
                     },

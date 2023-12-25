@@ -56,7 +56,7 @@ function NaverMap() {
                 try {
                     const promises = quickPot.map((data) => {
                         instance
-                            .get(` /distance/keyword`, {
+                            .get(`/distance/keyword`, {
                                 params: { query: `${data.departure}` },
                             })
                             .then((res) => {
@@ -77,7 +77,7 @@ function NaverMap() {
             } else {
                 try {
                     const promises = departures.map((data) =>
-                        instance.get(` /distance/keyword`, {
+                        instance.get(`/distance/keyword`, {
                             params: { query: `${data.departure}` },
                         }),
                     )

@@ -41,7 +41,7 @@ function DetailPage() {
 
     useEffect(() => {
         if (postId) {
-            fetch(` /posts/${postId}`)
+            fetch(`/posts/${postId}`)
                 .then((response) => response.json())
                 .then((fetchedData) => {
                     setPostData(fetchedData.data)
