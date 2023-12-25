@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { LionProfile } from '../../assets/svg'
 import * as S from './style'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { instance } from '../../axios'
 
 interface Props {
     leaderName: string
@@ -29,8 +29,8 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
     const [onlyParty, setonlyParty] = useState<PARTYINFO[]>([])
     async function getPartyOne(postId: number) {
         try {
-            await axios
-                .get(`http://moyeota.shop/api/posts/${postId}/members`, {
+            await instance
+                .get(` /posts/${postId}/members`, {
                     headers: {
                         Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
                     },

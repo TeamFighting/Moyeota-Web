@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import { useEffect } from 'react'
 import { HEADER_HEIGHT } from '../../Constants/constant'
-import axios from 'axios'
 import useStore from '../../zustand/store/ContentStore'
 import LocationHeader from './LocationHeader'
 import BottomSheet from './Components/BottomSheet'
@@ -14,6 +13,7 @@ import NaverMap from './NaverMap/NaverMap'
 import useCurrentLocation from './Kakaomap/CurrentLocation'
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent'
 import { useClickedMarker } from '../../zustand/store/ClickedMarker'
+import { instance } from '../../axios'
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state)
@@ -26,7 +26,7 @@ function MainPage() {
     }, [])
     async function fetchData() {
         try {
-            const res = await axios.get('http://moyeota.shop/api/posts?page=0')
+            const res = await instance.get('posts?page=0')
             if (res.status === 200) {
                 updateTotalData(res.data.data.content)
                 console.log(res.data.data.content)

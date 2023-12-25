@@ -9,10 +9,10 @@ import ISOto12 from './ISOto12'
 import getDays from './getDays'
 import createAgo from './createAgo'
 import { useQuickPotStore } from '../../../../zustand/store/QuickPotStore'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
 import useStore from '../../../../zustand/store/ContentStore'
+import { instance } from '../../../../axios'
 
 function SingleContent() {
     const [ref, inView] = useInView()
@@ -21,8 +21,8 @@ function SingleContent() {
     const { updateTotalData } = useStore((state) => state)
 
     const productFetch = () => {
-        axios
-            .get(`http://moyeota.shop/api/posts?page=${page}`)
+        instance
+            .get(` /posts?page=${page}`)
             .then((res) => {
                 updateTotalData(res.data.data.content)
             })

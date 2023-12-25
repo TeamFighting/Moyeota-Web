@@ -1,5 +1,5 @@
-function index() {
-  return <div></div>;
-}
+import axios, { AxiosInstance } from 'axios'
 
-export default index;
+export const instance: AxiosInstance = axios.create({
+    baseURL: 'https://moyeota.shop/api/',
+})

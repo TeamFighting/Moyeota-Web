@@ -1,7 +1,7 @@
 import DetailHeader from '../DetailPage/DetailHeader'
 import { ContentDetail, From, Icon, Route, StartPoint, StartPointLocation, Title, Text } from '../DetailPage/style'
 import * as S from './style'
-import { ChevronRight, DesPangyo, GreenOpacity, LocationFrom, LocationMarker, ToGanSvg } from '../../assets/svg'
+import { ChevronRight, GreenOpacity, LocationFrom, LocationMarker, ToGanSvg } from '../../assets/svg'
 import { useLocation, useNavigate } from 'react-router'
 import CurrentLocationStore from '../../zustand/store/CurrentLocation'
 import NaverMap from '../MainPage/NaverMap/NaverMap'
