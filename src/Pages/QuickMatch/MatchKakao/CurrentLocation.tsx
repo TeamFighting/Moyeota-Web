@@ -14,7 +14,7 @@ function CurrentLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success, error)
             }
-        }, 500)
+        }, 500000)
 
         function success(position: GeolocationPosition) {
             setLocation({
