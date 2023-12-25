@@ -56,7 +56,7 @@ function NaverMap() {
                 try {
                     const promises = quickPot.map((data) => {
                         axios
-                            .get(`http://moyeota.shop/api/distance/keyword`, {
+                            .get(`https://moyeota.shop/api/distance/keyword`, {
                                 params: { query: `${data.departure}` },
                             })
                             .then((res) => {
@@ -77,7 +77,7 @@ function NaverMap() {
             } else {
                 try {
                     const promises = departures.map((data) =>
-                        axios.get(`http://moyeota.shop/api/distance/keyword`, {
+                        axios.get(`https://moyeota.shop/api/distance/keyword`, {
                             params: { query: `${data.departure}` },
                         }),
                     )

@@ -30,7 +30,7 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
     async function getPartyOne(postId: number) {
         try {
             await axios
-                .get(`http://moyeota.shop/api/posts/${postId}/members`, {
+                .get(`https://moyeota.shop/api/posts/${postId}/members`, {
                     headers: {
                         Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
                     },

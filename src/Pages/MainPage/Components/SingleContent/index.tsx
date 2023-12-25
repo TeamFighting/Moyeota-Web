@@ -22,7 +22,7 @@ function SingleContent() {
 
     const productFetch = () => {
         axios
-            .get(`http://moyeota.shop/api/posts?page=${page}`)
+            .get(`https://moyeota.shop/api/posts?page=${page}`)
             .then((res) => {
                 updateTotalData(res.data.data.content)
             })
