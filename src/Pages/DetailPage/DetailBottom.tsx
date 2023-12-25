@@ -1,6 +1,3 @@
-import { Calendar, Clock, Dollar } from '../../assets/svg'
-import * as S from './style'
-
 interface DetailBottomProps {
     fare: number
     duration: number
@@ -11,7 +8,7 @@ interface DetailBottomProps {
     participants: number
     recruitment: number
 }
-function DetailBottom({ fare, splitedTime, timePart, duration, recruitment, participants, data }: DetailBottomProps) {
+function DetailBottom({ data }: DetailBottomProps) {
     console.log(data)
     return <></>
     // return (
