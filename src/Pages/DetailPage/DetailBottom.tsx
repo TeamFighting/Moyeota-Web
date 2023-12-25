@@ -9,7 +9,7 @@ interface DetailBottomProps {
     recruitment: number
 }
 function DetailBottom({ data }: DetailBottomProps) {
-    console.log(data)
+    // console.log(data)
     return <></>
     // return (
     //     <S.Bottom>

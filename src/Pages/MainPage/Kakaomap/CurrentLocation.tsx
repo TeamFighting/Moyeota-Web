@@ -9,16 +9,14 @@ function useCurrentLocation() {
 
     const { setLatLng } = useStore((state) => state)
 
-    // useEffect(() => {
     const intervalId = setInterval(() => {
-        // console.log("interval");
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(success, error)
         }
-    }, 5000)
+    }, 5000000)
 
     function success(position: GeolocationPosition) {
-        console.log('위치받기 성')
+        // console.log('위치받기 성')
         localStorage.setItem('latitude', position.coords.latitude.toString())
         localStorage.setItem('longitude', position.coords.longitude.toString())
         setLocation({
@@ -39,7 +37,6 @@ function useCurrentLocation() {
         console.log('위치받기 실패')
     }
     return () => clearInterval(intervalId)
-    // }, [setLatLng]);
 
     return location
 }
