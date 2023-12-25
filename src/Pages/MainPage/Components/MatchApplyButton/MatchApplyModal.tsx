@@ -23,7 +23,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
         try {
             await instance
                 .post(
-                    ` /participation-details/posts/${postId}`,
+                    `/participation-details/posts/${postId}`,
                     {
                         postId: postId,
                     },
@@ -56,7 +56,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
 
         try {
             await instance.post(
-                ` /participation-details/${postId}`,
+                `/participation-details/${postId}`,
                 {
                     postId: postId,
                 },

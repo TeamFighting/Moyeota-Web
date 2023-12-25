@@ -26,7 +26,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             const sameGenderStatus = data.sameGenderStatus
             const title = data.title
             const departure = currentLocationStore.currentLocation?.building_name ?? '미입력'
-            const response = await fetch(` /posts/${postId}`, {
+            const response = await fetch(`/posts/${postId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

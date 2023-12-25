@@ -21,7 +21,7 @@ function NaverMap({ destination }: NaverMapProps) {
 
         if (destination) {
             instance
-                .get(` /distance/keyword`, {
+                .get(`/distance/keyword`, {
                     params: { query: destination },
                 })
                 .then((response) => {

@@ -18,7 +18,7 @@ function DeleteModal({ onClose }: DeleteModalProps) {
     const handleDelete = async () => {
         try {
             const token = import.meta.env.VITE_AUTH_BEARER_TOKEN
-            const response = await fetch(` /posts/${postId}`, {
+            const response = await fetch(`/posts/${postId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
