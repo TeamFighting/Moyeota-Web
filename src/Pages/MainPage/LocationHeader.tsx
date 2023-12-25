@@ -56,6 +56,7 @@ const Location = styled.div`
     font-size: 18px;
     font-weight: 700;
     margin-left: 14px;
+    white-space: nowrap;
     height: 64px;
     text-align: center;
     align-items: center;

@@ -60,7 +60,6 @@ function SingleContent() {
         const ago = createAgo(data.createAt)
         const postId = data.postId
         let gender
-        // console.log(data)
         if (!data.userGender) {
             gender = '여'
         } else {
