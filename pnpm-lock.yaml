@@ -20,6 +20,9 @@ dependencies:
   axios:
     specifier: ^1.5.1
     version: 1.5.1
+  cordova-plugin-geolocation:
+    specifier: ^5.0.0
+    version: 5.0.0
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
@@ -3563,6 +3566,11 @@ packages:
     resolution: {integrity: sha512-2KV8NhB5JqC3ky0r9PMCAZKbUHSwtEo4CwCs0KXgruG43gX5PMqDEBbVU4OUzw2MuAWUfsuFmWvEKG5QRfSnJA==}
     dependencies:
       toggle-selection: 1.0.6
+    dev: false
+
+  /cordova-plugin-geolocation@5.0.0:
+    resolution: {integrity: sha512-eIk96pF59y3AK+NHeyA0si9eFhZElgOcFoGoTU9LDlnEYpfBN+V4ojRpKq3NMLCGTozew22/i9najFu9Kvb40g==}
+    engines: {cordovaDependencies: {3.0.0: {cordova-android: '>=6.3.0'}, 6.0.0: {cordova: '>100'}}}
     dev: false
 
   /core-js-compat@3.32.2:
