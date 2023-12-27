@@ -9,7 +9,7 @@ function watchPositionHook() {
     function success(pos: any) {
         const crd = pos.coords;
         const d = distance(currentLat, currentLng, crd.latitude, crd.longitude);
-        if (d > 0.01 && d < 13194.004) {
+        if (d > 0.01 && d < 13190) {
             console.log('위치가 변경되었습니다.');
             localStorage.setItem('latitude', crd.latitude.toString());
             localStorage.setItem('longitude', crd.longitude.toString());
@@ -26,7 +26,7 @@ function watchPositionHook() {
 
     const options: PositionOptions | undefined = {
         enableHighAccuracy: false,
-        timeout: 60000,
+        timeout: Infinity,
         maximumAge: Infinity,
     };
 

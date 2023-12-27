@@ -23,8 +23,6 @@ function useCurrentLocation() {
             longitude: localStorage.getItem('longitude') as unknown as number,
         });
         setLatLng(
-            // position.coords.latitude,
-            // position.coords.longitude,
             localStorage.getItem('latitude') as unknown as number,
             localStorage.getItem('longitude') as unknown as number,
         );
