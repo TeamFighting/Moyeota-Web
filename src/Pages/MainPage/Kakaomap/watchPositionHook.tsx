@@ -1,32 +1,36 @@
+import LatLngStore from '../../../zustand/store/LatLngstore';
+import { distance } from '../../util/calc';
+
 function watchPositionHook() {
-    let id = 0
+    let id = 0;
+    const { currentLat, currentLng } = LatLngStore((state) => state);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function success(pos: any) {
-        const crd = pos.coords
-        console.log('Your current position is:', crd.latitude, crd.longitude)
-        if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
-            console.log('Congratulations, you reached the target')
-            navigator.geolocation.clearWatch(id)
+        const crd = pos.coords;
+        const d = distance(currentLat, currentLng, crd.latitude, crd.longitude);
+        if (d > 0.01 && d < 13194.004) {
+            console.log('위치가 변경되었습니다.');
+            localStorage.setItem('latitude', crd.latitude.toString());
+            localStorage.setItem('longitude', crd.longitude.toString());
+            LatLngStore.setState({
+                currentLat: crd.latitude,
+                currentLng: crd.longitude,
+            });
         }
     }
 
     function error(err: { code: number; message: string }) {
-        console.warn('ERROR(' + err.code + '): ' + err.message)
-    }
-
-    const target: { latitude: number; longitude: number } = {
-        latitude: 0,
-        longitude: 0,
+        console.log('ERROR(' + err.code + '): ' + err.message);
     }
 
     const options: PositionOptions | undefined = {
         enableHighAccuracy: false,
-        timeout: 5000,
-        maximumAge: 0,
-    }
+        timeout: 60000,
+        maximumAge: Infinity,
+    };
 
-    id = navigator.geolocation.watchPosition(success, error, options)
+    id = navigator.geolocation.watchPosition(success, error, options);
 }
 
-export default watchPositionHook
+export default watchPositionHook;

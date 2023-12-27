@@ -20,7 +20,7 @@ function MainPage() {
     const { updateTotalData } = useStore((state) => state)
     const navigate = useNavigate()
     const { clickedMarkerId, isClicked } = useClickedMarker()
-    // useCurrentLocation()
+    useCurrentLocation()
     watchPositionHook()
 
     useEffect(() => {
