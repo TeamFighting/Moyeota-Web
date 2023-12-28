@@ -27,7 +27,7 @@ function useCurrentLocation() {
             localStorage.getItem('longitude') as unknown as number,
         );
     }
-    g;
+
     function error() {
         setLocation({
             latitude: 37.483034,
