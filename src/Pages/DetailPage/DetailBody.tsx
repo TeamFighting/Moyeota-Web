@@ -8,7 +8,6 @@ interface DetailBodyProps {
 }
 function DetailBody({ data }: DetailBodyProps) {
     const ago = createAgo(data.createAt)
-    // const profileImg = data.profileImage ? data.profileImage : '../../../public/png/ProfileRobot.png'
     let gender
     if (!data.userGender) {
         gender = '여'
@@ -34,7 +33,7 @@ function DetailBody({ data }: DetailBodyProps) {
                         {gender}/{ago}/{data.view}명 조회
                     </S.ContentDetail>
                 </S.Explanation>
-                <S.MapSample src="../../../public/png/MapSample.png" width="100%" height="100%" />
+                <S.MapSample src="/public/png/MapSample.png" width="100%" height="100%" />
                 <S.Route>
                     <S.From>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
