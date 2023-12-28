@@ -2,7 +2,6 @@ import LatLngStore from '../../../zustand/store/LatLngstore';
 import { distance } from '../../util/calc';
 
 function watchPositionHook() {
-    let id = 0;
     const { currentLat, currentLng } = LatLngStore((state) => state);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,12 +24,12 @@ function watchPositionHook() {
     }
 
     const options: PositionOptions | undefined = {
-        enableHighAccuracy: false,
+        enableHighAccuracy: true,
         timeout: Infinity,
         maximumAge: Infinity,
     };
 
-    id = navigator.geolocation.watchPosition(success, error, options);
+    navigator.geolocation.watchPosition(success, error, options);
 }
 
 export default watchPositionHook;
