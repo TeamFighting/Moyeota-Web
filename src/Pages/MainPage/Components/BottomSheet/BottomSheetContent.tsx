@@ -17,7 +17,7 @@ const BottomSheetContent = () => {
                     marginTop: '100px',
                 }}
             >
-                <img src="../../../../../public/png/Simbol.png" />
+                <img src="/public/png/Simbol.png" />
                 <p
                     style={{
                         fontSize: '32px',

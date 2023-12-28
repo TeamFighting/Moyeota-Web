@@ -145,7 +145,7 @@ function CreateBody({ destination }: CreateBodyProps) {
                     onChange={handleTitleChange}
                     value={data.title}
                 />
-                <S.MapSample src="../../../public/png/Map.png" width="100%" height="100%" />
+                <S.MapSample src="/public/png/Map.png" width="100%" height="100%" />
                 <S.Route>
                     <S.From>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>

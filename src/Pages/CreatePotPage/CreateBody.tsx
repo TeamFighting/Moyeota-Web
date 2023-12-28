@@ -135,7 +135,7 @@ function CreateBody({ destination }: CreateBodyProps) {
                     placeholder="지역, 목적지가 포함된 제목이면 더 좋아요"
                     onChange={handleTitleChange}
                 />
-                <S.MapSample src="../../../public/png/Map.png" width="100%" height="100%" />
+                <S.MapSample src="/public/png/Map.png" width="100%" height="100%" />
                 <S.Route>
                     <S.From>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>

@@ -50,7 +50,7 @@ function MainPage() {
     }
 
     const goCurrent = () => {
-        navigate('/updateProfile') //임시 내정보 페이지
+        console.log('goCurrent')
     }
 
     return (
