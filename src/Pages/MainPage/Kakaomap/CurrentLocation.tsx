@@ -6,7 +6,7 @@ function useCurrentLocation() {
         latitude: 37.6486216,
         longitude: 127.077779,
     });
-
+    console.log(location);
     const { setLatLng } = useStore((state) => state);
 
     if (navigator.geolocation) {
