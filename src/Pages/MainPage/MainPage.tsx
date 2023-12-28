@@ -14,12 +14,14 @@ import useCurrentLocation from './Kakaomap/CurrentLocation'
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent'
 import { useClickedMarker } from '../../zustand/store/ClickedMarker'
 import { instance } from '../../axios'
+import watchPositionHook from './Kakaomap/watchPositionHook'
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state)
     const navigate = useNavigate()
     const { clickedMarkerId, isClicked } = useClickedMarker()
     useCurrentLocation()
+    watchPositionHook()
 
     useEffect(() => {
         fetchData()
