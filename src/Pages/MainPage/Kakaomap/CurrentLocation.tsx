@@ -13,7 +13,7 @@ function useCurrentLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(success, error)
         }
-    }, 5000000)
+    }, 5000)
 
     function success(position: GeolocationPosition) {
         // console.log('위치받기 성')
