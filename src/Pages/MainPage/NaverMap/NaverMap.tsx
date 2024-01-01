@@ -106,7 +106,7 @@ function NaverMap() {
 
         const mapOptions = {
             center: location,
-            zoom: 13,
+            zoom: 17,
             zoomControl: false,
         };
 
@@ -156,7 +156,7 @@ function NaverMap() {
                 anchor: new naver.maps.Point(25, 26),
             },
         });
-    }, [finalArray]);
+    }, [finalArray, latitude, longitude, naver, setClickedMarker]);
 
     return (
         <>

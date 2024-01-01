@@ -1,4 +1,4 @@
-import LatLngStore from '../../../zustand/store/LatLngAddstore';
+import LatLngAddstore from '../../../zustand/store/LatLngAddstore';
 import { distance } from '../../util/calc';
 
 interface PositionOptions {
@@ -13,18 +13,21 @@ interface Options {
     timeout: number;
     maximumAge: number;
 }
+
 function watchPositionHook() {
-    const { currentLat, currentLng } = LatLngStore((state) => state);
+    const { currentLat, currentLng } = LatLngAddstore((state) => state);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function success(pos: PositionOptions) {
         const crd = pos.coords;
+        console.log('Your current position is:', crd.latitude, crd.longitude, currentLat, currentLng);
+
         const d = distance(currentLat, currentLng, crd.latitude, crd.longitude);
         if (d > 0.01) {
             console.log('위치가 변경되었습니다.');
             localStorage.setItem('latitude', crd.latitude.toString());
             localStorage.setItem('longitude', crd.longitude.toString());
-            LatLngStore.setState({
+            LatLngAddstore.setState({
                 currentLat: crd.latitude,
                 currentLng: crd.longitude,
             });
