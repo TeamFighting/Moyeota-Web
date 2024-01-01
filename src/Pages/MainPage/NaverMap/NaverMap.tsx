@@ -23,8 +23,12 @@ interface ArrayElement {
     postId: string;
 }
 
+interface MapProps {
+    destination: string | undefined;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-function NaverMap() {
+function NaverMap({ destination }: MapProps) {
     const mapElement = useRef(null);
 
     const { naver } = window;

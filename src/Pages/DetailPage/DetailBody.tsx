@@ -35,7 +35,7 @@ function DetailBody({ data }: DetailBodyProps) {
                     </S.ContentDetail>
                 </S.Explanation>
                 <S.MapSample>
-                    <NaverMap destination={data.destination} propsWidth="100%" />
+                    <NaverMap destination={data.destination} />
                 </S.MapSample>
                 <S.Route>
                     <S.From>
