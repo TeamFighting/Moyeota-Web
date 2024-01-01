@@ -31,14 +31,20 @@ function LocationHeader() {
                 region_1depth_name: string;
                 region_2depth_name: string;
             } | null;
+            road_address: {
+                region_1depth_name: string;
+                region_2depth_name: string;
+                building_name: string;
+            } | null;
         }[],
         status: kakao.maps.services.Status,
     ) {
         console.log('result', result);
         if (status === kakao.maps.services.Status.OK) {
             const location = result[0].address?.region_1depth_name + ' ' + result[0].address?.region_2depth_name;
+
             setLocation(location);
-            setCurrentLocation(result[0].address);
+            setCurrentLocation(result[0].road_address);
         }
     };
 

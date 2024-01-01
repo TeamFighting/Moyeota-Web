@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { instance } from '../../axios';
 
 declare global {
@@ -9,16 +9,16 @@ declare global {
     }
 }
 
-interface ArrayElement {
-    data: {
-        x: number;
-        y: number;
-        place_name: string;
-        road_address_name: string;
-    };
-    status: number;
-    postId: string;
-}
+// interface ArrayElement {
+//     data: {
+//         x: number;
+//         y: number;
+//         place_name: string;
+//         road_address_name: string;
+//     };
+//     status: number;
+//     postId: string;
+// }
 
 interface MapProps {
     departure: string;

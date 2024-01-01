@@ -10,7 +10,6 @@ import SvgRefreshButton from '../../assets/svg/RefreshButton';
 import SvgBacktoCurrentButton from '../../assets/svg/BacktoCurrentButton';
 import { Icon } from '../DetailPage/style';
 import NaverMap from './NaverMap/NaverMap';
-import useCurrentLocation from './Kakaomap/CurrentLocation';
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
 import { useClickedMarker } from '../../zustand/store/ClickedMarker';
 import { instance } from '../../axios';
