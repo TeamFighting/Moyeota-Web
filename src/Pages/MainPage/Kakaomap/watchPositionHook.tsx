@@ -38,8 +38,8 @@ function watchPositionHook() {
 
     const options: Options | undefined = {
         enableHighAccuracy: true,
-        timeout: Infinity,
-        maximumAge: Infinity,
+        timeout: 1000,
+        maximumAge: 0,
     };
 
     navigator.geolocation.watchPosition(success, error, options);

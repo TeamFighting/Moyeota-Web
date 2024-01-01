@@ -23,26 +23,24 @@ function MainPage() {
     // useCurrentLocation();
     watchPositionHook();
 
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-    // updateTotalData([Mockdata]);
-
-    // async function fetchData() {
-    //     try {
-    //         const res = await instance.get('posts?page=0');
-    //         console.log(res);
-    //         if (res.status === 200) {
-    //             updateTotalData(res.data.data.content);
-    //             console.log(res.data.data.content);
-    //         } else {
-    //             alert(res.status + '에러');
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
+    async function fetchData() {
+        try {
+            const res = await instance.get('posts?page=0');
+            console.log(res);
+            if (res.status === 200) {
+                updateTotalData(res.data.data.content);
+                console.log(res.data.data.content);
+            } else {
+                alert(res.status + '에러');
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const navigateToCreatePot = () => {
         navigate('/createPotPage');
