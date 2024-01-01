@@ -1,42 +1,40 @@
-import React from 'react'
-import styled from 'styled-components'
-import PotCreateStore from '../../../../zustand/store/PotCreateStore'
-import { useNavigate } from 'react-router-dom'
+import React from 'react';
+import styled from 'styled-components';
+import PotCreateStore from '../../../../zustand/store/PotCreateStore';
+import { useNavigate } from 'react-router-dom';
+import { instance } from '../../../../axios';
 
 interface DeleteModalProps {
-    onClose: () => void
-    children?: React.ReactNode
+    onClose: () => void;
+    children?: React.ReactNode;
 }
 
 function DeleteModal({ onClose }: DeleteModalProps) {
-    const [isDeleted, setIsDeleted] = React.useState(false)
-    const { postId } = PotCreateStore()
-    const navigate = useNavigate()
+    const [isDeleted, setIsDeleted] = React.useState(false);
+    const { postId } = PotCreateStore();
+    const navigate = useNavigate();
     const ToMainPage = () => {
-        navigate('/mainpage')
-    }
+        navigate('/mainpage');
+    };
     const handleDelete = async () => {
         try {
-            const token = import.meta.env.VITE_AUTH_BEARER_TOKEN
-            const response = await fetch(`/posts/${postId}`, {
-                method: 'DELETE',
+            const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
+            const response = await instance.delete(`/posts/${postId}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
-            })
+            });
 
-            console.log('Delete res status:', response.status)
-            console.log('Delete res body:', await response.json())
             if (response.status == 200) {
-                setIsDeleted(true)
+                setIsDeleted(true);
             } else {
-                console.error('삭제 실패')
+                console.error('삭제 실패');
             }
         } catch (error) {
-            console.error('삭제 요청 중 오류 발생', error)
+            console.error('삭제 요청 중 오류 발생', error);
         }
-    }
+    };
 
     return (
         <ModalWrapper>
@@ -48,8 +46,8 @@ function DeleteModal({ onClose }: DeleteModalProps) {
                     <Buttons>
                         <StyledBtn
                             onClick={() => {
-                                onClose()
-                                ToMainPage() // Call handleConfirm when the "예" (Yes) button is clicked
+                                onClose();
+                                ToMainPage(); // Call handleConfirm when the "예" (Yes) button is clicked
                             }}
                             style={{ backgroundColor: '#1EDD81', width: 299 }}
                         >
@@ -68,7 +66,7 @@ function DeleteModal({ onClose }: DeleteModalProps) {
                 )}
             </Modal>
         </ModalWrapper>
-    )
+    );
 }
 const ModalWrapper = styled.div`
     width: 100vw;
@@ -82,7 +80,7 @@ const ModalWrapper = styled.div`
     display: flex;
     z-index: 1;
     flex-direction: column;
-`
+`;
 
 const Modal = styled.div`
     width: 334px;
@@ -97,14 +95,14 @@ const Modal = styled.div`
     display: flex;
     box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14),
         0px 1px 14px 0px rgba(0, 0, 0, 0.12);
-`
+`;
 const Text = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 30px;
-`
+`;
 const Title = styled.div`
     color: #000;
     font-family: Pretendard;
@@ -112,13 +110,13 @@ const Title = styled.div`
     font-style: normal;
     font-weight: 700;
     margin-bottom: 9px;
-`
+`;
 
 const Buttons = styled.div`
     display: flex;
     flex-direction: row;
     gap: 15px;
-`
+`;
 
 const StyledBtn = styled.button`
     width: 142px;
@@ -134,6 +132,6 @@ const StyledBtn = styled.button`
     line-height: normal;
     letter-spacing: 0.54px;
     border: none;
-`
+`;
 
-export default DeleteModal
+export default DeleteModal;

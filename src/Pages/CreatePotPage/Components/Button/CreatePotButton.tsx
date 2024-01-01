@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PotCreateStore from '../../../../zustand/store/PotCreateStore';
 import DurationFareStore from '../../../../zustand/store/DurationFareStore';
 import CurrentLocation from '../../../../zustand/store/CurrentLocation';
+import { instance } from '../../../../axios';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const navigate = useNavigate();
@@ -12,9 +13,10 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
 
     const createPost = async () => {
         try {
-            const currentDate = new Date();
-            const formattedDate = currentDate.toISOString(); // "2023-11-07T02:23:41.465Z"
-            const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
+            const formattedDate = new Date().toISOString;
+            const token = import.meta.env.VITE_AUTH_BEARER_TEST;
+            const numberOfRecruitment = totalPeople;
+            const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
             const {
                 title,
                 description: content,
@@ -24,11 +26,8 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 sameGenderRide: sameGenderStatus,
             } = potCreateStore;
             const { estimatedDuration, estimatedFare } = durationFareStore;
-            const numberOfRecruitment = totalPeople;
-            const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
 
-            const response = await fetch('/posts', {
-                method: 'POST',
+            const response = await instance.post('/posts', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'application/json',
@@ -50,10 +49,8 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     vehicle: vehicle,
                 }),
             });
-            const data = await response.json();
-            console.log('responseData', data);
 
-            if (data.status === 'SUCCESS') {
+            if (response.status === 200) {
                 navigate('/createComplete');
                 console.log('res', response);
             } else {
