@@ -1,7 +1,7 @@
 import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg';
 import * as S from './style';
 import { useNavigate } from 'react-router-dom';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import DurationFareStore from '../../zustand/store/DurationFareStore';
 import PotCreateStore from '../../zustand/store/PotCreateStore';
 import { instance } from '../../axios';
@@ -17,37 +17,9 @@ function CreateBody({ destination }: CreateBodyProps) {
         navigate('/destinationPage');
     };
 
-    // const [currentLocation, setCurrentLocation] = useState<string>('');
-
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
     const { setTitle, setDistance, setDestination } = PotCreateStore();
     const { currentLocation } = CurrentLocationStore();
-    console.log('currentLocation:', currentLocation);
-    // const getCurrentLocation = () => {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition((position) => {
-    //             const latitude = position.coords.latitude;
-    //             const longitude = position.coords.longitude;
-
-    //             const geocoder = new window.kakao.maps.services.Geocoder();
-    //             geocoder.coord2Address(
-    //                 longitude,
-    //                 latitude,
-    //                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //                 (result: any, status: any) => {
-    //                     if (status === window.kakao.maps.services.Status.OK) {
-    //                         const address = result[0].address.address_name;
-    //                         setCurrentLocation(address);
-    //                     }
-    //                 },
-    //             );
-    //         });
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     getCurrentLocation();
-    // }, []);
 
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {

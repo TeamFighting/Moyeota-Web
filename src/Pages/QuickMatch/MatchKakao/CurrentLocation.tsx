@@ -7,7 +7,7 @@ function CurrentLocation() {
         longitude: 126.4876332,
     });
 
-    const { setLatLng } = useStore((state) => state);
+    const { setLatLngAdd } = useStore((state) => state);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -21,7 +21,7 @@ function CurrentLocation() {
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude,
             });
-            setLatLng(position.coords.latitude, position.coords.longitude);
+            setLatLngAdd(position.coords.latitude, position.coords.longitude);
         }
 
         function error() {
@@ -32,7 +32,7 @@ function CurrentLocation() {
             console.log('위치받기 실패');
         }
         return () => clearInterval(intervalId);
-    }, [location, setLatLng]);
+    }, [location, setLatLngAdd]);
 
     return location;
 }

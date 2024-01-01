@@ -15,8 +15,6 @@ import { useClickedMarker } from '../../zustand/store/ClickedMarker';
 import { instance } from '../../axios';
 import watchPositionHook from './Kakaomap/watchPositionHook';
 import useCurrentLocation from './Kakaomap/CurrentLocation';
-import LatLngAddStore from '../../zustand/store/LatLngAddstore';
-import CurrentLocationStore from '../../zustand/store/CurrentLocation';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -27,9 +25,6 @@ function MainPage() {
     useEffect(() => {
         fetchData();
     }, []);
-
-    const { currentAdd } = LatLngAddStore();
-    const { currentLocation } = CurrentLocationStore();
 
     async function fetchData() {
         try {

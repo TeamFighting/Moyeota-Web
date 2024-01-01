@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useStore from '../../../zustand/store/LatLngAddstore';
 
 function useCurrentLocation() {
     const { setLatLngAdd } = useStore((state) => state);
-    const [location, setLocation] = useState<{ latitude: number; longitude: number; address: string } | string>({
+    const [, setLocation] = useState<{ latitude: number; longitude: number; address: string } | string>({
         latitude: 37.6486216,
         longitude: 127.077779,
         address: '',
@@ -36,6 +36,7 @@ function useCurrentLocation() {
             (result: any, status: any) => {
                 if (status === window.kakao.maps.services.Status.OK) {
                     const address = result[0].address.address_name;
+                    localStorage.setItem('address', address);
                 }
             },
         );
