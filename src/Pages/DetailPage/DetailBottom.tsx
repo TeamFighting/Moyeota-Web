@@ -1,16 +1,16 @@
 interface DetailBottomProps {
-    fare: number
-    duration: number
-    splitedTime: string[]
-    timePart: string
+    fare: number;
+    duration: number;
+    splitedTime: string[];
+    timePart: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: any
-    participants: number
-    recruitment: number
+    data: any;
+    participants: number;
+    recruitment: number;
 }
 function DetailBottom({ data }: DetailBottomProps) {
-    console.log(data)
-    return <></>
+    // console.log(data)
+    return <></>;
     // return (
     //     <S.Bottom>
     //         <S.DescriptionTag>
@@ -63,4 +63,4 @@ function DetailBottom({ data }: DetailBottomProps) {
     // )
 }
 
-export default DetailBottom
+export default DetailBottom;

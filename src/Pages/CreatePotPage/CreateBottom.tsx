@@ -1,72 +1,72 @@
-import { ChevronRight } from '../../assets/svg'
-import * as S from './style'
-import TimeModal from './Components/Modal/TimeModal'
-import { SetStateAction, useState } from 'react'
-import PotCreateStore from '../../zustand/store/PotCreateStore'
+import { ChevronRight } from '../../assets/svg';
+import * as S from './style';
+import TimeModal from './Components/Modal/TimeModal';
+import { SetStateAction, useState } from 'react';
+import PotCreateStore from '../../zustand/store/PotCreateStore';
 
 declare global {
     interface Window {
         ReactNativeWebView: {
-            postMessage: (message: string) => void
-        }
+            postMessage: (message: string) => void;
+        };
     }
 }
 
 interface CreateBottomProps {
-    totalPeople: number
-    onTotalPeopleChange: (count: SetStateAction<number>) => void
+    totalPeople: number;
+    onTotalPeopleChange: (count: SetStateAction<number>) => void;
 }
 
 function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
-    const [selectedVehicle, setSelectedVehicle] = useState('일반 승용 택시')
+    const [selectedVehicle, setSelectedVehicle] = useState('일반 승용 택시');
 
-    const [isSameGenderRide, setIsSameGenderRide] = useState(false)
+    const [isSameGenderRide, setIsSameGenderRide] = useState(false);
 
-    const [selectedModal, setSelectedModal] = useState<string | null>(null)
+    const [selectedModal, setSelectedModal] = useState<string | null>(null);
 
     const { selectedTime, setSelectedTime } = PotCreateStore((state) => ({
         selectedTime: state.selectedTime,
         setSelectedTime: state.setSelectedTime,
-    }))
+    }));
 
     const openTimeModal = () => {
-        setSelectedModal('time')
-    }
+        setSelectedModal('time');
+    };
 
     const closeModal = () => {
-        setSelectedModal(null)
-    }
+        setSelectedModal(null);
+    };
 
-    const setVehicleType = PotCreateStore((state) => state.setVehicleType)
+    const setVehicleType = PotCreateStore((state) => state.setVehicleType);
     const handleVehicleSelection = (vehicle: SetStateAction<string>) => {
-        setSelectedVehicle(vehicle)
+        setSelectedVehicle(vehicle);
         if (vehicle === '일반 승용 택시') {
-            setVehicleType('일반')
+            setVehicleType('일반');
         } else if (vehicle === '밴 택시') {
-            setVehicleType('밴')
+            setVehicleType('밴');
         }
-    }
-    const setSameGenderRide = PotCreateStore((state) => state.setSameGenderRide)
+    };
+    const setSameGenderRide = PotCreateStore((state) => state.setSameGenderRide);
 
     const handleSameGenderRideToggle = () => {
-        setIsSameGenderRide(!isSameGenderRide)
-        setSameGenderRide(isSameGenderRide ? 'NO' : 'YES')
-    }
+        setIsSameGenderRide(!isSameGenderRide);
+        setSameGenderRide(isSameGenderRide ? 'NO' : 'YES');
+    };
 
-    const isSelectionComplete = totalPeople > 0
+    const isSelectionComplete = totalPeople > 0;
 
     const connectToRN = () => {
-        window.ReactNativeWebView.postMessage('h')
-    }
+        window.ReactNativeWebView.postMessage('h');
+    };
 
     window.addEventListener('message', (event) => {
         try {
-            const data = JSON.parse(event.data)
-            setSelectedTime(data.selectedTime)
+            const data = JSON.parse(event.data);
+            setSelectedTime(data.selectedTime);
         } catch (error) {
-            console.error('error:', error)
+            console.error('error:', error);
         }
-    })
+    });
 
     return (
         <S.Bottom>
@@ -128,6 +128,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 />
             )}
         </S.Bottom>
-    )
+    );
 }
-export default CreateBottom
+export default CreateBottom;
