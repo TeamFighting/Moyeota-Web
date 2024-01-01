@@ -15,18 +15,17 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString(); // "2023-11-07T02:23:41.465Z"
             const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
-            const title = potCreateStore.title;
-            const content = potCreateStore.description;
-            const distance = potCreateStore.distance;
-            const destination = potCreateStore.destination;
-            const vehicle = potCreateStore.VehicleType;
-            const sameGenderStatus = potCreateStore.sameGenderRide;
-            const departureTime = potCreateStore.selectedTime;
+            const {
+                title,
+                description: content,
+                distance,
+                destination,
+                VehicleType: vehicle,
+                sameGenderRide: sameGenderStatus,
+            } = potCreateStore;
+            const { estimatedDuration, estimatedFare } = durationFareStore;
             const numberOfRecruitment = totalPeople;
-            const estimatedDuration = durationFareStore.estimatedDuration;
-            const estimatedFare = durationFareStore.estimatedFare;
             const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
-            console.log('departureTime:', departureTime);
 
             const response = await fetch('/posts', {
                 method: 'POST',
