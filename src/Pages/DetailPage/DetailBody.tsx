@@ -45,7 +45,7 @@ function DetailBody({ data }: DetailBodyProps) {
                     </S.ContentDetail>
                 </S.Explanation>
                 <S.MapSample>
-                    <DetailMap departure={data.departure} />
+                    <DetailMap keyWordDeparture={data.departure} />
                 </S.MapSample>
                 <S.Route>
                     <S.From>
