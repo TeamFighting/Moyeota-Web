@@ -28,7 +28,7 @@ interface MapProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-function NaverMap({ destination }: MapProps) {
+function NaverMap() {
     const mapElement = useRef(null);
 
     const { naver } = window;

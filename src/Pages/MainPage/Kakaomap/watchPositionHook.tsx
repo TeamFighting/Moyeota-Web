@@ -7,8 +7,9 @@ function watchPositionHook() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function success(pos: any) {
         const crd = pos.coords;
+        console.log(crd.latitude, crd.longitude);
         const d = distance(currentLat, currentLng, crd.latitude, crd.longitude);
-        if (d > 0.01 && d < 13190) {
+        if (d > 0.01) {
             console.log('위치가 변경되었습니다.');
             localStorage.setItem('latitude', crd.latitude.toString());
             localStorage.setItem('longitude', crd.longitude.toString());
