@@ -42,7 +42,7 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
                         position: location,
                         map: map,
                         icon: {
-                            url: '/public/svg/DestinationLocationIcon.svg',
+                            url: '/svg/DestinationLocationIcon.svg',
                             size: new naver.maps.Size(41, 58),
                             origin: new naver.maps.Point(0, 0),
                             anchor: new naver.maps.Point(25, 26),
@@ -69,7 +69,7 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
                     position: location,
                     map: map,
                     icon: {
-                        url: '../../../public/svg/CurrentLocationIcon.svg',
+                        url: 'svg/CurrentLocationIcon.svg',
                         size: new naver.maps.Size(50, 52),
                         origin: new naver.maps.Point(0, 0),
                         anchor: new naver.maps.Point(25, 26),

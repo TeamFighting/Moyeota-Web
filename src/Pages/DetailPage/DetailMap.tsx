@@ -53,7 +53,7 @@ function DetailMap({ keyWordDeparture, infoDeparture }: MapProps) {
                     position: location,
                     map,
                     icon: {
-                        url: '/public/svg/CurrentLocationIcon.svg',
+                        url: '/svg/CurrentLocationIcon.svg',
                         size: new naver.maps.Size(50, 52),
                         origin: new naver.maps.Point(0, 0),
                         anchor: new naver.maps.Point(25, 26),
