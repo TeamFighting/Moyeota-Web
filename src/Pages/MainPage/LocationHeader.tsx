@@ -34,7 +34,7 @@ function LocationHeader() {
         }[],
         status: kakao.maps.services.Status,
     ) {
-        console.log(result);
+        console.log('result', result);
         if (status === kakao.maps.services.Status.OK) {
             const location = result[0].address?.region_1depth_name + ' ' + result[0].address?.region_2depth_name;
             setLocation(location);
