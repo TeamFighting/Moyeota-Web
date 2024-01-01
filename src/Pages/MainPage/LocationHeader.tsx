@@ -29,7 +29,7 @@ function LocationHeader() {
                 address_name: string;
                 region_1depth_name: string;
                 region_2depth_name: string;
-            } | null;
+            };
             road_address: {
                 region_1depth_name: string;
                 region_2depth_name: string;
@@ -42,6 +42,7 @@ function LocationHeader() {
             const location = result[0].address?.region_1depth_name + ' ' + result[0].address?.region_2depth_name;
             setLocation(location);
             setCurrentLocation(result[0].address);
+            localStorage.setItem('address', result[0].address.address_name);
         }
     };
 
