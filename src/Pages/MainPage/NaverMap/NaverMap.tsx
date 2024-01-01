@@ -60,6 +60,7 @@ function NaverMap() {
                                 params: { query: `${data.departure}` },
                             })
                             .then((res) => {
+                                console.log(res);
                                 setFinalArray((prev) => [
                                     ...prev,
                                     {
