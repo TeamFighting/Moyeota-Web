@@ -30,8 +30,6 @@ function LocationHeader() {
             address: {
                 region_1depth_name: string;
                 region_2depth_name: string;
-                address_name: string;
-                building_name: string;
             } | null;
         }[],
         status: kakao.maps.services.Status,
