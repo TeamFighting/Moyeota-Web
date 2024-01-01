@@ -6,6 +6,7 @@ import DurationFareStore from '../../zustand/store/DurationFareStore';
 import PotCreateStore from '../../zustand/store/PotCreateStore';
 import { instance } from '../../axios';
 import DetailMap from '../DetailPage/DetailMap';
+import CurrentLocationStore from '../../zustand/store/CurrentLocation';
 interface CreateBodyProps {
     destination?: string;
 }
@@ -16,35 +17,37 @@ function CreateBody({ destination }: CreateBodyProps) {
         navigate('/destinationPage');
     };
 
-    const [currentLocation, setCurrentLocation] = useState<string>('');
+    // const [currentLocation, setCurrentLocation] = useState<string>('');
 
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
     const { setTitle, setDistance, setDestination } = PotCreateStore();
-    const getCurrentLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
+    const { currentLocation } = CurrentLocationStore();
+    console.log('currentLocation:', currentLocation);
+    // const getCurrentLocation = () => {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition((position) => {
+    //             const latitude = position.coords.latitude;
+    //             const longitude = position.coords.longitude;
 
-                const geocoder = new window.kakao.maps.services.Geocoder();
-                geocoder.coord2Address(
-                    longitude,
-                    latitude,
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (result: any, status: any) => {
-                        if (status === window.kakao.maps.services.Status.OK) {
-                            const address = result[0].address.address_name;
-                            setCurrentLocation(address);
-                        }
-                    },
-                );
-            });
-        }
-    };
+    //             const geocoder = new window.kakao.maps.services.Geocoder();
+    //             geocoder.coord2Address(
+    //                 longitude,
+    //                 latitude,
+    //                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //                 (result: any, status: any) => {
+    //                     if (status === window.kakao.maps.services.Status.OK) {
+    //                         const address = result[0].address.address_name;
+    //                         setCurrentLocation(address);
+    //                     }
+    //                 },
+    //             );
+    //         });
+    //     }
+    // };
 
-    useEffect(() => {
-        getCurrentLocation();
-    }, []);
+    // useEffect(() => {
+    //     getCurrentLocation();
+    // }, []);
 
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {
@@ -76,7 +79,6 @@ function CreateBody({ destination }: CreateBodyProps) {
                         const data = response.data;
                         setEstimatedDuration(data.data.duration);
                         setEstimatedFare(data.data.fare);
-                        console.log(data.data.fare);
                     })
                     .catch((error) => {
                         console.log('API 호출 오류:', error);
@@ -117,9 +119,9 @@ function CreateBody({ destination }: CreateBodyProps) {
     };
 
     useEffect(() => {
-        getCurrentLocation();
+        // getCurrentLocation();
         if (currentLocation && destination) {
-            getEstimatedDurationAndFare(currentLocation, destination);
+            getEstimatedDurationAndFare(currentLocation.address_name, destination);
         }
     }, [currentLocation, destination]);
 
@@ -137,7 +139,7 @@ function CreateBody({ destination }: CreateBodyProps) {
                     onChange={handleTitleChange}
                 />
                 <S.MapSample>
-                    <DetailMap infoDeparture={currentLocation} />
+                    <DetailMap infoDeparture={currentLocation?.address_name} />
                 </S.MapSample>
                 <S.Route>
                     <S.From>
@@ -145,7 +147,9 @@ function CreateBody({ destination }: CreateBodyProps) {
                             <LocationFrom width="24" height="64" />
                             <S.Text>
                                 <S.StartPointLocation>
-                                    {currentLocation ? currentLocation : '현재 위치를 가져오는 중...'}
+                                    {currentLocation?.address_name
+                                        ? currentLocation.address_name
+                                        : '현재 위치를 가져오는 중...'}
                                 </S.StartPointLocation>
                                 <S.StartPoint>출발지</S.StartPoint>
                             </S.Text>

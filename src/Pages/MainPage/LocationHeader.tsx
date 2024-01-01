@@ -20,14 +20,13 @@ function LocationHeader() {
     const latitude = Number(localStorage.getItem('latitude'));
     const longitude = Number(localStorage.getItem('longitude'));
 
-    console.log('l', latitude, longitude);
-
     const [location, setLocation] = useState<string>('');
     const { setCurrentLocation } = CurrentLocationStore();
 
     const callback = function (
         result: {
             address: {
+                address_name: string;
                 region_1depth_name: string;
                 region_2depth_name: string;
             } | null;
@@ -39,12 +38,10 @@ function LocationHeader() {
         }[],
         status: kakao.maps.services.Status,
     ) {
-        console.log('result', result);
         if (status === kakao.maps.services.Status.OK) {
             const location = result[0].address?.region_1depth_name + ' ' + result[0].address?.region_2depth_name;
-
             setLocation(location);
-            setCurrentLocation(result[0].road_address);
+            setCurrentLocation(result[0].address);
         }
     };
 

@@ -21,9 +21,6 @@ interface ResultProps {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
 function DetailMap({ keyWordDeparture, infoDeparture }: MapProps) {
-    console.log('keyword', keyWordDeparture);
-    console.log('info', infoDeparture);
-
     const mapElement = useRef(null);
     const { naver } = window;
     const [result, setResult] = useState<ResultProps>({});
