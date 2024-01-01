@@ -1,11 +1,21 @@
 import { ChevronRight, LionProfile, LocationFrom, LocationMarker } from '../../assets/svg';
 import * as S from './style';
 import createAgo from '../MainPage/Components/SingleContent/createAgo';
-import NaverMap from '../MainPage/NaverMap/NaverMap';
+import DetailMap from './DetailMap';
 
 interface DetailBodyProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: any;
+    data: {
+        postId: string;
+        title: string;
+        departure: string;
+        destination: string;
+        createAt: string;
+        view: number;
+        userName: string;
+        userGender: boolean;
+        profileImage: string;
+    };
 }
 function DetailBody({ data }: DetailBodyProps) {
     const ago = createAgo(data.createAt);
@@ -35,7 +45,7 @@ function DetailBody({ data }: DetailBodyProps) {
                     </S.ContentDetail>
                 </S.Explanation>
                 <S.MapSample>
-                    <NaverMap destination={data.destination} />
+                    <DetailMap departure={data.departure} />
                 </S.MapSample>
                 <S.Route>
                     <S.From>
