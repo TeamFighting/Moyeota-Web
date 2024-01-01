@@ -1,49 +1,25 @@
-import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg'
-import * as S from './style'
-import { useNavigate } from 'react-router-dom'
-import { ChangeEvent, useEffect, useState } from 'react'
-import DurationFareStore from '../../zustand/store/DurationFareStore'
-import PotCreateStore from '../../zustand/store/PotCreateStore'
-import { instance } from '../../axios'
+import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg';
+import * as S from './style';
+import { useNavigate } from 'react-router-dom';
+import { ChangeEvent, useEffect } from 'react';
+import DurationFareStore from '../../zustand/store/DurationFareStore';
+import PotCreateStore from '../../zustand/store/PotCreateStore';
+import { instance } from '../../axios';
+import DetailMap from '../DetailPage/DetailMap';
+import CurrentLocationStore from '../../zustand/store/CurrentLocation';
 interface CreateBodyProps {
-    destination?: string
+    destination?: string;
 }
 
 function CreateBody({ destination }: CreateBodyProps) {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const NavigateToDestination = () => {
-        navigate('/destinationPage')
-    }
+        navigate('/destinationPage');
+    };
 
-    const [currentLocation, setCurrentLocation] = useState<string | null>(null)
-
-    const { setEstimatedDuration, setEstimatedFare } = DurationFareStore()
-    const { setTitle, setDistance, setDestination } = PotCreateStore()
-    const getCurrentLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                const latitude = position.coords.latitude
-                const longitude = position.coords.longitude
-
-                const geocoder = new window.kakao.maps.services.Geocoder()
-                geocoder.coord2Address(
-                    longitude,
-                    latitude,
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (result: any, status: any) => {
-                        if (status === window.kakao.maps.services.Status.OK) {
-                            const address = result[0].address.address_name
-                            setCurrentLocation(address)
-                        }
-                    },
-                )
-            })
-        }
-    }
-
-    useEffect(() => {
-        getCurrentLocation()
-    }, [])
+    const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
+    const { setTitle, setDistance, setDestination } = PotCreateStore();
+    const { currentLocation } = CurrentLocationStore();
 
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {
@@ -54,35 +30,34 @@ function CreateBody({ destination }: CreateBodyProps) {
                 },
             })
             .then((response) => {
-                const data = response.data
-                const roadAddress = data.data.road_address_name
-                return roadAddress
-            })
-    }
+                const data = response.data;
+                const roadAddress = data.data.road_address_name;
+                return roadAddress;
+            });
+    };
 
     //예상금액 및 예상시간 계산
     const getEstimatedDurationAndFare = (origin: string, destination: string) => {
         convertDestinationToRoadAddress(destination).then((roadDestination) => {
             if (roadDestination) {
                 instance
-                    .get(' /distance/duration/fare', {
+                    .get('/distance/duration/fare', {
                         params: {
                             origin: origin,
                             destination: roadDestination,
                         },
                     })
                     .then((response) => {
-                        const data = response.data
-                        setEstimatedDuration(data.data.duration)
-                        setEstimatedFare(data.data.fare)
-                        console.log(data.data.fare)
+                        const data = response.data;
+                        setEstimatedDuration(data.data.duration);
+                        setEstimatedFare(data.data.fare);
                     })
                     .catch((error) => {
-                        console.error('API 호출 오류:', error)
-                    })
+                        console.log('API 호출 오류:', error);
+                    });
             }
-        })
-    }
+        });
+    };
 
     //거리 계산
     useEffect(() => {
@@ -90,37 +65,37 @@ function CreateBody({ destination }: CreateBodyProps) {
             convertDestinationToRoadAddress(destination).then((roadDestination) => {
                 if (roadDestination) {
                     instance
-                        .get('distance/compare', {
+                        .get('/distance/compare', {
                             params: {
                                 address1: currentLocation,
                                 address2: roadDestination,
                             },
                         })
                         .then((response) => {
-                            const data = response.data.data
-                            const distance = parseFloat(data)
-                            setDistance(distance)
+                            const data = response.data.data;
+                            const distance = parseFloat(data);
+                            setDistance(distance);
                         })
                         .catch((error) => {
-                            console.error('API 호출 오류:', error)
-                        })
+                            console.error('API 호출 오류:', error);
+                        });
                 }
-            })
-            setDestination(destination)
+            });
+            setDestination(destination);
         }
-    }, [currentLocation, destination])
+    }, [currentLocation, destination]);
 
     const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const inputValue = e.target.value
-        setTitle(inputValue)
-    }
+        const inputValue = e.target.value;
+        setTitle(inputValue);
+    };
 
     useEffect(() => {
-        getCurrentLocation()
+        // getCurrentLocation();
         if (currentLocation && destination) {
-            getEstimatedDurationAndFare(currentLocation, destination)
+            getEstimatedDurationAndFare(currentLocation.address_name, destination);
         }
-    }, [currentLocation, destination])
+    }, [currentLocation, destination]);
 
     return (
         <S.Body>
@@ -135,14 +110,18 @@ function CreateBody({ destination }: CreateBodyProps) {
                     placeholder="지역, 목적지가 포함된 제목이면 더 좋아요"
                     onChange={handleTitleChange}
                 />
-                <S.MapSample src="/public/png/Map.png" width="100%" height="100%" />
+                <S.MapSample>
+                    <DetailMap infoDeparture={currentLocation?.address_name} />
+                </S.MapSample>
                 <S.Route>
                     <S.From>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <LocationFrom width="24" height="64" />
                             <S.Text>
                                 <S.StartPointLocation>
-                                    {currentLocation ? currentLocation : '현재 위치를 가져오는 중...'}
+                                    {currentLocation?.address_name
+                                        ? currentLocation.address_name
+                                        : '현재 위치를 가져오는 중...'}
                                 </S.StartPointLocation>
                                 <S.StartPoint>출발지</S.StartPoint>
                             </S.Text>
@@ -174,7 +153,7 @@ function CreateBody({ destination }: CreateBodyProps) {
                 </S.Route>
             </S.Content>
         </S.Body>
-    )
+    );
 }
 
-export default CreateBody
+export default CreateBody;

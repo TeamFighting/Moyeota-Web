@@ -1,4 +1,4 @@
-import LatLngStore from '../../../zustand/store/LatLngstore';
+import LatLngStore from '../../../zustand/store/LatLngAddstore';
 import { distance } from '../../util/calc';
 
 interface PositionOptions {
@@ -19,7 +19,6 @@ function watchPositionHook() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function success(pos: PositionOptions) {
         const crd = pos.coords;
-        console.log(crd.latitude, crd.longitude);
         const d = distance(currentLat, currentLng, crd.latitude, crd.longitude);
         if (d > 0.01) {
             console.log('위치가 변경되었습니다.');

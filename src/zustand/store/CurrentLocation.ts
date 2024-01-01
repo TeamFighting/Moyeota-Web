@@ -1,9 +1,10 @@
 import { create } from 'zustand';
 
 export type CurrentLocation = {
+    address_name: string;
     region_1depth_name: string;
     region_2depth_name: string;
-    building_name: string;
+    building_name?: string;
 };
 
 interface CurrentLocationStore {

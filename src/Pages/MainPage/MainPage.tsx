@@ -14,14 +14,14 @@ import MarkerClickContent from './Components/MarkerClickContent/MarkerClickConte
 import { useClickedMarker } from '../../zustand/store/ClickedMarker';
 import { instance } from '../../axios';
 import watchPositionHook from './Kakaomap/watchPositionHook';
+import useCurrentLocation from './Kakaomap/CurrentLocation';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    // useCurrentLocation();
+    useCurrentLocation();
     watchPositionHook();
-
     useEffect(() => {
         fetchData();
     }, []);
@@ -29,7 +29,6 @@ function MainPage() {
     async function fetchData() {
         try {
             const res = await instance.get('posts?page=0');
-            console.log(res);
             if (res.status === 200) {
                 updateTotalData(res.data.data.content);
                 console.log(res.data.data.content);

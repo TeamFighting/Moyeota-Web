@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { instance } from '../../axios';
 
 declare global {
@@ -9,34 +9,39 @@ declare global {
     }
 }
 
-// interface ArrayElement {
-//     data: {
-//         x: number;
-//         y: number;
-//         place_name: string;
-//         road_address_name: string;
-//     };
-//     status: number;
-//     postId: string;
-// }
-
 interface MapProps {
-    departure: string;
+    keyWordDeparture?: string;
+    infoDeparture?: string;
+}
+
+interface ResultProps {
+    x?: number;
+    y?: number;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-function DetailMap({ departure }: MapProps) {
+function DetailMap({ keyWordDeparture, infoDeparture }: MapProps) {
     const mapElement = useRef(null);
     const { naver } = window;
-
+    const [result, setResult] = useState<ResultProps>({});
     useEffect(() => {
         if (!mapElement.current || !naver) return;
+
         const fetchDeparture = async () => {
             try {
-                const res = await instance.get(`/distance/keyword`, {
-                    params: { query: `${departure}` },
-                });
-                const location = new naver.maps.LatLng(res.data.data.y, res.data.data.x);
+                if (infoDeparture !== undefined && keyWordDeparture === undefined) {
+                    const res = await instance.get(`/distance/info`, {
+                        params: { address: `${infoDeparture}` },
+                    });
+                    setResult(res.data.data);
+                } else if (keyWordDeparture !== undefined && infoDeparture === undefined) {
+                    const res = await instance.get(`/distance/keyword`, {
+                        params: { query: `${keyWordDeparture}` },
+                    });
+                    setResult(res.data.data);
+                }
+
+                const location = new naver.maps.LatLng(result.y, result.x);
                 const mapOptions = {
                     center: location,
                     zoom: 13,
@@ -59,7 +64,7 @@ function DetailMap({ departure }: MapProps) {
             }
         };
         fetchDeparture();
-    }, []);
+    }, [infoDeparture, keyWordDeparture, naver, result.x, result.y]);
 
     return (
         <>
