@@ -1,18 +1,29 @@
-import { ChevronRight, LionProfile, LocationFrom, LocationMarker } from '../../assets/svg'
-import * as S from './style'
-import createAgo from '../MainPage/Components/SingleContent/createAgo'
+import { ChevronRight, LionProfile, LocationFrom, LocationMarker } from '../../assets/svg';
+import * as S from './style';
+import createAgo from '../MainPage/Components/SingleContent/createAgo';
+import DetailMap from './DetailMap';
 
 interface DetailBodyProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: any
+    data: {
+        postId: string;
+        title: string;
+        departure: string;
+        destination: string;
+        createAt: string;
+        view: number;
+        userName: string;
+        userGender: boolean;
+        profileImage: string;
+    };
 }
 function DetailBody({ data }: DetailBodyProps) {
-    const ago = createAgo(data.createAt)
-    let gender
+    const ago = createAgo(data.createAt);
+    let gender;
     if (!data.userGender) {
-        gender = '여'
+        gender = '여';
     } else {
-        gender = '남'
+        gender = '남';
     }
     return (
         <S.Body>
@@ -33,7 +44,9 @@ function DetailBody({ data }: DetailBodyProps) {
                         {gender}/{ago}/{data.view}명 조회
                     </S.ContentDetail>
                 </S.Explanation>
-                <S.MapSample src="/public/png/MapSample.png" width="100%" height="100%" />
+                <S.MapSample>
+                    <DetailMap keyWordDeparture={data.departure} />
+                </S.MapSample>
                 <S.Route>
                     <S.From>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -70,7 +83,7 @@ function DetailBody({ data }: DetailBodyProps) {
                 </S.Route>
             </S.Content>
         </S.Body>
-    )
+    );
 }
 
-export default DetailBody
+export default DetailBody;

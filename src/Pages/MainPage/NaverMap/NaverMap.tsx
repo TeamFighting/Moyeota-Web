@@ -60,6 +60,7 @@ function NaverMap() {
                                 params: { query: `${data.departure}` },
                             })
                             .then((res) => {
+                                console.log(res);
                                 setFinalArray((prev) => [
                                     ...prev,
                                     {
@@ -120,7 +121,7 @@ function NaverMap() {
                 position: position,
                 map: map,
                 icon: {
-                    url: '/public/svg/GreenLocationMarker.svg',
+                    url: '/svg/GreenLocationMarker.svg',
                     size: new naver.maps.Size(50, 52),
                     origin: new naver.maps.Point(0, 0),
                     anchor: new naver.maps.Point(25, 26),
@@ -149,7 +150,7 @@ function NaverMap() {
             position: location,
             map,
             icon: {
-                url: '../../../public/svg/CurrentLocationIcon.svg',
+                url: '/svg/CurrentLocationIcon.svg',
                 size: new naver.maps.Size(50, 52),
                 origin: new naver.maps.Point(0, 0),
                 anchor: new naver.maps.Point(25, 26),

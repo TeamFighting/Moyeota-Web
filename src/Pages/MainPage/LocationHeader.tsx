@@ -1,55 +1,59 @@
-import { useEffect, useState } from 'react'
-import styled from 'styled-components'
-import CurrentLocationStore from '../../zustand/store/CurrentLocation'
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import CurrentLocationStore from '../../zustand/store/CurrentLocation';
 declare global {
     interface Window {
         kakao: {
             maps: {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                LatLng: any
+                LatLng: any;
                 services: {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    Geocoder: any
-                }
-            }
-        }
+                    Geocoder: any;
+                };
+            };
+        };
     }
 }
 
 function LocationHeader() {
-    const latitude = Number(localStorage.getItem('latitude'))
-    const longitude = Number(localStorage.getItem('longitude'))
-    const [location, setLocation] = useState<string>('')
-    const { setCurrentLocation } = CurrentLocationStore()
+    const latitude = Number(localStorage.getItem('latitude'));
+    const longitude = Number(localStorage.getItem('longitude'));
+
+    const [location, setLocation] = useState<string>('');
+    const { setCurrentLocation } = CurrentLocationStore();
 
     const callback = function (
         result: {
+            address: {
+                address_name: string;
+                region_1depth_name: string;
+                region_2depth_name: string;
+            };
             road_address: {
-                region_1depth_name: string
-                region_2depth_name: string
-                address_name: string
-                building_name: string
-            } | null
+                region_1depth_name: string;
+                region_2depth_name: string;
+                building_name: string;
+            } | null;
         }[],
         status: kakao.maps.services.Status,
     ) {
         if (status === kakao.maps.services.Status.OK) {
-            const location =
-                result[0].road_address?.region_1depth_name + ' ' + result[0].road_address?.region_2depth_name
-            setLocation(location)
-            // console.log(result[0].road_address);
-            setCurrentLocation(result[0].road_address)
+            const location = result[0].address?.region_1depth_name + ' ' + result[0].address?.region_2depth_name;
+            setLocation(location);
+            setCurrentLocation(result[0].address);
+            localStorage.setItem('address', result[0].address.address_name);
         }
-    }
+    };
 
     useEffect(() => {
         if (window.kakao && window.kakao.maps) {
-            const geocoder = new kakao.maps.services.Geocoder()
-            geocoder.coord2Address(longitude, latitude, callback)
+            const geocoder = new kakao.maps.services.Geocoder();
+            geocoder.coord2Address(longitude, latitude, callback);
         }
-    }, [latitude, longitude])
+    }, [latitude, longitude]);
 
-    return <Location>{location}</Location>
+    return <Location>{location}</Location>;
 }
 
 const Location = styled.div`
@@ -63,5 +67,5 @@ const Location = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-`
-export default LocationHeader
+`;
+export default LocationHeader;

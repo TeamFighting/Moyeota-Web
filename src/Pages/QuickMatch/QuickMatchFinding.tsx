@@ -1,26 +1,26 @@
-import DetailHeader from '../DetailPage/DetailHeader'
-import { ContentDetail, From, Icon, Route, StartPoint, StartPointLocation, Title, Text } from '../DetailPage/style'
-import * as S from './style'
-import { ChevronRight, GreenOpacity, LocationFrom, LocationMarker, ToGanSvg } from '../../assets/svg'
-import { useLocation, useNavigate } from 'react-router'
-import CurrentLocationStore from '../../zustand/store/CurrentLocation'
-import NaverMap from '../MainPage/NaverMap/NaverMap'
-import styled from 'styled-components'
+import DetailHeader from '../DetailPage/DetailHeader';
+import { ContentDetail, From, Icon, Route, StartPoint, StartPointLocation, Title, Text } from '../DetailPage/style';
+import * as S from './style';
+import { ChevronRight, GreenOpacity, LocationFrom, LocationMarker, ToGanSvg } from '../../assets/svg';
+import { useLocation, useNavigate } from 'react-router';
+import CurrentLocationStore from '../../zustand/store/CurrentLocation';
+import NaverMap from '../MainPage/NaverMap/NaverMap';
+import styled from 'styled-components';
 
 function QuickMatchFinding() {
-    const location = useLocation()
+    const location = useLocation();
 
-    const { destination } = location.state
+    const { destination } = location.state;
 
-    const { currentLocation } = CurrentLocationStore()
+    const { currentLocation } = CurrentLocationStore();
 
-    const currentBuildingName = currentLocation?.building_name
-    console.log(currentBuildingName)
-    const navigate = useNavigate()
+    const currentBuildingName = currentLocation?.building_name;
+    console.log(currentBuildingName);
+    const navigate = useNavigate();
 
     setTimeout(() => {
-        navigate('/mainPage')
-    }, 1000)
+        navigate('/mainPage');
+    }, 1000);
 
     return (
         <div>
@@ -114,7 +114,7 @@ function QuickMatchFinding() {
                 </Route>
             </S.Container>
         </div>
-    )
+    );
 }
 
 const WhiteOpacity = styled.div`
@@ -125,12 +125,12 @@ const WhiteOpacity = styled.div`
     z-index: 2;
     opacity: 0.5;
     margin-top: 10px;
-`
+`;
 
 const MapWrapper = styled.div`
     z-index: 1;
     width: 100vw;
     height: 44vh;
     background-color: aliceblue;
-`
-export default QuickMatchFinding
+`;
+export default QuickMatchFinding;
