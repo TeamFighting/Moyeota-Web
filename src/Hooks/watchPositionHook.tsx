@@ -1,5 +1,5 @@
-import LatLngAddstore from '../../../zustand/store/LatLngAddstore';
-import { distance } from '../../util/calc';
+import LatLngAddstore from '../zustand/store/LatLngAddstore';
+import { distance } from '../Pages/util/calc';
 
 interface PositionOptions {
     coords: {

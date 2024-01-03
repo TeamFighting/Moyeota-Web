@@ -1,14 +1,14 @@
-import styled from 'styled-components'
-import { motion } from 'framer-motion'
-import useBottomSheet from '../../BottomSheetHook/useBottonSheet'
-import BottomSheetContent from './BottomSheetContent'
-import BottomSheetHandle from './BottomSheetHandle'
-import ContentHeader from '../SingleContent/ContentHeader'
-import { List } from '../../../../assets/svg'
-import { BOTTOM_SHEET_HEIGHT, WINDOWHEIGHT } from '../../../../Constants/constant'
+import styled from 'styled-components';
+import { motion } from 'framer-motion';
+import useBottomSheet from '../../../../Hooks/useBottonSheet';
+import BottomSheetContent from './BottomSheetContent';
+import BottomSheetHandle from './BottomSheetHandle';
+import ContentHeader from '../SingleContent/ContentHeader';
+import { List } from '../../../../assets/svg';
+import { BOTTOM_SHEET_HEIGHT, WINDOWHEIGHT } from '../../../../Constants/constant';
 
 function BottomSheet() {
-    const { sheet, content, handleUp } = useBottomSheet()
+    const { sheet, content, handleUp } = useBottomSheet();
 
     return (
         <Wrapper ref={sheet}>
@@ -32,7 +32,7 @@ function BottomSheet() {
                 </BottomSheetContentWrapper>
             </div>
         </Wrapper>
-    )
+    );
 }
 const OpenBotton = styled.div`
     width: 96px;
@@ -54,7 +54,7 @@ const OpenBotton = styled.div`
     display: flex;
     z-index: 1000001;
     gap: 5px;
-`
+`;
 const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     display: flex;
     flex-direction: column;
@@ -65,11 +65,11 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     border-radius: 26px 26px 0 0;
     height: ${BOTTOM_SHEET_HEIGHT}px;
     transition: transform 400ms ease-out;
-`
+`;
 const BottomSheetContentWrapper = styled.div`
     width: 100%;
     overflow-y: scroll;
     height: 100%;
-`
+`;
 
-export default BottomSheet
+export default BottomSheet;

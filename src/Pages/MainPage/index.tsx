@@ -13,8 +13,8 @@ import NaverMap from './NaverMap/NaverMap';
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
 import { useClickedMarker } from '../../zustand/store/ClickedMarker';
 import { instance } from '../../axios';
-import watchPositionHook from './Kakaomap/watchPositionHook';
-import useCurrentLocation from './Kakaomap/CurrentLocation';
+import watchPositionHook from '../../Hooks/watchPositionHook';
+import useCurrentLocation from '../../Hooks/CurrentLocation';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);

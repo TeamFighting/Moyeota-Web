@@ -1,4 +1,4 @@
-import useStore from '../../../zustand/store/LatLngAddstore';
+import useStore from '../zustand/store/LatLngAddstore';
 
 function useCurrentLocation() {
     const { setLatLngAdd } = useStore((state) => state);
