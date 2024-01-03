@@ -60,7 +60,7 @@ function DetailMap({ keyWordDeparture, infoDeparture }: MapProps) {
                     },
                 });
             } catch (e) {
-                console.log(e);
+                alert(e);
             }
         };
         fetchDeparture();

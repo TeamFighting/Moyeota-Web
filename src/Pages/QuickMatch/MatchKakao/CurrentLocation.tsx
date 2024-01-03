@@ -30,7 +30,7 @@ function CurrentLocation() {
             latitude: 37.483034,
             longitude: 126.902435,
         });
-        console.log('위치받기 실패');
+        alert('위치받기 실패');
     }
     // return () => clearInterval(intervalId);
     // }, [location, setLatLngAdd]);

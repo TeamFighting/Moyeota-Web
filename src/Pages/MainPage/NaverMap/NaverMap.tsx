@@ -4,6 +4,7 @@ import ContentStore from '../../../zustand/store/ContentStore';
 import { useQuickPotStore } from '../../../zustand/store/QuickPotStore';
 import { useClickedMarker } from '../../../zustand/store/ClickedMarker';
 import { instance } from '../../../axios';
+import LatLngAddStore from '../../../zustand/store/LatLngAddstore';
 
 declare global {
     interface Window {
@@ -28,10 +29,11 @@ function NaverMap() {
     const mapElement = useRef(null);
 
     const { naver } = window;
+    const { currentLat, currentLng } = LatLngAddStore((state) => state);
 
-    const latitude = Number(localStorage.getItem('latitude'));
+    const latitude = currentLat;
 
-    const longitude = Number(localStorage.getItem('longitude'));
+    const longitude = currentLng;
 
     const { totalData } = ContentStore();
 

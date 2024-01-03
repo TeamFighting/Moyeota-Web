@@ -16,35 +16,32 @@ interface Options {
 
 function watchPositionHook() {
     const { currentLat, currentLng } = LatLngAddstore((state) => state);
+    // const options: Options | undefined = ;
+    if (navigator.geolocation) {
+        const newId = navigator.geolocation.watchPosition(success, error, {
+            enableHighAccuracy: true,
+            timeout: Infinity,
+            maximumAge: 0,
+        });
+    } else {
+        alert('위치정보 사용 불가능');
+    }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function success(pos: PositionOptions) {
-        const crd = pos.coords;
-        console.log('Your current position is:', crd.latitude, crd.longitude, currentLat, currentLng);
-
-        const d = distance(currentLat, currentLng, crd.latitude, crd.longitude);
-        if (d > 0.01) {
-            console.log('위치가 변경되었습니다.');
-            localStorage.setItem('latitude', crd.latitude.toString());
-            localStorage.setItem('longitude', crd.longitude.toString());
+    async function success(pos: PositionOptions) {
+        const d = distance(currentLat, currentLng, pos.coords.latitude, pos.coords.longitude);
+        if (d > 0.001) {
+            localStorage.setItem('latitude', pos.coords.latitude.toString());
+            localStorage.setItem('longitude', pos.coords.longitude.toString());
             LatLngAddstore.setState({
-                currentLat: crd.latitude,
-                currentLng: crd.longitude,
+                currentLat: pos.coords.latitude,
+                currentLng: pos.coords.longitude,
             });
         }
     }
 
     function error(err: { code: number; message: string }) {
-        console.log('ERROR(' + err.code + '): ' + err.message);
+        alert('ERROR(' + err.code + '): ' + err.message);
     }
-
-    const options: Options | undefined = {
-        enableHighAccuracy: true,
-        timeout: 1000,
-        maximumAge: 0,
-    };
-
-    navigator.geolocation.watchPosition(success, error, options);
 }
 
 export default watchPositionHook;

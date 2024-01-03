@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import useBottomSheet from '../../../../Hooks/useBottonSheet';
 import BottomSheetContent from './BottomSheetContent';
 import BottomSheetHandle from './BottomSheetHandle';
-import ContentHeader from '../SingleContent/ContentHeader';
+import ContentHeader from '../SingleContent/SingleContentHeader';
 import { List } from '../../../../assets/svg';
 import { BOTTOM_SHEET_HEIGHT, WINDOWHEIGHT } from '../../../../Constants/constant';
 

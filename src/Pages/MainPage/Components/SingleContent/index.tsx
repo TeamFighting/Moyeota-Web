@@ -1,5 +1,5 @@
 import * as S from '../../style';
-import Profile from './Profile';
+import Profile from './SingleProfile';
 import ArrowRight from '../../../../../public/svg/ArrowRight.svg';
 import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
 import Clock from '../../../../../public/svg/Clock.svg';
@@ -35,9 +35,6 @@ function SingleContent() {
     useEffect(() => {
         if (inView) {
             productFetch();
-        }
-        if (!inView) {
-            // console.log(inView, '무한 스크롤 요청 안함')
         }
     }, [inView]);
 

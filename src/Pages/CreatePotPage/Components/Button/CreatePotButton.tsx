@@ -52,7 +52,6 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
 
             if (response.status === 200) {
                 navigate('/createComplete');
-                console.log('res', response);
             } else {
                 alert('실패');
                 console.error('API 요청 실패');
