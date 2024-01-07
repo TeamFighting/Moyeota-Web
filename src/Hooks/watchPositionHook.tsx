@@ -16,16 +16,6 @@ interface Options {
 
 function watchPositionHook() {
     const { currentLat, currentLng } = LatLngAddstore((state) => state);
-    // const options: Options | undefined = ;
-    if (navigator.geolocation) {
-        const newId = navigator.geolocation.watchPosition(success, error, {
-            enableHighAccuracy: true,
-            timeout: Infinity,
-            maximumAge: 0,
-        });
-    } else {
-        alert('위치정보 사용 불가능');
-    }
 
     async function success(pos: PositionOptions) {
         const d = distance(currentLat, currentLng, pos.coords.latitude, pos.coords.longitude);
@@ -41,6 +31,17 @@ function watchPositionHook() {
 
     function error(err: { code: number; message: string }) {
         alert('ERROR(' + err.code + '): ' + err.message);
+    }
+
+    const options: Options | undefined = {
+        enableHighAccuracy: true,
+        timeout: Infinity,
+        maximumAge: 0,
+    };
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(success, error, options);
+    } else {
+        alert('위치정보 사용 불가능');
     }
 }
 

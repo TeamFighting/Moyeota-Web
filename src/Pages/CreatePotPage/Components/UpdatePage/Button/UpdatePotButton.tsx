@@ -54,7 +54,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             } else {
                 const errorData = await response.json();
                 console.error('팟 수정에 실패했습니다.', response.status, errorData);
-                alert('res:', response);
+                alert(response);
             }
         } catch (error) {
             console.error('팟 수정 중 오류 발생', error);

@@ -61,7 +61,7 @@ function CreateBody({ destination }: CreateBodyProps) {
                         setEstimatedFare(data.data.fare);
                     })
                     .catch((error) => {
-                        alert('API 호출 오류:', error);
+                        alert(error);
                     });
             }
         });
