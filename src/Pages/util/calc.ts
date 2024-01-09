@@ -13,5 +13,6 @@ export const distance = (prevLat: number, prevLong: number, newLat: number, newL
     );
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const d = R * c;
+    console.log(d);
     return d;
 };

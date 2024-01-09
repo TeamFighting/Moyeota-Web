@@ -1,32 +1,32 @@
-import styled from 'styled-components'
-import * as S from '../../style'
-import ArrowRight from '../../../../../public/svg/ArrowRight.svg'
-import LocationMarker from '../../../../../public/svg/LocationMarker.svg'
-import ContentStore from '../../../../zustand/store/ContentStore'
-import createAgo from '../SingleContent/createAgo'
-import { Clock } from '../../../../assets/svg'
-import getDays from '../SingleContent/getDays'
-import ISOto12 from '../SingleContent/ISOto12'
-import { useNavigate } from 'react-router'
+import styled from 'styled-components';
+import * as S from '../../style';
+import ArrowRight from '../../../../../public/svg/ArrowRight.svg';
+import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
+import ContentStore from '../../../../zustand/store/ContentStore';
+import createAgo from '../../../util/createAgo';
+import { Clock } from '../../../../assets/svg';
+import getDays from '../../../util/getDays';
+import ISOto12 from '../../../util/ISOto12';
+import { useNavigate } from 'react-router';
 
 function MarkerClickContent({ postId: postId }: { postId: number }) {
-    const navigate = useNavigate()
-    const { totalData } = ContentStore((state) => state)
-    const data = totalData.find((data) => data.postId === postId)
-    const ago = createAgo(data.createAt)
-    const splitedDay = getDays(data.departureTime)
-    const timePart = ISOto12(data.departureTime)
+    const navigate = useNavigate();
+    const { totalData } = ContentStore((state) => state);
+    const data = totalData.find((data) => data.postId === postId);
+    const ago = createAgo(data.createAt);
+    const splitedDay = getDays(data.departureTime);
+    const timePart = ISOto12(data.departureTime);
     const goToDetail = () => {
         navigate(`/detailPage/${postId}`, {
             state: { data, splitedDay, timePart },
-        })
-    }
+        });
+    };
 
-    let gender = ''
+    let gender = '';
     if (!data.userGender) {
-        gender = '여'
+        gender = '여';
     } else {
-        gender = '남'
+        gender = '남';
     }
 
     return (
@@ -77,7 +77,7 @@ function MarkerClickContent({ postId: postId }: { postId: number }) {
                 </div>
             </BriefWrapper>
         </div>
-    )
+    );
 }
 
 const BriefWrapper = styled.div`
@@ -87,7 +87,7 @@ const BriefWrapper = styled.div`
     width: 327px;
     height: 203px;
     background-color: white;
-`
+`;
 
 const GaterStatus = styled.div`
     background-color: white;
@@ -108,7 +108,7 @@ const GaterStatus = styled.div`
     flex-shrink: 0;
     position: absolute;
     right: 1rem;
-`
+`;
 
 const ShowDetail = styled.div`
     width: 299px;
@@ -124,5 +124,5 @@ const ShowDetail = styled.div`
     border-radius: 12px;
     margin: 0 auto;
     margin-top: 13px;
-`
-export default MarkerClickContent
+`;
+export default MarkerClickContent;

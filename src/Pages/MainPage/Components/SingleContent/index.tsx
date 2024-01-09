@@ -1,48 +1,45 @@
-import * as S from '../../style'
-import Profile from './Profile'
-import ArrowRight from '../../../../../public/svg/ArrowRight.svg'
-import LocationMarker from '../../../../../public/svg/LocationMarker.svg'
-import Clock from '../../../../../public/svg/Clock.svg'
-import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
-import ISOto12 from './ISOto12'
-import getDays from './getDays'
-import createAgo from './createAgo'
-import { useQuickPotStore } from '../../../../zustand/store/QuickPotStore'
-import { useEffect, useState } from 'react'
-import { useInView } from 'react-intersection-observer'
-import useStore from '../../../../zustand/store/ContentStore'
-import { instance } from '../../../../axios'
+import * as S from '../../style';
+import Profile from './SingleProfile';
+import ArrowRight from '../../../../../public/svg/ArrowRight.svg';
+import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
+import Clock from '../../../../../public/svg/Clock.svg';
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import ISOto12 from '../../../util/ISOto12';
+import getDays from '../../../util/getDays';
+import createAgo from '../../../util/createAgo';
+import { useQuickPotStore } from '../../../../zustand/store/QuickPotStore';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+import useStore from '../../../../zustand/store/ContentStore';
+import { instance } from '../../../../axios';
 
 function SingleContent() {
-    const [ref, inView] = useInView()
-    const [page, setPage] = useState(1) // 현재 페이지 번호 (페이지네이션)
+    const [ref, inView] = useInView();
+    const [page, setPage] = useState(1); // 현재 페이지 번호 (페이지네이션)
 
-    const { updateTotalData } = useStore((state) => state)
+    const { updateTotalData } = useStore((state) => state);
 
     const productFetch = () => {
         instance
             .get(`/posts?page=${page}`)
             .then((res) => {
-                updateTotalData(res.data.data.content)
+                updateTotalData(res.data.data.content);
             })
             .catch((err) => {
-                console.log(err)
-            })
-        setPage((page) => page + 1)
-    }
+                console.log(err);
+            });
+        setPage((page) => page + 1);
+    };
 
     useEffect(() => {
         if (inView) {
-            productFetch()
+            productFetch();
         }
-        if (!inView) {
-            // console.log(inView, '무한 스크롤 요청 안함')
-        }
-    }, [inView])
+    }, [inView]);
 
-    const navigate = useNavigate()
-    const { totalData } = useStore((state) => state)
+    const navigate = useNavigate();
+    const { totalData } = useStore((state) => state);
     const navigateToDetail = (data: object, splitedTime: string[], timePart: string, postId: number) => {
         navigate(`/detailpage/${postId}`, {
             state: {
@@ -50,27 +47,27 @@ function SingleContent() {
                 splitedTime: splitedTime,
                 timePart: timePart,
             },
-        })
-    }
-    const { quickPot } = useQuickPotStore()
+        });
+    };
+    const { quickPot } = useQuickPotStore();
 
     return (quickPot.length !== 0 ? quickPot : totalData).map((data, index) => {
-        const splitedDay = getDays(data.departureTime)
-        const timePart = ISOto12(data.departureTime)
-        const ago = createAgo(data.createAt)
-        const postId = data.postId
-        let gender
+        const splitedDay = getDays(data.departureTime);
+        const timePart = ISOto12(data.departureTime);
+        const ago = createAgo(data.createAt);
+        const postId = data.postId;
+        let gender;
         if (!data.userGender) {
-            gender = '여'
+            gender = '여';
         } else {
-            gender = '남'
+            gender = '남';
         }
         return (
             <S.SingleContent
                 ref={index === totalData.length - 1 ? ref : null}
                 key={index}
                 onClick={() => {
-                    navigateToDetail(data, splitedDay, timePart, postId)
+                    navigateToDetail(data, splitedDay, timePart, postId);
                 }}
             >
                 <Profile
@@ -116,11 +113,11 @@ function SingleContent() {
                     </Bottom>
                 </div>
             </S.SingleContent>
-        )
-    })
+        );
+    });
 }
 
-export default SingleContent
+export default SingleContent;
 
 const Bottom = styled.div`
     display: flex;
@@ -128,14 +125,14 @@ const Bottom = styled.div`
     margin-top: 18px;
     margin-left: 22px;
     align-items: center;
-`
+`;
 
 const Tags = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     text-align: center;
-`
+`;
 const Tag = styled.div`
     font-size: 10px;
     font-weight: 600;
@@ -145,13 +142,13 @@ const Tag = styled.div`
     border-radius: 4px;
     background-color: #f5f6f8;
     padding: 2px 4px;
-`
+`;
 const Status = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     flex: 1;
-`
+`;
 const GaterStatus = styled.div`
     color: var(--Green-Text, #139b59);
     font-family: Pretendard;
@@ -167,4 +164,4 @@ const GaterStatus = styled.div`
     align-items: center;
     display: flex;
     margin-right: 15px;
-`
+`;

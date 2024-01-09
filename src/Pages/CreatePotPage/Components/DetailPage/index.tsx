@@ -46,10 +46,9 @@ function DetailPage() {
                 .get(`/posts/${postId}`)
                 .then((fetchedData) => {
                     setPostData(fetchedData.data);
-                    console.log('API 응답 데이터:', fetchedData.data);
                 })
                 .catch((error) => {
-                    console.error('API 호출 중 에러:', error);
+                    alert(error);
                 });
         }
     }, [postId, setPostData]);

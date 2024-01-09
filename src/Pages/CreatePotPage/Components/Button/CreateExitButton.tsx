@@ -1,26 +1,26 @@
-import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
-import PotCreateStore from '../../../../zustand/store/PotCreateStore'
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import PotCreateStore from '../../../../zustand/store/PotCreateStore';
 
 function CreateExitButton() {
-    const navigate = useNavigate()
-    const { setPostId } = PotCreateStore((state) => state)
+    const navigate = useNavigate();
+    const { setPostId } = PotCreateStore((state) => state);
 
     const navigateToDetail = async () => {
         try {
-            const response = await fetch(' /posts?page=0')
-            const data = await response.json()
+            const response = await fetch(' /posts?page=0');
+            const data = await response.json();
 
             if (response.ok) {
-                setPostId(data.data.content[0].postId)
-                navigate('/CreateDetailPage')
+                setPostId(data.data.content[0].postId);
+                navigate('/CreateDetailPage');
             } else {
-                console.log('모집글 조회 실패')
+                alert('모집글 조회 실패');
             }
         } catch (error) {
-            console.error('API 호출 중 에러:', error)
+            console.error('API 호출 중 에러:', error);
         }
-    }
+    };
 
     return (
         <Wrapper>
@@ -28,7 +28,7 @@ function CreateExitButton() {
                 닫기
             </Button>
         </Wrapper>
-    )
+    );
 }
 
 const Wrapper = styled.div`
@@ -41,7 +41,7 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     z-index: 2;
-`
+`;
 
 const Button = styled.button`
     width: 335px;
@@ -60,6 +60,6 @@ const Button = styled.button`
     line-height: normal;
     letter-spacing: 0.54px;
     z-index: 3;
-`
+`;
 
-export default CreateExitButton
+export default CreateExitButton;

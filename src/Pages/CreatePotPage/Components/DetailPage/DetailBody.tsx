@@ -1,17 +1,17 @@
-import { ChevronRight, LocationFrom, LocationMarker } from '../../../../assets/svg'
-import * as S from './style'
-import createAgo from '../../../MainPage/Components/SingleContent/createAgo'
-import usePostDataStore from '../../../../zustand/store/PostDataStore'
+import { ChevronRight, LocationFrom, LocationMarker } from '../../../../assets/svg';
+import * as S from './style';
+import createAgo from '../../../util/createAgo';
+import usePostDataStore from '../../../../zustand/store/PostDataStore';
 
 function DetailBody() {
-    const { data } = usePostDataStore()
-    const ago = createAgo(data.createAt)
+    const { data } = usePostDataStore();
+    const ago = createAgo(data.createAt);
 
-    let gender
+    let gender;
     if (!data.userGender) {
-        gender = '여'
+        gender = '여';
     } else {
-        gender = '남'
+        gender = '남';
     }
     return (
         <S.Body>
@@ -65,7 +65,7 @@ function DetailBody() {
                 </S.Route>
             </S.Content>
         </S.Body>
-    )
+    );
 }
 
-export default DetailBody
+export default DetailBody;

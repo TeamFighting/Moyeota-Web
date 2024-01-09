@@ -13,14 +13,12 @@ import NaverMap from './NaverMap/NaverMap';
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
 import { useClickedMarker } from '../../zustand/store/ClickedMarker';
 import { instance } from '../../axios';
-import watchPositionHook from './Kakaomap/watchPositionHook';
-import useCurrentLocation from './Kakaomap/CurrentLocation';
+import watchPositionHook from '../../Hooks/watchPositionHook';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    useCurrentLocation();
     watchPositionHook();
     useEffect(() => {
         fetchData();
@@ -31,12 +29,11 @@ function MainPage() {
             const res = await instance.get('posts?page=0');
             if (res.status === 200) {
                 updateTotalData(res.data.data.content);
-                console.log(res.data.data.content);
             } else {
                 alert(res.status + '에러');
             }
         } catch (e) {
-            console.log(e);
+            alert(e);
         }
     }
 

@@ -77,7 +77,7 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
                 });
             });
         } else {
-            console.log('실패');
+            alert('실패');
         }
     }, [destination]);
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useStore from '../../../zustand/store/LatLngAddstore';
 
 function CurrentLocation() {
@@ -9,30 +9,31 @@ function CurrentLocation() {
 
     const { setLatLngAdd } = useStore((state) => state);
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(success, error);
-            }
-        }, 500000);
+    // useEffect(() => {
+    // const intervalId = setInterval(() => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
+    // }, 500000);
 
-        function success(position: GeolocationPosition) {
-            setLocation({
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-            });
-            setLatLngAdd(position.coords.latitude, position.coords.longitude);
-        }
+    function success(position: GeolocationPosition) {
+        setLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+        });
 
-        function error() {
-            setLocation({
-                latitude: 37.483034,
-                longitude: 126.902435,
-            });
-            console.log('위치받기 실패');
-        }
-        return () => clearInterval(intervalId);
-    }, [location, setLatLngAdd]);
+        setLatLngAdd(position.coords.latitude, position.coords.longitude);
+    }
+
+    function error() {
+        setLocation({
+            latitude: 37.483034,
+            longitude: 126.902435,
+        });
+        alert('위치받기 실패');
+    }
+    // return () => clearInterval(intervalId);
+    // }, [location, setLatLngAdd]);
 
     return location;
 }
