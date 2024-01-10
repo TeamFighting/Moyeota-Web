@@ -1,46 +1,46 @@
-import DetailHeader from '../DetailPage/DetailHeader'
-import { ContentDetail, Title } from '../DetailPage/style'
-import { DeleteButton } from '../../assets/svg'
-import { Icon } from '../CreatePotPage/style'
-import { useNavigate } from 'react-router'
-import * as S from './style'
-import { useState } from 'react'
-import ContentStore from '../../zustand/store/ContentStore'
-import { useQuickPotStore } from '../../zustand/store/QuickPotStore'
+import DetailHeader from '../DetailPage/DetailHeader';
+import { ContentDetail, Title } from '../DetailPage/style';
+import { DeleteButton } from '../../assets/svg';
+import { Icon } from '../CreatePotPage/style';
+import { useNavigate } from 'react-router';
+import * as S from './style';
+import { useState } from 'react';
+import ContentStore from '../../state/store/ContentStore';
+import { useQuickPotStore } from '../../state/store/QuickPotStore';
 
 function QuickMatch() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const [time, setTime] = useState<string>('')
-    const [destination, setDestination] = useState<string>('')
-    const { totalData } = ContentStore()
+    const [time, setTime] = useState<string>('');
+    const [destination, setDestination] = useState<string>('');
+    const { totalData } = ContentStore();
     const handleDestination = (e: React.ChangeEvent<HTMLInputElement>) => {
         // console.log(e.target.value);
-        setDestination(e.target.value)
-    }
+        setDestination(e.target.value);
+    };
 
     const handleTime = (e: React.ChangeEvent<HTMLInputElement>) => {
         // console.log(e.target.value)
-        setTime(e.target.value)
-    }
+        setTime(e.target.value);
+    };
 
-    const { setQuickPot } = useQuickPotStore()
+    const { setQuickPot } = useQuickPotStore();
 
     const handleClick = () => {
         const pot = totalData
             .filter((data) => {
                 if (data.destination.toLowerCase().includes(destination.toLowerCase())) {
-                    return data
+                    return data;
                 }
             })
             .map((data: object) => {
-                return data
-            })
-        setQuickPot(pot)
+                return data;
+            });
+        setQuickPot(pot);
         navigate('/quickMatchFinding', {
             state: { time: time, destination: destination },
-        })
-    }
+        });
+    };
 
     return (
         <div>
@@ -89,7 +89,7 @@ function QuickMatch() {
                 <S.Submit onClick={() => handleClick()}>완료</S.Submit>
             </S.Container>
         </div>
-    )
+    );
 }
 
-export default QuickMatch
+export default QuickMatch;

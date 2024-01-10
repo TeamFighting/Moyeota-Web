@@ -3,7 +3,7 @@ import { ContentDetail, From, Icon, Route, StartPoint, StartPointLocation, Title
 import * as S from './style';
 import { ChevronRight, GreenOpacity, LocationFrom, LocationMarker, ToGanSvg } from '../../assets/svg';
 import { useLocation, useNavigate } from 'react-router';
-import CurrentLocationStore from '../../zustand/store/CurrentLocation';
+import CurrentLocationStore from '../../state/store/CurrentLocation';
 import NaverMap from '../MainPage/NaverMap/NaverMap';
 import styled from 'styled-components';
 

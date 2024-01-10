@@ -3,12 +3,12 @@ import DetailHeader from './DetailHeader';
 import DetailBody from './DetailBody';
 import DetailBottom from './DetailBottom';
 import DetailPartySection from './DetailPartySection';
-import usePostDataStore from '../../../../zustand/store/PostDataStore';
-import PotCreateStore from '../../../../zustand/store/PotCreateStore';
+import usePostDataStore from '../../../../state/store/PostDataStore';
+import PotCreateStore from '../../../../state/store/PotCreateStore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import UpdateButton from '../Button/UpdateButton';
-import useModalStore from '../../../../zustand/store/UpdateModalStore';
+import useModalStore from '../../../../state/store/UpdateModalStore';
 import { instance } from '../../../../axios';
 
 function DetailPage() {

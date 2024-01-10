@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import CurrentLocationStore from '../../zustand/store/CurrentLocation';
+import CurrentLocationStore from '../../state/store/CurrentLocation';
 declare global {
     interface Window {
         kakao: {

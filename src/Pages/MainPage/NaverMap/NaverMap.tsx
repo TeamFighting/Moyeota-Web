@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useRef, useState } from 'react';
-import ContentStore from '../../../zustand/store/ContentStore';
-import { useQuickPotStore } from '../../../zustand/store/QuickPotStore';
-import { useClickedMarker } from '../../../zustand/store/ClickedMarker';
+import ContentStore from '../../../state/store/ContentStore';
+import { useQuickPotStore } from '../../../state/store/QuickPotStore';
+import { useClickedMarker } from '../../../state/store/ClickedMarker';
 import { instance } from '../../../axios';
-import LatLngAddStore from '../../../zustand/store/LatLngAddstore';
+import LatLngAddStore from '../../../state/store/LatLngAddstore';
 
 declare global {
     interface Window {

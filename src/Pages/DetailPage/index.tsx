@@ -6,7 +6,7 @@ import DetailPartySection from './DetailPartySection';
 import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
 import { useLocation } from 'react-router';
 import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
-import ModalStore from '../../zustand/store/ModalStore';
+import ModalStore from '../../state/store/ModalStore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 

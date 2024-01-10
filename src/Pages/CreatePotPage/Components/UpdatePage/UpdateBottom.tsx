@@ -2,8 +2,8 @@ import { ChevronRight } from '../../../../assets/svg';
 import * as S from '../../style';
 import TimeModal from './Modal/TimeModal';
 import { SetStateAction, useState, useEffect } from 'react';
-import PotCreateStore from '../../../../zustand/store/PotCreateStore';
-import usePostDataStore from '../../../../zustand/store/PostDataStore';
+import PotCreateStore from '../../../../state/store/PotCreateStore';
+import usePostDataStore from '../../../../state/store/PostDataStore';
 
 declare global {
     interface Window {

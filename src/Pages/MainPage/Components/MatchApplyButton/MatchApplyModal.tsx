@@ -1,23 +1,23 @@
-import useOnclickOutside from 'react-cool-onclickoutside'
-import styled from 'styled-components'
-import { useAppliedPartyStore } from '../../../../zustand/store/AppliedPartyStore'
-import ModalStore from '../../../../zustand/store/ModalStore'
-import { instance } from '../../../../axios'
+import useOnclickOutside from 'react-cool-onclickoutside';
+import styled from 'styled-components';
+import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
+import ModalStore from '../../../../state/store/ModalStore';
+import { instance } from '../../../../axios';
 
 interface ModalProps {
-    isFull: boolean
-    postId: number
+    isFull: boolean;
+    postId: number;
 }
 function MatchApplyModal({ postId, isFull }: ModalProps) {
-    const { setAppliedParty, deleteAppliedParty } = useAppliedPartyStore()
-    const { modalOpen, setIsModalOpen } = ModalStore()
+    const { setAppliedParty, deleteAppliedParty } = useAppliedPartyStore();
+    const { modalOpen, setIsModalOpen } = ModalStore();
 
     const ref = useOnclickOutside(() => {
-        setIsModalOpen(false, 'apply')
-    })
+        setIsModalOpen(false, 'apply');
+    });
     const closeModal = () => {
-        setIsModalOpen(false, 'apply')
-    }
+        setIsModalOpen(false, 'apply');
+    };
 
     async function applyParty(postId: number) {
         try {
@@ -35,24 +35,24 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                 )
                 .then((res) => {
                     if (res.data.status === 'SUCCESS') {
-                        console.log('신청 완료')
-                        setAppliedParty(postId)
-                        setIsModalOpen(true, 'applySuccess')
+                        console.log('신청 완료');
+                        setAppliedParty(postId);
+                        setIsModalOpen(true, 'applySuccess');
                     }
-                })
+                });
         } catch (e: unknown) {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             if ((e as any)?.response?.data?.code === 422) {
-                console.log('이미 신청한 팟입니다.')
-                setAppliedParty(postId)
-                setIsModalOpen(true, 'applySuccess')
+                console.log('이미 신청한 팟입니다.');
+                setAppliedParty(postId);
+                setIsModalOpen(true, 'applySuccess');
             }
         }
     }
 
     async function cancelParty(postId: number) {
-        deleteAppliedParty(postId)
-        setIsModalOpen(true, 'cancel')
+        deleteAppliedParty(postId);
+        setIsModalOpen(true, 'cancel');
 
         try {
             await instance.post(
@@ -65,11 +65,11 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                         Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
                     },
                 },
-            )
+            );
         } catch (e: unknown) {
-            console.log(e)
+            console.log(e);
         }
-        closeModal()
+        closeModal();
     }
     if (isFull) {
         return (
@@ -84,7 +84,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                     </CloseButton>
                 </Modal>
             </ModalWrapper>
-        )
+        );
     } else if (modalOpen.status == 'apply') {
         return (
             <ModalWrapper>
@@ -98,7 +98,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                         </StyledBtn>
                         <StyledBtn
                             onClick={() => {
-                                applyParty(postId)
+                                applyParty(postId);
                             }}
                             style={{ backgroundColor: '#1EDD81' }}
                         >
@@ -107,7 +107,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                     </Buttons>
                 </Modal>
             </ModalWrapper>
-        )
+        );
     } else if (modalOpen.status == 'applySuccess') {
         return (
             <ModalWrapper>
@@ -122,7 +122,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                     </CloseButton>
                 </Modal>
             </ModalWrapper>
-        )
+        );
     } else if (modalOpen.status == 'cancel') {
         return (
             <ModalWrapper>
@@ -137,7 +137,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                         </StyledBtn>
                         <StyledBtn
                             onClick={() => {
-                                cancelParty(postId)
+                                cancelParty(postId);
                             }}
                             style={{ backgroundColor: '#1EDD81' }}
                         >
@@ -146,7 +146,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                     </Buttons>
                 </Modal>
             </ModalWrapper>
-        )
+        );
     }
 }
 const ModalWrapper = styled.div`
@@ -161,7 +161,7 @@ const ModalWrapper = styled.div`
     display: flex;
     z-index: 1;
     flex-direction: column;
-`
+`;
 
 const Modal = styled.div`
     width: 309px;
@@ -176,14 +176,14 @@ const Modal = styled.div`
     display: flex;
     box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14),
         0px 1px 14px 0px rgba(0, 0, 0, 0.12);
-`
+`;
 const Text = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 30px;
-`
+`;
 const Title = styled.div`
     color: #000;
     font-family: Pretendard;
@@ -191,7 +191,7 @@ const Title = styled.div`
     font-style: normal;
     font-weight: 700;
     margin-bottom: 9px;
-`
+`;
 const Explain = styled.div`
     color: var(--Gray-Text-3, #343434);
     text-align: center;
@@ -200,13 +200,13 @@ const Explain = styled.div`
     font-style: normal;
     font-weight: 500;
     line-height: 157%; /* 18.84px */
-`
+`;
 
 const Buttons = styled.div`
     display: flex;
     flex-direction: row;
     gap: 15px;
-`
+`;
 
 const StyledBtn = styled.button`
     width: 142px;
@@ -222,7 +222,7 @@ const StyledBtn = styled.button`
     line-height: normal;
     letter-spacing: 0.54px;
     border: none;
-`
+`;
 
 const CloseButton = styled.button`
     width: 291px;
@@ -240,6 +240,6 @@ const CloseButton = styled.button`
     letter-spacing: 0.54px;
     border: none;
     background: var(--Green-Button, #1edd81);
-`
+`;
 
-export default MatchApplyModal
+export default MatchApplyModal;

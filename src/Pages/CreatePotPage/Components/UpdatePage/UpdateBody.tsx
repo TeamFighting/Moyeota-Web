@@ -2,11 +2,11 @@ import { ChevronRight, LocationFrom, LocationMarker } from '../../../../assets/s
 import * as S from '../../style';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useEffect } from 'react';
-import usePostDataStore from '../../../../zustand/store/PostDataStore';
-import DurationFareStore from '../../../../zustand/store/DurationFareStore';
-import PotCreateStore from '../../../../zustand/store/PotCreateStore';
+import usePostDataStore from '../../../../state/store/PostDataStore';
+import DurationFareStore from '../../../../state/store/DurationFareStore';
+import PotCreateStore from '../../../../state/store/PotCreateStore';
 import { instance } from '../../../../axios';
-import CurrentLocationStore from '../../../../zustand/store/CurrentLocation';
+import CurrentLocationStore from '../../../../state/store/CurrentLocation';
 import DetailMap from '../../../DetailPage/DetailMap';
 
 interface CreateBodyProps {

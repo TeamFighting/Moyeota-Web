@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import PotCreateStore from '../../../../zustand/store/PotCreateStore';
+import PotCreateStore from '../../../../state/store/PotCreateStore';
 
 function CreateExitButton() {
     const navigate = useNavigate();

@@ -8,10 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import ISOto12 from '../../../util/ISOto12';
 import getDays from '../../../util/getDays';
 import createAgo from '../../../util/createAgo';
-import { useQuickPotStore } from '../../../../zustand/store/QuickPotStore';
+import { useQuickPotStore } from '../../../../state/store/QuickPotStore';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import useStore from '../../../../zustand/store/ContentStore';
+import useStore from '../../../../state/store/ContentStore';
 import { instance } from '../../../../axios';
 
 function SingleContent() {

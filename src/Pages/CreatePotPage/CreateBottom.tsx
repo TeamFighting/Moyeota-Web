@@ -2,7 +2,7 @@ import { ChevronRight } from '../../assets/svg';
 import * as S from './style';
 import TimeModal from './Components/Modal/TimeModal';
 import { SetStateAction, useState } from 'react';
-import PotCreateStore from '../../zustand/store/PotCreateStore';
+import PotCreateStore from '../../state/store/PotCreateStore';
 
 declare global {
     interface Window {

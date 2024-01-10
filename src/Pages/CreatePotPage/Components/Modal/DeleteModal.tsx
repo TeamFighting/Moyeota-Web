@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PotCreateStore from '../../../../zustand/store/PotCreateStore';
+import PotCreateStore from '../../../../state/store/PotCreateStore';
 import { useNavigate } from 'react-router-dom';
 import { instance } from '../../../../axios';
 

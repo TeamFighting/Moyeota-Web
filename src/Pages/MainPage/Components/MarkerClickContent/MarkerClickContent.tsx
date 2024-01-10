@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import * as S from '../../style';
 import ArrowRight from '../../../../../public/svg/ArrowRight.svg';
 import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
-import ContentStore from '../../../../zustand/store/ContentStore';
+import ContentStore from '../../../../state/store/ContentStore';
 import createAgo from '../../../util/createAgo';
 import { Clock } from '../../../../assets/svg';
 import getDays from '../../../util/getDays';

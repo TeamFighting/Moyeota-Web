@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import { HEADER_HEIGHT } from '../../Constants/constant';
-import useStore from '../../zustand/store/ContentStore';
+import useStore from '../../state/store/ContentStore';
 import LocationHeader from './LocationHeader';
 import BottomSheet from './Components/BottomSheet';
 import { Chevronleft } from '../../assets/svg';
@@ -11,7 +11,7 @@ import SvgBacktoCurrentButton from '../../assets/svg/BacktoCurrentButton';
 import { Icon } from '../DetailPage/style';
 import NaverMap from './NaverMap/NaverMap';
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
-import { useClickedMarker } from '../../zustand/store/ClickedMarker';
+import { useClickedMarker } from '../../state/store/ClickedMarker';
 import { instance } from '../../axios';
 import watchPositionHook from '../../Hooks/watchPositionHook';
 

@@ -1,8 +1,8 @@
-import * as S from '../../style'
-import SingleContent from '../SingleContent'
-import useStore from '../../../../zustand/store/ContentStore'
+import * as S from '../../style';
+import SingleContent from '../SingleContent';
+import useStore from '../../../../state/store/ContentStore';
 const BottomSheetContent = () => {
-    const { totalData } = useStore((state) => state)
+    const { totalData } = useStore((state) => state);
 
     if (totalData === undefined || null) {
         return (
@@ -29,7 +29,7 @@ const BottomSheetContent = () => {
                     데이터가 없습니다 :(
                 </p>
             </div>
-        )
+        );
     } else {
         return (
             <>
@@ -39,8 +39,8 @@ const BottomSheetContent = () => {
                     </S.ContentWrapper>
                 </S.ModalContent>
             </>
-        )
+        );
     }
-}
+};
 
-export default BottomSheetContent
+export default BottomSheetContent;
