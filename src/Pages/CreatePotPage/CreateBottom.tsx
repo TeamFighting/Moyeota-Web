@@ -81,8 +81,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                     <S.Description>
                         {useSelectedTime ? (
                             <S.SelectedInfo>
-                                {useSelectedTime}
-                                {/* {new Date(selectedTime)
+                                {new Date(useSelectedTime)
                                     .toLocaleString('ko-KR', {
                                         weekday: 'short',
                                         month: 'long',
@@ -92,7 +91,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                                         hour12: true,
                                     })
                                     .replace('.', '')}
-                                {JSON.stringify(selectedTime)}; */}
+                                {JSON.stringify(useSelectedTime)};
                             </S.SelectedInfo>
                         ) : (
                             '탑승일시를 선택해주세요'
