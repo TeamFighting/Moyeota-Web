@@ -49,13 +49,12 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     vehicle: vehicle,
                 }),
             });
-
-            if (response.status === 200) {
-                navigate('/createComplete');
-            } else {
-                alert('실패');
-                console.error('API 요청 실패');
-            }
+            alert(response.status);
+            // if (response.status === 200) {
+            //     navigate('/createComplete');
+            // } else {
+            //     console.error('API 요청 실패');
+            // }
         } catch (error) {
             console.error('error:', error);
         }

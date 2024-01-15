@@ -58,6 +58,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const connectToRN = () => {
         window.ReactNativeWebView.postMessage('please open time modal');
     };
+
     window.addEventListener('message', (event) => {
         try {
             const data = JSON.parse(event.data);
@@ -81,6 +82,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                     <S.Description>
                         {useSelectedTime ? (
                             <S.SelectedInfo>
+                                {/* {useSelectedTime} */}
                                 {new Date(useSelectedTime)
                                     .toLocaleString('ko-KR', {
                                         weekday: 'short',
@@ -116,17 +118,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 </S.TextWrapper>
                 <ChevronRight width="24" height="24" style={{ marginTop: '13px' }} />
             </S.Wrapper>
-            {selectedModal === 'time' && (
-                <TimeModal
-                    closeModal={closeModal}
-                    selectedVehicle={selectedVehicle}
-                    totalPeople={totalPeople}
-                    isSameGenderRide={isSameGenderRide}
-                    onVehicleSelection={handleVehicleSelection}
-                    onTotalPeopleChange={onTotalPeopleChange}
-                    onSameGenderRideToggle={handleSameGenderRideToggle}
-                />
-            )}
         </S.Bottom>
     );
 }
