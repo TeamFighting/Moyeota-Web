@@ -1,8 +1,9 @@
 import { ChevronRight } from '../../assets/svg';
 import * as S from './style';
 import TimeModal from './Components/Modal/TimeModal';
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import PotCreateStore from '../../state/store/PotCreateStore';
+import usePotCreateStore from '../../state/store/PotCreateStore';
 
 declare global {
     interface Window {
@@ -24,10 +25,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
     const [selectedModal, setSelectedModal] = useState<string | null>(null);
     const [useSelectedTime, setUseSelectedTime] = useState<string>('');
-    // const { selectedTime, setSelectedTime } = PotCreateStore((state) => ({
-    //     selectedTime: state.selectedTime,
-    //     setSelectedTime: state.setSelectedTime,
-    // }));
+    const { selectedTime, setSelectedTime } = usePotCreateStore();
 
     const openTimeModal = () => {
         setSelectedModal('time');
@@ -59,15 +57,17 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         window.ReactNativeWebView.postMessage('please open time modal');
     };
 
-    window.addEventListener('message', (event) => {
-        try {
-            const data = JSON.parse(event.data);
-            setUseSelectedTime(data.selectedTime);
-        } catch (error) {
-            // console.log(error);
-            alert(error);
-        }
-    });
+    useEffect(() => {
+        window.addEventListener('message', (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                setSelectedTime(data.selectedTime);
+                setUseSelectedTime(data.selectedTime);
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    }, []);
 
     return (
         <S.Bottom>
@@ -80,10 +80,10 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        {useSelectedTime ? (
+                        {selectedTime ? (
                             <S.SelectedInfo>
-                                {/* {useSelectedTime} */}
-                                {new Date(useSelectedTime)
+                                {useSelectedTime}
+                                {/* {new Date(selectedTime)
                                     .toLocaleString('ko-KR', {
                                         weekday: 'short',
                                         month: 'long',
@@ -93,7 +93,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                                         hour12: true,
                                     })
                                     .replace('.', '')}
-                                {JSON.stringify(useSelectedTime)};
+                                {JSON.stringify(selectedTime)}; */}
                             </S.SelectedInfo>
                         ) : (
                             '탑승일시를 선택해주세요'
@@ -118,6 +118,17 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 </S.TextWrapper>
                 <ChevronRight width="24" height="24" style={{ marginTop: '13px' }} />
             </S.Wrapper>
+            {selectedModal === 'time' && (
+                <TimeModal
+                    closeModal={closeModal}
+                    selectedVehicle={selectedVehicle}
+                    totalPeople={totalPeople}
+                    isSameGenderRide={isSameGenderRide}
+                    onVehicleSelection={handleVehicleSelection}
+                    onTotalPeopleChange={onTotalPeopleChange}
+                    onSameGenderRideToggle={handleSameGenderRideToggle}
+                />
+            )}
         </S.Bottom>
     );
 }

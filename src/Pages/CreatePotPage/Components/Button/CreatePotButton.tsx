@@ -1,12 +1,10 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import PotCreateStore from '../../../../state/store/PotCreateStore';
 import DurationFareStore from '../../../../state/store/DurationFareStore';
 import CurrentLocation from '../../../../state/store/CurrentLocation';
 import { instance } from '../../../../axios';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
-    const navigate = useNavigate();
     const potCreateStore = PotCreateStore();
     const durationFareStore = DurationFareStore();
     const currentLocationStore = CurrentLocation();
@@ -24,6 +22,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 destination,
                 VehicleType: vehicle,
                 sameGenderRide: sameGenderStatus,
+                selectedTime,
             } = potCreateStore;
             const { estimatedDuration, estimatedFare } = durationFareStore;
 
@@ -38,9 +37,9 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     createdDate: formattedDate,
                     departure: departure,
                     departureTime: formattedDate, //departureTime 으로 바꾸기
-                    destination: destination,
-                    distance: distance,
-                    duration: estimatedDuration,
+                    destination: '서울과학기술대학교',
+                    distance: 20,
+                    duration: 6800,
                     fare: estimatedFare,
                     modifiedDate: formattedDate,
                     numberOfRecruitment: numberOfRecruitment,
@@ -49,14 +48,10 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     vehicle: vehicle,
                 }),
             });
-            alert(response.status);
-            // if (response.status === 200) {
-            //     navigate('/createComplete');
-            // } else {
-            //     console.error('API 요청 실패');
-            // }
-        } catch (error) {
-            console.error('error:', error);
+            console.log(response.status);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            alert(error.response.data.message);
         }
     };
 
