@@ -24,10 +24,10 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
     const [selectedModal, setSelectedModal] = useState<string | null>(null);
     const [useSelectedTime, setUseSelectedTime] = useState<string>('');
-    const { selectedTime, setSelectedTime } = PotCreateStore((state) => ({
-        selectedTime: state.selectedTime,
-        setSelectedTime: state.setSelectedTime,
-    }));
+    // const { selectedTime, setSelectedTime } = PotCreateStore((state) => ({
+    //     selectedTime: state.selectedTime,
+    //     setSelectedTime: state.setSelectedTime,
+    // }));
 
     const openTimeModal = () => {
         setSelectedModal('time');
@@ -60,8 +60,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     };
     window.addEventListener('message', (event) => {
         try {
-            setSelectedTime(event.data);
-            setUseSelectedTime(event.data.selectedTime);
+            const data = JSON.parse(event.data);
+            // setSelectedTime(data.selectedTime);
+            setUseSelectedTime(data.selectedTime);
         } catch (error) {
             alert(error);
         }
@@ -78,7 +79,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        {selectedTime ? (
+                        {useSelectedTime ? (
                             <S.SelectedInfo>
                                 {useSelectedTime}
                                 {/* {new Date(selectedTime)
