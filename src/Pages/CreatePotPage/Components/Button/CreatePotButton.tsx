@@ -36,10 +36,10 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     content: content,
                     createdDate: formattedDate,
                     departure: departure,
-                    departureTime: formattedDate, //departureTime 으로 바꾸기
-                    destination: '서울과학기술대학교',
-                    distance: 20,
-                    duration: 6800,
+                    departureTime: selectedTime, //departureTime 으로 바꾸기
+                    destination: destination,
+                    distance: distance,
+                    duration: estimatedDuration,
                     fare: estimatedFare,
                     modifiedDate: formattedDate,
                     numberOfRecruitment: numberOfRecruitment,
@@ -48,10 +48,14 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     vehicle: vehicle,
                 }),
             });
-            console.log(response.status);
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-            alert(error.response.data.message);
+            alert(response.status);
+            // if (response.status === 200) {
+            //     navigate('/createComplete');
+            // } else {
+            //     console.error('API 요청 실패');
+            // }
+        } catch (error) {
+            console.error('error:', error);
         }
     };
 
