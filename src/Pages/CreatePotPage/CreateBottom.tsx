@@ -55,6 +55,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
     const isSelectionComplete = totalPeople > 1;
 
+    const connectToRN = () => {
+        window.ReactNativeWebView.postMessage('please open time modal');
+    };
     window.addEventListener('message', (event) => {
         try {
             alert(event.data.selectedTime);
@@ -67,6 +70,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     return (
         <S.Bottom>
             <S.Wrapper
+                onClick={connectToRN}
                 style={{
                     paddingBottom: '40px',
                 }}
