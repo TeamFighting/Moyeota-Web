@@ -71,7 +71,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
 
 const Wrapper = styled.div`
     width: 100%;
-    height: 128px;
+    height: 64px;
     background-color: white;
     bottom: 0;
     display: flex;

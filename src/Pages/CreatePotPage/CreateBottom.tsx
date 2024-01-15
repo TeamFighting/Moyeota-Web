@@ -53,24 +53,20 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         setSameGenderRide(isSameGenderRide ? 'NO' : 'YES');
     };
 
-    const isSelectionComplete = totalPeople > 0;
-
-    const connectToRN = () => {
-        window.ReactNativeWebView.postMessage('h');
-    };
+    const isSelectionComplete = totalPeople > 1;
 
     window.addEventListener('message', (event) => {
         try {
+            alert(event.data.selectedTime);
             setSelectedTime(event.data.selectedTime);
         } catch (error) {
-            console.error('error:', error);
+            alert(error);
         }
     });
 
     return (
         <S.Bottom>
             <S.Wrapper
-                onClick={connectToRN}
                 style={{
                     paddingBottom: '40px',
                 }}
