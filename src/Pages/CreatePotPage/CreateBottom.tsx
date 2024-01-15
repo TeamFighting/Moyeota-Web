@@ -23,7 +23,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const [isSameGenderRide, setIsSameGenderRide] = useState(false);
 
     const [selectedModal, setSelectedModal] = useState<string | null>(null);
-
+    const [useSelectedTime, setUseSelectedTime] = useState<string>('');
     const { selectedTime, setSelectedTime } = PotCreateStore((state) => ({
         selectedTime: state.selectedTime,
         setSelectedTime: state.setSelectedTime,
@@ -62,6 +62,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         try {
             alert(event.data.selectedTime);
             setSelectedTime(event.data.selectedTime);
+            setUseSelectedTime(event.data.selectedTime);
         } catch (error) {
             alert(error);
         }
@@ -80,7 +81,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                     <S.Description>
                         {selectedTime ? (
                             <S.SelectedInfo>
-                                {selectedTime}
+                                {useSelectedTime}
                                 {/* {new Date(selectedTime)
                                     .toLocaleString('ko-KR', {
                                         weekday: 'short',
