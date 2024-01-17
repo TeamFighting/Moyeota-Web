@@ -78,8 +78,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             }
         });
     }, []);
-
-    alert('셀렉타임' + selectedTime);
+    if (selectedTime) alert('셀렉타임' + selectedTime);
     return (
         <S.Bottom>
             <S.Wrapper
