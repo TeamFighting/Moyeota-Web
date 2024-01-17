@@ -58,14 +58,14 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         window.addEventListener('message', (event) => {
             try {
                 const data = JSON.parse(event.data);
-                setSelectedTime(data.selectedTime);
+                alert(data.selectedTime);
+                setSelectedTime('2021-10-10T10:10:10.000Z');
             } catch (error) {
                 // alert(error);
             }
         });
     }, []);
 
-    if (selectedTime) alert('있다구요 ' + selectedTime);
     return (
         <S.Bottom>
             <button
