@@ -64,7 +64,10 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 alert(error);
             }
         };
+
         window.addEventListener('message', handleMessage);
+
+        // 클린업 함수를 반환합니다.
         return () => {
             window.removeEventListener('message', handleMessage);
         };
@@ -74,6 +77,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     return (
         <S.Bottom>
             {selectedTime == '' ? 'null' : selectedTime}
+            {selectedTime == undefined ? 'undefined' : selectedTime}
             <button
                 onClick={() => {
                     setSelectedTime(s);
@@ -90,10 +94,10 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        {selectedTime !== null ? (
+                        {selectedTime !== undefined || '' ? (
                             <S.SelectedInfo>
                                 <div>
-                                    {new Date()
+                                    {new Date(selectedTime)
                                         .toLocaleString('ko-KR', {
                                             weekday: 'short',
                                             month: 'long',
