@@ -67,7 +67,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         });
     }, []);
     console.log(selectedTime !== '' ? selectedTime : '탑승일시를 선택해주세요');
-    if (selectedTime) alert('selectTime' + selectedTime);
+    if (selectedTime) alert(typeof selectedTime);
     return (
         <S.Bottom>
             <S.Wrapper
