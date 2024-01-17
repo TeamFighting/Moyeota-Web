@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
 import ModalStore from '../../../../state/store/ModalStore';
 import { instance } from '../../../../axios';
+import { AuthStore } from '../../../../state/store/AuthStore';
 
 interface ModalProps {
     isFull: boolean;
@@ -11,7 +12,7 @@ interface ModalProps {
 function MatchApplyModal({ postId, isFull }: ModalProps) {
     const { setAppliedParty, deleteAppliedParty } = useAppliedPartyStore();
     const { modalOpen, setIsModalOpen } = ModalStore();
-
+    const { accessToken } = AuthStore();
     const ref = useOnclickOutside(() => {
         setIsModalOpen(false, 'apply');
     });
@@ -23,13 +24,13 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
         try {
             await instance
                 .post(
-                    `/participation-details/posts/${postId}`,
+                    `/participation-details/join/posts/${postId}`,
                     {
                         postId: postId,
                     },
                     {
                         headers: {
-                            Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
+                            Authorization: `Bearer ${accessToken}`,
                         },
                     },
                 )

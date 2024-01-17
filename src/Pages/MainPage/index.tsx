@@ -14,26 +14,24 @@ import MarkerClickContent from './Components/MarkerClickContent/MarkerClickConte
 import { useClickedMarker } from '../../state/store/ClickedMarker';
 import { instance } from '../../axios';
 import watchPositionHook from '../../Hooks/watchPositionHook';
+import { AuthStore } from '../../state/store/AuthStore';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    const [useTtoken, setToken] = useState('');
+    const { setAccessToken } = AuthStore();
+    const [useToken, setUseToken] = useState<string | undefined>(undefined);
     watchPositionHook();
-
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handleMessage = (event: any) => {
-            alert('메세지 받음');
             try {
                 if (typeof event.data === 'string') {
                     const data = JSON.parse(event.data);
-                    setToken(data.token);
-                    alert(data.token);
-                } else {
-                    alert('토큰이 없습니다.');
+                    setAccessToken(data.token);
+                    setUseToken(data.token);
                 }
             } catch (error) {
                 console.error(error);
@@ -45,7 +43,7 @@ function MainPage() {
         // useEffect에서 이벤트 리스너를 정리하는 부분이 누락되어 있습니다.
         // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거하는 것이 중요합니다.
 
-        if (useTtoken !== undefined) {
+        if (useToken !== undefined) {
             return () => {
                 window.removeEventListener('message', handleMessage);
             };
@@ -57,6 +55,7 @@ function MainPage() {
             const res = await instance.get('posts?page=0');
             if (res.status === 200) {
                 updateTotalData(res.data.data.content);
+                console.log(res.data.data.content);
             } else {
                 alert(res.status + '에러');
             }
@@ -103,8 +102,6 @@ function MainPage() {
                         />
                     </Icon>
                 </Icons>
-
-                <div>{useTtoken}</div>
                 <NaverMap />
                 {isClicked && <MarkerClickContent postId={clickedMarkerId} />}
                 <Bottom isClicked={isClicked}>
