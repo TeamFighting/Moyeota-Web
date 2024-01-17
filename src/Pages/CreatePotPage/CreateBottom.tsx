@@ -88,10 +88,11 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                     <S.BottomTitle>출발시간</S.BottomTitle>
 
                     <S.Description>
-                        {selectedTime !== null ? selectedTime : '탑승일시를 선택해주세요'}
+                        {selectedTime}
                         <br />
                         {selectedTime !== null ? (
-                            <S.SelectedInfo>
+                            // <S.SelectedInfo>
+                            <div>
                                 {new Date(selectedTime)
                                     .toLocaleString('ko-KR', {
                                         weekday: 'short',
@@ -102,8 +103,10 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                                         hour12: true,
                                     })
                                     .replace('.', '')}
-                            </S.SelectedInfo>
+                            </div>
                         ) : (
+                            //</S.SelectedInfo>
+
                             '탑승일시를 선택해주세요'
                         )}
                     </S.Description>
