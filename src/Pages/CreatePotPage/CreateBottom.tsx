@@ -24,7 +24,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const [isSameGenderRide, setIsSameGenderRide] = useState(false);
 
     const [selectedModal, setSelectedModal] = useState<string | null>(null);
-    const [, setUseSelectedTime] = useState<string>('');
     const { selectedTime, setSelectedTime } = usePotCreateStore();
 
     const openTimeModal = () => {
@@ -62,13 +61,12 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             try {
                 const data = JSON.parse(event.data);
                 setSelectedTime(data.selectedTime);
-                setUseSelectedTime(data.selectedTime);
             } catch (error) {
                 console.error(error);
             }
         });
     }, []);
-
+    if (selectedTime) alert(selectedTime);
     return (
         <S.Bottom>
             <S.Wrapper

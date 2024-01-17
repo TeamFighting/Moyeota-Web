@@ -54,12 +54,7 @@ function MainPage() {
     async function fetchData() {
         try {
             const res = await instance.get('posts?page=0');
-            const data = await instance.get('/users', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            console.log(data);
+
             if (res.status === 200) {
                 updateTotalData(res.data.data.content);
                 console.log(res.data.data.content);
