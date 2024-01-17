@@ -27,20 +27,20 @@ function MainPage() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handleMessage = (event: any) => {
             try {
-                const data = JSON.parse(event.data);
-                setToken(data);
-                alert(data);
+                if (typeof event.data === 'string') {
+                    const data = JSON.parse(event.data);
+                    setToken(data.token);
+                    alert(data.token);
+                } else {
+                    console.error('event.data is not a string:', event.data);
+                }
             } catch (error) {
                 console.error(error);
             }
         };
 
         window.addEventListener('message', handleMessage);
-
-        return () => {
-            window.removeEventListener('message', handleMessage);
-        };
-    }, []);
+    }, [useTtoken]);
 
     async function fetchData() {
         try {
