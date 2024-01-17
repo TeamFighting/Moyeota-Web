@@ -61,16 +61,16 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             alert('받았음' + data.selectedTime);
             setSelectedTime(data.selectedTime);
         } catch (error) {
-            alert(error);
+            console.log('error', error);
         }
     };
 
     window.addEventListener('message', handleMessage);
 
     // 클린업 함수를 반환합니다.
-    return () => {
-        window.removeEventListener('message', handleMessage);
-    };
+    // return () => {
+    //     window.removeEventListener('message', handleMessage);
+    // };
     // }, []);
     const s = new Date('2024-01-18T18:31:39.000Z').toISOString();
     console.log('s', s);
