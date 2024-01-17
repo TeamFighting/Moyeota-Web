@@ -26,13 +26,14 @@ function MainPage() {
         fetchData();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handleMessage = (event: any) => {
+            alert('메세지 받음');
             try {
                 if (typeof event.data === 'string') {
                     const data = JSON.parse(event.data);
                     setToken(data.token);
                     alert(data.token);
                 } else {
-                    console.error('event.data is not a string:', event.data);
+                    alert('토큰이 없습니다.');
                 }
             } catch (error) {
                 console.error(error);
@@ -44,10 +45,11 @@ function MainPage() {
         // useEffect에서 이벤트 리스너를 정리하는 부분이 누락되어 있습니다.
         // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거하는 것이 중요합니다.
 
-        if (useTtoken !== undefined)
+        if (useTtoken !== undefined) {
             return () => {
                 window.removeEventListener('message', handleMessage);
             };
+        }
     }, []);
 
     async function fetchData() {
