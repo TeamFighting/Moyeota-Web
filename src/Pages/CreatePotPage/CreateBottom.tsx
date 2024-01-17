@@ -73,20 +73,8 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             console.log(event.data);
         });
     }, []);
-
-    const s = new Date('2024-01-18T18:31:39.000Z').toISOString();
-    console.log('s', s);
     return (
         <S.Bottom>
-            {selectedTime == '' ? 'null' : selectedTime}
-            {selectedTime == undefined ? 'undefined' : selectedTime}
-            <button
-                onClick={() => {
-                    setSelectedTime(s);
-                }}
-            >
-                시간 삽입
-            </button>
             <S.Wrapper
                 onClick={connectToRN}
                 style={{
@@ -99,7 +87,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                         {selectedTime !== undefined || '' ? (
                             <S.SelectedInfo>
                                 <div>
-                                    {new Date(selectedTime)
+                                    {new Date(selectedTime + 9 * 60 * 60 * 1000)
                                         .toLocaleString('ko-KR', {
                                             weekday: 'short',
                                             month: 'long',
