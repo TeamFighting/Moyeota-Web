@@ -61,7 +61,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 const data = JSON.parse(event.data);
                 if (data.selectedTime !== undefined) {
                     setSelectedTime(data.selectedTime);
-                    alert(selectedTime);
                 }
             } catch (error) {
                 console.error('error:', error);
