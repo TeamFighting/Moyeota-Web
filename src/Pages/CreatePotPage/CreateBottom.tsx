@@ -67,7 +67,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         });
     }, []);
 
-    if (selectedTime) alert(selectedTime);
+    if (selectedTime) alert('selectTime' + selectedTime);
     return (
         <S.Bottom>
             <S.Wrapper
@@ -79,7 +79,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        {selectedTime ? (
+                        {selectedTime != '' ? (
                             <S.SelectedInfo>
                                 {new Date(selectedTime)
                                     .toLocaleString('ko-KR', {

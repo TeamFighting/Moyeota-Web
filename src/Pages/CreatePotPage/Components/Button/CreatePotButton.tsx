@@ -11,11 +11,12 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const durationFareStore = DurationFareStore();
     const currentLocationStore = CurrentLocation();
     const navigate = useNavigate();
+    const { accessToken } = AuthStore();
 
     const createPost = async () => {
+        console.log('createPost');
         try {
             const formattedDate = new Date().toISOString;
-            const { accessToken } = AuthStore();
             const numberOfRecruitment = totalPeople;
             const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
             const {
@@ -49,6 +50,20 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     sameGenderStatus: sameGenderStatus,
                     title: title,
                     vehicle: vehicle,
+                    // category: 'LIFE',
+                    // content: '같이 갈 사람 참가 신청 ㄱㄱ',
+                    // createdDate: '2024-01-17T08:35:42.541Z',
+                    // departure: '공릉역 7호선',
+                    // departureTime: '2024-01-17T08:35:42.541Z',
+                    // destination: '서울과학기술대학교 어의관',
+                    // distance: 0.5,
+                    // duration: 313,
+                    // fare: 5200,
+                    // modifiedDate: '2024-01-17T08:35:42.541Z',
+                    // numberOfRecruitment: 4,
+                    // sameGenderStatus: 'YES',
+                    // title: '갈사람?',
+                    // vehicle: '일반',
                 }),
             });
             alert(response.status);
@@ -58,7 +73,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 alert('API 요청 실패');
             }
         } catch (error) {
-            console.error('error:', error);
+            alert(error);
         }
     };
 
