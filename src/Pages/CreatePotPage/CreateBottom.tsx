@@ -66,6 +66,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             }
         });
     }, []);
+
     console.log(selectedTime !== '' ? selectedTime : '탑승일시를 선택해주세요');
     if (selectedTime) alert(typeof selectedTime);
     return (
@@ -80,15 +81,15 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <button
                         onClick={() => {
-                            setSelectedTime('');
+                            setSelectedTime('2021-10-10T10:10:10.000Z');
                         }}
                     >
                         시간 삽입
                     </button>
                     <S.Description>
-                        {selectedTime !== '' ? selectedTime : '탑승일시를 선택해주세요'}
+                        {selectedTime !== null ? selectedTime : '탑승일시를 선택해주세요'}
                         <br />
-                        {selectedTime !== '' ? (
+                        {selectedTime !== null ? (
                             <S.SelectedInfo>
                                 {new Date(selectedTime)
                                     .toLocaleString('ko-KR', {
