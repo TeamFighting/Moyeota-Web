@@ -55,13 +55,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         window.ReactNativeWebView.postMessage('please open time modal');
     };
 
-    // useEffect(() => {
-
-    // 클린업 함수를 반환합니다.
-    // return () => {
-    //     window.removeEventListener('message', handleMessage);
-    // };
-    // }, []);
     useEffect(() => {
         window.addEventListener('message', (event) => {
             try {
@@ -70,9 +63,12 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             } catch (error) {
                 console.error('error:', error);
             }
-            console.log(event.data);
         });
     }, []);
+    const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+    const stringg = '2024-01-17T08:35:42.541Z';
+    // const day = new Date(stringg.toISO) + KR_TIME_DIFF;
+    // console.log('selectedTime:', day);
     return (
         <S.Bottom>
             <S.Wrapper
@@ -87,7 +83,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                         {selectedTime !== undefined || '' ? (
                             <S.SelectedInfo>
                                 <div>
-                                    {new Date(selectedTime + 9 * 60 * 60 * 1000)
+                                    {new Date(selectedTime)
                                         .toLocaleString('ko-KR', {
                                             weekday: 'short',
                                             month: 'long',

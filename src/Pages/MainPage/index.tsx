@@ -31,8 +31,10 @@ function MainPage() {
             try {
                 if (typeof event.data === 'string') {
                     const data = JSON.parse(event.data);
-                    setAccessToken(data.token);
-                    setUseToken(data.token);
+                    if (data.token !== undefined) {
+                        setAccessToken(data.token);
+                        setUseToken(data.token);
+                    }
                 }
             } catch (error) {
                 console.error(error);
@@ -53,8 +55,13 @@ function MainPage() {
 
     async function fetchData() {
         try {
+            const userID = await instance.get('/users', {
+                headers: {
+                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNzA3MzAxOTE4fQ.J0YarxOpRyNLrWFN17y2u_8ijzjdGYy69uSU4Wp9z5Q`,
+                },
+            });
+            console.log(userID);
             const res = await instance.get('posts?page=0');
-
             if (res.status === 200) {
                 updateTotalData(res.data.data.content);
                 console.log(res.data.data.content);
