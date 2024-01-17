@@ -25,7 +25,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
     const [selectedModal, setSelectedModal] = useState<string | null>(null);
     const [useSelectedTime, setUseSelectedTime] = useState<string>('');
-    const { setSelectedTime } = usePotCreateStore();
+    const { selectedTime, setSelectedTime } = usePotCreateStore();
 
     const openTimeModal = () => {
         setSelectedModal('time');
@@ -61,7 +61,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             const data = JSON.parse(event.data);
             setSelectedTime(data.selectedTime);
             setUseSelectedTime(data.selectedTime);
-            alert('시간' + useSelectedTime);
+            alert('시간' + selectedTime);
         } catch (error) {
             console.error(error);
         }
