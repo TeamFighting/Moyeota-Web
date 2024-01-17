@@ -1,7 +1,7 @@
 import { ChevronRight } from '../../assets/svg';
 import * as S from './style';
 import TimeModal from './Components/Modal/TimeModal';
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import PotCreateStore from '../../state/store/PotCreateStore';
 import usePotCreateStore from '../../state/store/PotCreateStore';
 
@@ -61,12 +61,26 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             const data = JSON.parse(event.data);
             setSelectedTime(data.selectedTime);
             setUseSelectedTime(data.selectedTime);
-            alert('시간' + selectedTime);
+            alert(data.selectedTime);
         } catch (error) {
             console.error(error);
         }
     });
 
+    useEffect(() => {
+        window.addEventListener('message', (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                setSelectedTime(data.selectedTime);
+                setUseSelectedTime(data.selectedTime);
+                alert(data.selectedTime);
+            } catch (error) {
+                console.error(error);
+            }
+        });
+    }, []);
+
+    alert('셀렉타임' + selectedTime);
     return (
         <S.Bottom>
             <S.Wrapper
@@ -78,9 +92,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        {useSelectedTime ? (
+                        {selectedTime ? (
                             <S.SelectedInfo>
-                                {useSelectedTime}
+                                {selectedTime}
                                 {/* {new Date(selectedTime)
                                     .toLocaleString('ko-KR', {
                                         weekday: 'short',
