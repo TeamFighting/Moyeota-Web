@@ -58,19 +58,21 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         window.addEventListener('message', (event) => {
             try {
                 const data = JSON.parse(event.data);
-                alert(data.selectedTime);
-                setSelectedTime('2021-10-10T10:10:10.000Z');
+                alert('받았음' + data.selectedTime);
+                setSelectedTime(data.selectedTime);
             } catch (error) {
-                // alert(error);
+                alert(error);
             }
         });
     }, []);
-
+    const s = new Date('2024-01-18T18:31:39.000Z').toISOString();
+    console.log('s', s);
     return (
         <S.Bottom>
+            {selectedTime == '' ? 'null' : selectedTime}
             <button
                 onClick={() => {
-                    setSelectedTime('2021-10-10T10:10:10.000Z');
+                    setSelectedTime(s);
                 }}
             >
                 시간 삽입
@@ -84,28 +86,24 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        <div>{selectedTime}</div>{' '}
-                        {/* <br />
                         {selectedTime !== null ? (
-                            // <S.SelectedInfo>
-                            <div>
-                                {new Date(selectedTime)
-                                    .toLocaleString('ko-KR', {
-                                        weekday: 'short',
-                                        month: 'long',
-                                        day: 'numeric',
-                                        hour: '2-digit',
-                                        minute: '2-digit',
-                                        hour12: true,
-                                    })
-                                    .replace('.', '')}
-                            </div> 
-                            //</S.SelectedInfo>
-                            */}
-                        {/* ) : (
-
+                            <S.SelectedInfo>
+                                <div>
+                                    {new Date()
+                                        .toLocaleString('ko-KR', {
+                                            weekday: 'short',
+                                            month: 'long',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                            hour12: true,
+                                        })
+                                        .replace('.', '')}
+                                </div>
+                            </S.SelectedInfo>
+                        ) : (
                             '탑승일시를 선택해주세요'
-                        )} */}
+                        )}
                     </S.Description>
                 </S.TextWrapper>
                 <ChevronRight width="24" height="24" />
