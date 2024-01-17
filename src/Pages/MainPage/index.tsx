@@ -22,6 +22,18 @@ function MainPage() {
     watchPositionHook();
     useEffect(() => {
         fetchData();
+        window.addEventListener('message', (event) => {
+            try {
+                if (typeof event.data === 'string') {
+                    const data = JSON.parse(event.data);
+                    alert(data);
+                } else {
+                    console.error('event.data is not a string:', event.data);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        });
     }, []);
 
     async function fetchData() {
