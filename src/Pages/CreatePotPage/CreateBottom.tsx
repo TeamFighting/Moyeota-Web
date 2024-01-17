@@ -66,6 +66,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             }
         });
     }, []);
+
     if (selectedTime) alert(selectedTime);
     return (
         <S.Bottom>

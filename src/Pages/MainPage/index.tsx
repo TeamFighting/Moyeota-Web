@@ -20,7 +20,7 @@ function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    const { accessToken, setAccessToken } = AuthStore();
+    const { setAccessToken } = AuthStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     watchPositionHook();
 
