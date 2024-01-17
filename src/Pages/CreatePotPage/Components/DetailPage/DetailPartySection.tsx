@@ -4,6 +4,7 @@ import * as S from './style';
 import { useEffect, useState } from 'react';
 import usePostDataStore from '../../../../state/store/PostDataStore';
 import { instance } from '../../../../axios';
+import { AuthStore } from '../../../../state/store/AuthStore';
 
 interface PARTYINFO {
     userName: string;
@@ -13,6 +14,7 @@ interface PARTYINFO {
 
 function DetailPartySection() {
     const { data } = usePostDataStore();
+    const { accessToken } = AuthStore();
     const [onlyParty, setonlyParty] = useState<PARTYINFO[]>([]);
     const postId = data.postId;
     const leaderName = data.userName;
@@ -21,7 +23,7 @@ function DetailPartySection() {
             await instance
                 .get(`/posts/${postId}/members`, {
                     headers: {
-                        Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
+                        Authorization: `Bearer ${accessToken}`,
                     },
                 })
                 .then((res) => {

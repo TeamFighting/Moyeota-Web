@@ -4,10 +4,9 @@ import PotCreateStore from '../../../../../state/store/PotCreateStore';
 import DurationFareStore from '../../../../../state/store/DurationFareStore';
 import CurrentLocation from '../../../../../state/store/CurrentLocation';
 import usePostDataStore from '../../../../../state/store/PostDataStore';
+import { AuthStore } from '../../../../../state/store/AuthStore';
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const navigate = useNavigate();
-    const potCreateStore = PotCreateStore();
-    const durationFareStore = DurationFareStore();
     const currentLocationStore = CurrentLocation();
     const { data } = usePostDataStore();
 
@@ -15,22 +14,18 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         try {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString();
-            const postId = data.postId;
-            const content = data.content;
-            const distance = potCreateStore.distance;
-            const destination = data.destination;
+            const { distance } = PotCreateStore();
+            const { estimatedDuration, estimatedFare } = DurationFareStore();
+            const { postId, content, destination, sameGenderStatus, vehicle, title } = data;
             const numberOfRecruitment = totalPeople;
-            const estimatedDuration = durationFareStore.estimatedDuration;
-            const estimatedFare = durationFareStore.estimatedFare;
-            const vehicle = data.vehicle;
-            const sameGenderStatus = data.sameGenderStatus;
-            const title = data.title;
             const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
+            const { accessToken } = AuthStore();
+
             const response = await fetch(`/posts/${postId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TOKEN}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
                 body: JSON.stringify({
                     category: 'LIFE',

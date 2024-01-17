@@ -3,16 +3,19 @@ import PotCreateStore from '../../../../state/store/PotCreateStore';
 import DurationFareStore from '../../../../state/store/DurationFareStore';
 import CurrentLocation from '../../../../state/store/CurrentLocation';
 import { instance } from '../../../../axios';
+import { AuthStore } from '../../../../state/store/AuthStore';
+import { useNavigate } from 'react-router-dom';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const potCreateStore = PotCreateStore();
     const durationFareStore = DurationFareStore();
     const currentLocationStore = CurrentLocation();
+    const navigate = useNavigate();
 
     const createPost = async () => {
         try {
             const formattedDate = new Date().toISOString;
-            const token = import.meta.env.VITE_AUTH_BEARER_TEST;
+            const { accessToken } = AuthStore();
             const numberOfRecruitment = totalPeople;
             const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
             const {
@@ -28,7 +31,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
 
             const response = await instance.post('/posts', {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
@@ -36,7 +39,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     content: content,
                     createdDate: formattedDate,
                     departure: departure,
-                    departureTime: selectedTime, //departureTime 으로 바꾸기
+                    departureTime: formattedDate, //departureTime 으로 바꾸기
                     destination: destination,
                     distance: distance,
                     duration: estimatedDuration,
@@ -49,11 +52,11 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 }),
             });
             alert(response.status);
-            // if (response.status === 200) {
-            //     navigate('/createComplete');
-            // } else {
-            //     console.error('API 요청 실패');
-            // }
+            if (response.status === 200) {
+                navigate('/createComplete');
+            } else {
+                console.error('API 요청 실패');
+            }
         } catch (error) {
             console.error('error:', error);
         }
