@@ -60,9 +60,13 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     useEffect(() => {
         window.addEventListener('message', (event) => {
             try {
-                const data = JSON.parse(event.data);
-                setSelectedTime(data.selectedTime);
-                setUseSelectedTime(data.selectedTime);
+                if (typeof event.data === 'string') {
+                    const data = JSON.parse(event.data);
+                    setSelectedTime(data.selectedTime);
+                    setUseSelectedTime(data.selectedTime);
+                } else {
+                    console.error('event.data is not a string:', event.data);
+                }
             } catch (error) {
                 console.error(error);
             }

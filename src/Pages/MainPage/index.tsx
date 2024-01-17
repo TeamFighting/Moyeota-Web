@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { HEADER_HEIGHT } from '../../Constants/constant';
 import useStore from '../../state/store/ContentStore';
 import LocationHeader from './LocationHeader';
@@ -19,21 +19,27 @@ function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
+    const [useTtoken, setToken] = useState('');
     watchPositionHook();
+
     useEffect(() => {
         fetchData();
-        window.addEventListener('message', (event) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const handleMessage = (event: any) => {
             try {
-                if (typeof event.data === 'string') {
-                    const data = JSON.parse(event.data);
-                    alert(data);
-                } else {
-                    console.error('event.data is not a string:', event.data);
-                }
+                const data = JSON.parse(event.data);
+                setToken(data);
+                alert(data);
             } catch (error) {
                 console.error(error);
             }
-        });
+        };
+
+        window.addEventListener('message', handleMessage);
+
+        return () => {
+            window.removeEventListener('message', handleMessage);
+        };
     }, []);
 
     async function fetchData() {
@@ -87,6 +93,8 @@ function MainPage() {
                         />
                     </Icon>
                 </Icons>
+
+                <div>{useTtoken}</div>
                 <NaverMap />
                 {isClicked && <MarkerClickContent postId={clickedMarkerId} />}
                 <Bottom isClicked={isClicked}>
