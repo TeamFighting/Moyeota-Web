@@ -56,15 +56,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     };
 
     // useEffect(() => {
-    window.addEventListener('message', (event) => {
-        try {
-            const data = JSON.parse(event.data);
-            setSelectedTime(data.selectedTime);
-        } catch (error) {
-            console.error('error:', error);
-        }
-        console.log(event.data);
-    });
 
     // 클린업 함수를 반환합니다.
     // return () => {
@@ -72,7 +63,15 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     // };
     // }, []);
     useEffect(() => {
-        alert('selectedTime' + selectedTime);
+        window.addEventListener('message', (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                if (data.selectedTime !== undefined) setSelectedTime(data.selectedTime);
+            } catch (error) {
+                console.error('error:', error);
+            }
+            console.log(event.data);
+        });
     }, []);
 
     const s = new Date('2024-01-18T18:31:39.000Z').toISOString();
