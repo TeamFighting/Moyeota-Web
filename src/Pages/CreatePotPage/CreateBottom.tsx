@@ -56,16 +56,15 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const connectToRN = () => {
         window.ReactNativeWebView.postMessage('please open time modal');
     };
-    window.addEventListener('message', (event) => {
-        try {
-            const data = JSON.parse(event.data);
-            setSelectedTime(data.selectedTime);
-            setUseSelectedTime(data.selectedTime);
-            alert(data.selectedTime);
-        } catch (error) {
-            console.error(error);
-        }
-    });
+    // window.addEventListener('message', (event) => {
+    //     try {
+    //         const data = JSON.parse(event.data);
+    //         setSelectedTime(data.selectedTime);
+    //         setUseSelectedTime(data.selectedTime);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // });
 
     useEffect(() => {
         window.addEventListener('message', (event) => {
