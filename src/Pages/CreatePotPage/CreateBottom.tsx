@@ -55,7 +55,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     };
 
     useEffect(() => {
-        window.addEventListener('message', (event) => {
+        const handleMessage = (event: MessageEvent) => {
             try {
                 const data = JSON.parse(event.data);
                 alert('받았음' + data.selectedTime);
@@ -63,7 +63,11 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             } catch (error) {
                 alert(error);
             }
-        });
+        };
+        window.addEventListener('message', handleMessage);
+        return () => {
+            window.removeEventListener('message', handleMessage);
+        };
     }, []);
     const s = new Date('2024-01-18T18:31:39.000Z').toISOString();
     console.log('s', s);
