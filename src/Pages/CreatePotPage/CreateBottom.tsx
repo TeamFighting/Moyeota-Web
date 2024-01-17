@@ -61,15 +61,13 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 const data = JSON.parse(event.data);
                 if (data.selectedTime !== undefined) {
                     setSelectedTime(data.selectedTime);
-                    alert(data.selectedTime);
+                    alert(selectedTime);
                 }
             } catch (error) {
                 console.error('error:', error);
             }
         });
     }, []);
-    const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-    const stringg = '2024-01-17T08:35:42.541Z';
     // const day = new Date(stringg.toISO) + KR_TIME_DIFF;
     // console.log('selectedTime:', day);
     return (
