@@ -90,7 +90,8 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        {selectedTime ? (
+                        {selectedTime}
+                        {/* {selectedTime ? (
                             <S.SelectedInfo>
                                 {selectedTime}
                                 {/* {new Date(selectedTime)
@@ -104,10 +105,10 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                                     })
                                     .replace('.', '')}
                                 {JSON.stringify(selectedTime)}; */}
-                            </S.SelectedInfo>
+                        {/* </S.SelectedInfo>
                         ) : (
                             '탑승일시를 선택해주세요'
-                        )}
+                        )} */}
                     </S.Description>
                 </S.TextWrapper>
                 <ChevronRight width="24" height="24" />
