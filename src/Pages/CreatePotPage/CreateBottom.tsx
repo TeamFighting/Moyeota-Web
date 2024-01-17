@@ -25,7 +25,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
     const [selectedModal, setSelectedModal] = useState<string | null>(null);
     const [useSelectedTime, setUseSelectedTime] = useState<string>('');
-    const { selectedTime, setSelectedTime } = usePotCreateStore();
+    const { setSelectedTime } = usePotCreateStore();
 
     const openTimeModal = () => {
         setSelectedModal('time');
@@ -77,7 +77,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        {selectedTime ? (
+                        {useSelectedTime ? (
                             <S.SelectedInfo>
                                 {useSelectedTime}
                                 {/* {new Date(selectedTime)
