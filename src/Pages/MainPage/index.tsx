@@ -20,9 +20,10 @@ function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    const { setAccessToken } = AuthStore();
+    const { accessToken, setAccessToken } = AuthStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     watchPositionHook();
+
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -53,6 +54,12 @@ function MainPage() {
     async function fetchData() {
         try {
             const res = await instance.get('posts?page=0');
+            const data = await instance.get('/users', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            console.log(data);
             if (res.status === 200) {
                 updateTotalData(res.data.data.content);
                 console.log(res.data.data.content);
