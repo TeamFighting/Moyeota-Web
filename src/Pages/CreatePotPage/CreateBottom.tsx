@@ -66,7 +66,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             }
         });
     }, []);
-
+    console.log(selectedTime !== '' ? selectedTime : '탑승일시를 선택해주세요');
     if (selectedTime) alert('selectTime' + selectedTime);
     return (
         <S.Bottom>
@@ -78,9 +78,17 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             >
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
+                    <button
+                        onClick={() => {
+                            setSelectedTime('');
+                        }}
+                    >
+                        시간 삽입
+                    </button>
                     <S.Description>
-                        {selectedTime}
-                        {/* {selectedTime != '' ? (
+                        {selectedTime !== '' ? selectedTime : '탑승일시를 선택해주세요'}
+                        <br />
+                        {selectedTime !== '' ? (
                             <S.SelectedInfo>
                                 {new Date(selectedTime)
                                     .toLocaleString('ko-KR', {
@@ -95,7 +103,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                             </S.SelectedInfo>
                         ) : (
                             '탑승일시를 선택해주세요'
-                        )} */}
+                        )}
                     </S.Description>
                 </S.TextWrapper>
                 <ChevronRight width="24" height="24" />
