@@ -59,7 +59,10 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         window.addEventListener('message', (event) => {
             try {
                 const data = JSON.parse(event.data);
-                if (data.selectedTime !== undefined) setSelectedTime(data.selectedTime);
+                if (data.selectedTime !== undefined) {
+                    setSelectedTime(data.selectedTime);
+                    alert(data.selectedTime);
+                }
             } catch (error) {
                 console.error('error:', error);
             }
