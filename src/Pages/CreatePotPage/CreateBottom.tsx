@@ -54,24 +54,24 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         window.ReactNativeWebView.postMessage('please open time modal');
     };
 
-    useEffect(() => {
-        const handleMessage = (event: MessageEvent) => {
-            try {
-                const data = JSON.parse(event.data);
-                alert('받았음' + data.selectedTime);
-                setSelectedTime(data.selectedTime);
-            } catch (error) {
-                alert(error);
-            }
-        };
+    // useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+        try {
+            const data = JSON.parse(event.data);
+            alert('받았음' + data.selectedTime);
+            setSelectedTime(data.selectedTime);
+        } catch (error) {
+            alert(error);
+        }
+    };
 
-        window.addEventListener('message', handleMessage);
+    window.addEventListener('message', handleMessage);
 
-        // 클린업 함수를 반환합니다.
-        return () => {
-            window.removeEventListener('message', handleMessage);
-        };
-    }, []);
+    // 클린업 함수를 반환합니다.
+    return () => {
+        window.removeEventListener('message', handleMessage);
+    };
+    // }, []);
     const s = new Date('2024-01-18T18:31:39.000Z').toISOString();
     console.log('s', s);
     return (
