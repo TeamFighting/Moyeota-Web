@@ -15,7 +15,7 @@ interface StoreState {
     setVehicleType: (value: string | null) => void;
     sameGenderRide: string | null;
     setSameGenderRide: (value: string | null) => void;
-    selectedTime: string | null;
+    selectedTime: string;
     setSelectedTime: (value: string) => void;
     postId: number;
     setPostId: (value: number) => void;
@@ -29,7 +29,7 @@ const PotCreateStore = create<StoreState>((set) => ({
     totalPeople: 1,
     VehicleType: '일반',
     sameGenderRide: 'NO',
-    selectedTime: null,
+    selectedTime: '',
     postId: 0,
     setDescription: (value) => set({ description: value }),
     setTitle: (value) => set({ title: value }),

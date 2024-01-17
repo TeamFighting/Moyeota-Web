@@ -20,9 +20,7 @@ interface CreateBottomProps {
 
 function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const [selectedVehicle, setSelectedVehicle] = useState('일반 승용 택시');
-
     const [isSameGenderRide, setIsSameGenderRide] = useState(false);
-
     const [selectedModal, setSelectedModal] = useState<string | null>(null);
     const { selectedTime, setSelectedTime } = usePotCreateStore();
 
@@ -67,7 +65,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         });
     }, []);
 
-    console.log(selectedTime == null);
     if (selectedTime) alert(selectedTime);
     return (
         <S.Bottom>
@@ -86,10 +83,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                         시간 삽입
                     </button>
                     <S.BottomTitle>출발시간</S.BottomTitle>
-
                     <S.Description>
                         {selectedTime}
-                        <br />
+                        {/* <br />
                         {selectedTime !== null ? (
                             // <S.SelectedInfo>
                             <div>
@@ -103,12 +99,13 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                                         hour12: true,
                                     })
                                     .replace('.', '')}
-                            </div>
-                        ) : (
+                            </div> 
                             //</S.SelectedInfo>
+                            */}
+                        {/* ) : (
 
                             '탑승일시를 선택해주세요'
-                        )}
+                        )} */}
                     </S.Description>
                 </S.TextWrapper>
                 <ChevronRight width="24" height="24" />
