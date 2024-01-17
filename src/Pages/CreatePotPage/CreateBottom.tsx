@@ -60,12 +60,12 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 const data = JSON.parse(event.data);
                 setSelectedTime(data.selectedTime);
             } catch (error) {
-                alert(error);
+                // alert(error);
             }
         });
     }, []);
 
-    if (selectedTime) alert(selectedTime);
+    if (selectedTime) alert('있다구요 ' + selectedTime);
     return (
         <S.Bottom>
             <button

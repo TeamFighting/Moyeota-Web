@@ -29,7 +29,7 @@ const PotCreateStore = create<StoreState>((set) => ({
     totalPeople: 1,
     VehicleType: '일반',
     sameGenderRide: 'NO',
-    selectedTime: '',
+    selectedTime: '하윙',
     postId: 0,
     setDescription: (value) => set({ description: value }),
     setTitle: (value) => set({ title: value }),
