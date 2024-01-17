@@ -78,7 +78,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 }}
             >
                 <S.TextWrapper>
-                    <S.BottomTitle>출발시간</S.BottomTitle>
                     <button
                         onClick={() => {
                             setSelectedTime('2021-10-10T10:10:10.000Z');
@@ -86,6 +85,8 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                     >
                         시간 삽입
                     </button>
+                    <S.BottomTitle>출발시간</S.BottomTitle>
+
                     <S.Description>
                         {selectedTime !== null ? selectedTime : '탑승일시를 선택해주세요'}
                         <br />
