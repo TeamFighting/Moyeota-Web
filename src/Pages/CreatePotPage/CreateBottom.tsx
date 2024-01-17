@@ -1,7 +1,7 @@
 import { ChevronRight } from '../../assets/svg';
 import * as S from './style';
 import TimeModal from './Components/Modal/TimeModal';
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import PotCreateStore from '../../state/store/PotCreateStore';
 
 declare global {
@@ -60,7 +60,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         try {
             const data = JSON.parse(event.data);
             setSelectedTime(data.selectedTime);
-            alert(data.selectedTime);
         } catch (error) {
             console.error('error:', error);
         }
@@ -72,6 +71,10 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     //     window.removeEventListener('message', handleMessage);
     // };
     // }, []);
+    useEffect(() => {
+        alert('selectedTime' + selectedTime);
+    }, []);
+
     const s = new Date('2024-01-18T18:31:39.000Z').toISOString();
     console.log('s', s);
     return (
