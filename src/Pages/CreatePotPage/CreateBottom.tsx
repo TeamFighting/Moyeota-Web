@@ -61,7 +61,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             const data = JSON.parse(event.data);
             setSelectedTime(data.selectedTime);
             setUseSelectedTime(data.selectedTime);
-            alert(data.selectedTime);
+            alert('시간' + useSelectedTime);
         } catch (error) {
             console.error(error);
         }
