@@ -39,7 +39,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     content: content,
                     createdDate: formattedDate,
                     departure: departure,
-                    departureTime: formattedDate, //departureTime 으로 바꾸기
+                    departureTime: selectedTime, //departureTime 으로 바꾸기
                     destination: destination,
                     distance: distance,
                     duration: estimatedDuration,
