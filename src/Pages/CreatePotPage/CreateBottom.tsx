@@ -1,9 +1,8 @@
 import { ChevronRight } from '../../assets/svg';
 import * as S from './style';
 import TimeModal from './Components/Modal/TimeModal';
-import { SetStateAction, useEffect, useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import PotCreateStore from '../../state/store/PotCreateStore';
-import usePotCreateStore from '../../state/store/PotCreateStore';
 
 declare global {
     interface Window {
@@ -22,8 +21,10 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const [selectedVehicle, setSelectedVehicle] = useState('일반 승용 택시');
     const [isSameGenderRide, setIsSameGenderRide] = useState(false);
     const [selectedModal, setSelectedModal] = useState<string | null>(null);
-    const { selectedTime, setSelectedTime } = usePotCreateStore();
-
+    const { selectedTime, setSelectedTime } = PotCreateStore((state) => ({
+        selectedTime: state.selectedTime,
+        setSelectedTime: state.setSelectedTime,
+    }));
     const openTimeModal = () => {
         setSelectedModal('time');
     };
@@ -55,17 +56,15 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     };
 
     // useEffect(() => {
-    const handleMessage = (event: MessageEvent) => {
+    window.addEventListener('message', (event) => {
         try {
             const data = JSON.parse(event.data);
-            alert('받았음' + data.selectedTime);
             setSelectedTime(data.selectedTime);
         } catch (error) {
-            console.log('error', error);
+            console.error('error:', error);
         }
-    };
-
-    window.addEventListener('message', handleMessage);
+        console.log(event.data);
+    });
 
     // 클린업 함수를 반환합니다.
     // return () => {
