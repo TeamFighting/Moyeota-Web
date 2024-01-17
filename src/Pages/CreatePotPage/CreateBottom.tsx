@@ -60,7 +60,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 const data = JSON.parse(event.data);
                 setSelectedTime(data.selectedTime);
             } catch (error) {
-                console.error(error);
+                alert(error);
             }
         });
     }, []);
@@ -68,6 +68,13 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     if (selectedTime) alert(selectedTime);
     return (
         <S.Bottom>
+            <button
+                onClick={() => {
+                    setSelectedTime('2021-10-10T10:10:10.000Z');
+                }}
+            >
+                시간 삽입
+            </button>
             <S.Wrapper
                 onClick={connectToRN}
                 style={{
@@ -75,16 +82,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 }}
             >
                 <S.TextWrapper>
-                    <button
-                        onClick={() => {
-                            setSelectedTime('2021-10-10T10:10:10.000Z');
-                        }}
-                    >
-                        시간 삽입
-                    </button>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        {selectedTime}
+                        <div>{selectedTime}</div>{' '}
                         {/* <br />
                         {selectedTime !== null ? (
                             // <S.SelectedInfo>
