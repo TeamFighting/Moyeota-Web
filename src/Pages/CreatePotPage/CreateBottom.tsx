@@ -67,7 +67,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 console.error(error);
             }
         });
-    }, [selectedTime]);
+    }, []);
 
     return (
         <S.Bottom>
