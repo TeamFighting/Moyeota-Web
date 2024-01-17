@@ -262,4 +262,5 @@ export const SelectedInfo = styled.div`
     font-style: normal;
     font-weight: 500;
     line-height: 157%; /* 25.12px */
+    height: 25px;
 `;

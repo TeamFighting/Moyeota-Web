@@ -56,15 +56,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const connectToRN = () => {
         window.ReactNativeWebView.postMessage('please open time modal');
     };
-    // window.addEventListener('message', (event) => {
-    //     try {
-    //         const data = JSON.parse(event.data);
-    //         setSelectedTime(data.selectedTime);
-    //         setUseSelectedTime(data.selectedTime);
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // });
 
     useEffect(() => {
         window.addEventListener('message', (event) => {
@@ -72,13 +63,12 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 const data = JSON.parse(event.data);
                 setSelectedTime(data.selectedTime);
                 setUseSelectedTime(data.selectedTime);
-                // alert(data.selectedTime);
             } catch (error) {
                 console.error(error);
             }
         });
-    }, []);
-    if (selectedTime) alert('셀렉타임' + selectedTime);
+    }, [selectedTime]);
+
     return (
         <S.Bottom>
             <S.Wrapper
@@ -90,7 +80,22 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        {selectedTime ? <S.SelectedInfo>{selectedTime}</S.SelectedInfo> : '탑승일시를 선택해주세요'}
+                        {selectedTime ? (
+                            <S.SelectedInfo>
+                                {new Date(selectedTime)
+                                    .toLocaleString('ko-KR', {
+                                        weekday: 'short',
+                                        month: 'long',
+                                        day: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                        hour12: true,
+                                    })
+                                    .replace('.', '')}
+                            </S.SelectedInfo>
+                        ) : (
+                            '탑승일시를 선택해주세요'
+                        )}
                     </S.Description>
                 </S.TextWrapper>
                 <ChevronRight width="24" height="24" />
