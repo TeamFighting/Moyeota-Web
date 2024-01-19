@@ -28,7 +28,12 @@ function BottomSheet() {
                 <BottomSheetHandle />
                 <ContentHeader />
                 <BottomSheetContentWrapper ref={content}>
-                    <BottomSheetContent />
+                    <div
+                        style={{ backgroundColor: 'black', overflow: 'scroll', WebkitOverflowScrolling: 'touch' }}
+                        onScroll={(event) => event.stopPropagation()}
+                    >
+                        <BottomSheetContent />
+                    </div>
                 </BottomSheetContentWrapper>
             </div>
         </Wrapper>
