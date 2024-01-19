@@ -28,7 +28,9 @@ function BottomSheet() {
                 <BottomSheetHandle />
                 <ContentHeader />
                 <BottomSheetContentWrapper ref={content}>
-                    <BottomSheetContent />
+                    <div style={{ overflow: 'scroll' }}>
+                        <BottomSheetContent />
+                    </div>
                 </BottomSheetContentWrapper>
             </div>
         </Wrapper>
