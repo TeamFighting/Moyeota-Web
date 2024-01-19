@@ -28,9 +28,7 @@ function BottomSheet() {
                 <BottomSheetHandle />
                 <ContentHeader />
                 <BottomSheetContentWrapper ref={content}>
-                    <div style={{ backgroundColor: 'black', overflow: 'scroll', WebkitOverflowScrolling: 'touch' }}>
-                        <BottomSheetContent />
-                    </div>
+                    <BottomSheetContent />
                 </BottomSheetContentWrapper>
             </div>
         </Wrapper>
@@ -70,8 +68,9 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
 `;
 const BottomSheetContentWrapper = styled.div`
     width: 100%;
-    overflow-y: scroll;
+    overflow: auto;
     height: 100%;
+    -webkit-overflow-scrolling: touch;
 `;
 
 export default BottomSheet;
