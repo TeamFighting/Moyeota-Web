@@ -23,17 +23,13 @@ function BottomSheet() {
                     height: '100%',
                     backgroundColor: 'white',
                     borderRadius: '26px 26px 0 0',
+                    overflow: 'scroll',
                 }}
             >
                 <BottomSheetHandle />
                 <ContentHeader />
                 <BottomSheetContentWrapper ref={content}>
-                    <div
-                        style={{ backgroundColor: 'black', overflow: 'scroll', WebkitOverflowScrolling: 'touch' }}
-                        onScroll={(event) => event.stopPropagation()}
-                    >
-                        <BottomSheetContent />
-                    </div>
+                    <BottomSheetContent />
                 </BottomSheetContentWrapper>
             </div>
         </Wrapper>
@@ -66,7 +62,6 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     position: fixed;
     z-index: 10000;
     width: 100%;
-    height: ${WINDOWHEIGHT}px;
     border-radius: 26px 26px 0 0;
     height: ${BOTTOM_SHEET_HEIGHT}px;
     transition: transform 400ms ease-out;
@@ -74,7 +69,7 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
 const BottomSheetContentWrapper = styled.div`
     width: 100%;
     overflow: auto;
-    height: 100%;
+    height: ${WINDOWHEIGHT};
     -webkit-overflow-scrolling: touch;
 `;
 
