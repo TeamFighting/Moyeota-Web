@@ -91,12 +91,12 @@ export default function useBottomSheet() {
 
                 sheet.current!.style.setProperty('transform', `translateY(${nextSheetY - MAX_Y}px)`); //바닥 만큼은 빼줘야함.
             } else {
-                document.body.style.overflowY = 'hidden';
+                document.body.style.overflowY = 'scroll';
             }
         };
 
         const handleTouchEnd = () => {
-            document.body.style.overflowY = 'auto';
+            // document.body.style.overflowY = 'auto';
             const { touchMove } = metrics.current;
 
             // Snap Animation
