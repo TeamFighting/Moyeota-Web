@@ -67,8 +67,9 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
             }
         });
     }, []);
-    // const day = new Date(stringg.toISO) + KR_TIME_DIFF;
-    // console.log('selectedTime:', day);
+
+    console.log(selectedTime != '');
+
     return (
         <S.Bottom>
             <S.Wrapper
@@ -80,7 +81,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
                     <S.Description>
-                        {selectedTime !== undefined || '' ? (
+                        {selectedTime != '' ? (
                             <S.SelectedInfo>
                                 <div>
                                     {new Date(selectedTime)
