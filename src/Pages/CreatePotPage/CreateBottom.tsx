@@ -61,14 +61,13 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 const data = JSON.parse(event.data);
                 if (data.selectedTime !== undefined) {
                     setSelectedTime(data.selectedTime);
+                    alert(data.selectedTime);
                 }
             } catch (error) {
                 console.error('error:', error);
             }
         });
     }, []);
-
-    console.log(selectedTime != '');
 
     return (
         <S.Bottom>
@@ -92,6 +91,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                                             hour: '2-digit',
                                             minute: '2-digit',
                                             hour12: true,
+                                            timeZone: 'UTC',
                                         })
                                         .replace('.', '')}
                                 </div>
