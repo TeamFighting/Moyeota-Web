@@ -76,8 +76,6 @@ export default function useBottomSheet() {
             }
 
             if (canUserMoveBottomSheet()) {
-                e.preventDefault();
-
                 const touchOffset = currentTouch.clientY - touchStart.touchY;
                 let nextSheetY = touchStart.sheetY + touchOffset;
 
@@ -133,7 +131,6 @@ export default function useBottomSheet() {
 
     const handleUp = () => {
         sheet.current!.style.setProperty('transform', `translateY(${MIN_Y - MAX_Y}px)`);
-
         // metrics 초기화.
         metrics.current = {
             touchStart: {
@@ -150,12 +147,9 @@ export default function useBottomSheet() {
 
     useEffect(() => {
         const handleTouchStart = () => {
-            metrics.current.isContentAreaTouched = true;
+            metrics.current!.isContentAreaTouched = true;
         };
-
-        content.current?.addEventListener('touchstart', handleTouchStart);
-
-        return () => content.current?.removeEventListener('touchstart', handleTouchStart);
+        content.current!.addEventListener('touchstart', handleTouchStart);
     }, []);
 
     return { sheet, content, handleUp };

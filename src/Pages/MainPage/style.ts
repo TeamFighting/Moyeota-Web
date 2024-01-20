@@ -7,7 +7,6 @@ export const ModalContent = styled.div`
     width: 100%;
     height: 100%;
     font-family: Pretendard;
-    overflow: scroll;
     -webkit-overflow-scrolling: touch;
 `;
 
@@ -21,7 +20,6 @@ export const ContentWrapper = styled.div`
     gap: 20px;
     padding-top: 20px;
     scroll-behavior: smooth;
-    overflow: scroll;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 40px;
 `;
@@ -57,6 +55,7 @@ export const HeaderP = styled.span`
     align-self: center;
     justify-content: center;
     margin-top: 1px;
+    white-space: nowrap;
 `;
 
 export const Right = styled.div`
@@ -82,7 +81,6 @@ export const ContentTitle = styled.span`
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    /* width: 100%; */
     margin-left: 16px;
     margin-bottom: 10px;
 `;
@@ -91,7 +89,6 @@ export const Info = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    /* align-items: center; */
     margin-left: 20px;
     gap: 6px;
 `;

@@ -23,18 +23,30 @@ function BottomSheet() {
                     height: '100%',
                     backgroundColor: 'white',
                     borderRadius: '26px 26px 0 0',
-                    overflow: 'scroll',
                 }}
             >
                 <BottomSheetHandle />
                 <ContentHeader />
-                <BottomSheetContentWrapper ref={content}>
-                    <BottomSheetContent />
-                </BottomSheetContentWrapper>
+                <div style={{ width: '100%', height: '100%', overflow: 'scroll' }}>
+                    <BottomSheetContentWrapper ref={content}>
+                        <BottomSheetContent />
+                    </BottomSheetContentWrapper>
+                </div>
             </div>
         </Wrapper>
     );
 }
+
+const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 10000;
+    width: 100%;
+    border-radius: 26px 26px 0 0;
+    height: ${BOTTOM_SHEET_HEIGHT}px;
+    transition: transform 400ms ease-out;
+`;
 const OpenBotton = styled.div`
     width: 96px;
     height: 36px;
@@ -56,21 +68,8 @@ const OpenBotton = styled.div`
     z-index: 1000001;
     gap: 5px;
 `;
-const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    z-index: 10000;
-    width: 100%;
-    border-radius: 26px 26px 0 0;
-    height: ${BOTTOM_SHEET_HEIGHT}px;
-    transition: transform 400ms ease-out;
-`;
 const BottomSheetContentWrapper = styled.div`
     width: 100%;
-    overflow: auto;
     height: ${WINDOWHEIGHT};
-    -webkit-overflow-scrolling: touch;
 `;
-
 export default BottomSheet;
