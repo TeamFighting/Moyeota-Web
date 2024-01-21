@@ -1,11 +1,12 @@
 import DetailHeader from '../DetailPage/DetailHeader';
 import { ContentDetail, From, Icon, Route, StartPoint, StartPointLocation, Title, Text } from '../DetailPage/style';
 import * as S from './style';
-import { ChevronRight, GreenOpacity, LocationFrom, LocationMarker, ToGanSvg } from '../../assets/svg';
+import { ChevronRight, LocationFrom, LocationMarker, ToTriangle } from '../../assets/svg';
 import { useLocation, useNavigate } from 'react-router';
 import CurrentLocationStore from '../../state/store/CurrentLocation';
 import NaverMap from '../MainPage/NaverMap/NaverMap';
 import styled, { keyframes } from 'styled-components';
+import { useQuickMathDestinationStore } from '../../state/store/QuickMathDestinationStore';
 
 function QuickMatchFinding() {
     const location = useLocation();
@@ -13,15 +14,16 @@ function QuickMatchFinding() {
     const { destination } = location.state;
 
     const { currentLocation } = CurrentLocationStore();
+    const { destination: quickDestination } = useQuickMathDestinationStore();
 
     const currentBuildingName = currentLocation?.building_name;
     console.log(currentBuildingName);
     const navigate = useNavigate();
     const cur = localStorage.getItem('address');
 
-    // setTimeout(() => {
-    //     navigate('/mainPage');
-    // }, 1000);
+    setTimeout(() => {
+        navigate('/mainPage');
+    }, 2000);
 
     return (
         <div>
@@ -41,12 +43,15 @@ function QuickMatchFinding() {
                         style={{
                             zIndex: 999,
                             position: 'absolute',
-                            top: '40%',
+                            top: '50%',
                             left: '50%',
-                            transform: 'translate(-50%, -50%)',
+                            transform: 'translate(-55%, -130%)',
                         }}
                     >
-                        <ToGanSvg width="150" height="50" />
+                        <DestinationBackground>
+                            <DestinationTitle>{quickDestination}</DestinationTitle>
+                        </DestinationBackground>
+                        <ToTriangle width="50" height="20" />
                     </div>
                     <div
                         style={{
@@ -137,9 +142,30 @@ const MapWrapper = styled.div`
     background-color: black;
     position: relative;
 `;
+const DestinationBackground = styled.div`
+    position: absolute;
+    border-radius: 10px;
+    height: 130%;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -110%);
+    display: flex;
+    background-color: #1edd81;
+    text-align: center;
+    white-space: nowrap;
+    z-index: 999;
+`;
+const DestinationTitle = styled.span`
+    font-family: Pretendard;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    padding: 0 14px;
+    padding-top: 5px;
+`;
 
 const drifts = keyframes`
-
   from {
     -webkit-transform: rotate(0deg) scale(0,0);
             transform: rotate(0deg) scale(0,0);

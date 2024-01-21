@@ -7,12 +7,13 @@ import * as S from './style';
 import { useState } from 'react';
 import ContentStore from '../../state/store/ContentStore';
 import { useQuickPotStore } from '../../state/store/QuickPotStore';
+import { useQuickMathDestinationStore } from '../../state/store/QuickMathDestinationStore';
 
 function QuickMatch() {
     const navigate = useNavigate();
 
     const [time, setTime] = useState<string>('');
-    const [destination, setDestination] = useState<string>('');
+    const { destination, setDestination } = useQuickMathDestinationStore();
     const { totalData } = ContentStore();
     const handleDestination = (e: React.ChangeEvent<HTMLInputElement>) => {
         // console.log(e.target.value);
