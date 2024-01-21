@@ -15,6 +15,7 @@ function MarkerClickContent({ postId: postId }: { postId: number }) {
     const data = totalData.find((data) => data.postId === postId);
     const ago = createAgo(data.createAt);
     const splitedDay = getDays(data.departureTime);
+    console.log(splitedDay);
     const timePart = ISOto12(data.departureTime);
     const goToDetail = () => {
         navigate(`/detailPage/${postId}`, {
@@ -57,9 +58,15 @@ function MarkerClickContent({ postId: postId }: { postId: number }) {
                     <S.Info>
                         <S.Route>
                             <LocationMarker />
-                            <S.From style={{ fontSize: '14px' }}> {data.departure} </S.From>
+                            <S.From style={{ overflow: 'visible', whiteSpace: 'nowrap', fontSize: '14px' }}>
+                                {' '}
+                                {data.departure}{' '}
+                            </S.From>
                             <ArrowRight />
-                            <S.To style={{ fontSize: '14px' }}> {data.destination} </S.To>
+                            <S.To style={{ overflow: 'visible', whiteSpace: 'nowrap', fontSize: '14px' }}>
+                                {' '}
+                                {data.destination}{' '}
+                            </S.To>
                         </S.Route>
                         <S.Time style={{ overflow: 'visible', whiteSpace: 'nowrap' }}>
                             <Clock width="14" />
