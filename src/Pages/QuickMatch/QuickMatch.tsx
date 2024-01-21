@@ -38,9 +38,15 @@ function QuickMatch() {
                 return data;
             });
         setQuickPot(pot);
-        navigate('/quickMatchFinding', {
-            state: { time: time, destination: destination },
-        });
+        if (destination !== '' && time !== '') {
+            navigate('/quickMatchFinding', {
+                state: { time: time, destination: destination },
+            });
+        } else if (destination === '' && time !== '') {
+            alert('도착지를 입력해주세요');
+        } else if (time === '' && destination !== '') {
+            alert('출발시간을 입력해주세요');
+        }
     };
 
     return (
