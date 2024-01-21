@@ -52,12 +52,6 @@ function MainPage() {
 
     async function fetchData() {
         try {
-            const userID = await instance.get('/users', {
-                headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNzA3MzAxOTE4fQ.J0YarxOpRyNLrWFN17y2u_8ijzjdGYy69uSU4Wp9z5Q`,
-                },
-            });
-            console.log(userID);
             const res = await instance.get('posts?page=0');
             if (res.status === 200) {
                 updateTotalData(res.data.data.content);
