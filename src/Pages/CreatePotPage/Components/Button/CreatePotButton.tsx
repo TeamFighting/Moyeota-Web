@@ -32,7 +32,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             console.log('accessToken', accessToken);
             const response = await instance.post('/posts', {
                 headers: {
-                    Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1IiwiZXhwIjoxNzA3MzAxOTE4fQ.J0YarxOpRyNLrWFN17y2u_8ijzjdGYy69uSU4Wp9z5Q`,
+                    Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
