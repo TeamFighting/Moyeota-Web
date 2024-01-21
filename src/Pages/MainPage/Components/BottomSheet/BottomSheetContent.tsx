@@ -1,10 +1,8 @@
 import * as S from '../../style';
 import SingleContent from '../SingleContent';
 import useStore from '../../../../state/store/ContentStore';
-import useBottomSheet from '../../../../Hooks/useBottonSheet';
 const BottomSheetContent = () => {
     const { totalData } = useStore((state) => state);
-    const { content } = useBottomSheet();
     if (totalData === undefined || null) {
         return (
             <div

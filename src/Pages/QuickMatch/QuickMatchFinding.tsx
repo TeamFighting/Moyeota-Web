@@ -198,13 +198,13 @@ const Wave = styled.div`
     animation: ${drifts} 3000ms infinite linear;
 `;
 
-const Wave2 = styled(Wave)`
-    -webkit-animation: ${drifts} 5000ms infinite linear;
+// const Wave2 = styled(Wave)`
+/* -webkit-animation: ${drifts} 5000ms infinite linear;
     animation: ${drifts} 5000ms infinite linear;
 `;
 const Wave3 = styled(Wave)`
     -webkit-animation: ${drifts} 7000ms infinite linear;
     animation: ${drifts} 7000ms infinite linear;
-`;
+`; */
 
 export default QuickMatchFinding;
