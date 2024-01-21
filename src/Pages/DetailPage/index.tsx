@@ -15,8 +15,7 @@ function DetailPage() {
     const location = useLocation();
     const [scroll, setScroll] = useState(0);
     const [dividerHeight, setDividerHeight] = useState(6);
-    const { data, splitedTime, timePart } = location.state;
-
+    const { data, splitedDay: splitedTime, timePart } = location.state;
     const { modalOpen } = ModalStore();
     if (data.numberOfParticipants == data.numberOfRecruitment) {
         setIsFull(true);
@@ -33,7 +32,6 @@ function DetailPage() {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-    console.log(scroll);
 
     useEffect(() => {
         // scroll 값이 변경될 때마다 Divider 컴포넌트의 height 값을 업데이트
