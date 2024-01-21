@@ -5,7 +5,7 @@ import { ChevronRight, GreenOpacity, LocationFrom, LocationMarker, ToGanSvg } fr
 import { useLocation, useNavigate } from 'react-router';
 import CurrentLocationStore from '../../state/store/CurrentLocation';
 import NaverMap from '../MainPage/NaverMap/NaverMap';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 function QuickMatchFinding() {
     const location = useLocation();
@@ -17,10 +17,11 @@ function QuickMatchFinding() {
     const currentBuildingName = currentLocation?.building_name;
     console.log(currentBuildingName);
     const navigate = useNavigate();
+    const cur = localStorage.getItem('address');
 
-    setTimeout(() => {
-        navigate('/mainPage');
-    }, 1000);
+    // setTimeout(() => {
+    //     navigate('/mainPage');
+    // }, 1000);
 
     return (
         <div>
@@ -33,32 +34,35 @@ function QuickMatchFinding() {
                     </Title>
                     <ContentDetail>조금만 기다려주세요</ContentDetail>
                 </S.Discription>
-                <WhiteOpacity />
-                <Icon
-                    style={{
-                        position: 'absolute',
-                        zIndex: 3,
-                        top: '35vh',
-                        left: '43vw',
-                        marginLeft: '-50px',
-                    }}
-                >
-                    <ToGanSvg width="150" height="50" />
-                </Icon>
-                <div
-                    style={{
-                        position: 'absolute',
-                        zIndex: 4,
-                        top: '31vh',
-                        left: '36vw',
-                        width: '200px',
-                        marginLeft: '-50px',
-                    }}
-                >
-                    <GreenOpacity width="200" height="200" />
-                </div>
                 <MapWrapper>
+                    <WhiteOpacity />
                     <NaverMap />
+                    <div
+                        style={{
+                            zIndex: 999,
+                            position: 'absolute',
+                            top: '40%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                        }}
+                    >
+                        <ToGanSvg width="150" height="50" />
+                    </div>
+                    <div
+                        style={{
+                            zIndex: 998,
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                        }}
+                    >
+                        <Box>
+                            <Wave className="wave -one"></Wave>
+                            {/* <Wave2 className="wave -two"></Wave2> */}
+                            {/* <Wave3 className="wave -three"></Wave3> */}
+                        </Box>
+                    </div>
                 </MapWrapper>
                 <Route
                     style={{
@@ -79,7 +83,7 @@ function QuickMatchFinding() {
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <LocationFrom width="24" height="64" />
                             <Text>
-                                <StartPointLocation>스테인드커피</StartPointLocation>
+                                <StartPointLocation>{cur}</StartPointLocation>
                                 <StartPoint>출발지</StartPoint>
                             </Text>
                         </div>
@@ -122,15 +126,59 @@ const WhiteOpacity = styled.div`
     width: 100vw;
     height: 100%;
     background-color: white;
-    z-index: 2;
+    z-index: 3;
     opacity: 0.5;
-    margin-top: 10px;
 `;
 
 const MapWrapper = styled.div`
-    z-index: 1;
+    z-index: 50;
     width: 100vw;
     height: 44vh;
-    background-color: aliceblue;
+    background-color: black;
+    position: relative;
 `;
+
+const drifts = keyframes`
+
+  from {
+    -webkit-transform: rotate(0deg) scale(0,0);
+            transform: rotate(0deg) scale(0,0);
+            opacity: 1;
+  }
+  to {
+    -webkit-transform: rotate(360deg) scale(2,2);
+            transform: rotate(360deg) scale(2,2);
+            opacity: 0;
+  }
+`;
+
+const Box = styled.div`
+    height: 100%;
+    width: 100%;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    z-index: 1000000001;
+`;
+
+const Wave = styled.div`
+    width: 100px;
+    height: 100px;
+    opacity: 0.01;
+    background-color: #1edd81;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    border-radius: 50%;
+    -webkit-animation: ${drifts} 3000ms infinite linear;
+    animation: ${drifts} 3000ms infinite linear;
+`;
+
+const Wave2 = styled(Wave)`
+    -webkit-animation: ${drifts} 5000ms infinite linear;
+    animation: ${drifts} 5000ms infinite linear;
+`;
+const Wave3 = styled(Wave)`
+    -webkit-animation: ${drifts} 7000ms infinite linear;
+    animation: ${drifts} 7000ms infinite linear;
+`;
+
 export default QuickMatchFinding;
