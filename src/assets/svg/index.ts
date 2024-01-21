@@ -29,4 +29,3 @@ export { default as Switch } from './Switch';
 export { default as ToTriangle } from './ToTriangle';
 export { default as Yondo } from './Yondo';
 export { default as CaretRight } from './CaretRight';
-export { default as 광화문역 } from './광화문역';
