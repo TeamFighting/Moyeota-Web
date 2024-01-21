@@ -8,7 +8,7 @@ import { List } from '../../../../assets/svg';
 import { BOTTOM_SHEET_HEIGHT, WINDOWHEIGHT } from '../../../../Constants/constant';
 
 function BottomSheet() {
-    const { sheet, content, handleUp } = useBottomSheet();
+    const { sheet, handleUp, content } = useBottomSheet();
 
     return (
         <Wrapper ref={sheet}>
@@ -27,8 +27,8 @@ function BottomSheet() {
             >
                 <BottomSheetHandle />
                 <ContentHeader />
-                <div style={{ width: '100%', height: '100%', overflow: 'scroll' }}>
-                    <BottomSheetContentWrapper ref={content}>
+                <div ref={content} style={{ width: '100%', height: '100%', overflow: 'scroll' }}>
+                    <BottomSheetContentWrapper>
                         <BottomSheetContent />
                     </BottomSheetContentWrapper>
                 </div>

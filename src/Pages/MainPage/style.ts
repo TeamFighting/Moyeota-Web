@@ -7,7 +7,6 @@ export const ModalContent = styled.div`
     width: 100%;
     height: 100%;
     font-family: Pretendard;
-    -webkit-overflow-scrolling: touch;
 `;
 
 export const ContentWrapper = styled.div`

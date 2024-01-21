@@ -43,9 +43,6 @@ function MainPage() {
 
         window.addEventListener('message', handleMessage);
 
-        // useEffect에서 이벤트 리스너를 정리하는 부분이 누락되어 있습니다.
-        // 컴포넌트가 언마운트될 때 이벤트 리스너를 제거하는 것이 중요합니다.
-
         if (useToken !== undefined) {
             return () => {
                 window.removeEventListener('message', handleMessage);

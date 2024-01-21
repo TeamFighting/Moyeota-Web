@@ -15,7 +15,6 @@ interface BottomSheetMetrics {
 
 export default function useBottomSheet() {
     const sheet = useRef<HTMLDivElement>(null);
-
     const content = useRef<HTMLDivElement>(null);
 
     const metrics = useRef<BottomSheetMetrics>({
@@ -31,11 +30,12 @@ export default function useBottomSheet() {
     });
 
     useEffect(() => {
+        // 컨텐츠 영역 터치시 바텀시트가 올라가지 않도록
         const canUserMoveBottomSheet = () => {
             const { touchMove, isContentAreaTouched } = metrics.current;
 
-            if (!isContentAreaTouched) {
-                return true;
+            if (isContentAreaTouched) {
+                return false;
             }
 
             if (sheet.current!.getBoundingClientRect().y !== MIN_Y) {
@@ -67,6 +67,7 @@ export default function useBottomSheet() {
                 touchMove.prevTouchY = touchStart.touchY;
             }
 
+            // 방향 설정
             if (touchMove.prevTouchY < currentTouch.clientY) {
                 touchMove.movingDirection = 'down';
             }
@@ -76,6 +77,7 @@ export default function useBottomSheet() {
             }
 
             if (canUserMoveBottomSheet()) {
+                // e.preventDefault();
                 const touchOffset = currentTouch.clientY - touchStart.touchY;
                 let nextSheetY = touchStart.sheetY + touchOffset;
 
@@ -101,7 +103,7 @@ export default function useBottomSheet() {
             const currentSheetY = sheet.current!.getBoundingClientRect().y;
 
             if (currentSheetY !== MIN_Y) {
-                if (touchMove.movingDirection === 'down') {
+                if (touchMove.movingDirection === 'down' && content.current!.scrollTop <= 0) {
                     sheet.current!.style.setProperty('transform', 'translateY(0)');
                 }
 
@@ -123,10 +125,19 @@ export default function useBottomSheet() {
                 isContentAreaTouched: false,
             };
         };
+        if (sheet.current) {
+            sheet.current.addEventListener('touchstart', handleTouchStart);
+            sheet.current.addEventListener('touchmove', handleTouchMove);
+            sheet.current.addEventListener('touchend', handleTouchEnd);
+        }
 
-        sheet.current!.addEventListener('touchstart', handleTouchStart);
-        sheet.current!.addEventListener('touchmove', handleTouchMove);
-        sheet.current!.addEventListener('touchend', handleTouchEnd);
+        return () => {
+            if (sheet.current) {
+                sheet.current.removeEventListener('touchstart', handleTouchStart);
+                sheet.current.removeEventListener('touchmove', handleTouchMove);
+                sheet.current.removeEventListener('touchend', handleTouchEnd);
+            }
+        };
     }, []);
 
     const handleUp = () => {
@@ -149,7 +160,10 @@ export default function useBottomSheet() {
         const handleTouchStart = () => {
             metrics.current!.isContentAreaTouched = true;
         };
-        content.current!.addEventListener('touchstart', handleTouchStart);
+        if (content.current) content.current!.addEventListener('touchstart', handleTouchStart);
+        return () => {
+            if (content.current) content.current!.removeEventListener('touchstart', handleTouchStart);
+        };
     }, []);
 
     return { sheet, content, handleUp };
