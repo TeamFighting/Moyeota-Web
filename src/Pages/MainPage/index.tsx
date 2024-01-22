@@ -52,7 +52,7 @@ function MainPage() {
 
     async function fetchData() {
         try {
-            const res = await instance.get('posts?page=0');
+            const res = await instance.get('posts');
             if (res.status === 200) {
                 updateTotalData(res.data.data.content);
                 console.log(res.data.data.content);
