@@ -15,57 +15,48 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
 
     const createPost = async () => {
         console.log('createPost');
+        console.log(accessToken);
         try {
             const formattedDate = new Date().toISOString;
             const numberOfRecruitment = totalPeople;
-            // const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
-            // const {
-            //     title,
-            //     description: content,
-            //     distance,
-            //     destination,
-            //     VehicleType: vehicle,
-            //     sameGenderRide: sameGenderStatus,
-            //     selectedTime,
-            // } = potCreateStore;
-            // const { estimatedDuration, estimatedFare } = durationFareStore;
-            const response = await instance.post('/posts', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    // category: 'LIFE',
-                    // content: content,
-                    // createdDate: formattedDate,
-                    // departure: departure,
-                    // departureTime: selectedTime, //departureTime 으로 바꾸기
-                    // destination: destination,
-                    // distance: distance,
-                    // duration: estimatedDuration,
-                    // fare: estimatedFare,
-                    // modifiedDate: formattedDate,
-                    // numberOfRecruitment: numberOfRecruitment,
-                    // sameGenderStatus: sameGenderStatus,
-                    // title: title,
-                    // vehicle: vehicle,
+            const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
+            const {
+                title,
+                description: content,
+                distance,
+                destination,
+                VehicleType: vehicle,
+                sameGenderRide: sameGenderStatus,
+                selectedTime,
+            } = potCreateStore;
+            const { estimatedDuration, estimatedFare } = durationFareStore;
+
+            const response = await instance.post(
+                '/posts',
+                {
                     category: 'LIFE',
-                    content: '같이 갈 사람 참가 신청 ㄱㄱ',
-                    createdDate: '2024-01-17T08:35:42.541Z',
-                    departure: '공릉역 7호선',
-                    departureTime: '2024-01-17T08:35:42.541Z',
-                    destination: '서울과학기술대학교 어의관',
-                    distance: 0.5,
-                    duration: 313,
-                    fare: 5200,
-                    modifiedDate: '2024-01-17T08:35:42.541Z',
-                    numberOfRecruitment: 4,
-                    sameGenderStatus: 'YES',
-                    title: '갈사람?',
-                    vehicle: '일반',
-                }),
-            });
-            alert(response.status);
+                    content: content,
+                    createdDate: formattedDate,
+                    departure: departure,
+                    departureTime: selectedTime, //departureTime 으로 바꾸기
+                    destination: destination,
+                    distance: distance,
+                    duration: estimatedDuration,
+                    fare: estimatedFare,
+                    modifiedDate: formattedDate,
+                    numberOfRecruitment: numberOfRecruitment,
+                    sameGenderStatus: sameGenderStatus,
+                    title: title,
+                    vehicle: vehicle,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                },
+            );
+
             if (response.status === 200) {
                 navigate('/createComplete');
             } else {
