@@ -44,7 +44,7 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     z-index: 10000;
     width: 100%;
     border-radius: 26px 26px 0 0;
-    height: ${BOTTOM_SHEET_HEIGHT}px;
+    height: ${BOTTOM_SHEET_HEIGHT + 200}px;
     transition: transform 400ms ease-out;
 `;
 const OpenBotton = styled.div`

@@ -9,39 +9,12 @@ import ISOto12 from '../../../util/ISOto12';
 import getDays from '../../../util/getDays';
 import createAgo from '../../../util/createAgo';
 import { useQuickPotStore } from '../../../../state/store/QuickPotStore';
-import { useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
 import useStore from '../../../../state/store/ContentStore';
-import { instance } from '../../../../axios';
 
 function SingleContent() {
-    const [ref, inView] = useInView();
-    const [page, setPage] = useState(1); // 현재 페이지 번호 (페이지네이션)
-
-    const { updateTotalData } = useStore((state) => state);
-
-    const productFetch = () => {
-        instance
-            .get(`/posts`)
-            .then((res) => {
-                updateTotalData(res.data.data.content);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        setPage((page) => page + 1);
-    };
-
-    useEffect(() => {
-        if (inView) {
-            productFetch();
-        }
-    }, [inView]);
-
     const navigate = useNavigate();
     const { totalData } = useStore((state) => state);
     const navigateToDetail = (data: object, splitedTime: string[], timePart: string, postId: number) => {
-        console.log('hellow', splitedTime);
         navigate(`/detailpage/${postId}`, {
             state: {
                 data: data,
@@ -65,7 +38,6 @@ function SingleContent() {
         }
         return (
             <S.SingleContent
-                ref={index === totalData.length - 1 ? ref : null}
                 key={index}
                 onClick={() => {
                     navigateToDetail(data, splitedTime, timePart, postId);

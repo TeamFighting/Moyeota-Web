@@ -57,13 +57,13 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
 
         try {
             await instance.post(
-                `/participation-details/${postId}`,
+                `/participation-details/cancellation/posts/${postId}`,
                 {
                     postId: postId,
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
+                        Authorization: `Bearer ${accessToken}`,
                     },
                 },
             );
