@@ -22,7 +22,7 @@ function SingleContent() {
 
     const productFetch = () => {
         instance
-            .get(`/posts?page=${page}`)
+            .get(`/posts`)
             .then((res) => {
                 updateTotalData(res.data.data.content);
             })
@@ -41,6 +41,7 @@ function SingleContent() {
     const navigate = useNavigate();
     const { totalData } = useStore((state) => state);
     const navigateToDetail = (data: object, splitedTime: string[], timePart: string, postId: number) => {
+        console.log('hellow', splitedTime);
         navigate(`/detailpage/${postId}`, {
             state: {
                 data: data,
@@ -52,7 +53,7 @@ function SingleContent() {
     const { quickPot } = useQuickPotStore();
 
     return (quickPot.length !== 0 ? quickPot : totalData).map((data, index) => {
-        const splitedDay = getDays(data.departureTime);
+        const splitedTime = getDays(data.departureTime);
         const timePart = ISOto12(data.departureTime);
         const ago = createAgo(data.createAt);
         const postId = data.postId;
@@ -67,7 +68,7 @@ function SingleContent() {
                 ref={index === totalData.length - 1 ? ref : null}
                 key={index}
                 onClick={() => {
-                    navigateToDetail(data, splitedDay, timePart, postId);
+                    navigateToDetail(data, splitedTime, timePart, postId);
                 }}
             >
                 <Profile
@@ -90,7 +91,7 @@ function SingleContent() {
                         <S.Time>
                             <Clock />
                             <S.StartTime>
-                                {splitedDay[1]}월{splitedDay[2]}일 ({splitedDay[3]}) {timePart} 출발
+                                {splitedTime[1]}월{splitedTime[2]}일 ({splitedTime[3]}) {timePart} 출발
                             </S.StartTime>
                         </S.Time>
                     </S.Info>

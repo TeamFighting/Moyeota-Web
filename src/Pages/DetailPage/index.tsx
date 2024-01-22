@@ -15,7 +15,7 @@ function DetailPage() {
     const location = useLocation();
     const [scroll, setScroll] = useState(0);
     const [dividerHeight, setDividerHeight] = useState(6);
-    const { data, splitedDay: splitedTime, timePart } = location.state;
+    const { data, splitedTime, timePart } = location.state;
     const { modalOpen } = ModalStore();
     if (data.numberOfParticipants == data.numberOfRecruitment) {
         setIsFull(true);

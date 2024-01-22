@@ -14,12 +14,11 @@ function MarkerClickContent({ postId: postId }: { postId: number }) {
     const { totalData } = ContentStore((state) => state);
     const data = totalData.find((data) => data.postId === postId);
     const ago = createAgo(data.createAt);
-    const splitedDay = getDays(data.departureTime);
-    console.log(splitedDay);
+    const splitedTime = getDays(data.departureTime);
     const timePart = ISOto12(data.departureTime);
     const goToDetail = () => {
         navigate(`/detailPage/${postId}`, {
-            state: { data, splitedDay, timePart },
+            state: { data, splitedTime, timePart },
         });
     };
 
@@ -71,7 +70,7 @@ function MarkerClickContent({ postId: postId }: { postId: number }) {
                         <S.Time style={{ overflow: 'visible', whiteSpace: 'nowrap' }}>
                             <Clock width="14" />
                             <S.StartTime style={{ fontSize: '14px' }}>
-                                {splitedDay[1]}월{splitedDay[2]}일 ({splitedDay[3]}) {timePart} 출발
+                                {splitedTime[1]}월{splitedTime[2]}일 ({splitedTime[3]}) {timePart} 출발
                             </S.StartTime>
                             {data.status === 'RECRUITING' && (
                                 <GaterStatus>
