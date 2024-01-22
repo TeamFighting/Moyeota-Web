@@ -5,7 +5,7 @@ import BottomSheetContent from './BottomSheetContent';
 import BottomSheetHandle from './BottomSheetHandle';
 import ContentHeader from '../SingleContent/SingleContentHeader';
 import { List } from '../../../../assets/svg';
-import { BOTTOM_SHEET_HEIGHT, WINDOWHEIGHT } from '../../../../Constants/constant';
+import { WINDOWHEIGHT } from '../../../../Constants/constant';
 
 function BottomSheet() {
     const { sheet, handleUp, content } = useBottomSheet();
