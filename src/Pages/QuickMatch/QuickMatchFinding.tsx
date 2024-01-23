@@ -1,7 +1,7 @@
 import DetailHeader from '../DetailPage/DetailHeader';
 import { ContentDetail, From, Icon, Route, StartPoint, StartPointLocation, Title, Text } from '../DetailPage/style';
 import * as S from './style';
-import { ChevronRight, LocationFrom, LocationMarker, ToTriangle } from '../../assets/svg';
+import { ChevronRight, CurrentLocationIcon, LocationFrom, LocationMarker, ToTriangle } from '../../assets/svg';
 import { useLocation, useNavigate } from 'react-router';
 import CurrentLocationStore from '../../state/store/CurrentLocation';
 import NaverMap from '../MainPage/NaverMap/NaverMap';
@@ -38,21 +38,7 @@ function QuickMatchFinding() {
                 </S.Discription>
                 <MapWrapper>
                     <WhiteOpacity />
-                    <NaverMap />
-                    <div
-                        style={{
-                            zIndex: 999,
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-55%, -130%)',
-                        }}
-                    >
-                        <DestinationBackground>
-                            <DestinationTitle>{quickDestination}</DestinationTitle>
-                        </DestinationBackground>
-                        <ToTriangle width="50" height="20" />
-                    </div>
+                    <NaverMap from={'quickMatch'} />
                     <div
                         style={{
                             zIndex: 998,
@@ -62,9 +48,26 @@ function QuickMatchFinding() {
                             transform: 'translate(-50%, -50%)',
                         }}
                     >
+                        <div
+                            style={{
+                                zIndex: 999,
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-55%, -130%)',
+                            }}
+                        >
+                            <DestinationBackground>
+                                <DestinationTitle>{quickDestination}</DestinationTitle>
+                            </DestinationBackground>
+                            <ToTriangle width="50" height="20" />
+                        </div>
                         <Box>
+                            <CurrentMarker>
+                                <CurrentLocationIcon />
+                            </CurrentMarker>
                             <Wave className="wave -one"></Wave>
-                            {/* <Wave2 className="wave -two"></Wave2> */}
+                            <Wave2 className="wave -two"></Wave2>
                             {/* <Wave3 className="wave -three"></Wave3> */}
                         </Box>
                     </div>
@@ -125,14 +128,21 @@ function QuickMatchFinding() {
         </div>
     );
 }
-
+const CurrentMarker = styled.div`
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
 const WhiteOpacity = styled.div`
     position: absolute;
     width: 100vw;
     height: 100%;
     background-color: white;
     z-index: 3;
-    opacity: 0.5;
+    opacity: 0.4;
 `;
 
 const MapWrapper = styled.div`
@@ -142,13 +152,15 @@ const MapWrapper = styled.div`
     background-color: black;
     position: relative;
 `;
+
 const DestinationBackground = styled.div`
     position: absolute;
     border-radius: 10px;
     height: 130%;
     top: 40%;
-    left: 50%;
-    transform: translate(-50%, -110%);
+    left: 60%;
+    min-width: 50px;
+    transform: translate(-55%, -110%);
     display: flex;
     background-color: #1edd81;
     text-align: center;
@@ -179,30 +191,42 @@ const drifts = keyframes`
 `;
 
 const Box = styled.div`
-    height: 100%;
-    width: 100%;
+    height: 200px;
+    width: 200px;
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     z-index: 1000000001;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `;
 
 const Wave = styled.div`
+    position: absolute;
     width: 100px;
     height: 100px;
-    opacity: 0.01;
-    background-color: #1edd81;
+    background-color: #1edd813c;
     -webkit-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
     border-radius: 50%;
-    -webkit-animation: ${drifts} 3000ms infinite linear;
-    animation: ${drifts} 3000ms infinite linear;
+    position: absolute;
+    left: 25%;
+    top: 25%;
+    transform: translate(-50%, -50%);
+    -webkit-animation: ${drifts} 1500ms infinite linear;
+    animation: ${drifts} 1500ms infinite linear;
 `;
 
-// const Wave2 = styled(Wave)`
-/* -webkit-animation: ${drifts} 5000ms infinite linear;
-    animation: ${drifts} 5000ms infinite linear;
+const Wave2 = styled(Wave)`
+    width: 100px;
+    height: 100px;
+    -webkit-animation: ${drifts} 4000ms infinite linear;
+    animation: ${drifts} 4000ms infinite linear;
 `;
-const Wave3 = styled(Wave)`
+
+/* const Wave3 = styled(Wave)`
     -webkit-animation: ${drifts} 7000ms infinite linear;
     animation: ${drifts} 7000ms infinite linear;
 `; */

@@ -25,7 +25,7 @@ interface ArrayElement {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-function NaverMap() {
+function NaverMap({ from }: { from: string }) {
     const mapElement = useRef(null);
 
     const { naver } = window;
@@ -147,17 +147,19 @@ function NaverMap() {
             naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
         }
 
-        // 현위치 마커
-        new naver.maps.Marker({
-            position: location,
-            map,
-            icon: {
-                url: '/svg/CurrentLocationIcon.svg',
-                size: new naver.maps.Size(50, 52),
-                origin: new naver.maps.Point(0, 0),
-                anchor: new naver.maps.Point(25, 26),
-            },
-        });
+        if (from !== 'quickMatch') {
+            // 현위치 마커
+            new naver.maps.Marker({
+                position: location,
+                map,
+                icon: {
+                    url: '/svg/CurrentLocationIcon.svg',
+                    size: new naver.maps.Size(50, 52),
+                    origin: new naver.maps.Point(0, 0),
+                    anchor: new naver.maps.Point(25, 26),
+                },
+            });
+        }
     }, [finalArray, latitude, longitude, naver, setClickedMarker]);
 
     return (

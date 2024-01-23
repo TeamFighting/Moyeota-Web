@@ -20,7 +20,7 @@ function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    const { setAccessToken } = AuthStore();
+    const { accessToken, setAccessToken } = AuthStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     watchPositionHook();
 
@@ -75,9 +75,29 @@ function MainPage() {
     };
 
     const goCurrent = () => {
+        submit();
         console.log('goCurrent');
     };
 
+    const submit = async () => {
+        try {
+            const res = await instance.put(
+                '/users/info',
+                {
+                    age: 8,
+                    gender: '남자',
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                },
+            );
+            console.log('res', res);
+        } catch (e) {
+            console.log(e);
+        }
+    };
     return (
         <Container>
             <Header>
@@ -103,7 +123,7 @@ function MainPage() {
                         />
                     </Icon>
                 </Icons>
-                <NaverMap />
+                <NaverMap from={'mainpage'} />
                 {isClicked && <MarkerClickContent postId={clickedMarkerId} />}
                 <Bottom isClicked={isClicked}>
                     <BottomSheet />
