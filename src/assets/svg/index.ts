@@ -27,5 +27,6 @@ export { default as ProfileSample } from './ProfileSample';
 export { default as RefreshButton } from './RefreshButton';
 export { default as Switch } from './Switch';
 export { default as ToTriangle } from './ToTriangle';
+export { default as VerticalMenu } from './VerticalMenu';
 export { default as Yondo } from './Yondo';
 export { default as CaretRight } from './CaretRight';

@@ -19,6 +19,11 @@ function MatchApplyButton({ postId }: ApplyButtonProps) {
         setIsModalOpen(true, 'cancel');
     };
 
+    const handleChat = () => {
+        console.log(postId);
+        navigate(`/chat/${postId}`, { state: { postId: postId } });
+    };
+
     if (appliedParty.length !== 0) {
         return appliedParty.map((party) => {
             if (party.postId === postId) {
@@ -26,7 +31,9 @@ function MatchApplyButton({ postId }: ApplyButtonProps) {
                     <Wrapper>
                         <ButtonCancel
                             style={{ backgroundColor: '#1edd81', color: 'white' }}
-                            onClick={() => {}}
+                            onClick={() => {
+                                handleChat();
+                            }}
                             type="button"
                         >
                             채팅하기

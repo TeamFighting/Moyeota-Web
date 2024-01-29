@@ -20,7 +20,9 @@ function DetailPage() {
     if (data.numberOfParticipants == data.numberOfRecruitment) {
         setIsFull(true);
     }
+
     useEffect(() => {
+        console.log(data);
         const handleScroll = () => {
             const position = window.pageYOffset;
             setScroll(position);
