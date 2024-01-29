@@ -5,6 +5,9 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import DeleteModal from '../Modal/DeleteModal';
 import { useNavigate } from 'react-router-dom';
+import { PencilIcon, TrashIcon } from '../../../../assets/svg';
+import { Icon } from './style';
+import BottomSheetHandle from '../../../MainPage/Components/BottomSheet/BottomSheetHandle';
 
 interface BottomSheetModalProps {
     isOpen: boolean;
@@ -33,9 +36,43 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({ isOpen, onClose }) 
     return (
         <BottomSheetContainer style={{ display: isOpen ? 'flex' : 'none' }}>
             <BottomSheetContent style={{ height: `${sheetHeight}px` }}>
-                <Handler />
-                <UpdateText onClick={goToUpdate}>팟 수정하기</UpdateText>
-                <DeleteText onClick={handleOpenDeleteModal}>팟 삭제하기</DeleteText>
+                <BottomSheetHandle />
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '7px',
+                        height: '80px',
+                    }}
+                >
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <PencilIcon width="24" height="24" />
+                    </div>
+                    <UpdateText onClick={goToUpdate}>수정하기</UpdateText>
+                </div>
+                <div
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '7px',
+                        height: '80px',
+                    }}
+                >
+                    <div style={{ display: 'flex' }}>
+                        <TrashIcon width="24" height="24" />
+                    </div>
+                    <DeleteText onClick={handleOpenDeleteModal}>삭제하기</DeleteText>
+                </div>
                 <CancleText onClick={onClose}>취소</CancleText>
             </BottomSheetContent>
             {isDeleteModalOpen && <DeleteModal onClose={handleCloseDeleteModal}></DeleteModal>}
@@ -75,40 +112,24 @@ const BottomSheetContent = styled.div`
     z-index: 4;
 `;
 
-const Handler = styled.div`
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    cursor: pointer;
-    border-radius: 26px;
-    background-color: #ededed;
-    width: 50px;
-    height: 7px;
-    margin-top: 14px;
-`;
-
-const UpdateText = styled.div`
+const UpdateText = styled.span`
     color: var(--Gray-Text-3, #343434);
     font-family: Pretendard;
     font-size: 22px;
     font-style: normal;
     font-weight: 700;
     line-height: 157%; /* 34.54px */
-    padding-bottom: 40px;
     text-align: center;
-    padding-top: 50px;
 `;
 
 const DeleteText = styled.div`
-    color: var(--Green-Text, #139b59);
+    color: #f00;
+    text-align: center;
     font-family: Pretendard;
     font-size: 22px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 157%; /* 34.54px */
-    padding-bottom: 40px;
-    text-align: center;
 `;
 
 const CancleText = styled.div`
@@ -119,4 +140,5 @@ const CancleText = styled.div`
     font-weight: 500;
     line-height: 157%; /* 34.54px */
     text-align: center;
+    padding-top: 20px;
 `;

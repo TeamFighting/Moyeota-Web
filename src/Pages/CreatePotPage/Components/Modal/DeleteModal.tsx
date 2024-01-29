@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PotCreateStore from '../../../../state/store/PotCreateStore';
 import { useNavigate } from 'react-router-dom';
 import { instance } from '../../../../axios';
+import { AuthStore } from '../../../../state/store/AuthStore';
 
 interface DeleteModalProps {
     onClose: () => void;
@@ -12,17 +13,18 @@ interface DeleteModalProps {
 function DeleteModal({ onClose }: DeleteModalProps) {
     const [isDeleted, setIsDeleted] = React.useState(false);
     const { postId } = PotCreateStore();
+    console.log(postId);
+    const { accessToken } = AuthStore();
     const navigate = useNavigate();
     const ToMainPage = () => {
         navigate('/mainpage');
     };
     const handleDelete = async () => {
         try {
-            const token = import.meta.env.VITE_AUTH_BEARER_TOKEN;
             const response = await instance.delete(`/posts/${postId}`, {
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
             });
 

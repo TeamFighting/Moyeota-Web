@@ -8,7 +8,7 @@ import UploadIcon from '../../../../assets/svg/UploadIcon';
 import BottomSheetModal from './BottomSheetModal';
 import useUpdateModalStore from '../../../../state/store/UpdateModalStore';
 
-function DetailHeader() {
+function FixDetailHeader() {
     const navigate = useNavigate();
     const { isModalOpen, openModal, closeModal } = useUpdateModalStore();
 
@@ -45,6 +45,7 @@ const Header = styled.div`
     width: 92.5%;
     padding: 0 3.75%;
     background-color: white;
+    z-index: 100;
 `;
 
 const Icon = styled.div`
@@ -52,4 +53,4 @@ const Icon = styled.div`
     align-self: flex-start;
 `;
 
-export default DetailHeader;
+export default FixDetailHeader;

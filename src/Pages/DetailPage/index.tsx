@@ -9,6 +9,7 @@ import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyM
 import ModalStore from '../../state/store/ModalStore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import FixDetailHeader from '../CreatePotPage/Components/DetailPage/DetailHeader';
 
 function DetailPage() {
     const [isFull, setIsFull] = useState(false);
@@ -46,7 +47,8 @@ function DetailPage() {
 
     return (
         <S.Container>
-            <DetailHeader />
+            {/* <DetailHeader /> */}
+            <FixDetailHeader />
             <DetailBody data={data} />
             <Divider style={{ height: '10px' }} />
             <DetailBottom
