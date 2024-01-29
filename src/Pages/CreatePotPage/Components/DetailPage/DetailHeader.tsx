@@ -5,7 +5,7 @@ import SvgCancelIcon from '../../../../assets/svg/CancelIcon';
 import CheveronLeft from '../../../../assets/svg/Chevronleft';
 import ThreeDots from '../../../../assets/svg/ThreeDots';
 import UploadIcon from '../../../../assets/svg/UploadIcon';
-import BottomSheetModal from './BottomSheetModal';
+import EditDeleteModal from './EditDeleteModal';
 import useUpdateModalStore from '../../../../state/store/UpdateModalStore';
 
 function FixDetailHeader() {
@@ -18,9 +18,9 @@ function FixDetailHeader() {
 
     return (
         <Header>
-            <BottomSheetModal isOpen={isModalOpen} onClose={closeModal}>
+            <EditDeleteModal isOpen={isModalOpen} onClose={closeModal}>
                 <p>Modal Content</p>
-            </BottomSheetModal>
+            </EditDeleteModal>
             <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
                 <CheveronLeft width="24" height="24" />
             </Icon>

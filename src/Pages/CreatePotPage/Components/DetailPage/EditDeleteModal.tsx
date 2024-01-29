@@ -6,24 +6,28 @@ import React, { useState } from 'react';
 import DeleteModal from '../Modal/DeleteModal';
 import { useNavigate } from 'react-router-dom';
 import { PencilIcon, TrashIcon } from '../../../../assets/svg';
-import { Icon } from './style';
 import BottomSheetHandle from '../../../MainPage/Components/BottomSheet/BottomSheetHandle';
+import useOnclickOutside from 'react-cool-onclickoutside';
 
-interface BottomSheetModalProps {
+interface EditDeleteModalProps {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
 }
 
-const BottomSheetModal: React.FC<BottomSheetModalProps> = ({ isOpen, onClose }) => {
+const EditDeleteModal: React.FC<EditDeleteModalProps> = ({ isOpen, onClose }) => {
     const [sheetHeight] = React.useState<number>(() => {
         return window.innerHeight * (2.5 / 8);
+    });
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+
+    const ref = useOnclickOutside(() => {
+        setIsDeleteModalOpen(false);
     });
     const navigate = useNavigate();
     const goToUpdate = () => {
         navigate('/updatePotPage');
     };
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     const handleOpenDeleteModal = () => {
         setIsDeleteModalOpen(true);
@@ -34,7 +38,7 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({ isOpen, onClose }) 
     };
 
     return (
-        <BottomSheetContainer style={{ display: isOpen ? 'flex' : 'none' }}>
+        <BottomSheetContainer ref={ref} style={{ display: isOpen ? 'flex' : 'none' }}>
             <BottomSheetContent style={{ height: `${sheetHeight}px` }}>
                 <BottomSheetHandle />
                 <div
@@ -80,13 +84,13 @@ const BottomSheetModal: React.FC<BottomSheetModalProps> = ({ isOpen, onClose }) 
     );
 };
 
-BottomSheetModal.propTypes = {
+EditDeleteModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node.isRequired,
 };
 
-export default BottomSheetModal;
+export default EditDeleteModal;
 
 const BottomSheetContainer = styled.div`
     position: fixed;
@@ -98,7 +102,7 @@ const BottomSheetContainer = styled.div`
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    z-index: 3;
+    z-index: 1000;
 `;
 
 const BottomSheetContent = styled.div`
@@ -106,10 +110,9 @@ const BottomSheetContent = styled.div`
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: white;
     width: 100%;
+    background-color: white;
     border-radius: 26px 26px 0px 0px;
-    z-index: 4;
 `;
 
 const UpdateText = styled.span`

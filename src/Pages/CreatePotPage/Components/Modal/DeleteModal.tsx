@@ -21,7 +21,7 @@ function DeleteModal({ onClose }: DeleteModalProps) {
     };
     const handleDelete = async () => {
         try {
-            const response = await instance.delete(`/posts/${postId}`, {
+            const response = await instance.delete(`/posts/25`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${accessToken}`,
