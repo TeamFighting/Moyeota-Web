@@ -53,6 +53,7 @@ function MainPage() {
     async function fetchData() {
         try {
             const res = await instance.get('posts');
+            console.log(res);
             console.log(res.status === 200);
             if (res.status === 200) {
                 updateTotalData(res.data.data);
@@ -71,11 +72,13 @@ function MainPage() {
 
     const refresh = () => {
         console.log('refresh');
-        window.location.reload();
+        console.log('accessToken', accessToken);
+        submit();
+
+        // window.location.reload();
     };
 
     const goCurrent = () => {
-        submit();
         console.log('goCurrent');
     };
 
@@ -84,8 +87,8 @@ function MainPage() {
             const res = await instance.put(
                 '/users/info',
                 {
-                    age: 8,
-                    gender: '남자',
+                    age: '20대',
+                    gender: 'F',
                 },
                 {
                     headers: {
@@ -98,6 +101,7 @@ function MainPage() {
             console.log(e);
         }
     };
+
     return (
         <Container>
             <Header>
@@ -117,8 +121,8 @@ function MainPage() {
                     <Icon onClick={goCurrent}>
                         <SvgBacktoCurrentButton
                             style={{
-                                width: '48px',
-                                height: '48px',
+                                width: '100px',
+                                height: '100px',
                             }}
                         />
                     </Icon>

@@ -57,12 +57,12 @@ function NaverMap({ from }: { from: string }) {
             if (quickPot.length !== 0) {
                 try {
                     const promises = quickPot.map((data) => {
+                        console.log(data.departure);
                         instance
                             .get(`/distance/keyword`, {
                                 params: { query: `${data.departure}` },
                             })
                             .then((res) => {
-                                console.log(res);
                                 setFinalArray((prev) => [
                                     ...prev,
                                     {
