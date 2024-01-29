@@ -15,17 +15,20 @@ import { useClickedMarker } from '../../state/store/ClickedMarker';
 import { instance } from '../../axios';
 import watchPositionHook from '../../Hooks/watchPositionHook';
 import { AuthStore } from '../../state/store/AuthStore';
+import { useMyInfoStore } from '../../state/store/MyInfo';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
     const { accessToken, setAccessToken } = AuthStore();
+    const { setMyInfo } = useMyInfoStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     watchPositionHook();
 
     useEffect(() => {
         fetchData();
+        usersInfo();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handleMessage = (event: any) => {
             try {
@@ -50,14 +53,24 @@ function MainPage() {
         }
     }, []);
 
+    async function usersInfo() {
+        try {
+            const res = await instance.get('/users', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            setMyInfo(res.data.data);
+        } catch (e) {
+            console.log(e);
+        }
+    }
     async function fetchData() {
         try {
             const res = await instance.get('posts');
-            console.log(res);
             console.log(res.status === 200);
             if (res.status === 200) {
                 updateTotalData(res.data.data);
-                console.log(res.data.data);
             } else {
                 alert(res.status + '에러');
             }
