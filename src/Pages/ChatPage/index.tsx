@@ -26,8 +26,15 @@ interface ChatPageProps {
 function ChatPage() {
     const { postId } = useParams();
     const [postInfo, setPostInfo] = useState<ChatPageProps>({} as ChatPageProps);
-    const splitedTime = getDays(postInfo.departureTime);
-    const timePart = ISOto12(postInfo.departureTime);
+
+    let splitedTime: string[] = [];
+    let timePart: string = '';
+
+    if (postInfo && postInfo.departureTime) {
+        splitedTime = getDays(postInfo.departureTime);
+        timePart = ISOto12(postInfo.departureTime);
+    }
+
     const navigate = useNavigate();
     const handleBack = () => {
         navigate(-1);

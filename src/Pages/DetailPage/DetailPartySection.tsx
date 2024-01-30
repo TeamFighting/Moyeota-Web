@@ -1,56 +1,58 @@
-import styled from 'styled-components'
-import { LionProfile } from '../../assets/svg'
-import * as S from './style'
-import { useEffect, useState } from 'react'
-import { instance } from '../../axios'
+import styled from 'styled-components';
+import { LionProfile } from '../../assets/svg';
+import * as S from './style';
+import { useEffect, useState } from 'react';
+import { instance } from '../../axios';
+import { AuthStore } from '../../state/store/AuthStore';
 
 interface Props {
-    leaderName: string
-    content: string
-    gender: boolean
-    profileImage: string
-    participants: number
-    postId: number
+    leaderName: string;
+    content: string;
+    gender: string;
+    profileImage: string;
+    participants: number;
+    postId: number;
 }
 
 interface PARTYINFO {
-    userName: string
-    profileImage: string
-    userGender: boolean
+    userName: string;
+    profileImage: string;
+    userGender: string;
 }
 
 function DetailPartySection({ profileImage, leaderName, content, gender, participants, postId }: Props) {
-    let gender2
-    if (gender) {
-        gender2 = '남자'
+    let gender2;
+    if (gender == 'M') {
+        gender2 = '남자';
     } else {
-        gender2 = '여자'
+        gender2 = '여자';
     }
-    const [onlyParty, setonlyParty] = useState<PARTYINFO[]>([])
+    const { accessToken } = AuthStore();
+    const [onlyParty, setonlyParty] = useState<PARTYINFO[]>([]);
     async function getPartyOne(postId: number) {
         try {
             await instance
                 .get(`/posts/${postId}/members`, {
                     headers: {
-                        Authorization: `Bearer ${import.meta.env.VITE_AUTH_BEARER_TEST}`,
+                        Authorization: `Bearer ${accessToken}`,
                     },
                 })
                 .then((res) => {
                     if (res.status == 200) {
-                        const partyInfo: PARTYINFO[] = res.data.data
+                        const partyInfo: PARTYINFO[] = res.data.data;
                         const participants = partyInfo.filter((value) => {
-                            return value.userName !== leaderName
-                        })
-                        setonlyParty(participants)
+                            return value.userName !== leaderName;
+                        });
+                        setonlyParty(participants);
                     }
-                })
+                });
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     }
     useEffect(() => {
-        getPartyOne(postId)
-    }, [postId])
+        getPartyOne(postId);
+    }, [postId]);
 
     return (
         <S.Party>
@@ -94,25 +96,27 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                                 </S.Icon>
                                 <S.Name>{value.userName}</S.Name>
                                 <S.Tags style={{}}>
-                                    <S.Tag style={{ marginRight: '7px' }}>{value.userGender ? '남자' : '여자'}</S.Tag>
+                                    <S.Tag style={{ marginRight: '7px' }}>
+                                        {value.userGender == 'M' ? '남자' : '여자'}
+                                    </S.Tag>
                                     {/* 나잇대 수정필요 */}
                                     <S.Tag>20대</S.Tag>
                                 </S.Tags>
                             </Wrapper>
-                        )
+                        );
                     })
                 ) : (
                     <S.PartyoneText>아직 매칭된 파티원이 없어요!</S.PartyoneText>
                 )}
             </S.PartyOne>
         </S.Party>
-    )
+    );
 }
 export const Wrapper = styled.div`
     flex-direction: row;
     display: flex;
     align-items: center;
-`
+`;
 
 export const TagsWrapper = styled.div`
     flex-direction: row;
@@ -120,5 +124,5 @@ export const TagsWrapper = styled.div`
     margin-top: 16px;
     display: flex;
     align-items: center;
-`
-export default DetailPartySection
+`;
+export default DetailPartySection;

@@ -45,7 +45,7 @@ const Header = styled.div`
     width: 92.5%;
     padding: 0 3.75%;
     background-color: white;
-    z-index: 100;
+    z-index: 1000;
 `;
 
 const Icon = styled.div`

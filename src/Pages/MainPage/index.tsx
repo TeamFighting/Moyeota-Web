@@ -134,8 +134,8 @@ function MainPage() {
                     <Icon onClick={goCurrent}>
                         <SvgBacktoCurrentButton
                             style={{
-                                width: '100px',
-                                height: '100px',
+                                width: '48',
+                                height: '48px',
                             }}
                         />
                     </Icon>

@@ -42,7 +42,7 @@ export const Description = styled.div`
     font-style: normal;
     font-weight: 500;
     line-height: 156%; /* 24.96px */
-    width: ${window.innerWidth - 90}px;
+    width: ${window.innerWidth * 0.8}px;
 `;
 
 export const Name = styled.div`
