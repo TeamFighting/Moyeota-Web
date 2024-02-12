@@ -63,7 +63,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 alert('API 요청 실패');
             }
         } catch (error) {
-            alert(error);
+            console.log(error);
         }
     };
 

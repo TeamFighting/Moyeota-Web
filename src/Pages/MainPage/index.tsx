@@ -60,6 +60,7 @@ function MainPage() {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
+            console.log(res);
             setMyInfo(res.data.data);
         } catch (e) {
             console.log(e);
