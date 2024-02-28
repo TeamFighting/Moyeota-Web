@@ -160,8 +160,8 @@ const ModalWrapper = styled.div`
     background: rgba(65, 65, 65, 0.4);
     justify-content: center;
     display: flex;
-    z-index: 1;
     flex-direction: column;
+    z-index: 100;
 `;
 
 const Modal = styled.div`

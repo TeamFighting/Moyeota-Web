@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import ModalStore from '../../../../state/store/ModalStore';
 import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
+import { useNavigate } from 'react-router';
 
 interface ApplyButtonProps {
     postId: number;
@@ -9,7 +10,7 @@ interface ApplyButtonProps {
 function MatchApplyButton({ postId }: ApplyButtonProps) {
     const { setIsModalOpen } = ModalStore();
     const { appliedParty } = useAppliedPartyStore();
-
+    const navigate = useNavigate();
     const handleApply = () => {
         setIsModalOpen(true, 'apply');
     };
@@ -18,11 +19,25 @@ function MatchApplyButton({ postId }: ApplyButtonProps) {
         setIsModalOpen(true, 'cancel');
     };
 
+    const handleChat = () => {
+        console.log(postId);
+        navigate(`/chat/${postId}`, { state: { postId: postId } });
+    };
+
     if (appliedParty.length !== 0) {
         return appliedParty.map((party) => {
             if (party.postId === postId) {
                 return (
                     <Wrapper>
+                        <ButtonCancel
+                            style={{ backgroundColor: '#1edd81', color: 'white' }}
+                            onClick={() => {
+                                handleChat();
+                            }}
+                            type="button"
+                        >
+                            채팅하기
+                        </ButtonCancel>
                         <ButtonCancel
                             onClick={() => {
                                 handleCancel();
@@ -72,7 +87,7 @@ const ButtonCancel = styled.button`
 `;
 const Wrapper = styled.div`
     width: 100%;
-    height: 64px;
+    height: 120px;
     background-color: white;
     bottom: 0;
     display: flex;

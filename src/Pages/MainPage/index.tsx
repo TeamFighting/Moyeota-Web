@@ -15,17 +15,20 @@ import { useClickedMarker } from '../../state/store/ClickedMarker';
 import { instance } from '../../axios';
 import watchPositionHook from '../../Hooks/watchPositionHook';
 import { AuthStore } from '../../state/store/AuthStore';
+import { useMyInfoStore } from '../../state/store/MyInfo';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
     const { accessToken, setAccessToken } = AuthStore();
+    const { setMyInfo } = useMyInfoStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     watchPositionHook();
 
     useEffect(() => {
         fetchData();
+        usersInfo();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handleMessage = (event: any) => {
             try {
@@ -34,6 +37,7 @@ function MainPage() {
                     if (data.token !== undefined) {
                         setAccessToken(data.token);
                         setUseToken(data.token);
+                        localStorage.setItem('accessToken', data.token);
                     }
                 }
             } catch (error) {
@@ -50,13 +54,25 @@ function MainPage() {
         }
     }, []);
 
+    async function usersInfo() {
+        try {
+            const res = await instance.get('/users', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            console.log(res);
+            setMyInfo(res.data.data);
+        } catch (e) {
+            console.log(e);
+        }
+    }
     async function fetchData() {
         try {
-            const res = await instance.get('posts');
-            console.log(res.status === 200);
+            const res = await instance.get('/posts');
+            console.log(res);
             if (res.status === 200) {
                 updateTotalData(res.data.data);
-                console.log(res.data.data);
             } else {
                 alert(res.status + '에러');
             }
@@ -71,11 +87,13 @@ function MainPage() {
 
     const refresh = () => {
         console.log('refresh');
-        window.location.reload();
+        console.log('accessToken', accessToken);
+        submit();
+
+        // window.location.reload();
     };
 
     const goCurrent = () => {
-        submit();
         console.log('goCurrent');
     };
 
@@ -84,8 +102,8 @@ function MainPage() {
             const res = await instance.put(
                 '/users/info',
                 {
-                    age: 8,
-                    gender: '남자',
+                    age: '20대',
+                    gender: 'F',
                 },
                 {
                     headers: {
@@ -98,6 +116,7 @@ function MainPage() {
             console.log(e);
         }
     };
+
     return (
         <Container>
             <Header>
@@ -117,7 +136,7 @@ function MainPage() {
                     <Icon onClick={goCurrent}>
                         <SvgBacktoCurrentButton
                             style={{
-                                width: '48px',
+                                width: '48',
                                 height: '48px',
                             }}
                         />

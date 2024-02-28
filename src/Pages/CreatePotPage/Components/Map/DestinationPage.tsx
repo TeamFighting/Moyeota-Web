@@ -106,7 +106,7 @@ const Bottom = styled.div`
     width: 100%;
     bottom: 0;
     height: 258px;
-    z-index: 999;
+    /* z-index: 999; */
 `;
 
 const Body = styled.div`

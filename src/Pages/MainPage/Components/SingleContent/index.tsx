@@ -31,7 +31,7 @@ function SingleContent() {
         const ago = createAgo(data.createAt);
         const postId = data.postId;
         let gender;
-        if (!data.userGender) {
+        if (data.userGender == 'F') {
             gender = '여';
         } else {
             gender = '남';

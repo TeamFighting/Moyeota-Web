@@ -5,10 +5,10 @@ import SvgCancelIcon from '../../../../assets/svg/CancelIcon';
 import CheveronLeft from '../../../../assets/svg/Chevronleft';
 import ThreeDots from '../../../../assets/svg/ThreeDots';
 import UploadIcon from '../../../../assets/svg/UploadIcon';
-import BottomSheetModal from './BottomSheetModal';
+import EditDeleteModal from './EditDeleteModal';
 import useUpdateModalStore from '../../../../state/store/UpdateModalStore';
 
-function DetailHeader() {
+function FixDetailHeader() {
     const navigate = useNavigate();
     const { isModalOpen, openModal, closeModal } = useUpdateModalStore();
 
@@ -18,9 +18,9 @@ function DetailHeader() {
 
     return (
         <Header>
-            <BottomSheetModal isOpen={isModalOpen} onClose={closeModal}>
+            <EditDeleteModal isOpen={isModalOpen} onClose={closeModal}>
                 <p>Modal Content</p>
-            </BottomSheetModal>
+            </EditDeleteModal>
             <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
                 <CheveronLeft width="24" height="24" />
             </Icon>
@@ -45,6 +45,7 @@ const Header = styled.div`
     width: 92.5%;
     padding: 0 3.75%;
     background-color: white;
+    z-index: 1000;
 `;
 
 const Icon = styled.div`
@@ -52,4 +53,4 @@ const Icon = styled.div`
     align-self: flex-start;
 `;
 
-export default DetailHeader;
+export default FixDetailHeader;

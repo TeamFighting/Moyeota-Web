@@ -13,14 +13,14 @@ interface DetailBodyProps {
         createAt: string;
         view: number;
         userName: string;
-        userGender: boolean;
+        userGender: string;
         profileImage: string;
     };
 }
 function DetailBody({ data }: DetailBodyProps) {
     const ago = createAgo(data.createAt);
     let gender;
-    if (!data.userGender) {
+    if (data.userGender == 'F') {
         gender = '여';
     } else {
         gender = '남';
