@@ -1,5 +1,4 @@
 import * as S from './style';
-import DetailHeader from './DetailHeader';
 import DetailBody from './DetailBody';
 import DetailBottom from './DetailBottom';
 import DetailPartySection from './DetailPartySection';
