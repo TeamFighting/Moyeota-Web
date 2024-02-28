@@ -1,13 +1,14 @@
-import { Chevronleft, Clock, LocationMarker, VerticalMenu } from '../../assets/svg';
+import { Chevronleft, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import { useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { instance } from '../../axios';
-import SendBTN from '../../../public/png/SendBTN.png';
+// import GreenSendBTN from '../../assets/images/GreenSendBTN.png';
+import { GreenSendBtn } from '../../assets/svg';
 import * as S from './style';
 import getDays from '../util/getDays';
 import ISOto12 from '../util/ISOto12';
-import { Client, Stomp } from '@stomp/stompjs';
+import { Client } from '@stomp/stompjs';
 
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -121,34 +122,11 @@ function ChatPage() {
                     <SvgCancelIcon width="24" height="24" />
                 </S.Icon>
             </S.Header>
-            <S.Body>
-                {/* 
-                
-                <S.ProfileName>{postInfo.userName}</S.ProfileName>
-                <Tags>
-                    <Tag style={{ marginTop: '10px' }}>{postInfo.userGender == 'M' ? '남자' : '여자'}</Tag>
-                    <Tag style={{ marginTop: '10px' }}>20대</Tag>
-                </Tags> */}
-                {/* <S.Title>{postInfo.title}</S.Title>
-                <S.Description>
-                    <div style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
-                        <S.Icon>
-                            <LocationMarker width="14" height="14" />
-                        </S.Icon>
-                        {postInfo.departure} → {postInfo.destination}
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
-                        <S.Icon>
-                            <Clock width="14" height="14" />
-                        </S.Icon>
-                        {splitedTime[1]}월 {splitedTime[2]}일 ({splitedTime[3]}) {timePart}출발
-                    </div>
-                </S.Description> */}
-            </S.Body>
+            <S.Body></S.Body>
             <S.Bottom>
                 <S.InputWrapper onChange={text} onClick={sendMessage}>
                     <S.StyledInput placeholder="메시지 보내기..." />
-                    <img src={SendBTN} alt="send" style={{ width: '24px', height: '24px' }} />
+                    <GreenSendBtn width="24px" />
                 </S.InputWrapper>
             </S.Bottom>
         </>
