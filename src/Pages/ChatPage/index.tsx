@@ -89,20 +89,6 @@ function ChatPage() {
     //     };
     // }, []);
 
-    // const getTimeString = (createdAt: string) => {
-    //     // 시간을 출력 포맷으로 바꿔주는 함수
-    //     const isCreated = new Date(createdAt);
-    //     isCreated.setHours(isCreated.getHours() - 9);
-    //     const hour = new Date(isCreated).getHours();
-    //     const minute = new Date(isCreated).getMinutes();
-    //     const hourValue = hour < 10 ? `0${hour}` : hour;
-    //     const minuteValue = minute < 10 ? `0${minute}` : minute;
-    //     const ampm = hour < 12 ? 'am' : 'pm';
-    //     const timeValue = `${hourValue}:${minuteValue} ${ampm}`;
-
-    //     return timeValue;
-    // };
-
     const sendMessage = () => {
         if (newMessage !== '') {
             const time = new Date().toLocaleTimeString().substr(0, 7);
