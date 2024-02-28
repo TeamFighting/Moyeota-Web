@@ -4,10 +4,11 @@ import { HEADER_HEIGHT } from '../../Constants/constant';
 export const Header = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: end;
+    align-items: center;
     height: ${HEADER_HEIGHT}px;
     justify-content: space-between;
     padding: 0 4%;
+    text-align: center;
 `;
 export const Icon = styled.div`
     cursor: pointer;
@@ -26,11 +27,10 @@ export const Profile = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
-    width: 76px;
-    height: 76px;
+    width: 32px;
+    height: 32px;
     border-radius: 100%;
-    border: 10px solid #f5f6f8;
+    border: 2.56px solid #f5f6f8;
     object-fit: cover;
     overflow: hidden;
 `;
@@ -51,13 +51,12 @@ export const ProfileName = styled.div`
     margin-top: 14px;
 `;
 export const Title = styled.div`
-    color: #000;
+    color: var(--Gray-Text-3, #343434);
     font-family: Pretendard;
-    font-size: 22px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 700;
-    line-height: 157%; /* 34.54px */
-    margin-top: 20px;
+    line-height: 157%;
 `;
 export const Description = styled.div`
     color: var(--Gray-Text-2, #7e7e7e);

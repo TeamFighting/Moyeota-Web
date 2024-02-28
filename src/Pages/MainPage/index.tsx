@@ -37,6 +37,7 @@ function MainPage() {
                     if (data.token !== undefined) {
                         setAccessToken(data.token);
                         setUseToken(data.token);
+                        localStorage.setItem('accessToken', data.token);
                     }
                 }
             } catch (error) {

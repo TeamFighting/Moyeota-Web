@@ -7,6 +7,6 @@ interface AuthStore {
 
 export const AuthStore = create<AuthStore>((set) => ({
     accessToken:
-        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4IiwiZXhwIjoxNzA3Mjg3ODU4fQ.y4Vw9DwS-kxFlVK8kdJYZFaGeD5P3q0Rbcptu2SIeI8',
+        'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNSIsImV4cCI6MTcwOTU2OTQyNn0.oUeDuvpNMaXspU0W-MM74Rsjd5mWZRwgRt2O9Pp0nkU',
     setAccessToken: (token: string) => set(() => ({ accessToken: token })),
 }));

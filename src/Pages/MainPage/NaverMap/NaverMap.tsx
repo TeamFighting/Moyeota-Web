@@ -75,7 +75,7 @@ function NaverMap({ from }: { from: string }) {
                     });
                     await Promise.all(promises);
                 } catch (e) {
-                    console.log(e);
+                    // console.log(e);
                 }
             } else {
                 try {

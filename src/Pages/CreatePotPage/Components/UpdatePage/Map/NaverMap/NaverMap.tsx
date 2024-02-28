@@ -50,7 +50,7 @@ function NaverMap({ destination }: NaverMapProps) {
                     });
                 })
                 .catch(() => {
-                    alert('주소를 바르게 입력하세요');
+                    // alert('주소를 바르게 입력하세요');
                 });
         } else if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -77,7 +77,7 @@ function NaverMap({ destination }: NaverMapProps) {
                 });
             });
         } else {
-            alert('실패');
+            // alert('실패');
         }
     }, [destination]);
 
