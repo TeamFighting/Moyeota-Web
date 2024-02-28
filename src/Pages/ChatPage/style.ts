@@ -34,6 +34,12 @@ export const MyMessage = styled.div`
     border-radius: 99px;
     height: fit-content;
     width: fit-content;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 157%; /* 21.98px */
     background: var(--Gray-Button, #f1f1f1);
 `;
 export const Profile = styled.div`

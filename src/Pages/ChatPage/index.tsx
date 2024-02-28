@@ -36,15 +36,15 @@ function ChatPage() {
             time: '오전 10:00',
         },
         {
-            message: '안녕 못해요ㅋㅋ',
+            message: '모여타 채팅 테스트',
             time: '오전 10:00',
         },
         {
-            message: '인성이 안 좋으시네요',
+            message: '보낸 시간이 같으면',
             time: '오전 10:01',
         },
         {
-            message: '조인성인데요',
+            message: '시간을 띄우지 않습니다.',
             time: '오전 10:01',
         },
     ]);
@@ -52,9 +52,7 @@ function ChatPage() {
     const handleBack = () => {
         navigate(-1);
     };
-    useEffect(() => {
-        console.log(messages);
-    }, [messages]);
+
     const [stompClient, setStompClient] = useState<Client | null>(null);
     // useEffect(() => {
     //     const client = new Client({
@@ -91,19 +89,19 @@ function ChatPage() {
     //     };
     // }, []);
 
-    const getTimeString = (createdAt: string) => {
-        // 시간을 출력 포맷으로 바꿔주는 함수
-        const isCreated = new Date(createdAt);
-        isCreated.setHours(isCreated.getHours() - 9);
-        const hour = new Date(isCreated).getHours();
-        const minute = new Date(isCreated).getMinutes();
-        const hourValue = hour < 10 ? `0${hour}` : hour;
-        const minuteValue = minute < 10 ? `0${minute}` : minute;
-        const ampm = hour < 12 ? 'am' : 'pm';
-        const timeValue = `${hourValue}:${minuteValue} ${ampm}`;
+    // const getTimeString = (createdAt: string) => {
+    //     // 시간을 출력 포맷으로 바꿔주는 함수
+    //     const isCreated = new Date(createdAt);
+    //     isCreated.setHours(isCreated.getHours() - 9);
+    //     const hour = new Date(isCreated).getHours();
+    //     const minute = new Date(isCreated).getMinutes();
+    //     const hourValue = hour < 10 ? `0${hour}` : hour;
+    //     const minuteValue = minute < 10 ? `0${minute}` : minute;
+    //     const ampm = hour < 12 ? 'am' : 'pm';
+    //     const timeValue = `${hourValue}:${minuteValue} ${ampm}`;
 
-        return timeValue;
-    };
+    //     return timeValue;
+    // };
 
     const sendMessage = () => {
         if (newMessage !== '') {
@@ -164,7 +162,6 @@ function ChatPage() {
                         // 마지막 인덱스가 아닐 때만 실행.
                         const nextTimeValue = messages[index + 1].time;
                         if (nextTimeValue === timeValue) displayTime = false;
-                        console.log(nextTimeValue, timeValue, displayTime, index, messages.length - 1);
                         // 다음 메세지와 시간이 같을 경우는 띄우지 않는다.
                     }
                     return (
