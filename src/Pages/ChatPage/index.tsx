@@ -3,11 +3,8 @@ import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import { useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { instance } from '../../axios';
-// import GreenSendBTN from '../../assets/images/GreenSendBTN.png';
 import { GreenSendBtn } from '../../assets/svg';
 import * as S from './style';
-import getDays from '../util/getDays';
-import ISOto12 from '../util/ISOto12';
 import { Client } from '@stomp/stompjs';
 
 interface ChatPageProps {
@@ -23,70 +20,109 @@ interface ChatPageProps {
     profileImage: string;
     departureTime: string;
 }
+
+interface myMessageProps {
+    message: string;
+    time: string;
+}
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ChatPage() {
     const { postId } = useParams();
     const [postInfo, setPostInfo] = useState<ChatPageProps>({} as ChatPageProps);
-
-    let splitedTime: string[] = [];
-    let timePart: string = '';
-
-    if (postInfo && postInfo.departureTime) {
-        splitedTime = getDays(postInfo.departureTime);
-        timePart = ISOto12(postInfo.departureTime);
-    }
-
+    const [newMessage, setNewMessage] = useState<string>('');
+    const [messages, setMessages] = useState<myMessageProps[]>([
+        {
+            message: '안녕하세요',
+            time: '오전 10:00',
+        },
+        {
+            message: '안녕 못해요ㅋㅋ',
+            time: '오전 10:00',
+        },
+        {
+            message: '인성이 안 좋으시네요',
+            time: '오전 10:01',
+        },
+        {
+            message: '조인성인데요',
+            time: '오전 10:01',
+        },
+    ]);
     const navigate = useNavigate();
     const handleBack = () => {
         navigate(-1);
     };
-
-    const [stompClient, setStompClient] = useState<Client | null>(null);
     useEffect(() => {
-        const client = new Client({
-            brokerURL: 'wss://moyeota.shop/wss-stomp',
-            reconnectDelay: 10000,
-            heartbeatIncoming: 4000,
-            heartbeatOutgoing: 4000,
-            connectHeaders: {
-                login: 'guest',
-            },
-            debug: (str) => {
-                console.log(str);
-            },
-            onConnect: () => {
-                client.subscribe('/sub/chatRoom/1', (message) => {
-                    console.log(message);
-                });
-            },
-        });
+        console.log(messages);
+    }, [messages]);
+    const [stompClient, setStompClient] = useState<Client | null>(null);
+    // useEffect(() => {
+    //     const client = new Client({
+    //         brokerURL: 'wss://moyeota.shop/wss-stomp',
+    //         reconnectDelay: 10000,
+    //         heartbeatIncoming: 4000,
+    //         heartbeatOutgoing: 4000,
+    //         connectHeaders: {
+    //             login: 'guest',
+    //         },
+    //         debug: (str) => {
+    //             console.log(str);
+    //         },
+    //         onConnect: () => {
+    //             client.subscribe('/sub/chatRoom/1', (message) => {
+    //                 console.log(message);
+    //             });
+    //         },
+    //     });
 
-        // 웹소켓 연결 확인 후 상태 업데이트
-        if (client) {
-            client.activate();
-            setStompClient(client);
-        }
+    //     // 웹소켓 연결 확인 후 상태 업데이트
+    //     if (client) {
+    //         client.activate();
+    //         setStompClient(client);
+    //     }
 
-        // 클린업 함수를 반환합니다.
-        return () => {
-            // 웹소켓 연결 확인 후 연결 종료
-            if (client === null) {
-                return;
-            }
-            client.deactivate();
-        };
-    }, []);
+    //     // 클린업 함수를 반환합니다.
+    //     return () => {
+    //         // 웹소켓 연결 확인 후 연결 종료
+    //         if (client === null) {
+    //             return;
+    //         }
+    //         client.deactivate();
+    //     };
+    // }, []);
+
+    const getTimeString = (createdAt: string) => {
+        // 시간을 출력 포맷으로 바꿔주는 함수
+        const isCreated = new Date(createdAt);
+        isCreated.setHours(isCreated.getHours() - 9);
+        const hour = new Date(isCreated).getHours();
+        const minute = new Date(isCreated).getMinutes();
+        const hourValue = hour < 10 ? `0${hour}` : hour;
+        const minuteValue = minute < 10 ? `0${minute}` : minute;
+        const ampm = hour < 12 ? 'am' : 'pm';
+        const timeValue = `${hourValue}:${minuteValue} ${ampm}`;
+
+        return timeValue;
+    };
 
     const sendMessage = () => {
-        if (stompClient !== null) {
+        if (newMessage !== '') {
+            const time = new Date().toLocaleTimeString().substr(0, 7);
             const chatMessage = {
-                message: '테스트입니다',
+                from: '8',
+                message: newMessage,
+                roomId: '1',
+                to: '1',
             };
-            stompClient.publish({
-                destination: '/pub/chat/enter/users/8/chat-rooms/1',
-                body: JSON.stringify(chatMessage),
-            });
-            console.log('보냈음');
+            // if (stompClient !== null) {
+            //     stompClient.publish({
+            //         destination: '/pub/chat/enter/users/8/chat-rooms/1',
+            //         body: JSON.stringify(chatMessage),
+            //     });
+            // }
+            setMessages([...messages, { message: newMessage, time: time }]);
+            console.log(chatMessage.message);
+            setNewMessage('');
         }
     };
 
@@ -103,30 +139,79 @@ function ChatPage() {
         getChatRoom();
     }, []);
 
-    const text = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
-    };
-
     return (
         <>
             <S.Header>
-                <S.Icon style={{ alignSelf: 'center', textAlign: 'center' }} onClick={handleBack}>
+                <S.Icon style={{ alignSelf: 'center' }} onClick={handleBack}>
                     <Chevronleft width="24" height="24" />
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '8px' }}>
+                        <S.Profile>
+                            <S.ProfileImg src={postInfo.profileImage} alt="profile" />
+                        </S.Profile>
+                        <S.Title style={{ textAlign: 'center' }}>{postInfo.title}</S.Title>
+                    </div>
                 </S.Icon>
-                <S.Profile>
-                    <S.ProfileImg src={postInfo.profileImage} alt="profile" />
-                </S.Profile>
-                <S.Title style={{ textAlign: 'center' }}>{postInfo.title}</S.Title>
                 <S.Icon style={{ alignSelf: 'center', display: 'flex', gap: '18px' }}>
                     <VerticalMenu width="24" height="24" />
                     <SvgCancelIcon width="24" height="24" />
                 </S.Icon>
             </S.Header>
-            <S.Body></S.Body>
+            <S.Body>
+                {messages.map((items, index) => {
+                    let displayTime = true;
+                    const timeValue = items.time;
+                    if (index !== messages.length - 1) {
+                        // 마지막 인덱스가 아닐 때만 실행.
+                        const nextTimeValue = messages[index + 1].time;
+                        if (nextTimeValue === timeValue) displayTime = false;
+                        console.log(nextTimeValue, timeValue, displayTime, index, messages.length - 1);
+                        // 다음 메세지와 시간이 같을 경우는 띄우지 않는다.
+                    }
+                    return (
+                        <div
+                            style={{
+                                gap: '8px',
+                                alignItems: 'center',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'flex-end',
+                                height: 'fit-content',
+                                marginRight: '25px',
+                                marginBottom: '10px',
+                            }}
+                        >
+                            {displayTime ? (
+                                <div
+                                    style={{
+                                        fontSize: '10px',
+                                        color: 'var(--Gray-Text-3, #7E7E7E)',
+                                        height: '100%',
+                                        verticalAlign: 'bottom',
+                                        display: 'flex',
+                                        alignItems: 'end',
+                                    }}
+                                >
+                                    {items.time}
+                                </div>
+                            ) : null}
+                            <S.MyMessage key={index}>{items.message}</S.MyMessage>
+                        </div>
+                    );
+                })}
+            </S.Body>
             <S.Bottom>
-                <S.InputWrapper onChange={text} onClick={sendMessage}>
-                    <S.StyledInput placeholder="메시지 보내기..." />
-                    <GreenSendBtn width="24px" />
+                <S.InputWrapper>
+                    <S.StyledInput
+                        placeholder="메시지 보내기..."
+                        onChange={(e) => {
+                            setNewMessage(e.target.value);
+                        }}
+                        value={newMessage}
+                        type="text"
+                    />
+                    <div onClick={sendMessage}>
+                        <GreenSendBtn width="24px" />
+                    </div>
                 </S.InputWrapper>
             </S.Bottom>
         </>

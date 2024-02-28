@@ -9,6 +9,7 @@ export const Header = styled.div`
     justify-content: space-between;
     padding: 0 4%;
     text-align: center;
+    border-bottom: 6px solid #f5f6f8;
 `;
 export const Icon = styled.div`
     cursor: pointer;
@@ -20,8 +21,20 @@ export const Body = styled.div`
     height: 350px;
     width: 100vw;
     flex-direction: column;
-    align-items: center;
     display: flex;
+    margin-top: 32px;
+`;
+export const MyMessage = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 99px;
+    height: fit-content;
+    width: fit-content;
+    background: var(--Gray-Button, #f1f1f1);
 `;
 export const Profile = styled.div`
     display: flex;
