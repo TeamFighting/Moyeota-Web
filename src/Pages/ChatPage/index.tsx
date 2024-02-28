@@ -54,40 +54,47 @@ function ChatPage() {
     };
 
     const [stompClient, setStompClient] = useState<Client | null>(null);
-    // useEffect(() => {
-    //     const client = new Client({
-    //         brokerURL: 'wss://moyeota.shop/wss-stomp',
-    //         reconnectDelay: 10000,
-    //         heartbeatIncoming: 4000,
-    //         heartbeatOutgoing: 4000,
-    //         connectHeaders: {
-    //             login: 'guest',
-    //         },
-    //         debug: (str) => {
-    //             console.log(str);
-    //         },
-    //         onConnect: () => {
-    //             client.subscribe('/sub/chatRoom/1', (message) => {
-    //                 console.log(message);
-    //             });
-    //         },
-    //     });
+    useEffect(() => {
+        const client = new Client({
+            // brokerURL: 'ws://moyeota.shop/ws-stomp',
+            brokerURL: 'wss://moyeota.shop/wss-stomp',
+            reconnectDelay: 100000,
+            connectHeaders: {
+                Authorization: 'Bearer',
+            },
+            debug: (str) => {
+                console.log(str);
+            },
+            beforeConnect: () => {
+                console.log('beforeConnect');
+            },
+            onConnect: () => {
+                console.log('connected');
+                // client.subscribe('/sub/chatRoom/1', (message) => {
+                //     console.log(message);
+                // });
+            },
+            onStompError: (frame) => {
+                console.log('Broker reported error: ' + frame.headers.message);
+                console.log('Additional details: ' + frame.body);
+            },
+        });
+        // 웹소켓 연결 확인 후 상태 업데이트
+        if (client) {
+            client.activate();
+            setStompClient(client);
+        }
 
-    //     // 웹소켓 연결 확인 후 상태 업데이트
-    //     if (client) {
-    //         client.activate();
-    //         setStompClient(client);
-    //     }
-
-    //     // 클린업 함수를 반환합니다.
-    //     return () => {
-    //         // 웹소켓 연결 확인 후 연결 종료
-    //         if (client === null) {
-    //             return;
-    //         }
-    //         client.deactivate();
-    //     };
-    // }, []);
+        // 클린업 함수를 반환합니다.
+        return () => {
+            // 웹소켓 연결 확인 후 연결 종료
+            if (client === null) {
+                console.log('client is null');
+                return;
+            }
+            client.deactivate();
+        };
+    }, []);
 
     const sendMessage = () => {
         if (newMessage !== '') {
@@ -112,7 +119,7 @@ function ChatPage() {
 
     useEffect(() => {
         async function getChatRoom() {
-            const response = await instance.get(`posts/${postId}`, {
+            const response = await instance.get(`/posts/${postId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8',
