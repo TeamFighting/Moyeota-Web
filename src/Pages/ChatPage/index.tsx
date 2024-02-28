@@ -53,11 +53,7 @@ function ChatPage() {
         navigate(-1);
     };
 
-<<<<<<< HEAD
     const [, setStompClient] = useState<Client | null>(null);
-=======
-    const [stompClient, setStompClient] = useState<Client | null>(null);
->>>>>>> 70c5c0fe88b0905d7e5a7b6236564a6b589fb666
     useEffect(() => {
         const client = new Client({
             // brokerURL: 'ws://moyeota.shop/ws-stomp',
