@@ -69,7 +69,7 @@ function DetailPage() {
                 participants={data.numberOfParticipants}
             />
 
-            <MatchApplyButton postId={data.postId} />
+            <MatchApplyButton postId={data.postId} leaderName={data.userName} title={data.title} />
             {modalOpen.isOpen && <MatchApplyModal isFull={isFull} postId={data.postId} />}
         </S.Container>
     );

@@ -63,6 +63,7 @@ function MainPage() {
             });
             console.log(res);
             setMyInfo(res.data.data);
+            localStorage.setItem('myInfo', JSON.stringify(res.data.data));
         } catch (e) {
             console.log(e);
         }

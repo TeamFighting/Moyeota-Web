@@ -2,26 +2,41 @@ import styled from 'styled-components';
 import ModalStore from '../../../../state/store/ModalStore';
 import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
 import { useNavigate } from 'react-router';
-
+import { set, ref, push, update, child } from 'firebase/database';
+import { db } from '../../../../firebase';
 interface ApplyButtonProps {
     postId: number;
+    title: string;
+    leaderName: string;
 }
 
-function MatchApplyButton({ postId }: ApplyButtonProps) {
+function MatchApplyButton({ postId, leaderName, title }: ApplyButtonProps) {
     const { setIsModalOpen } = ModalStore();
     const { appliedParty } = useAppliedPartyStore();
     const navigate = useNavigate();
     const handleApply = () => {
         setIsModalOpen(true, 'apply');
     };
-
     const handleCancel = () => {
         setIsModalOpen(true, 'cancel');
     };
-
-    const handleChat = () => {
+    const chatRoomsRef = ref(db, 'chatRooms');
+    const handleChat = async () => {
         console.log(postId);
         navigate(`/chat/${postId}`, { state: { postId: postId } });
+        // const key = push(chatRoomsRef).key;
+        // const newChatRoom = {
+        //     id: key,
+        //     postId: postId,
+        //     createdBy: {
+        //         name: 'test',
+        //     },
+        // };
+        // try {
+        //     await update(child(chatRoomsRef, key as string), newChatRoom);
+        // } catch (err) {
+        //     console.log(err);
+        // }
     };
 
     if (appliedParty.length !== 0) {

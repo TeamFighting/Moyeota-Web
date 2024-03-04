@@ -2,7 +2,30 @@ import * as S from './style';
 import CreateHeader from './CreateHeader';
 import CreateExitButton from './Components/Button/CreateExitButton';
 import styled from 'styled-components';
+import { set, ref, push, update, child, onChildAdded } from 'firebase/database';
+import { db } from '../../firebase';
+import { useEffect } from 'react';
 function createComplete() {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+        createNewChatRoom();
+    }, []);
+    const chatRoomsRef = ref(db, 'chatRooms');
+    const userData = JSON.parse(localStorage.getItem('userData') as string);
+    const createNewChatRoom = async () => {
+        const key = push(chatRoomsRef).key;
+        const newChatRoom = {
+            id: key,
+            createdBy: {
+                user: userData.id,
+            },
+        };
+        try {
+            await update(child(chatRoomsRef, key as string), newChatRoom);
+        } catch (err) {
+            console.log(err);
+        }
+    };
     return (
         <>
             <S.Container>
@@ -18,10 +41,10 @@ function createComplete() {
                     }}
                 >
                     <div style={{ marginBottom: 37 }}>
-                        <img width="84" height="84" src="/svg/Yondo.svg" alt="로봇 프로필" />
+                        <img width="84" height="84" src={userData.profile} alt="로봇 프로필" />
                     </div>
                     <S.CompleteWrapper>
-                        <S.Title>모연두 님의</S.Title>
+                        <S.Title>{userData.name} 님의</S.Title>
                         <S.Title>팟 생성이 완료되었어요!</S.Title>
                     </S.CompleteWrapper>
                 </div>

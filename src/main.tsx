@@ -14,7 +14,7 @@ import QuickMatchFinding from './Pages/QuickMatch/QuickMatchFinding';
 import UpdatePotPage from './Pages/CreatePotPage/Components/UpdatePage/UpdatePotPage';
 import UpdateDestinationPage from './Pages/CreatePotPage/Components/UpdatePage/Map/DestinationPage';
 import UpdateSearchResults from './Pages/CreatePotPage/Components/UpdatePage/Map/SearchResults';
-import ChatPage from './Pages/ChatPage';
+import FirebaseChat from './Pages/FirebaseChat';
 
 const router = createBrowserRouter([
     {
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
     },
     {
         path: '/chat/:postId',
-        element: <ChatPage />,
+        element: <FirebaseChat />,
     },
 ]);
 
