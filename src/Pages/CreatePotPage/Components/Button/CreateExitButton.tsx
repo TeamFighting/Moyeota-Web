@@ -5,26 +5,28 @@ import PotCreateStore from '../../../../state/store/PotCreateStore';
 function CreateExitButton() {
     const navigate = useNavigate();
     const { setPostId } = PotCreateStore((state) => state);
-
-    const navigateToDetail = async () => {
-        try {
-            const response = await fetch('/posts?page=0');
-            const data = await response.json();
-
-            if (response.ok) {
-                setPostId(data.data.content[0].postId);
-                navigate('/CreateDetailPage');
-            } else {
-                alert('모집글 조회 실패');
-            }
-        } catch (error) {
-            console.error('API 호출 중 에러:', error);
-        }
+    const navigateToMain = () => {
+        navigate('/mainpage');
     };
+    // const navigateToDetail = async () => {
+    //     try {
+    //         const response = await fetch('/posts?page=0');
+    //         const data = await response.json();
+
+    //         if (response.ok) {
+    //             setPostId(data.data.content[0].postId);
+    //             navigate('/CreateDetailPage');
+    //         } else {
+    //             alert('모집글 조회 실패');
+    //         }
+    //     } catch (error) {
+    //         console.error('API 호출 중 에러:', error);
+    //     }
+    // };
 
     return (
         <Wrapper>
-            <Button type="button" onClick={navigateToDetail}>
+            <Button type="button" onClick={navigateToMain}>
                 닫기
             </Button>
         </Wrapper>
