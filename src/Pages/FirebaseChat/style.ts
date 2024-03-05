@@ -127,14 +127,14 @@ export const Bottom = styled.div`
     background-color: white;
 `;
 export const InputWrapper = styled.div`
-    padding: 0 4%;
+    margin: 0 20px;
+    width: calc(100% - 40px);
     box-sizing: border-box;
     border: 2px solid #f5f6f8;
     border-radius: 99px;
     display: flex;
     flex-direction: row;
     gap: 10px;
-
     align-items: center;
 `;
 export const StyledInput = styled.input`
@@ -144,8 +144,7 @@ export const StyledInput = styled.input`
     border: none;
     outline: none;
     font-size: 18px;
-    padding: 0 24px;
-
+    margin: 0 30px;
     box-sizing: border-box;
     font-family: Pretendard;
     font-style: normal;
@@ -154,5 +153,4 @@ export const StyledInput = styled.input`
     letter-spacing: 0.54px;
     color: #5d5d5d;
     background-color: white;
-    /* border-radius: 12px; */
 `;

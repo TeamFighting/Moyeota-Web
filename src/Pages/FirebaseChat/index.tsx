@@ -1,7 +1,7 @@
 import { Chevronleft, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import { useLocation, useNavigate, useParams } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { instance } from '../../axios';
 import { GreenSendBtn } from '../../assets/svg';
 import * as S from './style';
@@ -57,14 +57,13 @@ function FirebaseChat() {
     const handleBack = () => {
         navigate(-1);
     };
-
+    const messageEndRef = useRef<HTMLDivElement>(null);
     const messagesRef = dbRef(db, 'messages');
-
+    useEffect(() => {
+        messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, []);
     useEffect(() => {
         if (roomId !== undefined) addMessagesListener(roomId);
-        // return () => {
-        //     off(messagesRef);
-        // };
     }, [roomId]);
     const addMessagesListener = (roomId: string) => {
         const messagesArray = [] as myMessageProps[];
@@ -158,7 +157,10 @@ function FirebaseChat() {
                     <SvgCancelIcon width="24" height="24" />
                 </S.Icon>
             </S.Header>
-            <S.Body>{renderMessages(messages)}</S.Body>
+            <S.Body>
+                {renderMessages(messages)}
+                <div ref={messageEndRef}></div>
+            </S.Body>
             <S.Bottom>
                 <S.InputWrapper>
                     <S.StyledInput
@@ -169,7 +171,7 @@ function FirebaseChat() {
                         value={newMessage}
                         type="text"
                     />
-                    <div onClick={sendMessage}>
+                    <div style={{ paddingRight: '13px' }} onClick={sendMessage}>
                         <GreenSendBtn width="24px" />
                     </div>
                 </S.InputWrapper>
