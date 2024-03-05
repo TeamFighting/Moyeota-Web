@@ -1,12 +1,13 @@
 import { Chevronleft, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
-import { useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { instance } from '../../axios';
 import { GreenSendBtn } from '../../assets/svg';
 import * as S from './style';
 import { db } from '../../firebase';
-import { set, ref, push, update, child, onChildAdded } from 'firebase/database';
+import { serverTimestamp, set, ref as dbRef, push, update, child, onChildAdded, off } from 'firebase/database';
+import styled from 'styled-components';
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     postId: string;
@@ -22,8 +23,13 @@ interface ChatPageProps {
 }
 
 interface myMessageProps {
-    message: string;
-    time: string;
+    text: string;
+    timestamp: number;
+    user: {
+        id: string;
+        name: string;
+        profileImage: string;
+    };
 }
 
 interface ChatRoomProps {
@@ -35,60 +41,57 @@ interface ChatRoomProps {
 }
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function FirebaseChat() {
-    const { postId } = useParams();
+    const location = useLocation();
+    const { postId, roomId } = location.state;
     const [postInfo, setPostInfo] = useState<ChatPageProps>({} as ChatPageProps);
     const [newMessage, setNewMessage] = useState<string>('');
-    const [messages, setMessages] = useState<myMessageProps[]>([
-        {
-            message: '안녕하세요',
-            time: '오전 10:00',
-        },
-        {
-            message: '모여타 채팅 테스트',
-            time: '오전 10:00',
-        },
-        {
-            message: '보낸 시간이 같으면',
-            time: '오전 10:01',
-        },
-        {
-            message: '시간을 띄우지 않습니다.',
-            time: '오전 10:01',
-        },
-    ]);
+    const [messages, setMessages] = useState<myMessageProps[]>([]);
+    const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
+    const { id, name } = JSON.parse(localStorage.getItem('myInfo') as string);
     const navigate = useNavigate();
     const handleBack = () => {
         navigate(-1);
     };
-    const chatRoomsRef = ref(db, 'chatRooms');
-    const [chatRooms, setChatRooms] = useState<ChatRoomProps[]>([]);
-    useEffect(() => {
-        addChatRoomsListener();
-    }, []);
-    const addChatRoomsListener = () => {
-        const chatRoomsArray: ChatRoomProps[] = [];
+    const messagesRef = dbRef(db, 'messages');
 
-        onChildAdded(chatRoomsRef, (DataSnapshot) => {
-            chatRoomsArray.push(DataSnapshot.val());
-            const newChatRoom = [...chatRoomsArray];
-            setChatRooms(newChatRoom);
+    useEffect(() => {
+        if (roomId !== undefined) addMessagesListener(roomId);
+        return () => {
+            off(messagesRef);
+        };
+    }, [roomId]);
+    const addMessagesListener = (roomId: string) => {
+        const messagesArray = [] as myMessageProps[];
+        onChildAdded(child(messagesRef, roomId), (snapshot) => {
+            messagesArray.push(snapshot.val());
+            const newmessagesArray = [...messagesArray];
+            setMessages(newmessagesArray);
         });
+    };
+    const createMessage = (fileUrl: string | null = null) => {
+        const message = {
+            text: newMessage,
+            user: {
+                id: id,
+                name: name,
+                profileImage: postInfo.profileImage,
+            },
+            timestamp: serverTimestamp(),
+        };
+
+        return message;
     };
 
     const sendMessage = async () => {
-        // set(ref(db, `chatRooms/1`), {
-        //     name: 'chatRoom',
-        //     id: 2,
-        // });
+        try {
+            if (roomId === undefined) return;
+            await set(push(child(messagesRef, roomId)), createMessage());
+            setNewMessage('');
+        } catch (e) {
+            console.log(e);
+        }
     };
-    const renderChatRooms = () => {
-        return (
-            chatRooms.length > 0 &&
-            chatRooms.map((chatRoom) => {
-                return <div>{chatRoom.id}</div>;
-            })
-        );
-    };
+
     useEffect(() => {
         async function getChatRoom() {
             const response = await instance.get(`/posts/${postId}`);
@@ -97,6 +100,16 @@ function FirebaseChat() {
         getChatRoom();
     }, []);
 
+    const renderMessages = (messages: myMessageProps[]) => {
+        console.log(messages);
+
+        return (
+            messages.length > 0 &&
+            messages.map((items, index) => {
+                return <Message key={index}>{items.text}</Message>;
+            })
+        );
+    };
     return (
         <>
             <S.Header>
@@ -115,7 +128,7 @@ function FirebaseChat() {
                 </S.Icon>
             </S.Header>
             <S.Body>
-                <ul>{renderChatRooms()}</ul>
+                {renderMessages(messages)}
                 {/* {messages.map((items, index) => {
                     let displayTime = true;
                     const timeValue = items.time;
@@ -175,5 +188,14 @@ function FirebaseChat() {
         </>
     );
 }
+
+const Message = styled.div`
+    font-size: 10px;
+    color: var(--Gray-Text-3, #7e7e7e);
+    height: 100%;
+    vertical-align: bottom;
+    display: flex;
+    align-items: end;
+`;
 
 export default FirebaseChat;

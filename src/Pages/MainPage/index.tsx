@@ -16,12 +16,15 @@ import { instance } from '../../axios';
 import watchPositionHook from '../../Hooks/watchPositionHook';
 import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../state/store/MyInfo';
+import ChatLists from '../FirebaseChat/ChatLists';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    const { accessToken, setAccessToken } = AuthStore();
+    // const { accessToken, setAccessToken } = AuthStore();
+    const accessToken = localStorage.getItem('accessToken');
+    const setAccessToken = AuthStore((state) => state.setAccessToken);
     const { setMyInfo } = useMyInfoStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     watchPositionHook();
@@ -68,6 +71,7 @@ function MainPage() {
             console.log(e);
         }
     }
+
     async function fetchData() {
         try {
             const res = await instance.get('/posts');
@@ -125,6 +129,8 @@ function MainPage() {
                 <LocationHeader />
             </Header>
             <Body>
+                <button onClick={() => navigate('/ChatLists')}>참여중인 채팅방</button>
+
                 <Icons>
                     <Icon onClick={refresh}>
                         <SvgRefreshButton

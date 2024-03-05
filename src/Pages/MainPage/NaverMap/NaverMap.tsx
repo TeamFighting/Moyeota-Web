@@ -79,22 +79,20 @@ function NaverMap({ from }: { from: string }) {
                 }
             } else {
                 try {
-                    const promises = departures.map((data) =>
-                        instance.get(`/distance/keyword`, {
-                            params: { query: `${data.departure}` },
-                        }),
-                    );
-
-                    const results = await Promise.all(promises);
-
-                    const finalData = results.map((result) => ({
-                        data: result.data.data,
-                        status: result.status,
-                        postId: departures[results.indexOf(result)].postId,
-                    }));
-                    setFinalArray(finalData);
+                    // const promises = departures.map((data) =>
+                    //     instance.get(`/distance/keyword`, {
+                    //         params: { query: `${data.departure}` },
+                    //     }),
+                    // );
+                    // const results = await Promise.all(promises);
+                    // const finalData = results.map((result) => ({
+                    //     data: result.data.data,
+                    //     status: result.status,
+                    //     postId: departures[results.indexOf(result)].postId,
+                    // }));
+                    // setFinalArray(finalData);
                 } catch (e) {
-                    console.log(e);
+                    // console.log(e);
                 }
             }
         };

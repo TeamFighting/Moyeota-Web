@@ -16,6 +16,7 @@ import UpdateDestinationPage from './Pages/CreatePotPage/Components/UpdatePage/M
 import UpdateSearchResults from './Pages/CreatePotPage/Components/UpdatePage/Map/SearchResults';
 import FirebaseChat from './Pages/FirebaseChat';
 import ChatPage from './Pages/(deprecate)ChatPage';
+import ChatLists from './Pages/FirebaseChat/ChatLists';
 
 const router = createBrowserRouter([
     {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
     {
         path: '/chat/:postId',
         element: <FirebaseChat />,
+    },
+    {
+        path: '/chatLists',
+        element: <ChatLists />,
     },
 ]);
 

@@ -15,42 +15,37 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const navigate = useNavigate();
     const accessToken = localStorage.getItem('accessToken');
 
-    useEffect(() => {
-        createNewChatRoom();
-    }, []);
     const chatRoomsRef = ref(db, 'chatRooms');
-    const userData = JSON.parse(localStorage.getItem('userData') as string);
+    const userData = JSON.parse(localStorage.getItem('myInfo') as string);
     console.log(userData);
-    const createNewChatRoom = async () => {
+    const {
+        title,
+        // description: content,
+        // distance,
+        // destination,
+        // VehicleType: vehicle,
+        // sameGenderRide: sameGenderStatus,
+        // selectedTime,
+    } = potCreateStore;
+    // const { estidmatedDuration, estimatedFare } = durationFareStore;
+    const createPost = async () => {
+        console.log('createPost');
         const key = push(chatRoomsRef).key;
         const newChatRoom = {
             id: key,
+            title: '테스트 공릉역',
             createdBy: {
                 user: userData.id,
+                name: userData.name,
+                profileImage: userData.profileImage,
             },
         };
         try {
-            await update(child(chatRoomsRef, key as string), newChatRoom);
-        } catch (err) {
-            console.log(err);
-        }
-    };
-    const createPost = async () => {
-        console.log('createPost');
-        try {
+            const res = await update(child(chatRoomsRef, key as string), newChatRoom);
+            console.log('res:', res);
             const formattedDate = new Date().toISOString;
             const numberOfRecruitment = totalPeople;
             const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
-            // const {
-            //     title,
-            //     description: content,
-            //     distance,
-            //     destination,
-            //     VehicleType: vehicle,
-            //     sameGenderRide: sameGenderStatus,
-            //     selectedTime,
-            // } = potCreateStore;
-            // const { estimatedDuration, estimatedFare } = durationFareStore;
 
             const response = await instance.post(
                 '/posts',
@@ -67,8 +62,9 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     modifiedDate: new Date(), //formattedDate,
                     numberOfRecruitment: 4, // numberOfRecruitment,
                     sameGenderStatus: 'YES', //sameGenderStatus,
-                    title: 'test', //title,
+                    title: '공릉역 갑시다', //title,
                     vehicle: '일반', //vehicle,
+                    roomId: key,
                 },
                 {
                     headers: {

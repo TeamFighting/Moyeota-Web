@@ -12,7 +12,7 @@ interface ModalProps {
 function MatchApplyModal({ postId, isFull }: ModalProps) {
     const { setAppliedParty, deleteAppliedParty } = useAppliedPartyStore();
     const { modalOpen, setIsModalOpen } = ModalStore();
-    const { accessToken } = AuthStore();
+    const accessToken = localStorage.getItem('accessToken');
     const ref = useOnclickOutside(() => {
         setIsModalOpen(false, 'apply');
     });
