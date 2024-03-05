@@ -52,19 +52,21 @@ function FirebaseChat() {
     const [messages, setMessages] = useState<myMessageProps[]>([]);
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
     const { id, name, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
-    console.log('MYINFO', id, profileImage);
     const navigate = useNavigate();
     const handleBack = () => {
         navigate(-1);
     };
     const messageEndRef = useRef<HTMLDivElement>(null);
     const messagesRef = dbRef(db, 'messages');
+
     useEffect(() => {
         messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, []);
+    }, [messages]);
+
     useEffect(() => {
         if (roomId !== undefined) addMessagesListener(roomId);
     }, [roomId]);
+
     const addMessagesListener = (roomId: string) => {
         const messagesArray = [] as myMessageProps[];
         onChildAdded(child(messagesRef, roomId), (snapshot) => {
@@ -75,6 +77,7 @@ function FirebaseChat() {
         setMessagesLoading(true);
     };
     const createMessage = (fileUrl: string | null = null) => {
+        if (newMessage === '') return;
         const message = {
             text: newMessage,
             user: {
