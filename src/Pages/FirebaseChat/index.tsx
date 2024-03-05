@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import Messages from './Messages';
 import moment from 'moment';
 import 'moment/locale/ko';
+import Skeleton from '../../components/Skeleton';
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     postId: string;
@@ -74,7 +75,7 @@ function FirebaseChat() {
             const newmessagesArray = [...messagesArray];
             setMessages(newmessagesArray);
         });
-        setMessagesLoading(true);
+        setMessagesLoading(false);
     };
     const createMessage = (fileUrl: string | null = null) => {
         if (newMessage === '') return;
@@ -143,6 +144,17 @@ function FirebaseChat() {
             })
         );
     };
+    const renderMessageSkeleton = (messagesLoading: boolean) => {
+        return (
+            { messagesLoading } && (
+                <>
+                    {[...Array(15)].map((_, index) => (
+                        <Skeleton key={index} />
+                    ))}
+                </>
+            )
+        );
+    };
     return (
         <>
             <S.Header>
@@ -161,6 +173,7 @@ function FirebaseChat() {
                 </S.Icon>
             </S.Header>
             <S.Body>
+                {renderMessageSkeleton(messagesLoading)}
                 {renderMessages(messages)}
                 <div ref={messageEndRef}></div>
             </S.Body>
