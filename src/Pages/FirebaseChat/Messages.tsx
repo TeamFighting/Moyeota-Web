@@ -12,7 +12,6 @@ interface MessagesProps {
 }
 function Messages({ displayTime, timeStamp, message, user }: MessagesProps) {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
-
     return (
         <div>
             {id !== user.id ? (

@@ -7,8 +7,13 @@ export const Header = styled.div`
     align-items: center;
     height: ${HEADER_HEIGHT}px;
     justify-content: space-between;
-    padding: 0 4%;
     text-align: center;
+    position: fixed;
+    top: 0;
+    background-color: white;
+    width: 92%;
+    padding-right: 4%;
+    padding-left: 4%;
     border-bottom: 6px solid #f5f6f8;
 `;
 export const Icon = styled.div`
@@ -18,11 +23,13 @@ export const Icon = styled.div`
     justify-content: center;
 `;
 export const Body = styled.div`
-    height: 350px;
+    height: calc(100vh - ${HEADER_HEIGHT}px - 100);
+    padding-top: ${HEADER_HEIGHT + 20}px;
+    padding-bottom: 120px;
+    overflow-y: scroll;
     width: 100vw;
     flex-direction: column;
     display: flex;
-    margin-top: 32px;
 `;
 export const MyMessage = styled.div`
     display: flex;
@@ -116,6 +123,8 @@ export const Bottom = styled.div`
     bottom: 0;
     height: 78px;
     width: 100vw;
+    padding-top: 32px;
+    background-color: white;
 `;
 export const InputWrapper = styled.div`
     padding: 0 4%;
@@ -125,6 +134,7 @@ export const InputWrapper = styled.div`
     display: flex;
     flex-direction: row;
     gap: 10px;
+
     align-items: center;
 `;
 export const StyledInput = styled.input`

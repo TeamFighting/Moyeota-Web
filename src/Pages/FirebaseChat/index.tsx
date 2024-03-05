@@ -10,6 +10,7 @@ import { serverTimestamp, set, ref as dbRef, push, update, child, onChildAdded, 
 import styled from 'styled-components';
 import Messages from './Messages';
 import moment from 'moment';
+import 'moment/locale/ko';
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     postId: string;
@@ -41,6 +42,7 @@ interface ChatRoomProps {
         name: string;
     };
 }
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function FirebaseChat() {
     const location = useLocation();
@@ -55,6 +57,7 @@ function FirebaseChat() {
     const handleBack = () => {
         navigate(-1);
     };
+
     const messagesRef = dbRef(db, 'messages');
 
     useEffect(() => {
@@ -103,8 +106,6 @@ function FirebaseChat() {
         }
         getChatRoom();
     }, []);
-    const { id: ids } = JSON.parse(localStorage.getItem('myInfo') as string);
-    console.log(ids);
 
     const renderMessages = (messages: myMessageProps[]) => {
         return (
@@ -112,16 +113,23 @@ function FirebaseChat() {
             messages.map((items, index) => {
                 let displayTime = true;
                 const timeValue = items.timestamp;
-                const newtimeValue = moment(timeValue).format('HH:mm');
+                let newtimeValue = moment(timeValue).format('HH:mm');
                 if (index !== messages.length - 1) {
                     // 마지막 인덱스가 아닐 때만 실행.
                     const isSamePerson = items.user.id === messages[index + 1].user.id;
                     if (isSamePerson) {
                         const nextTimeValue = moment(messages[index + 1].timestamp).format('HH:mm');
-                        console.log(nextTimeValue == newtimeValue);
                         if (nextTimeValue == newtimeValue) displayTime = false;
                     }
                 }
+                let hour = Number(newtimeValue.substr(0, 2));
+                if (hour > 12) {
+                    hour = hour - 12;
+                    newtimeValue = '오후 ' + hour + newtimeValue.substr(2, 3);
+                } else {
+                    newtimeValue = '오전 ' + newtimeValue;
+                }
+                console.log('newtimeValue', newtimeValue);
                 return (
                     <Messages
                         displayTime={displayTime}
@@ -169,14 +177,5 @@ function FirebaseChat() {
         </>
     );
 }
-
-const Message = styled.div`
-    font-size: 10px;
-    color: var(--Gray-Text-3, #7e7e7e);
-    height: 100%;
-    vertical-align: bottom;
-    display: flex;
-    align-items: end;
-`;
 
 export default FirebaseChat;
