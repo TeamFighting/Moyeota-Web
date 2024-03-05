@@ -8,6 +8,8 @@ import * as S from './style';
 import { db } from '../../firebase';
 import { serverTimestamp, set, ref as dbRef, push, update, child, onChildAdded, off } from 'firebase/database';
 import styled from 'styled-components';
+import Messages from './Messages';
+import moment from 'moment';
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     postId: string;
@@ -47,7 +49,8 @@ function FirebaseChat() {
     const [newMessage, setNewMessage] = useState<string>('');
     const [messages, setMessages] = useState<myMessageProps[]>([]);
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
-    const { id, name } = JSON.parse(localStorage.getItem('myInfo') as string);
+    const { id, name, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
+    console.log('MYINFO', id, profileImage);
     const navigate = useNavigate();
     const handleBack = () => {
         navigate(-1);
@@ -56,9 +59,9 @@ function FirebaseChat() {
 
     useEffect(() => {
         if (roomId !== undefined) addMessagesListener(roomId);
-        return () => {
-            off(messagesRef);
-        };
+        // return () => {
+        //     off(messagesRef);
+        // };
     }, [roomId]);
     const addMessagesListener = (roomId: string) => {
         const messagesArray = [] as myMessageProps[];
@@ -67,6 +70,7 @@ function FirebaseChat() {
             const newmessagesArray = [...messagesArray];
             setMessages(newmessagesArray);
         });
+        setMessagesLoading(true);
     };
     const createMessage = (fileUrl: string | null = null) => {
         const message = {
@@ -74,7 +78,7 @@ function FirebaseChat() {
             user: {
                 id: id,
                 name: name,
-                profileImage: postInfo.profileImage,
+                profileImage: profileImage,
             },
             timestamp: serverTimestamp(),
         };
@@ -99,14 +103,33 @@ function FirebaseChat() {
         }
         getChatRoom();
     }, []);
+    const { id: ids } = JSON.parse(localStorage.getItem('myInfo') as string);
+    console.log(ids);
 
     const renderMessages = (messages: myMessageProps[]) => {
-        console.log(messages);
-
         return (
             messages.length > 0 &&
             messages.map((items, index) => {
-                return <Message key={index}>{items.text}</Message>;
+                let displayTime = true;
+                const timeValue = items.timestamp;
+                const newtimeValue = moment(timeValue).format('HH:mm');
+                if (index !== messages.length - 1) {
+                    // 마지막 인덱스가 아닐 때만 실행.
+                    const isSamePerson = items.user.id === messages[index + 1].user.id;
+                    if (isSamePerson) {
+                        const nextTimeValue = moment(messages[index + 1].timestamp).format('HH:mm');
+                        console.log(nextTimeValue == newtimeValue);
+                        if (nextTimeValue == newtimeValue) displayTime = false;
+                    }
+                }
+                return (
+                    <Messages
+                        displayTime={displayTime}
+                        timeStamp={newtimeValue}
+                        message={items.text}
+                        user={items.user}
+                    />
+                );
             })
         );
     };
@@ -127,49 +150,7 @@ function FirebaseChat() {
                     <SvgCancelIcon width="24" height="24" />
                 </S.Icon>
             </S.Header>
-            <S.Body>
-                {renderMessages(messages)}
-                {/* {messages.map((items, index) => {
-                    let displayTime = true;
-                    const timeValue = items.time;
-                    if (index !== messages.length - 1) {
-                        // 마지막 인덱스가 아닐 때만 실행.
-                        const nextTimeValue = messages[index + 1].time;
-                        if (nextTimeValue === timeValue) displayTime = false;
-                        // 다음 메세지와 시간이 같을 경우는 띄우지 않는다.
-                    }
-                    return (
-                        <div
-                            style={{
-                                gap: '8px',
-                                alignItems: 'center',
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'flex-end',
-                                height: 'fit-content',
-                                marginRight: '25px',
-                                marginBottom: '10px',
-                            }}
-                        >
-                            {displayTime ? (
-                                <div
-                                    style={{
-                                        fontSize: '10px',
-                                        color: 'var(--Gray-Text-3, #7E7E7E)',
-                                        height: '100%',
-                                        verticalAlign: 'bottom',
-                                        display: 'flex',
-                                        alignItems: 'end',
-                                    }}
-                                >
-                                    {items.time}
-                                </div>
-                            ) : null}
-                            <S.MyMessage key={index}>{items.message}</S.MyMessage>
-                        </div>
-                    );
-                })} */}
-            </S.Body>
+            <S.Body>{renderMessages(messages)}</S.Body>
             <S.Bottom>
                 <S.InputWrapper>
                     <S.StyledInput

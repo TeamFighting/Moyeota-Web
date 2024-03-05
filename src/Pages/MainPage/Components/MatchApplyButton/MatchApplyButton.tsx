@@ -22,19 +22,6 @@ function MatchApplyButton({ roomId, postId, leaderName, title }: ApplyButtonProp
     // const chatRoomsRef = ref(db, 'chatRooms');
     const handleChat = async () => {
         navigate(`/chat/${postId}`, { state: { roomId: roomId, postId: postId } });
-        // const key = push(chatRoomsRef).key;
-        // const newChatRoom = {
-        //     id: key,
-        //     postId: postId,
-        //     createdBy: {
-        //         name: 'test',
-        //     },
-        // };
-        // try {
-        //     await update(child(chatRoomsRef, key as string), newChatRoom);
-        // } catch (err) {
-        //     console.log(err);
-        // }
     };
 
     if (appliedParty.length !== 0) {

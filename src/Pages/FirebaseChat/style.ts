@@ -30,6 +30,8 @@ export const MyMessage = styled.div`
     align-items: center;
     justify-content: center;
     gap: 10px;
+    margin-right: 16px;
+    margin-left: 9px;
     padding: 10px 16px;
     border-radius: 99px;
     height: fit-content;
@@ -41,6 +43,24 @@ export const MyMessage = styled.div`
     font-weight: 500;
     line-height: 157%; /* 21.98px */
     background: var(--Gray-Button, #f1f1f1);
+`;
+export const YourMessage = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 99px;
+    background: #1edd81;
+    height: fit-content;
+    width: fit-content;
+    color: #fff;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 157%; /* 21.98px */
 `;
 export const Profile = styled.div`
     display: flex;
