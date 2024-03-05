@@ -13,9 +13,10 @@ interface EditDeleteModalProps {
     isOpen: boolean;
     onClose: () => void;
     children: React.ReactNode;
+    postId: number;
 }
 
-const EditDeleteModal: React.FC<EditDeleteModalProps> = ({ isOpen, onClose }) => {
+const EditDeleteModal = ({ postId, isOpen, onClose }: EditDeleteModalProps) => {
     const [sheetHeight] = React.useState<number>(() => {
         return window.innerHeight * (2.5 / 8);
     });
@@ -79,16 +80,16 @@ const EditDeleteModal: React.FC<EditDeleteModalProps> = ({ isOpen, onClose }) =>
                 </div>
                 <CancleText onClick={onClose}>취소</CancleText>
             </BottomSheetContent>
-            {isDeleteModalOpen && <DeleteModal onClose={handleCloseDeleteModal}></DeleteModal>}
+            {isDeleteModalOpen && <DeleteModal postId={postId} onClose={handleCloseDeleteModal}></DeleteModal>}
         </BottomSheetContainer>
     );
 };
 
-EditDeleteModal.propTypes = {
-    isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.node.isRequired,
-};
+// EditDeleteModal.propTypes = {
+//     isOpen: PropTypes.bool.isRequired,
+//     onClose: PropTypes.func.isRequired,
+//     children: PropTypes.node.isRequired,
+// };
 
 export default EditDeleteModal;
 

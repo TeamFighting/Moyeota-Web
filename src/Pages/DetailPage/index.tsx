@@ -47,7 +47,7 @@ function DetailPage() {
     return (
         <S.Container>
             {/* <DetailHeader /> */}
-            <FixDetailHeader />
+            <FixDetailHeader postId={data.postId} />
             <DetailBody data={data} />
             <Divider style={{ height: '10px' }} />
             <DetailBottom

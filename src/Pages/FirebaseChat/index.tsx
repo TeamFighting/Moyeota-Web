@@ -36,14 +36,6 @@ interface myMessageProps {
     };
 }
 
-interface ChatRoomProps {
-    id: string;
-    postId: string;
-    createdBy: {
-        name: string;
-    };
-}
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function FirebaseChat() {
     const location = useLocation();

@@ -8,7 +8,7 @@ import UploadIcon from '../../../../assets/svg/UploadIcon';
 import EditDeleteModal from './EditDeleteModal';
 import useUpdateModalStore from '../../../../state/store/UpdateModalStore';
 
-function FixDetailHeader() {
+function FixDetailHeader({ postId }: { postId: number }) {
     const navigate = useNavigate();
     const { isModalOpen, openModal, closeModal } = useUpdateModalStore();
 
@@ -18,8 +18,8 @@ function FixDetailHeader() {
 
     return (
         <Header>
-            <EditDeleteModal isOpen={isModalOpen} onClose={closeModal}>
-                <p>Modal Content</p>
+            <EditDeleteModal postId={postId} isOpen={isModalOpen} onClose={closeModal}>
+                <div></div>
             </EditDeleteModal>
             <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
                 <CheveronLeft width="24" height="24" />
