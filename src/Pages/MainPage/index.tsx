@@ -21,7 +21,9 @@ function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    const { accessToken, setAccessToken } = AuthStore();
+    // const { accessToken, setAccessToken } = AuthStore();
+    const accessToken = localStorage.getItem('accessToken');
+    const setAccessToken = AuthStore((state) => state.setAccessToken);
     const { setMyInfo } = useMyInfoStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     watchPositionHook();
@@ -29,10 +31,7 @@ function MainPage() {
     useEffect(() => {
         fetchData();
         usersInfo();
-        localStorage.setItem(
-            'accessToken',
-            'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMiIsImV4cCI6MTcxMDkyNjc0MX0.z59F-f576-w8Anut09vcJhM0y-QWmyOoWDU5HrYPcO0',
-        );
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handleMessage = (event: any) => {
             try {
@@ -41,7 +40,7 @@ function MainPage() {
                     if (data.token !== undefined) {
                         setAccessToken(data.token);
                         setUseToken(data.token);
-                        localStorage.setItem('accessToken', data.token);
+                        localStorage.setItem('accessToken', data.token.toString());
                     }
                 }
             } catch (error) {
@@ -67,10 +66,12 @@ function MainPage() {
             });
             console.log(res);
             setMyInfo(res.data.data);
+            localStorage.setItem('myInfo', JSON.stringify(res.data.data));
         } catch (e) {
             console.log(e);
         }
     }
+
     async function fetchData() {
         try {
             const res = await instance.get('/posts');
@@ -93,8 +94,6 @@ function MainPage() {
         console.log('refresh');
         console.log('accessToken', accessToken);
         submit();
-
-        // window.location.reload();
     };
 
     const goCurrent = () => {
@@ -128,6 +127,8 @@ function MainPage() {
                 <LocationHeader />
             </Header>
             <Body>
+                <button onClick={() => navigate('/ChatLists')}>참여중인 채팅방</button>
+
                 <Icons>
                     <Icon onClick={refresh}>
                         <SvgRefreshButton

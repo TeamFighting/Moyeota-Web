@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
 import ModalStore from '../../../../state/store/ModalStore';
 import { instance } from '../../../../axios';
-import { AuthStore } from '../../../../state/store/AuthStore';
 
 interface ModalProps {
     isFull: boolean;
@@ -12,7 +11,7 @@ interface ModalProps {
 function MatchApplyModal({ postId, isFull }: ModalProps) {
     const { setAppliedParty, deleteAppliedParty } = useAppliedPartyStore();
     const { modalOpen, setIsModalOpen } = ModalStore();
-    const { accessToken } = AuthStore();
+    const accessToken = localStorage.getItem('accessToken');
     const ref = useOnclickOutside(() => {
         setIsModalOpen(false, 'apply');
     });

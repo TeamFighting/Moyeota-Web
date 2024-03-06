@@ -2,26 +2,26 @@ import styled from 'styled-components';
 import ModalStore from '../../../../state/store/ModalStore';
 import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
 import { useNavigate } from 'react-router';
-
 interface ApplyButtonProps {
     postId: number;
+    title: string;
+    leaderName: string;
+    roomId: string;
 }
 
-function MatchApplyButton({ postId }: ApplyButtonProps) {
+function MatchApplyButton({ roomId, postId }: ApplyButtonProps) {
     const { setIsModalOpen } = ModalStore();
     const { appliedParty } = useAppliedPartyStore();
     const navigate = useNavigate();
     const handleApply = () => {
         setIsModalOpen(true, 'apply');
     };
-
     const handleCancel = () => {
         setIsModalOpen(true, 'cancel');
     };
-
-    const handleChat = () => {
-        console.log(postId);
-        navigate(`/chat/${postId}`, { state: { postId: postId } });
+    // const chatRoomsRef = ref(db, 'chatRooms');
+    const handleChat = async () => {
+        navigate(`/chat/${postId}`, { state: { roomId: roomId, postId: postId } });
     };
 
     if (appliedParty.length !== 0) {

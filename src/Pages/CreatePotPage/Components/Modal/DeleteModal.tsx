@@ -1,27 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-import PotCreateStore from '../../../../state/store/PotCreateStore';
 import { useNavigate } from 'react-router-dom';
 import { instance } from '../../../../axios';
-import { AuthStore } from '../../../../state/store/AuthStore';
 
 interface DeleteModalProps {
     onClose: () => void;
-    children?: React.ReactNode;
+    // children?: React.ReactNode;
+    postId: number;
 }
 
-function DeleteModal({ onClose }: DeleteModalProps) {
+function DeleteModal({ postId, onClose }: DeleteModalProps) {
     const [isDeleted, setIsDeleted] = React.useState(false);
-    const { postId } = PotCreateStore();
-    console.log(postId);
-    const { accessToken } = AuthStore();
+    const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
     const ToMainPage = () => {
         navigate('/mainpage');
     };
+    console.log('postId:', postId);
+
     const handleDelete = async () => {
         try {
-            const response = await instance.delete(`/posts/25`, {
+            const response = await instance.delete(`/posts/${postId}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${accessToken}`,

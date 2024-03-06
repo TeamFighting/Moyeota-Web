@@ -2,7 +2,10 @@ import * as S from './style';
 import CreateHeader from './CreateHeader';
 import CreateExitButton from './Components/Button/CreateExitButton';
 import styled from 'styled-components';
+
 function createComplete() {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const userData = JSON.parse(localStorage.getItem('myInfo') as string);
     return (
         <>
             <S.Container>
@@ -18,10 +21,16 @@ function createComplete() {
                     }}
                 >
                     <div style={{ marginBottom: 37 }}>
-                        <img width="84" height="84" src="/svg/Yondo.svg" alt="로봇 프로필" />
+                        <img
+                            style={{ borderRadius: '100%' }}
+                            width="84"
+                            height="84"
+                            src={userData.profileImage}
+                            alt="프로필"
+                        />
                     </div>
                     <S.CompleteWrapper>
-                        <S.Title>모연두 님의</S.Title>
+                        <S.Title>{userData.nickName == null ? userData.name : userData.nickName} 님의</S.Title>
                         <S.Title>팟 생성이 완료되었어요!</S.Title>
                     </S.CompleteWrapper>
                 </div>

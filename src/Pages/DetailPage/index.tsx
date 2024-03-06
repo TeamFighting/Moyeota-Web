@@ -47,7 +47,7 @@ function DetailPage() {
     return (
         <S.Container>
             {/* <DetailHeader /> */}
-            <FixDetailHeader />
+            <FixDetailHeader postId={data.postId} />
             <DetailBody data={data} />
             <Divider style={{ height: '10px' }} />
             <DetailBottom
@@ -69,7 +69,7 @@ function DetailPage() {
                 participants={data.numberOfParticipants}
             />
 
-            <MatchApplyButton postId={data.postId} />
+            <MatchApplyButton roomId={data.roomId} postId={data.postId} leaderName={data.userName} title={data.title} />
             {modalOpen.isOpen && <MatchApplyModal isFull={isFull} postId={data.postId} />}
         </S.Container>
     );

@@ -55,7 +55,7 @@ function DetailPage() {
 
     return (
         <S.Container>
-            <DetailHeader />
+            <DetailHeader postId={postId} />
             <DetailBody />
             <Divider style={{ height: '10px' }} />
             <DetailBottom />
