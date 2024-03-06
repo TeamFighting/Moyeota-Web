@@ -44,7 +44,9 @@ function FirebaseChat() {
     const [newMessage, setNewMessage] = useState<string>('');
     const [messages, setMessages] = useState<myMessageProps[]>([]);
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
+
     const { id, name, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
+
     const navigate = useNavigate();
     const handleBack = () => {
         navigate(-1);
