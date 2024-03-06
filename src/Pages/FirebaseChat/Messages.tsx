@@ -56,6 +56,7 @@ function Messages({ displayProfile, displayTime, timeStamp, message, user }: Mes
                                         verticalAlign: 'bottom',
                                         display: 'flex',
                                         alignItems: 'end',
+                                        whiteSpace: 'nowrap',
                                     }}
                                 >
                                     {timeStamp}

@@ -53,6 +53,14 @@ function FirebaseChat() {
     const messagesRef = dbRef(db, 'messages');
 
     useEffect(() => {
+        async function getChatRoom() {
+            const response = await instance.get(`/posts/${postId}`);
+            setPostInfo(response.data.data);
+        }
+        getChatRoom();
+    }, []);
+
+    useEffect(() => {
         messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
 
@@ -93,14 +101,6 @@ function FirebaseChat() {
             console.log(e);
         }
     };
-
-    useEffect(() => {
-        async function getChatRoom() {
-            const response = await instance.get(`/posts/${postId}`);
-            setPostInfo(response.data.data);
-        }
-        getChatRoom();
-    }, []);
 
     const renderMessages = (messages: myMessageProps[]) => {
         return (
