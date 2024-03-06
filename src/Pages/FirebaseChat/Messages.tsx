@@ -16,19 +16,7 @@ function Messages({ displayProfile, displayTime, timeStamp, message, user }: Mes
     return (
         <div>
             {id !== user.id ? (
-                <div
-                    style={{
-                        gap: '8px',
-                        alignItems: 'center',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'flex-start',
-                        height: 'fit-content',
-                        marginRight: '25px',
-                        marginBottom: '10px',
-                        marginLeft: '16px',
-                    }}
-                >
+                <S.TimeWrapper>
                     <div style={{ flexDirection: 'column' }}>
                         {displayProfile ? (
                             <Image
@@ -38,62 +26,17 @@ function Messages({ displayProfile, displayTime, timeStamp, message, user }: Mes
                                 alt="profile"
                             />
                         ) : null}
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                alignItems: 'end',
-                                verticalAlign: 'bottom',
-                            }}
-                        >
+                        <S.TimeWrapper>
                             <S.YourMessage>{message}</S.YourMessage>
-                            {displayTime ? (
-                                <div
-                                    style={{
-                                        fontSize: '10px',
-                                        color: 'var(--Gray-Text-3, #7E7E7E)',
-                                        height: '100%',
-                                        verticalAlign: 'bottom',
-                                        display: 'flex',
-                                        alignItems: 'end',
-                                        whiteSpace: 'nowrap',
-                                    }}
-                                >
-                                    {timeStamp}
-                                </div>
-                            ) : null}
-                        </div>
+                            {displayTime ? <S.Time>{timeStamp}</S.Time> : null}
+                        </S.TimeWrapper>
                     </div>
-                </div>
+                </S.TimeWrapper>
             ) : (
-                <div
-                    style={{
-                        gap: '8px',
-                        alignItems: 'end',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'flex-end',
-                        height: 'fit-content',
-                        width: '100%',
-                        marginBottom: '10px',
-                    }}
-                >
-                    {displayTime ? (
-                        <div
-                            style={{
-                                fontSize: '10px',
-                                color: 'var(--Gray-Text-3, #7E7E7E)',
-                                height: '100%',
-                                verticalAlign: 'bottom',
-                                display: 'flex',
-                                alignItems: 'end',
-                            }}
-                        >
-                            {timeStamp}
-                        </div>
-                    ) : null}
+                <S.TimeWrapper>
+                    {displayTime ? <S.Time>{timeStamp}</S.Time> : null}
                     <S.MyMessage> {message}</S.MyMessage>
-                </div>
+                </S.TimeWrapper>
             )}
         </div>
     );

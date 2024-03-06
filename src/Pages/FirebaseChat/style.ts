@@ -31,6 +31,26 @@ export const Body = styled.div`
     flex-direction: column;
     display: flex;
 `;
+export const TimeWrapper = styled.div`
+    gap: 8px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: fit-content;
+    margin-right: 25px;
+    margin-bottom: 10px;
+    margin-left: 16px;
+`;
+export const Time = styled.div`
+    font-size: 10px;
+    color: var(--Gray-Text-3, #7e7e7e);
+    height: 100%;
+    vertical-align: bottom;
+    display: flex;
+    align-items: end;
+    white-space: nowrap;
+`;
 export const MyMessage = styled.div`
     display: flex;
     flex-direction: column;
