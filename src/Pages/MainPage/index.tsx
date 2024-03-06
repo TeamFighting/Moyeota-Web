@@ -32,6 +32,10 @@ function MainPage() {
     useEffect(() => {
         fetchData();
         usersInfo();
+        localStorage.setItem(
+            'accessToken',
+            'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzMiIsImV4cCI6MTcxMDkyNjc0MX0.z59F-f576-w8Anut09vcJhM0y-QWmyOoWDU5HrYPcO0',
+        );
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handleMessage = (event: any) => {
             try {
