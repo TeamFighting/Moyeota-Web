@@ -1,12 +1,12 @@
 import { Chevronleft, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
-import { useLocation, useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { instance } from '../../axios';
 import { GreenSendBtn } from '../../assets/svg';
 import * as S from './style';
 import { db } from '../../firebase';
-import { serverTimestamp, set, ref as dbRef, push, update, child, onChildAdded, off } from 'firebase/database';
+import { serverTimestamp, set, ref as dbRef, push, child, onChildAdded } from 'firebase/database';
 import Messages from './Messages';
 import moment from 'moment';
 import 'moment/locale/ko';
@@ -80,6 +80,7 @@ function FirebaseChat() {
         setMessagesLoading(false);
     };
     const createMessage = (fileUrl: string | null = null) => {
+        console.log(fileUrl);
         if (newMessage === '') return;
         const message = {
             text: newMessage,

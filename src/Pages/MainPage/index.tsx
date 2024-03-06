@@ -16,7 +16,6 @@ import { instance } from '../../axios';
 import watchPositionHook from '../../Hooks/watchPositionHook';
 import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../state/store/MyInfo';
-import ChatLists from '../FirebaseChat/ChatLists';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);

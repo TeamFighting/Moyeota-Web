@@ -15,7 +15,6 @@ import UpdatePotPage from './Pages/CreatePotPage/Components/UpdatePage/UpdatePot
 import UpdateDestinationPage from './Pages/CreatePotPage/Components/UpdatePage/Map/DestinationPage';
 import UpdateSearchResults from './Pages/CreatePotPage/Components/UpdatePage/Map/SearchResults';
 import FirebaseChat from './Pages/FirebaseChat';
-import ChatPage from './Pages/(deprecate)ChatPage';
 import ChatLists from './Pages/FirebaseChat/ChatLists';
 
 const router = createBrowserRouter([

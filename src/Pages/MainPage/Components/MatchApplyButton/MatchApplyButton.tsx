@@ -9,7 +9,7 @@ interface ApplyButtonProps {
     roomId: string;
 }
 
-function MatchApplyButton({ roomId, postId, leaderName, title }: ApplyButtonProps) {
+function MatchApplyButton({ roomId, postId }: ApplyButtonProps) {
     const { setIsModalOpen } = ModalStore();
     const { appliedParty } = useAppliedPartyStore();
     const navigate = useNavigate();

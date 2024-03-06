@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import PotCreateStore from '../../../../state/store/PotCreateStore';
+// import PotCreateStore from '../../../../state/store/PotCreateStore';
 
 function CreateExitButton() {
     const navigate = useNavigate();
-    const { setPostId } = PotCreateStore((state) => state);
+    // const { setPostId } = PotCreateStore((state) => state);
     const navigateToMain = () => {
         navigate('/mainpage');
     };
