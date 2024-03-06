@@ -42,7 +42,7 @@ export function showProfileTime({ index, items, messages, timeValue }: profileTi
         }
     }
 
-    if (index !== 0 && index !== messages.length - 1) {
+    if (messages.length > 1 && index !== 0 && index !== messages.length - 1) {
         // 현재 메시지와 직전 메시지를 동일한 사람이 보내는 지 확인
         const isSamePersonProfile = items.user.id === messages[index - 1].user.id;
         const prevTimeValue = moment(messages[index - 1].timestamp).format('HH:mm');
@@ -56,7 +56,7 @@ export function showProfileTime({ index, items, messages, timeValue }: profileTi
             displayProfile = true;
         }
     }
-    if (index == messages.length - 1) {
+    if (messages.length > 1 && index == messages.length - 1) {
         const isSamePersonProfile = items.user.id === messages[index - 1].user.id;
         const prevTimeValue = moment(messages[index - 1].timestamp).format('HH:mm');
         if (isSamePersonProfile && prevTimeValue == timeValue) {
