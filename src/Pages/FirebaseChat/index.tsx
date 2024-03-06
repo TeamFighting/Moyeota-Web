@@ -118,6 +118,7 @@ function FirebaseChat() {
                 }
                 return (
                     <Messages
+                        key={index}
                         displayTime={displayTime}
                         displayProfile={displayProfile}
                         timeStamp={timeValue}

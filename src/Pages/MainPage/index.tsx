@@ -94,8 +94,6 @@ function MainPage() {
         console.log('refresh');
         console.log('accessToken', accessToken);
         submit();
-
-        // window.location.reload();
     };
 
     const goCurrent = () => {
