@@ -179,7 +179,15 @@ function FirebaseChat() {
                         value={newMessage}
                         type="text"
                     />
-                    <div style={{ paddingRight: '13px' }} onClick={sendMessage}>
+                    <div
+                        style={{
+                            marginRight: '13px',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            display: 'flex',
+                        }}
+                        onClick={sendMessage}
+                    >
                         <GreenSendBtn width="24px" />
                     </div>
                 </S.InputWrapper>

@@ -28,27 +28,31 @@ function Messages({ displayTime, timeStamp, message, user }: MessagesProps) {
                         marginLeft: '16px',
                     }}
                 >
-                    <Image
-                        roundedCircle
-                        style={{ borderRadius: 100, width: 32, height: 32, marginTop: 3 }}
-                        src={user.profileImage}
-                        alt="profile"
-                    />
-                    <S.YourMessage>{message}</S.YourMessage>
-                    {displayTime ? (
-                        <div
-                            style={{
-                                fontSize: '10px',
-                                color: 'var(--Gray-Text-3, #7E7E7E)',
-                                height: '100%',
-                                verticalAlign: 'bottom',
-                                display: 'flex',
-                                alignItems: 'end',
-                            }}
-                        >
-                            {timeStamp}
+                    <div style={{ flexDirection: 'column' }}>
+                        <Image
+                            roundedCircle
+                            style={{ borderRadius: 100, width: 32, height: 32, marginTop: 3 }}
+                            src={user.profileImage}
+                            alt="profile"
+                        />
+                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                            <S.YourMessage>{message}</S.YourMessage>
+                            {displayTime ? (
+                                <div
+                                    style={{
+                                        fontSize: '10px',
+                                        color: 'var(--Gray-Text-3, #7E7E7E)',
+                                        height: '100%',
+                                        verticalAlign: 'bottom',
+                                        display: 'flex',
+                                        alignItems: 'end',
+                                    }}
+                                >
+                                    {timeStamp}
+                                </div>
+                            ) : null}
                         </div>
-                    ) : null}
+                    </div>
                 </div>
             ) : (
                 <div

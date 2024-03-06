@@ -58,6 +58,7 @@ export const YourMessage = styled.div`
     justify-content: center;
     gap: 10px;
     padding: 10px 16px;
+    margin-left: 9px;
     border-radius: 99px;
     background: #1edd81;
     height: fit-content;
