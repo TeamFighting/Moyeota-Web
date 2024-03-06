@@ -9,8 +9,9 @@ interface MessagesProps {
         profileImage: string;
     };
     displayTime: boolean;
+    displayProfile: boolean;
 }
-function Messages({ displayTime, timeStamp, message, user }: MessagesProps) {
+function Messages({ displayProfile, displayTime, timeStamp, message, user }: MessagesProps) {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     return (
         <div>
@@ -29,13 +30,22 @@ function Messages({ displayTime, timeStamp, message, user }: MessagesProps) {
                     }}
                 >
                     <div style={{ flexDirection: 'column' }}>
-                        <Image
-                            roundedCircle
-                            style={{ borderRadius: 100, width: 32, height: 32, marginTop: 3 }}
-                            src={user.profileImage}
-                            alt="profile"
-                        />
-                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        {displayProfile ? (
+                            <Image
+                                roundedCircle
+                                style={{ borderRadius: 100, width: 32, height: 32, marginTop: 3 }}
+                                src={user.profileImage}
+                                alt="profile"
+                            />
+                        ) : null}
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'end',
+                                verticalAlign: 'bottom',
+                            }}
+                        >
                             <S.YourMessage>{message}</S.YourMessage>
                             {displayTime ? (
                                 <div

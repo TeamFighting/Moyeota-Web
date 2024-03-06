@@ -7,11 +7,11 @@ import { GreenSendBtn } from '../../assets/svg';
 import * as S from './style';
 import { db } from '../../firebase';
 import { serverTimestamp, set, ref as dbRef, push, update, child, onChildAdded, off } from 'firebase/database';
-import styled from 'styled-components';
 import Messages from './Messages';
 import moment from 'moment';
 import 'moment/locale/ko';
 import Skeleton from '../../components/Skeleton';
+import { showProfileTime } from '../util/showProfileTime';
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     postId: string;
@@ -106,29 +106,21 @@ function FirebaseChat() {
         return (
             messages.length > 0 &&
             messages.map((items, index) => {
-                let displayTime = true;
-                const timeValue = items.timestamp;
-                let newtimeValue = moment(timeValue).format('HH:mm');
-                if (index !== messages.length - 1) {
-                    // 마지막 인덱스가 아닐 때만 실행.
-                    const isSamePerson = items.user.id === messages[index + 1].user.id;
-                    if (isSamePerson) {
-                        const nextTimeValue = moment(messages[index + 1].timestamp).format('HH:mm');
-                        if (nextTimeValue == newtimeValue) displayTime = false;
-                    }
-                }
-                let hour = Number(newtimeValue.substr(0, 2));
+                let timeValue = moment(items.timestamp).format('HH:mm');
+                let hour = Number(timeValue.substr(0, 2));
+                const { displayTime, displayProfile } = showProfileTime({ index, items, messages, timeValue });
+
                 if (hour > 12) {
                     hour = hour - 12;
-                    newtimeValue = '오후 ' + hour + newtimeValue.substr(2, 3);
+                    timeValue = '오후 ' + hour + timeValue.substr(2, 3);
                 } else {
-                    newtimeValue = '오전 ' + newtimeValue;
+                    timeValue = '오전 ' + timeValue;
                 }
-                console.log('newtimeValue', newtimeValue);
                 return (
                     <Messages
                         displayTime={displayTime}
-                        timeStamp={newtimeValue}
+                        displayProfile={displayProfile}
+                        timeStamp={timeValue}
                         message={items.text}
                         user={items.user}
                     />

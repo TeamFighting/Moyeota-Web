@@ -25,7 +25,7 @@ export const Icon = styled.div`
 export const Body = styled.div`
     height: calc(100vh - ${HEADER_HEIGHT}px - 100);
     padding-top: ${HEADER_HEIGHT + 20}px;
-    padding-bottom: 120px;
+    padding-bottom: 100px;
     overflow-y: scroll;
     width: 100vw;
     flex-direction: column;
@@ -121,10 +121,11 @@ export const Description = styled.div`
 `;
 export const Bottom = styled.div`
     position: fixed;
+    display: flex;
     bottom: 0;
-    height: 78px;
+    height: 100px;
     width: 100vw;
-    padding-top: 32px;
+    align-items: center;
     background-color: white;
 `;
 export const InputWrapper = styled.div`
@@ -135,8 +136,8 @@ export const InputWrapper = styled.div`
     border-radius: 99px;
     display: flex;
     flex-direction: row;
-    gap: 10px;
     align-items: center;
+    background-color: white;
 `;
 export const StyledInput = styled.input`
     background-color: #5d5d5d;
