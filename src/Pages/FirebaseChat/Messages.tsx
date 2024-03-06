@@ -16,7 +16,7 @@ function Messages({ displayProfile, displayTime, timeStamp, message, user }: Mes
     return (
         <div>
             {id !== user.id ? (
-                <S.TimeWrapper>
+                <S.YourMessageWrapper>
                     <div style={{ flexDirection: 'column' }}>
                         {displayProfile ? (
                             <Image
@@ -26,17 +26,17 @@ function Messages({ displayProfile, displayTime, timeStamp, message, user }: Mes
                                 alt="profile"
                             />
                         ) : null}
-                        <S.TimeWrapper>
+                        <S.YourTimeWrapper>
                             <S.YourMessage>{message}</S.YourMessage>
                             {displayTime ? <S.Time>{timeStamp}</S.Time> : null}
-                        </S.TimeWrapper>
+                        </S.YourTimeWrapper>
                     </div>
-                </S.TimeWrapper>
+                </S.YourMessageWrapper>
             ) : (
-                <S.TimeWrapper>
+                <S.MyMessageWrapper>
                     {displayTime ? <S.Time>{timeStamp}</S.Time> : null}
                     <S.MyMessage> {message}</S.MyMessage>
-                </S.TimeWrapper>
+                </S.MyMessageWrapper>
             )}
         </div>
     );

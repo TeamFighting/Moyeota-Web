@@ -31,16 +31,12 @@ export const Body = styled.div`
     flex-direction: column;
     display: flex;
 `;
-export const TimeWrapper = styled.div`
+export const YourTimeWrapper = styled.div`
     gap: 8px;
-    align-items: center;
+    align-items: end;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    height: fit-content;
-    margin-right: 25px;
-    margin-bottom: 10px;
-    margin-left: 16px;
+    vertical-align: 'bottom';
 `;
 export const Time = styled.div`
     font-size: 10px;
@@ -50,6 +46,16 @@ export const Time = styled.div`
     display: flex;
     align-items: end;
     white-space: nowrap;
+`;
+export const MyMessageWrapper = styled.div`
+    gap: 8px;
+    align-items: end;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    height: fit-content;
+    width: 100%;
+    margin-bottom: 10px;
 `;
 export const MyMessage = styled.div`
     display: flex;
@@ -70,6 +76,17 @@ export const MyMessage = styled.div`
     font-weight: 500;
     line-height: 157%; /* 21.98px */
     background: var(--Gray-Button, #f1f1f1);
+`;
+export const YourMessageWrapper = styled.div`
+    gap: 8px;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    height: fit-content;
+    margin-right: 25px;
+    margin-bottom: 10px;
+    margin-left: 16px;
 `;
 export const YourMessage = styled.div`
     display: flex;
