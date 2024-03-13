@@ -18,22 +18,22 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const chatRoomsRef = ref(db, 'chatRooms');
     const userData = JSON.parse(localStorage.getItem('myInfo') as string);
     console.log(userData);
-    const {
-        title,
-        description: content,
-        distance,
-        destination,
-        VehicleType: vehicle,
-        sameGenderRide: sameGenderStatus,
-        selectedTime,
-    } = potCreateStore;
-    const { estimatedDuration, estimatedFare } = durationFareStore;
+    // const {
+    //     title,
+    //     description: content,
+    //     distance,
+    //     destination,
+    //     VehicleType: vehicle,
+    //     sameGenderRide: sameGenderStatus,
+    //     selectedTime,
+    // } = potCreateStore;
+    // const { estimatedDuration, estimatedFare } = durationFareStore;
     const createPost = async () => {
         console.log('createPost');
         const key = push(chatRoomsRef).key;
         const newChatRoom = {
             id: key,
-            title: '테스트 공릉역',
+            title: '암어 퀸카',
             createdBy: {
                 user: userData.id,
                 name: userData.name,
@@ -46,24 +46,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             const formattedDate = new Date().toISOString;
             const numberOfRecruitment = totalPeople;
             const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
-            // 팟 생성 테스트 용
-            // {
-            //     category: 'LIFE',
-            //     content: '안녕하세요', //content,
-            //     createdDate: new Date(), //formattedDate,
-            //     departure: '공릉역 7호선', //departure,
-            //     departureTime: new Date(), // selectedTime, //departureTime 으로 바꾸기
-            //     destination: '서울과학기술대학교', //destination,
-            //     distance: 10, // distance,
-            //     duration: '20000', //estimatedDuration,
-            //     fare: '3000', //estimatedFare,
-            //     modifiedDate: new Date(), //formattedDate,
-            //     numberOfRecruitment: 4, // numberOfRecruitment,
-            //     sameGenderStatus: 'YES', //sameGenderStatus,
-            //     title: '공릉역 갑시다', //title,
-            //     vehicle: '일반', //vehicle,
-            //     roomId: key,
-            // },
+
             const response = await instance.post(
                 '/posts',
                 {
@@ -79,7 +62,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     modifiedDate: new Date(), //formattedDate,
                     numberOfRecruitment: 4, // numberOfRecruitment,
                     sameGenderStatus: 'YES', //sameGenderStatus,
-                    title: '효링 테스트', //title,
+                    title: '암어 퀸카', //title,
                     vehicle: '일반', //vehicle,
                     roomId: key,
                 },
