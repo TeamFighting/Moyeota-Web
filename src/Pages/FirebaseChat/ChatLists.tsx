@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { ref as dbRef, child, onChildAdded, limitToLast, query, off, orderByChild, onValue } from 'firebase/database';
 import { db } from '../../firebase';
-import { object } from 'prop-types';
+import { Chevronleft, Plus } from '../../assets/svg';
 interface myMessageProps {
     text: string;
     timestamp: number;
@@ -34,6 +34,7 @@ function ChatLists() {
                 Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
         });
+        console.log(res.data.data);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setChatRooms(res.data.data);
     };
@@ -48,19 +49,6 @@ function ChatLists() {
         navigate(`/chat/${postId}`, { state: { roomId: roomId, postId: postId } });
     };
     const messagesRef = dbRef(db, 'messages');
-    const [lastMessage, setlastMessage] = useState<myMessageProps[]>([]);
-    // useEffect(() => {
-    //     roomIds.length > 0 &&
-    //         roomIds.map((room) => {
-    //             addMessagesListener(room);
-    //         });
-    // }, []);
-
-    // const addMessagesListener = (roomId: string) => {
-    //     onChildAdded(child(messagesRef, roomId), (snapshot) => {
-    //         setlastMessage(snapshot.val());
-    //     });
-    // };
 
     const lastMessageQuery = query(messagesRef, orderByChild('timestamp'), limitToLast(1));
     onValue(lastMessageQuery, (snapshot) => {
@@ -68,12 +56,10 @@ function ChatLists() {
         if (snapshot.exists()) {
             const data = snapshot.val();
             const lastMessageKey = Object.keys(data)[0];
-            // console.log(data[lastMessageKey]);
             messages = Object.values(data[lastMessageKey]);
             console.log(messages);
 
             messages = Object.keys(data[lastMessageKey]).map((key) => data[key]);
-            // console.log(totalMessages[totalMessages.length - 1]); // 여기서 마지막 메시지의 텍스트가 출력됩니다.
         } else {
             console.log('No messages found');
         }
@@ -93,19 +79,25 @@ function ChatLists() {
     };
     return (
         <div>
-            <ChatHeader>채팅</ChatHeader>
+            <ChatHeader>
+                <Chevronleft width={24} height={24} />
+                알림
+                <Plus width={18} height={18} />
+            </ChatHeader>
+
             {renderChatRooms()}
         </div>
     );
 }
 const ChatHeader = styled.div`
-    height: 40px;
+    height: 63px;
     background-color: aliceblue;
     display: flex;
     align-items: center;
-    padding-left: 16px;
-    font-size: 20px;
+    justify-content: space-between;
+    font-size: 18px;
     font-weight: bold;
+    padding: 0 14px;
 `;
 const ChatList = styled.div`
     display: flex;

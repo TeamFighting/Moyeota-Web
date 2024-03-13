@@ -11,7 +11,7 @@ interface ContentStore {
 
 const ContentStore = create<ContentStore>((set) => ({
     totalData: [],
-    updateTotalData: (data: any[]) => set((state) => ({ totalData: [...state.totalData, ...data] })),
+    updateTotalData: (data: any[]) => set(() => ({ totalData: data })),
 }));
 
 export default ContentStore;
