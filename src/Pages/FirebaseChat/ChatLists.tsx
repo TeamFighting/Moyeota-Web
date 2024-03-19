@@ -32,7 +32,7 @@ function ChatLists() {
     const [chatRooms, setChatRooms] = useState<ChatRoomProps[]>([]);
     const [roomIds, setRoomIds] = useState<string[]>([]);
     const navigate = useNavigate();
-    const { noneReadChat, lastReadTime, setNoneReadChat, setLastReadTime } = NoneReadChatStore.getState();
+    const { noneReadChat, lastReadTime, setNoneReadChat, setLastReadTime } = NoneReadChatStore();
     useEffect(() => {
         totalChatRooms();
         for (let i = 0; i < chatRooms.length; i++) {
@@ -45,9 +45,8 @@ function ChatLists() {
         // 메시지의 시간이 마지막으로 읽은 시간 이후인지 확인
         const lastReadTime = NoneReadChatStore.getState().lastReadTime[roomId];
         if (message.timestamp > lastReadTime) {
-            // 만약 그렇다면, 읽지 않은 메시지의 개수를 1 증가시킴
-            const noneReadCount = noneReadChat[roomId] || 0;
-            setNoneReadChat(roomId, noneReadCount + 1);
+            console.log('new ');
+            setNoneReadChat(roomId, noneReadChat[roomId] + 1);
         }
     }
 
@@ -59,6 +58,7 @@ function ChatLists() {
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setChatRooms(res.data.data);
+        console.log('chatRooms', res.data.data);
     };
     // 채팅방에 메시지가 도착할 때 호출
 
@@ -101,15 +101,12 @@ function ChatLists() {
                 }
             }
             messages.sort((a, b) => b.timestamp - a.timestamp);
-            setLastMessage(messages); // setLastMessage를 사용하여 상태 업데이트
-            if (
-                lastMessage[0].key == messages[0].key &&
-                lastMessage[0].timestamp == messages[0].timestamp &&
-                lastMessage[0].text == messages[0].text
-            ) {
+            if (lastMessage.length === 0) return setLastMessage(messages);
+            if (lastMessage[0].timestamp == messages[0].timestamp && lastMessage[0].text == messages[0].text) {
                 console.log('same message');
             } else {
                 console.log('new message');
+                setLastMessage(messages); // setLastMessage를 사용하여 상태 업데이트
                 onMessageArrived(messages[0].key, messages[0]);
             }
         });

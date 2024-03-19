@@ -12,8 +12,13 @@ export const NoneReadChatStore = create(
         (set) => ({
             noneReadChat: {},
             lastReadTime: {},
-            setNoneReadChat: (roomId, count) =>
-                set((state) => ({ noneReadChat: { ...state.noneReadChat, [roomId]: count } })),
+            setNoneReadChat: (roomId) =>
+                set((state) => ({
+                    noneReadChat: {
+                        ...state.noneReadChat,
+                        [roomId]: (state.noneReadChat[roomId] || 0) + 1,
+                    },
+                })),
             setLastReadTime: (roomId, time) =>
                 set((state) => ({ lastReadTime: { ...state.lastReadTime, [roomId]: time } })),
         }),
