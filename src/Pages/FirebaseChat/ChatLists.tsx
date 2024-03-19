@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { instance } from '../../axios';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { ref as dbRef, query, onValue } from 'firebase/database';
+import { ref as dbRef, query, onValue, set } from 'firebase/database';
 import { db } from '../../firebase';
 import { Chevronleft, Plus } from '../../assets/svg';
 import moment from 'moment';
+import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 interface myMessageProps {
     text: string;
     timestamp: number;
@@ -31,9 +32,24 @@ function ChatLists() {
     const [chatRooms, setChatRooms] = useState<ChatRoomProps[]>([]);
     const [roomIds, setRoomIds] = useState<string[]>([]);
     const navigate = useNavigate();
+    const { noneReadChat, lastReadTime, setNoneReadChat, setLastReadTime } = NoneReadChatStore.getState();
     useEffect(() => {
         totalChatRooms();
+        for (let i = 0; i < chatRooms.length; i++) {
+            if (lastReadTime[chatRooms[i].roomId] === undefined) {
+                setLastReadTime(chatRooms[i].roomId, 0);
+            }
+        }
     }, []);
+    function onMessageArrived(roomId: string, message: myMessageProps) {
+        // 메시지의 시간이 마지막으로 읽은 시간 이후인지 확인
+        const lastReadTime = NoneReadChatStore.getState().lastReadTime[roomId];
+        if (message.timestamp > lastReadTime) {
+            // 만약 그렇다면, 읽지 않은 메시지의 개수를 1 증가시킴
+            const noneReadCount = noneReadChat[roomId] || 0;
+            setNoneReadChat(roomId, noneReadCount + 1);
+        }
+    }
 
     const totalChatRooms = async () => {
         const res = await instance.get('/chat-rooms/lists', {
@@ -44,6 +60,7 @@ function ChatLists() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setChatRooms(res.data.data);
     };
+    // 채팅방에 메시지가 도착할 때 호출
 
     useEffect(() => {
         chatRooms.map((room) => {
@@ -54,6 +71,7 @@ function ChatLists() {
                     return prev;
                 }
             });
+            if (!lastReadTime[room.roomId]) setLastReadTime(room.roomId, 0);
         });
     }, [chatRooms]);
 
@@ -82,7 +100,18 @@ function ChatLists() {
                     }
                 }
             }
+            messages.sort((a, b) => b.timestamp - a.timestamp);
             setLastMessage(messages); // setLastMessage를 사용하여 상태 업데이트
+            if (
+                lastMessage[0].key == messages[0].key &&
+                lastMessage[0].timestamp == messages[0].timestamp &&
+                lastMessage[0].text == messages[0].text
+            ) {
+                console.log('same message');
+            } else {
+                console.log('new message');
+                onMessageArrived(messages[0].key, messages[0]);
+            }
         });
 
         return () => {
@@ -93,8 +122,6 @@ function ChatLists() {
     const { profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
 
     const renderChatRooms = () => {
-        console.log(lastMessage);
-        lastMessage.sort((a, b) => b.timestamp - a.timestamp);
         return (
             lastMessage.length > 0 &&
             chatRooms.length > 0 &&
@@ -102,7 +129,7 @@ function ChatLists() {
                 const chatRoom = chatRooms.find((room) => room.roomId === message.key);
                 if (chatRoom)
                     return (
-                        <ChatList key={i}>
+                        <ChatList key={i + 1}>
                             {chatRooms.map((chatRoom, i) => {
                                 moment.locale('ko');
                                 let time = moment(message.timestamp).fromNow();
@@ -152,7 +179,27 @@ function ChatLists() {
                                                     <RoomName>{chatRoom.roomName}</RoomName>{' '}
                                                     <Time style={{ whiteSpace: 'nowrap' }}>{time}</Time>
                                                 </div>
-                                                <LastestMessage key={i}>{message.text}</LastestMessage>
+                                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                    <LastestMessage key={i}>{message.text}</LastestMessage>
+                                                    {noneReadChat[chatRoom.roomId] == 0 ? null : (
+                                                        <div
+                                                            style={{
+                                                                fontSize: '12px',
+                                                                borderRadius: '50%',
+                                                                backgroundColor: 'red',
+                                                                width: '20px',
+                                                                height: '20px',
+                                                                display: 'flex',
+                                                                justifyContent: 'center',
+                                                                alignItems: 'center',
+                                                                color: 'white',
+                                                                fontWeight: 'bold',
+                                                            }}
+                                                        >
+                                                            {noneReadChat[chatRoom.roomId]}
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     );

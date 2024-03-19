@@ -12,6 +12,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import Skeleton from '../../components/Skeleton';
 import { showProfileTime } from '../util/showProfileTime';
+import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     postId: string;
@@ -49,7 +50,8 @@ function FirebaseChat() {
 
     const navigate = useNavigate();
     const handleBack = () => {
-        navigate(-1);
+        navigate('/ChatLists');
+        leaveChatRoom(roomId);
     };
     const messageEndRef = useRef<HTMLDivElement>(null);
     const messagesRef = dbRef(db, 'messages');
@@ -69,6 +71,11 @@ function FirebaseChat() {
     useEffect(() => {
         if (roomId !== undefined) addMessagesListener(roomId);
     }, [roomId]);
+
+    function leaveChatRoom(roomId: string) {
+        NoneReadChatStore.getState().setLastReadTime(roomId, Date.now());
+        NoneReadChatStore.getState().setNoneReadChat(roomId, 0);
+    }
 
     const addMessagesListener = (roomId: string) => {
         const messagesArray = [] as myMessageProps[];
