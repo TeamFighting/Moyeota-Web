@@ -34,6 +34,7 @@ function ChatLists() {
     useEffect(() => {
         totalChatRooms();
     }, []);
+
     const totalChatRooms = async () => {
         const res = await instance.get('/chat-rooms/lists', {
             headers: {
@@ -59,109 +60,113 @@ function ChatLists() {
     const handleChatRoom = (roomId: string, postId: number) => {
         navigate(`/chat/${postId}`, { state: { roomId: roomId, postId: postId } });
     };
-    const messagesRef = dbRef(db, 'messages');
+    const [lastMessage, setLastMessage] = useState<LastMessageProps[]>([]); // useState를 사용하여 lastMessage 상태 정의
 
-    // const lastMessageQuery = query(messagesRef, orderByChild('timestamp'), limitToLast(1));
-    const lastMessageListener = query(messagesRef);
-    const lastMessage: LastMessageProps[] = [];
-    onValue(lastMessageListener, (snapshot) => {
-        const messages = [];
-        if (snapshot.exists()) {
+    useEffect(() => {
+        const messagesRef = dbRef(db, 'messages');
+        const lastMessageListener = query(messagesRef);
+
+        const getLastMessage = onValue(lastMessageListener, (snapshot) => {
+            const messages: LastMessageProps[] = [];
             const data = snapshot.val();
-            console.log(data);
 
-            for (const key in data) {
-                for (let i = 0; i < roomIds.length; i++) {
-                    if (key === roomIds[i]) {
-                        messages.push(data[key]);
-                    }
-                }
-            }
-
-            for (let i = 0; i < messages.length; i++) {
-                const data = messages[i];
-                let latestData = null;
-                let latestTimestamp = -Infinity;
+            if (snapshot.exists()) {
                 for (const key in data) {
-                    if (data[key].timestamp > latestTimestamp) {
-                        latestTimestamp = data[key].timestamp;
-                        latestData = data[key];
+                    for (let i = 0; i < roomIds.length; i++) {
+                        if (key === roomIds[i]) {
+                            const messageKeys = Object.keys(data[key]);
+                            const latestKey = messageKeys[messageKeys.length - 1];
+                            const latestMessage = data[key][latestKey];
+                            messages.push({ ...latestMessage, key });
+                        }
                     }
                 }
-                lastMessage.push(latestData);
             }
-        } else {
-            console.log('No messages found');
-        }
-    });
-    console.log('lastMessage:', lastMessage);
+            setLastMessage(messages); // setLastMessage를 사용하여 상태 업데이트
+        });
+
+        return () => {
+            getLastMessage(); // Clean up listener
+        };
+    }, [roomIds]);
+
     const { profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
+
     const renderChatRooms = () => {
+        console.log(lastMessage);
         lastMessage.sort((a, b) => b.timestamp - a.timestamp);
         return (
+            lastMessage.length > 0 &&
             chatRooms.length > 0 &&
             lastMessage.map((message, i) => {
-                return (
-                    <ChatList key={i}>
-                        {chatRooms.map((chatRoom, i) => {
-                            moment.locale('ko');
-                            let time = moment(message.timestamp).fromNow();
-                            if (time === 'a few seconds ago') time = '방금 전';
-                            if (time === 'a day ago') time = '어제';
-                            if (time === 'a month ago') time = '한달 전';
-                            if (time === 'a year ago') time = '작년';
-                            if (time === 'a minute ago') time = '1분 전';
-                            if (time.match(/minutes ago/)) time = time.replace('minutes ago', '분 전');
-                            if (time.match(/hours ago/)) time = time.replace('hours ago', '시간 전');
-                            if (time.match(/days ago/)) time = time.replace('days ago', '일 전');
-                            if (time.match(/months ago/)) time = time.replace('months ago', '달 전');
-                            if (time.match(/years ago/)) time = time.replace('years ago', '년 전');
+                const chatRoom = chatRooms.find((room) => room.roomId === message.key);
+                if (chatRoom)
+                    return (
+                        <ChatList key={i}>
+                            {chatRooms.map((chatRoom, i) => {
+                                moment.locale('ko');
+                                let time = moment(message.timestamp).fromNow();
+                                if (time === 'a few seconds ago') time = '방금 전';
+                                if (time === 'a day ago') time = '어제';
+                                if (time === 'a month ago') time = '한달 전';
+                                if (time === 'a year ago') time = '작년';
+                                if (time === 'a minute ago') time = '1분 전';
+                                if (time === 'an hour ago') time = '1시간 전';
+                                if (time.match(/minutes ago/)) time = time.replace('minutes ago', '분 전');
+                                if (time.match(/hours ago/)) time = time.replace('hours ago', '시간 전');
+                                if (time.match(/days ago/)) time = time.replace('days ago', '일 전');
+                                if (time.match(/months ago/)) time = time.replace('months ago', '달 전');
+                                if (time.match(/years ago/)) time = time.replace('years ago', '년 전');
 
-                            console.log(time);
-                            if (chatRoom.roomId === message.key)
-                                return (
-                                    <div
-                                        onClick={() => handleChatRoom(chatRoom.roomId, chatRoom.postId)}
-                                        style={{
-                                            height: '84px',
-                                            display: 'flex',
-                                            gap: '26px',
-                                            width: '100%',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        <img
+                                if (chatRoom.roomId === message.key) {
+                                    return (
+                                        <div
+                                            onClick={() => handleChatRoom(chatRoom.roomId, chatRoom.postId)}
                                             style={{
-                                                width: 36,
-                                                height: 36,
-                                                borderRadius: '100%',
-                                                objectFit: 'cover',
-                                                border: '3px solid #ededed',
+                                                height: '84px',
+                                                display: 'flex',
+                                                gap: '26px',
+                                                width: '100%',
+                                                alignItems: 'center',
                                             }}
-                                            src={profileImage}
-                                        />
-                                        <div style={{ flex: 1 }}>
-                                            <div
+                                        >
+                                            <img
                                                 style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    width: '100%',
-                                                    justifyContent: 'space-between',
+                                                    width: 36,
+                                                    height: 36,
+                                                    borderRadius: '100%',
+                                                    objectFit: 'cover',
+                                                    border: '3px solid #ededed',
                                                 }}
-                                            >
-                                                <RoomName>{chatRoom.roomName}</RoomName>{' '}
-                                                <Time style={{ whiteSpace: 'nowrap' }}>{time}</Time>
+                                                src={profileImage}
+                                            />
+                                            <div style={{ flex: 1 }}>
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        width: '100%',
+                                                        justifyContent: 'space-between',
+                                                    }}
+                                                >
+                                                    <RoomName>{chatRoom.roomName}</RoomName>{' '}
+                                                    <Time style={{ whiteSpace: 'nowrap' }}>{time}</Time>
+                                                </div>
+                                                <LastestMessage key={i}>{message.text}</LastestMessage>
                                             </div>
-                                            <LastestMessage key={i}>{message.text}</LastestMessage>
                                         </div>
-                                    </div>
-                                );
-                        })}
-                    </ChatList>
-                );
+                                    );
+                                }
+                            })}
+                        </ChatList>
+                    );
             })
         );
     };
+    // if (changed) renderChatRooms();
+    useEffect(() => {
+        renderChatRooms();
+    }, [lastMessage]);
     return (
         <div>
             <ChatHeader>
