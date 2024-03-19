@@ -19,12 +19,27 @@ function Messages({ displayProfile, displayTime, timeStamp, message, user }: Mes
                 <S.YourMessageWrapper>
                     <div style={{ flexDirection: 'column' }}>
                         {displayProfile ? (
-                            <Image
-                                roundedCircle
-                                style={{ borderRadius: 100, width: 32, height: 32, marginTop: 3 }}
-                                src={user.profileImage}
-                                alt="profile"
-                            />
+                            <div
+                                style={{
+                                    display: 'flex',
+                                    width: '26px',
+                                    height: '26px',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    borderRadius: 100,
+                                    border: '3px solid',
+                                    borderColor: '#F5F6F8',
+                                }}
+                            >
+                                <div style={{ borderRadius: 100, width: 26, height: 26 }}>
+                                    <Image
+                                        roundedCircle
+                                        style={{ borderRadius: 100, width: 26, height: 26 }}
+                                        src={user.profileImage}
+                                        alt="profile"
+                                    />
+                                </div>
+                            </div>
                         ) : null}
                         <S.YourTimeWrapper>
                             <S.YourMessage>{message}</S.YourMessage>

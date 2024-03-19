@@ -83,6 +83,7 @@ function FirebaseChat() {
         console.log(fileUrl);
         if (newMessage === '') return;
         const message = {
+            key: roomId,
             text: newMessage,
             user: {
                 id: id,

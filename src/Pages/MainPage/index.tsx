@@ -64,7 +64,6 @@ function MainPage() {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log(res);
             setMyInfo(res.data.data);
             localStorage.setItem('myInfo', JSON.stringify(res.data.data));
         } catch (e) {
@@ -75,7 +74,6 @@ function MainPage() {
     async function fetchData() {
         try {
             const res = await instance.get('/posts');
-            console.log(res);
             if (res.status === 200) {
                 updateTotalData(res.data.data);
             } else {

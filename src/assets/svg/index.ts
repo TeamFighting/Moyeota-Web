@@ -33,3 +33,4 @@ export { default as TrashIcon } from './TrashIcon';
 export { default as VerticalMenu } from './VerticalMenu';
 export { default as Yondo } from './Yondo';
 export { default as CaretRight } from './CaretRight';
+export { default as Plus } from './Plus';
