@@ -45,10 +45,10 @@ function FirebaseChat() {
     const [newMessage, setNewMessage] = useState<string>('');
     const [messages, setMessages] = useState<myMessageProps[]>([]);
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
-
     const { id, name, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
     const navigate = useNavigate();
+    const inputRef = useRef<HTMLInputElement>(null);
     const handleBack = () => {
         leaveChatRoom(roomId);
         navigate('/ChatLists');
@@ -107,8 +107,15 @@ function FirebaseChat() {
             if (roomId === undefined) return;
             await set(push(child(messagesRef, roomId)), createMessage());
             setNewMessage('');
+            inputRef.current?.focus();
         } catch (e) {
             console.log(e);
+        }
+    };
+
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            sendMessage();
         }
     };
 
@@ -175,12 +182,14 @@ function FirebaseChat() {
             <S.Bottom>
                 <S.InputWrapper>
                     <S.StyledInput
+                        ref={inputRef}
                         placeholder="메시지 보내기..."
                         onChange={(e) => {
                             setNewMessage(e.target.value);
                         }}
                         value={newMessage}
                         type="text"
+                        onKeyPress={handleKeyPress}
                     />
                     <div
                         style={{
