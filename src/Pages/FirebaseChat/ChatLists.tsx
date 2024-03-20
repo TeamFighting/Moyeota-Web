@@ -8,6 +8,7 @@ import { Chevronleft, Plus } from '../../assets/svg';
 import moment from 'moment';
 import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useMotionValueEvent, useTransform } from 'framer-motion';
+import { ChatTime } from '../util/ChatTime';
 export interface myMessageProps {
     text: string;
     timestamp: number;
@@ -65,7 +66,7 @@ function ChatLists() {
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setChatRooms(res.data.data);
-        // console.log('chatRooms', res.data.data);
+        console.log('chatRooms', res.data.data);
     };
     // 채팅방에 메시지가 도착할 때 호출
 
@@ -89,7 +90,6 @@ function ChatLists() {
     useEffect(() => {
         const messagesRef = dbRef(db, 'messages');
         const lastMessageListener = query(messagesRef);
-        // console.log(lastMessage);
         const getLastMessage = onValue(lastMessageListener, (snapshot) => {
             const messages: LastMessageProps[] = [];
             const data = snapshot.val();
@@ -128,15 +128,25 @@ function ChatLists() {
     const itemx = useMotionValue(0);
     const bgColor = useTransform(itemx, [-82, 0, 82], ['white', 'blue', 'white']);
     const [animateRef, animate] = useAnimate();
-    const [isLeaveShow, setIsLeaveShow] = useState(false);
-    const leaveChatRoomState = isLeaveShow ? 'appear' : 'disappear';
-    useEffect(() => {
-        itemx.on('change', (v) => {
-            setIsLeaveShow(v < -41);
-            console.log(v);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [leaveChatRoomName, setLeaveChatRoomName] = useState<string>('');
+    const [leaveChatRoomId, setLeaveChatRoomId] = useState<number>(0);
+    const handleleaveChatRoom = (i: number) => {
+        setLeaveChatRoomName(chatRooms[i].roomName);
+        setLeaveChatRoomId(chatRooms[i].postId);
+        setIsModalOpen(true);
+    };
+    const leaveChatRoom = async (i: number) => {
+        // const postId = chatRooms[i].postId;
+        const res = await instance.delete(`/chat-rooms/${i}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
         });
-    }, [itemx.get()]);
-
+        setIsModalOpen(false);
+        totalChatRooms();
+        console.log('leave chat room', res);
+    };
     const renderChatRooms = () => {
         return (
             lastMessage.length > 0 &&
@@ -145,23 +155,13 @@ function ChatLists() {
                 const chatRoom = chatRooms.find((room) => room.roomId === message.key);
                 if (chatRoom)
                     return (
-                        <ChatList>
+                        <ChatList key={i}>
                             {chatRooms.map((chatRoom, i) => {
                                 moment.locale('ko');
                                 let time = moment(message.timestamp).fromNow();
-                                if (time === 'a few seconds ago') time = '방금 전';
-                                if (time === 'in a few seconds') time = '방금 전';
-                                if (time === 'a day ago') time = '어제';
-                                if (time === 'a month ago') time = '한달 전';
-                                if (time === 'a year ago') time = '작년';
-                                if (time === 'a minute ago') time = '1분 전';
-                                if (time === 'an hour ago') time = '1시간 전';
-                                if (time.match(/minutes ago/)) time = time.replace('minutes ago', '분 전');
-                                if (time.match(/hours ago/)) time = time.replace('hours ago', '시간 전');
-                                if (time.match(/days ago/)) time = time.replace('days ago', '일 전');
-                                if (time.match(/months ago/)) time = time.replace('months ago', '달 전');
-                                if (time.match(/years ago/)) time = time.replace('years ago', '년 전');
-
+                                if (ChatTime(time) !== undefined) {
+                                    time = ChatTime(time);
+                                }
                                 if (chatRoom.roomId === message.key) {
                                     return (
                                         <SwipeableContainer key={i}>
@@ -170,21 +170,21 @@ function ChatLists() {
                                                 dragControls={dragControls}
                                                 dragConstraints={{ left: -82, right: 0 }}
                                                 drag="x"
-                                                onDragEnd={() => {
-                                                    const isOverThreshold = itemx.get() < -41;
-                                                    animate(animateRef.current, {
-                                                        x: isOverThreshold ? -82 : 0,
-                                                    });
-                                                }}
+                                                // onDragEnd={() => {
+                                                //     const isOverThreshold = itemx.get() < -41;
+                                                //     animate(animateRef.current, {
+                                                //         x: isOverThreshold ? -82 : 0,
+                                                //     });
+                                                // }}
                                                 onClick={() => handleChatRoom(chatRoom.roomId, chatRoom.postId)}
                                                 style={{
-                                                    // x: itemx,
                                                     height: '84px',
                                                     display: 'flex',
                                                     gap: '26px',
                                                     width: '100%',
                                                     alignItems: 'center',
                                                     backgroundColor: bgColor,
+                                                    zIndex: 1,
                                                 }}
                                             >
                                                 <div
@@ -252,8 +252,13 @@ function ChatLists() {
                                                     }}
                                                 />
                                             </motion.div>
-                                            <LeaveChatRoom initial="disappear" animate={leaveChatRoomState}>
-                                                삭제
+                                            <LeaveChatRoom
+                                                initial="disappear"
+                                                onClick={() => {
+                                                    handleleaveChatRoom(i);
+                                                }}
+                                            >
+                                                나가기
                                             </LeaveChatRoom>
                                         </SwipeableContainer>
                                     );
@@ -272,7 +277,96 @@ function ChatLists() {
         navigate('/Mainpage');
     };
     return (
-        <div>
+        <div style={{ height: '100vh' }}>
+            {isModalOpen && (
+                <ModalBackGround>
+                    <Modal>
+                        <img
+                            style={{
+                                marginTop: '16px',
+                                width: 56,
+                                height: 56,
+                                borderRadius: '100%',
+                                objectFit: 'cover',
+                            }}
+                            src={profileImage}
+                        />
+                        <div
+                            style={{
+                                height: '150px',
+                                width: '100%',
+                                textAlign: 'center',
+                                justifyContent: 'center',
+                                display: 'flex',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    fontSize: '18px',
+                                    fontFamily: 'pretendard',
+                                    fontWeight: 550,
+                                }}
+                            >
+                                {leaveChatRoomName}
+                            </div>
+                            <div
+                                style={{
+                                    fontSize: '14px',
+                                    fontFamily: 'pretendard',
+                                    fontWeight: 500,
+                                }}
+                            >
+                                팟 채팅방을 나가시겠어요?
+                            </div>
+                        </div>
+                        <div
+                            style={{
+                                width: '100%',
+                                height: '100px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                borderTop: '1px solid #ededed',
+                            }}
+                        >
+                            <div
+                                onClick={() => setIsModalOpen(false)}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    textAlign: 'center',
+                                    height: '100%',
+                                    flex: 1,
+                                    borderRight: '1px solid #ededed',
+                                    fontWeight: 550,
+                                    color: '#1d7ac7',
+                                }}
+                            >
+                                취소
+                            </div>
+                            <div
+                                onClick={() => leaveChatRoom(leaveChatRoomId)}
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    textAlign: 'center',
+                                    height: '100%',
+                                    flex: 1,
+                                    fontWeight: 550,
+                                    color: '#EC5829',
+                                }}
+                            >
+                                나가기
+                            </div>
+                        </div>
+                    </Modal>
+                </ModalBackGround>
+            )}
+
             <ChatHeader>
                 <Chevronleft onClick={handleClick} width={24} height={24} />
                 채팅
@@ -282,6 +376,29 @@ function ChatLists() {
         </div>
     );
 }
+const Modal = styled.div`
+    position: absolute;
+    width: 280px;
+    height: 180px;
+    z-index: 100;
+    display: flex;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 10px;
+`;
+const ModalBackGround = styled.div`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    display: flex;
+`;
 const LeaveChatRoom = styled(motion.div)`
     background-color: #ec5829;
     display: grid;
@@ -295,11 +412,10 @@ const LeaveChatRoom = styled(motion.div)`
     background: red;
     color: #fff;
     font-family: Pretendard;
-    font-size: 18px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: 157%; /* 28.26px */
-    z-index: -1;
 `;
 const SwipeableContainer = styled(motion.div)`
     display: flex;
@@ -318,6 +434,7 @@ const ChatHeader = styled.div`
     font-size: 18px;
     font-weight: bold;
     padding: 0 14px;
+    z-index: 1;
 `;
 const ChatList = styled.div`
     display: flex;
@@ -330,8 +447,9 @@ const Body = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     /* margin: 0 16px; */
+    height: 100%;
 `;
 const RoomName = styled.div`
     color: #0f1828;
