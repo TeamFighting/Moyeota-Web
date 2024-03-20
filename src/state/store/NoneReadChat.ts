@@ -1,10 +1,15 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+import { LastMessageProps } from '../../Pages/FirebaseChat/ChatLists';
+
 interface NoneReadChatProps {
     noneReadChat: { [roomId: string]: number };
     lastReadTime: { [roomId: string]: number };
-    setNoneReadChat: (roomId: string, count: number) => void;
+    lastMessage: LastMessageProps[];
+    setNoneReadChat: (roomId: string, num?: number) => void;
     setLastReadTime: (roomId: string, time: number) => void;
+    setResetNoneReadChat: (roomId: string) => void;
+    setLastMessage: (message: LastMessageProps[]) => void;
 }
 
 export const NoneReadChatStore = create(
@@ -12,15 +17,35 @@ export const NoneReadChatStore = create(
         (set) => ({
             noneReadChat: {},
             lastReadTime: {},
-            setNoneReadChat: (roomId) =>
-                set((state) => ({
-                    noneReadChat: {
-                        ...state.noneReadChat,
-                        [roomId]: (state.noneReadChat[roomId] || 0) + 1,
-                    },
-                })),
+            lastMessage: [],
+            setNoneReadChat: (roomId, num) =>
+                set((state) => {
+                    return ((num) => {
+                        if (num !== undefined && num === 0) {
+                            return {
+                                noneReadChat: {
+                                    ...state.noneReadChat,
+                                    [roomId]: 0,
+                                },
+                            };
+                        } else {
+                            return {
+                                noneReadChat: {
+                                    ...state.noneReadChat,
+                                    [roomId]: (state.noneReadChat[roomId] || 0) + 1,
+                                },
+                            };
+                        }
+                    })(num);
+                }),
             setLastReadTime: (roomId, time) =>
                 set((state) => ({ lastReadTime: { ...state.lastReadTime, [roomId]: time } })),
+            setResetNoneReadChat: (roomId) => {
+                set({ noneReadChat: { [roomId]: 0 } });
+            },
+            setLastMessage: (message) => {
+                set({ lastMessage: message });
+            },
         }),
         { storage: createJSONStorage(() => sessionStorage), name: 'noneReadChat' },
     ),

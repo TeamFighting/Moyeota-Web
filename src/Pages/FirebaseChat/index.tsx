@@ -47,11 +47,11 @@ function FirebaseChat() {
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
 
     const { id, name, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
-
+    const { setLastReadTime, setNoneReadChat, setResetNoneReadChat } = NoneReadChatStore.getState();
     const navigate = useNavigate();
     const handleBack = () => {
-        navigate('/ChatLists');
         leaveChatRoom(roomId);
+        navigate('/ChatLists');
     };
     const messageEndRef = useRef<HTMLDivElement>(null);
     const messagesRef = dbRef(db, 'messages');
@@ -73,8 +73,8 @@ function FirebaseChat() {
     }, [roomId]);
 
     function leaveChatRoom(roomId: string) {
-        NoneReadChatStore.getState().setLastReadTime(roomId, Date.now());
-        NoneReadChatStore.getState().setNoneReadChat(roomId, 0);
+        setLastReadTime(roomId, Date.now());
+        setNoneReadChat(roomId, 0);
     }
 
     const addMessagesListener = (roomId: string) => {
@@ -86,8 +86,7 @@ function FirebaseChat() {
         });
         setMessagesLoading(false);
     };
-    const createMessage = (fileUrl: string | null = null) => {
-        console.log(fileUrl);
+    const createMessage = () => {
         if (newMessage === '') return;
         const message = {
             key: roomId,
