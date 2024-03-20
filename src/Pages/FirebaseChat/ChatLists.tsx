@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { instance } from '../../axios';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { ref as dbRef, query, onValue, set } from 'firebase/database';
+import { ref as dbRef, query, onValue } from 'firebase/database';
 import { db } from '../../firebase';
 import { Chevronleft, Plus } from '../../assets/svg';
 import moment from 'moment';

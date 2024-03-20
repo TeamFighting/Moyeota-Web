@@ -47,7 +47,7 @@ function FirebaseChat() {
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
 
     const { id, name, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
-    const { setLastReadTime, setNoneReadChat, setResetNoneReadChat } = NoneReadChatStore.getState();
+    const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
     const navigate = useNavigate();
     const handleBack = () => {
         leaveChatRoom(roomId);
