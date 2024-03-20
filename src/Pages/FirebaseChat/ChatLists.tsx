@@ -7,6 +7,7 @@ import { db } from '../../firebase';
 import { Chevronleft, Plus } from '../../assets/svg';
 import moment from 'moment';
 import { NoneReadChatStore } from '../../state/store/NoneReadChat';
+import { motion, useAnimate, useDragControls, useMotionValue, useMotionValueEvent, useTransform } from 'framer-motion';
 export interface myMessageProps {
     text: string;
     timestamp: number;
@@ -34,12 +35,10 @@ function ChatLists() {
     const navigate = useNavigate();
     const { lastMessage, setLastMessage, noneReadChat, lastReadTime, setNoneReadChat, setLastReadTime } =
         NoneReadChatStore();
-
+    const dragControls = useDragControls();
     useEffect(() => {
         totalChatRooms();
         for (let i = 0; i < chatRooms.length; i++) {
-            console.log('lastRead', lastReadTime[chatRooms[i].roomId]);
-            console.log('none', noneReadChat[chatRooms[i].roomId]);
             if (lastReadTime[chatRooms[i].roomId] === undefined) {
                 setLastReadTime(chatRooms[i].roomId, 0);
             }
@@ -48,13 +47,12 @@ function ChatLists() {
 
     function onMessageArrived(roomId: string, message: myMessageProps) {
         // 메시지의 시간이 마지막으로 읽은 시간 이후인지 확인
-        console.log(message.user.id === JSON.parse(localStorage.getItem('myInfo') as string).id);
         const lastReadTime = NoneReadChatStore.getState().lastReadTime[roomId];
         if (
             message.timestamp > lastReadTime &&
             message.user.id !== JSON.parse(localStorage.getItem('myInfo') as string).id
         ) {
-            console.log('new ');
+            // console.log('new ');
             setNoneReadChat(roomId);
         }
     }
@@ -67,7 +65,7 @@ function ChatLists() {
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setChatRooms(res.data.data);
-        console.log('chatRooms', res.data.data);
+        // console.log('chatRooms', res.data.data);
     };
     // 채팅방에 메시지가 도착할 때 호출
 
@@ -89,16 +87,9 @@ function ChatLists() {
     };
 
     useEffect(() => {
-        // for (let i = 0; i < chatRooms.length; i++) {
-        console.log('lastRead', lastReadTime);
-        console.log('none', noneReadChat);
-        // if (lastReadTime[chatRooms[i].roomId] === undefined) {
-        //     setLastReadTime(chatRooms[i].roomId, 0);
-        // }
-        // }
         const messagesRef = dbRef(db, 'messages');
         const lastMessageListener = query(messagesRef);
-        console.log(lastMessage);
+        // console.log(lastMessage);
         const getLastMessage = onValue(lastMessageListener, (snapshot) => {
             const messages: LastMessageProps[] = [];
             const data = snapshot.val();
@@ -121,13 +112,8 @@ function ChatLists() {
             if (isEmpty) {
                 setLastMessage(messages);
             } else if (lastMessage[0].timestamp == messages[0].timestamp && lastMessage[0].text == messages[0].text) {
-                console.log('same message');
-            }
-            // else if (messages[0].user.id === JSON.parse(localStorage.getItem('myInfo') as string).id) {
-            //     console.log('my message');
-            // }
-            else {
-                console.log('new message');
+                // console.log('same message');
+            } else {
                 setLastMessage(messages); // setLastMessage를 사용하여 상태 업데이트
                 onMessageArrived(messages[0].key, messages[0]);
             }
@@ -139,6 +125,17 @@ function ChatLists() {
     }, [roomIds]);
 
     const { profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
+    const itemx = useMotionValue(0);
+    const bgColor = useTransform(itemx, [-82, 0, 82], ['white', 'blue', 'white']);
+    const [animateRef, animate] = useAnimate();
+    const [isLeaveShow, setIsLeaveShow] = useState(false);
+    const leaveChatRoomState = isLeaveShow ? 'appear' : 'disappear';
+    useEffect(() => {
+        itemx.on('change', (v) => {
+            setIsLeaveShow(v < -41);
+            console.log(v);
+        });
+    }, [itemx.get()]);
 
     const renderChatRooms = () => {
         return (
@@ -148,7 +145,7 @@ function ChatLists() {
                 const chatRoom = chatRooms.find((room) => room.roomId === message.key);
                 if (chatRoom)
                     return (
-                        <ChatList key={i}>
+                        <ChatList>
                             {chatRooms.map((chatRoom, i) => {
                                 moment.locale('ko');
                                 let time = moment(message.timestamp).fromNow();
@@ -167,67 +164,98 @@ function ChatLists() {
 
                                 if (chatRoom.roomId === message.key) {
                                     return (
-                                        <div
-                                            onClick={() => handleChatRoom(chatRoom.roomId, chatRoom.postId)}
-                                            style={{
-                                                height: '84px',
-                                                display: 'flex',
-                                                gap: '26px',
-                                                width: '100%',
-                                                alignItems: 'center',
-                                            }}
-                                        >
-                                            <img
-                                                style={{
-                                                    width: 36,
-                                                    height: 36,
-                                                    borderRadius: '100%',
-                                                    objectFit: 'cover',
-                                                    border: '3px solid #ededed',
+                                        <SwipeableContainer key={i}>
+                                            <motion.div
+                                                ref={animateRef}
+                                                dragControls={dragControls}
+                                                dragConstraints={{ left: -82, right: 0 }}
+                                                drag="x"
+                                                onDragEnd={() => {
+                                                    const isOverThreshold = itemx.get() < -41;
+                                                    animate(animateRef.current, {
+                                                        x: isOverThreshold ? -82 : 0,
+                                                    });
                                                 }}
-                                                src={profileImage}
-                                            />
-                                            <div style={{ flex: 1 }}>
+                                                onClick={() => handleChatRoom(chatRoom.roomId, chatRoom.postId)}
+                                                style={{
+                                                    // x: itemx,
+                                                    height: '84px',
+                                                    display: 'flex',
+                                                    gap: '26px',
+                                                    width: '100%',
+                                                    alignItems: 'center',
+                                                    backgroundColor: bgColor,
+                                                }}
+                                            >
                                                 <div
                                                     style={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        width: '100%',
-                                                        justifyContent: 'space-between',
+                                                        width: '16px',
+                                                        height: '100%',
+                                                        backgroundColor: 'white',
                                                     }}
-                                                >
-                                                    <RoomName>{chatRoom.roomName}</RoomName>{' '}
-                                                    <Time style={{ whiteSpace: 'nowrap' }}>{time}</Time>
+                                                />
+                                                <img
+                                                    style={{
+                                                        width: 36,
+                                                        height: 36,
+                                                        borderRadius: '100%',
+                                                        objectFit: 'cover',
+                                                        border: '3px solid #ededed',
+                                                    }}
+                                                    src={profileImage}
+                                                />
+                                                <div style={{ flex: 1 }}>
+                                                    <motion.div
+                                                        style={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            width: '100%',
+                                                            justifyContent: 'space-between',
+                                                        }}
+                                                    >
+                                                        <RoomName>{chatRoom.roomName}</RoomName>{' '}
+                                                        <Time style={{ whiteSpace: 'nowrap' }}>{time}</Time>
+                                                    </motion.div>
+                                                    <div
+                                                        style={{
+                                                            display: 'flex',
+                                                            flexDirection: 'row',
+                                                            justifyContent: 'space-between',
+                                                        }}
+                                                    >
+                                                        <LastestMessage key={i}>{message.text}</LastestMessage>
+                                                        {noneReadChat[chatRoom.roomId] > 0 ? (
+                                                            <div
+                                                                style={{
+                                                                    fontSize: '12px',
+                                                                    borderRadius: '50%',
+                                                                    backgroundColor: '#EC5829',
+                                                                    width: '20px',
+                                                                    height: '20px',
+                                                                    display: 'flex',
+                                                                    justifyContent: 'center',
+                                                                    alignItems: 'center',
+                                                                    color: 'white',
+                                                                    fontWeight: 'bold',
+                                                                }}
+                                                            >
+                                                                {noneReadChat[chatRoom.roomId]}
+                                                            </div>
+                                                        ) : null}
+                                                    </div>
                                                 </div>
                                                 <div
                                                     style={{
-                                                        display: 'flex',
-                                                        flexDirection: 'row',
-                                                        justifyContent: 'space-between',
+                                                        width: '16px',
+                                                        height: '100%',
+                                                        backgroundColor: 'white',
                                                     }}
-                                                >
-                                                    <LastestMessage key={i}>{message.text}</LastestMessage>
-                                                    {noneReadChat[chatRoom.roomId] > 0 ? (
-                                                        <div
-                                                            style={{
-                                                                fontSize: '12px',
-                                                                borderRadius: '50%',
-                                                                backgroundColor: 'red',
-                                                                width: '20px',
-                                                                height: '20px',
-                                                                display: 'flex',
-                                                                justifyContent: 'center',
-                                                                alignItems: 'center',
-                                                                color: 'white',
-                                                                fontWeight: 'bold',
-                                                            }}
-                                                        >
-                                                            {noneReadChat[chatRoom.roomId]}
-                                                        </div>
-                                                    ) : null}
-                                                </div>
-                                            </div>
-                                        </div>
+                                                />
+                                            </motion.div>
+                                            <LeaveChatRoom initial="disappear" animate={leaveChatRoomState}>
+                                                삭제
+                                            </LeaveChatRoom>
+                                        </SwipeableContainer>
                                     );
                                 }
                             })}
@@ -254,6 +282,33 @@ function ChatLists() {
         </div>
     );
 }
+const LeaveChatRoom = styled(motion.div)`
+    background-color: #ec5829;
+    display: grid;
+    place-content: center;
+    height: 100%;
+    width: 82px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    aspect-ratio: 1 /1;
+    background: red;
+    color: #fff;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 157%; /* 28.26px */
+    z-index: -1;
+`;
+const SwipeableContainer = styled(motion.div)`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+`;
 const ChatHeader = styled.div`
     height: 63px;
     background-color: white;
@@ -268,15 +323,15 @@ const ChatList = styled.div`
     display: flex;
     flex-direction: column;
     align-items: start;
-    padding-left: 20px;
     border-bottom: 1px solid #ededed;
-    width: 84%;
+    width: 100%;
 `;
 const Body = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* margin: 0 16px; */
 `;
 const RoomName = styled.div`
     color: #0f1828;
