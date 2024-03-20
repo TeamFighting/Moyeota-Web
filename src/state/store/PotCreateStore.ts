@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface StoreState {
     description: string;
@@ -21,25 +22,33 @@ interface StoreState {
     setPostId: (value: number) => void;
 }
 
-const PotCreateStore = create<StoreState>((set) => ({
-    description: '',
-    title: '',
-    distance: 0,
-    destination: null,
-    totalPeople: 1,
-    VehicleType: '일반',
-    sameGenderRide: 'NO',
-    selectedTime: '',
-    postId: 0,
-    setDescription: (value) => set({ description: value }),
-    setTitle: (value) => set({ title: value }),
-    setDistance: (value) => set({ distance: value }),
-    setDestination: (value) => set({ destination: value }),
-    setTotalPeople: (value: number) => set({ totalPeople: value }),
-    setVehicleType: (value) => set({ VehicleType: value }),
-    setSameGenderRide: (value) => set({ sameGenderRide: value }),
-    setSelectedTime: (value) => set({ selectedTime: value }),
-    setPostId: (value: number) => set({ postId: value }),
-}));
+const PotCreateStore = create(
+    persist<StoreState>(
+        (set) => ({
+            description: '',
+            title: '',
+            distance: 0,
+            destination: null,
+            totalPeople: 1,
+            VehicleType: '일반',
+            sameGenderRide: 'NO',
+            selectedTime: '',
+            postId: 0,
+            setDescription: (value) => set({ description: value }),
+            setTitle: (value) => set({ title: value }),
+            setDistance: (value) => set({ distance: value }),
+            setDestination: (value) => set({ destination: value }),
+            setTotalPeople: (value: number) => set({ totalPeople: value }),
+            setVehicleType: (value) => set({ VehicleType: value }),
+            setSameGenderRide: (value) => set({ sameGenderRide: value }),
+            setSelectedTime: (value) => set({ selectedTime: value }),
+            setPostId: (value: number) => set({ postId: value }),
+        }),
+        {
+            name: 'PotCreateStore',
+            getStorage: () => sessionStorage,
+        },
+    ),
+);
 
 export default PotCreateStore;

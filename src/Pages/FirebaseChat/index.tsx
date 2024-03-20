@@ -12,6 +12,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import Skeleton from '../../components/Skeleton';
 import { showProfileTime } from '../util/showProfileTime';
+import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     postId: string;
@@ -46,10 +47,11 @@ function FirebaseChat() {
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
 
     const { id, name, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
-
+    const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
     const navigate = useNavigate();
     const handleBack = () => {
-        navigate(-1);
+        leaveChatRoom(roomId);
+        navigate('/ChatLists');
     };
     const messageEndRef = useRef<HTMLDivElement>(null);
     const messagesRef = dbRef(db, 'messages');
@@ -70,6 +72,11 @@ function FirebaseChat() {
         if (roomId !== undefined) addMessagesListener(roomId);
     }, [roomId]);
 
+    function leaveChatRoom(roomId: string) {
+        setLastReadTime(roomId, Date.now());
+        setNoneReadChat(roomId, 0);
+    }
+
     const addMessagesListener = (roomId: string) => {
         const messagesArray = [] as myMessageProps[];
         onChildAdded(child(messagesRef, roomId), (snapshot) => {
@@ -79,8 +86,7 @@ function FirebaseChat() {
         });
         setMessagesLoading(false);
     };
-    const createMessage = (fileUrl: string | null = null) => {
-        console.log(fileUrl);
+    const createMessage = () => {
         if (newMessage === '') return;
         const message = {
             key: roomId,
