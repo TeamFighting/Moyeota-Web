@@ -15,7 +15,7 @@ function QuickMatchFinding() {
 
     const { currentLocation } = CurrentLocationStore();
     const { destination: quickDestination } = useQuickMathDestinationStore();
-
+    const navigate = useNavigate();
     const currentBuildingName = currentLocation?.building_name;
     console.log(currentBuildingName);
     const cur = localStorage.getItem('address');
