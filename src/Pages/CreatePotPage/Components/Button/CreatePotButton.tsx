@@ -45,8 +45,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             console.log('res:', res);
             const formattedDate = new Date().toISOString;
             const numberOfRecruitment = totalPeople;
-            const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
-
+            const departure = currentLocationStore.currentLocation?.building_name ?? '불암고등학교';
             const response = await instance.post(
                 '/posts',
                 // {

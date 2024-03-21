@@ -30,7 +30,10 @@ function createComplete() {
                         />
                     </div>
                     <S.CompleteWrapper>
-                        <S.Title>{userData.nickName == null ? userData.name : userData.nickName} 님의</S.Title>
+                        <S.Title>
+                            {userData.name} 님의
+                            {/* {userData.nickName == null ? userData.name : userData.nickName} 님의 */}
+                        </S.Title>
                         <S.Title>팟 생성이 완료되었어요!</S.Title>
                     </S.CompleteWrapper>
                 </div>
