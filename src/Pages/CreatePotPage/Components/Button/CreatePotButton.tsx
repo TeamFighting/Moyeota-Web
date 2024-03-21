@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-// import PotCreateStore from '../../../../state/store/PotCreateStore';
-// import DurationFareStore from '../../../../state/store/DurationFareStore';
-// import CurrentLocation from '../../../../state/store/CurrentLocation';
+import PotCreateStore from '../../../../state/store/PotCreateStore';
+import DurationFareStore from '../../../../state/store/DurationFareStore';
+import CurrentLocation from '../../../../state/store/CurrentLocation';
 import { instance } from '../../../../axios';
 import { useNavigate } from 'react-router-dom';
 import { ref, push, update, child } from 'firebase/database';
@@ -9,25 +9,25 @@ import { db } from '../../../../firebase';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     console.log(totalPeople);
-    // const potCreateStore = PotCreateStore();
-    // const durationFareStore = DurationFareStore();
-    // const currentLocationStore = CurrentLocation();
+    const potCreateStore = PotCreateStore();
+    const durationFareStore = DurationFareStore();
+    const currentLocationStore = CurrentLocation();
     const navigate = useNavigate();
     const accessToken = localStorage.getItem('accessToken');
 
     const chatRoomsRef = ref(db, 'chatRooms');
     const userData = JSON.parse(localStorage.getItem('myInfo') as string);
     console.log(userData);
-    // const {
-    //     title,
-    //     description: content,
-    //     distance,
-    //     destination,
-    //     VehicleType: vehicle,
-    //     sameGenderRide: sameGenderStatus,
-    //     selectedTime,
-    // } = potCreateStore;
-    // const { estimatedDuration, estimatedFare } = durationFareStore;
+    const {
+        title,
+        description: content,
+        distance,
+        destination,
+        VehicleType: vehicle,
+        sameGenderRide: sameGenderStatus,
+        selectedTime,
+    } = potCreateStore;
+    const { estimatedDuration, estimatedFare } = durationFareStore;
     const createPost = async () => {
         console.log('createPost');
         const key = push(chatRoomsRef).key;
@@ -43,46 +43,46 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         try {
             const res = await update(child(chatRoomsRef, key as string), newChatRoom);
             console.log('res:', res);
-            // const formattedDate = new Date().toISOString;
-            // const numberOfRecruitment = totalPeople;
-            // const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
+            const formattedDate = new Date().toISOString;
+            const numberOfRecruitment = totalPeople;
+            const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
 
             const response = await instance.post(
                 '/posts',
-                {
-                    category: 'LIFE',
-                    content: '안녕하세요', //content,
-                    createdDate: new Date(), //formattedDate,
-                    departure: '공릉역 7호선', //departure,
-                    departureTime: new Date(), // selectedTime, //departureTime 으로 바꾸기
-                    destination: '서울과학기술대학교', //destination,
-                    distance: 10, // distance,
-                    duration: '20000', //estimatedDuration,
-                    fare: '3000', //estimatedFare,
-                    modifiedDate: new Date(), //formattedDate,
-                    numberOfRecruitment: 4, // numberOfRecruitment,
-                    sameGenderStatus: 'YES', //sameGenderStatus,
-                    title: '암어 퀸카', //title,
-                    vehicle: '일반', //vehicle,
-                    roomId: key,
-                },
                 // {
                 //     category: 'LIFE',
-                //     content: content,
-                //     createdDate: formattedDate,
-                //     departure: departure,
-                //     departureTime: selectedTime,
-                //     destination: destination,
-                //     distance: distance,
-                //     duration: estimatedDuration,
-                //     fare: estimatedFare,
-                //     modifiedDate: formattedDate,
-                //     numberOfRecruitment: numberOfRecruitment,
-                //     sameGenderStatus: sameGenderStatus,
-                //     title: title,
-                //     vehicle: vehicle,
+                //     content: '안녕하세요', //content,
+                //     createdDate: new Date(), //formattedDate,
+                //     departure: '공릉역 7호선', //departure,
+                //     departureTime: new Date(), // selectedTime, //departureTime 으로 바꾸기
+                //     destination: '서울과학기술대학교', //destination,
+                //     distance: 10, // distance,
+                //     duration: '20000', //estimatedDuration,
+                //     fare: '3000', //estimatedFare,
+                //     modifiedDate: new Date(), //formattedDate,
+                //     numberOfRecruitment: 4, // numberOfRecruitment,
+                //     sameGenderStatus: 'YES', //sameGenderStatus,
+                //     title: '암어 퀸카', //title,
+                //     vehicle: '일반', //vehicle,
                 //     roomId: key,
                 // },
+                {
+                    category: 'LIFE',
+                    content: content,
+                    createdDate: formattedDate,
+                    departure: departure,
+                    departureTime: selectedTime,
+                    destination: destination,
+                    distance: distance,
+                    duration: estimatedDuration,
+                    fare: estimatedFare,
+                    modifiedDate: formattedDate,
+                    numberOfRecruitment: numberOfRecruitment,
+                    sameGenderStatus: sameGenderStatus,
+                    title: title,
+                    vehicle: vehicle,
+                    roomId: key,
+                },
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,

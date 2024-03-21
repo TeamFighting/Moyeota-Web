@@ -20,9 +20,9 @@ function QuickMatchFinding() {
     console.log(currentBuildingName);
     const cur = localStorage.getItem('address');
 
-    // setTimeout(() => {
-    //     navigate('/mainPage');
-    // }, 2000);
+    setTimeout(() => {
+        navigate('/mainPage');
+    }, 2000);
 
     return (
         <div>
