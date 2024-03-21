@@ -6,15 +6,7 @@ type QuickMathDestinationStore = {
     setDestination: (destination: string) => void;
 };
 
-export const useQuickMathDestinationStore = create(
-    persist<QuickMathDestinationStore>(
-        (set) => ({
-            destination: '',
-            setDestination: (destination) => set({ destination }),
-        }),
-        {
-            name: 'QuickMathDestinationStore',
-            getStorage: () => sessionStorage,
-        },
-    ),
-);
+export const useQuickMathDestinationStore = create<QuickMathDestinationStore>((set) => ({
+    destination: '',
+    setDestination: (destination) => set({ destination }),
+}));
