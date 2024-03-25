@@ -61,7 +61,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 //     modifiedDate: new Date(), //formattedDate,
                 //     numberOfRecruitment: 4, // numberOfRecruitment,
                 //     sameGenderStatus: 'YES', //sameGenderStatus,
-                //     title: '암어 퀸카', //title,
+                //     title: '과기대갑시당', //title,
                 //     vehicle: '일반', //vehicle,
                 //     roomId: key,
                 // },

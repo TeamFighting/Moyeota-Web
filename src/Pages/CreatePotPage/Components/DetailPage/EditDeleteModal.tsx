@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { PencilIcon, TrashIcon } from '../../../../assets/svg';
 import BottomSheetHandle from '../../../MainPage/Components/BottomSheet/BottomSheetHandle';
 import useOnclickOutside from 'react-cool-onclickoutside';
+import useUpdateModalStore from '../../../../state/store/UpdateModalStore';
 
 interface EditDeleteModalProps {
     isOpen: boolean;
@@ -21,6 +22,7 @@ const EditDeleteModal = ({ postId, isOpen, onClose }: EditDeleteModalProps) => {
         return window.innerHeight * (2.5 / 8);
     });
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const { closeModal } = useUpdateModalStore();
 
     const ref = useOnclickOutside(() => {
         setIsDeleteModalOpen(false);
@@ -35,6 +37,7 @@ const EditDeleteModal = ({ postId, isOpen, onClose }: EditDeleteModalProps) => {
     };
 
     const handleCloseDeleteModal = () => {
+        closeModal();
         setIsDeleteModalOpen(false);
     };
 
