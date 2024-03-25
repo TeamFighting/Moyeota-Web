@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { instance } from '../../../../../../axios';
+import { instance } from '../../../../axios';
 
 declare global {
     interface Window {

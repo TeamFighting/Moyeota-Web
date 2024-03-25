@@ -1,5 +1,5 @@
-import useStore from '../../../../state/store/DurationFareStore';
-import * as S from '../../style';
+import useStore from '../../state/store/DurationFareStore';
+import * as S from '../CreatePotPage/style';
 
 function CreatePrice({ totalPeople }: { totalPeople: number }) {
     const { estimatedFare } = useStore();

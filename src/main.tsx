@@ -11,11 +11,11 @@ import DestinationPage from './Pages/CreatePotPage/Components/Map/DestinationPag
 import SearchResults from './Pages/CreatePotPage/Components/Map/SearchResults';
 import QuickMatch from './Pages/QuickMatch/QuickMatch';
 import QuickMatchFinding from './Pages/QuickMatch/QuickMatchFinding';
-import UpdatePotPage from './Pages/CreatePotPage/Components/UpdatePage/UpdatePotPage';
-import UpdateDestinationPage from './Pages/CreatePotPage/Components/UpdatePage/Map/DestinationPage';
-import UpdateSearchResults from './Pages/CreatePotPage/Components/UpdatePage/Map/SearchResults';
+import UpdateDestinationPage from './Pages/UpdatePage/Map/DestinationPage';
+import UpdateSearchResults from './Pages/UpdatePage/Map/SearchResults';
 import FirebaseChat from './Pages/FirebaseChat';
 import ChatLists from './Pages/FirebaseChat/ChatLists';
+import UpdatePotPage from './Pages/UpdatePage';
 
 const router = createBrowserRouter([
     {

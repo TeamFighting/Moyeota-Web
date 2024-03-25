@@ -1,9 +1,9 @@
-import { ChevronRight } from '../../../../assets/svg';
-import * as S from '../../style';
+import { ChevronRight } from '../../assets/svg';
+import * as S from '../CreatePotPage/style';
 import TimeModal from './Modal/TimeModal';
 import { SetStateAction, useState, useEffect } from 'react';
-import PotCreateStore from '../../../../state/store/PotCreateStore';
-import usePostDataStore from '../../../../state/store/PostDataStore';
+import PotCreateStore from '../../state/store/PotCreateStore';
+import usePostDataStore from '../../state/store/PostDataStore';
 
 declare global {
     interface Window {

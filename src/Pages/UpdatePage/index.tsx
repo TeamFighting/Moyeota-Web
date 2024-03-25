@@ -1,4 +1,4 @@
-import * as S from '../../style';
+import * as S from '../CreatePotPage/style';
 import UpdateHeader from './UpdateHeader';
 import UpdateBody from './UpdateBody';
 import UpdateBottom from './UpdateBottom';
@@ -9,6 +9,8 @@ import UpdateNote from './UpdateNote';
 import { useState, useEffect, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
+import { useMyPotStore } from '../../state/store/MyPotStore';
+import { instance } from '../../axios';
 
 function UpdatePotPage() {
     const [dividerHeight, setDividerHeight] = useState(6);
@@ -17,7 +19,11 @@ function UpdatePotPage() {
     const searchParams = new URLSearchParams(location.search);
     const destination = searchParams.get('destination') || undefined;
     const [totalPeople, setTotalPeople] = useState(0);
+    const { MyPot } = useMyPotStore();
 
+    const getPostInfo = async () => {
+        const res = await instance.get(`/posts/${MyPot[0]}`);
+    };
     const handleTotalPeopleChange = (count: SetStateAction<number>) => {
         setTotalPeople(count);
     };

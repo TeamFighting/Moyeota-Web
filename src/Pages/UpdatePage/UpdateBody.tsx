@@ -1,13 +1,13 @@
-import { ChevronRight, LocationFrom, LocationMarker } from '../../../../assets/svg';
-import * as S from '../../style';
+import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg';
+import * as S from '../CreatePotPage/style';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEvent, useEffect } from 'react';
-import usePostDataStore from '../../../../state/store/PostDataStore';
-import DurationFareStore from '../../../../state/store/DurationFareStore';
-import PotCreateStore from '../../../../state/store/PotCreateStore';
-import { instance } from '../../../../axios';
-import CurrentLocationStore from '../../../../state/store/CurrentLocation';
-import DetailMap from '../../../DetailPage/DetailMap';
+import usePostDataStore from '../../state/store/PostDataStore';
+import DurationFareStore from '../../state/store/DurationFareStore';
+import PotCreateStore from '../../state/store/PotCreateStore';
+import { instance } from '../../axios';
+import CurrentLocationStore from '../../state/store/CurrentLocation';
+import DetailMap from '../DetailPage/DetailMap';
 
 interface CreateBodyProps {
     destination?: string;
