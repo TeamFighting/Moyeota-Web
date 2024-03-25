@@ -5,7 +5,7 @@ import App from './App';
 import MainPage from './Pages/MainPage';
 import DetailPage from './Pages/DetailPage';
 import CreateDetailPage from './Pages/CreatePotPage/Components/DetailPage/index';
-import CreatePotPage from './Pages/CreatePotPage/CreatePotPage';
+import CreatePotPage from './Pages/CreatePotPage';
 import CreateComplete from './Pages/CreatePotPage/CreateComplete';
 import DestinationPage from './Pages/CreatePotPage/Components/Map/DestinationPage';
 import SearchResults from './Pages/CreatePotPage/Components/Map/SearchResults';
