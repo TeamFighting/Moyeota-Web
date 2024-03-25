@@ -9,20 +9,16 @@ import UpdateNote from './UpdateNote';
 import { useState, useEffect, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { useMyPotStore } from '../../state/store/MyPotStore';
 import { instance } from '../../axios';
 
 function UpdatePotPage() {
     const [dividerHeight, setDividerHeight] = useState(6);
     const [scroll, setScroll] = useState(0);
     const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const destination = searchParams.get('destination') || undefined;
     const [totalPeople, setTotalPeople] = useState(0);
-    const { MyPot } = useMyPotStore();
 
     const getPostInfo = async () => {
-        const res = await instance.get(`/posts/${MyPot[0]}`);
+        const res = await instance.get(`/posts/${location.state.postId}`);
     };
     const handleTotalPeopleChange = (count: SetStateAction<number>) => {
         setTotalPeople(count);
@@ -52,7 +48,7 @@ function UpdatePotPage() {
         <>
             <S.Container>
                 <UpdateHeader />
-                <UpdateBody destination={destination} />
+                {/* <UpdateBody destination={destination} /> */}
                 <Divider style={{ height: '10px' }} />
                 <UpdateBottom totalPeople={totalPeople} onTotalPeopleChange={handleTotalPeopleChange} />
                 <Divider style={{ height: `${dividerHeight}px` }} />

@@ -18,7 +18,7 @@ interface CreateBottomProps {
     onTotalPeopleChange: (count: SetStateAction<number>) => void;
 }
 
-function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
+function UpdateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const [selectedVehicle, setSelectedVehicle] = useState('일반 승용 택시');
     const { data } = usePostDataStore();
     const [isSameGenderRide, setIsSameGenderRide] = useState(false);
@@ -136,4 +136,4 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         </S.Bottom>
     );
 }
-export default CreateBottom;
+export default UpdateBottom;

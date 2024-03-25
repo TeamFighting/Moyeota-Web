@@ -2,7 +2,7 @@ import * as S from '../CreatePotPage/style';
 import CreateHeader from './UpdateHeader';
 import CreateExitButton from '../CreatePotPage/Components/Button/CreateExitButton';
 import styled from 'styled-components';
-function createComplete() {
+function UpdateComplete() {
     return (
         <>
             <S.Container>
@@ -38,4 +38,4 @@ const Divider = styled.div`
     height: 10px;
 `;
 
-export default createComplete;
+export default UpdateComplete;

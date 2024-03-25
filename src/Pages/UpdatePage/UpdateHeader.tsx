@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import CheveronLeft from '../../assets/svg/Chevronleft';
 
-function CreateHeader() {
+function UpdateHeader() {
     const navigate = useNavigate();
     const goBack = () => {
         navigate('/CreateDetailPage');
@@ -34,4 +34,4 @@ const Icon = styled.div`
     align-self: flex-start;
 `;
 
-export default CreateHeader;
+export default UpdateHeader;

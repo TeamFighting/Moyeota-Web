@@ -1,6 +1,6 @@
 import * as S from '../CreatePotPage/style';
 
-function CreateNote() {
+function UpdateNote() {
     return (
         <S.Bottom>
             <S.Subtitle>유의사항</S.Subtitle>
@@ -26,4 +26,4 @@ function CreateNote() {
     );
 }
 
-export default CreateNote;
+export default UpdateNote;

@@ -29,7 +29,7 @@ const EditDeleteModal = ({ postId, isOpen, onClose }: EditDeleteModalProps) => {
     });
     const navigate = useNavigate();
     const goToUpdate = () => {
-        navigate('/updatePotPage');
+        navigate('/updatePotPage', { state: { postId: postId } });
     };
 
     const handleOpenDeleteModal = () => {

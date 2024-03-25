@@ -13,7 +13,7 @@ interface CreateBodyProps {
     destination?: string;
 }
 
-function CreateBody({ destination }: CreateBodyProps) {
+function UpdateBody({ destination }: CreateBodyProps) {
     const navigate = useNavigate();
     const NavigateToDestination = () => {
         navigate('/updateDestinationPage');
@@ -164,4 +164,4 @@ function CreateBody({ destination }: CreateBodyProps) {
     );
 }
 
-export default CreateBody;
+export default UpdateBody;

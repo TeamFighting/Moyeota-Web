@@ -1,7 +1,7 @@
 import useStore from '../../state/store/DurationFareStore';
 import * as S from '../CreatePotPage/style';
 
-function CreatePrice({ totalPeople }: { totalPeople: number }) {
+function UpdatePrice({ totalPeople }: { totalPeople: number }) {
     const { estimatedFare } = useStore();
 
     const totalAmount = estimatedFare !== null ? estimatedFare : 0;
@@ -24,4 +24,4 @@ function CreatePrice({ totalPeople }: { totalPeople: number }) {
     );
 }
 
-export default CreatePrice;
+export default UpdatePrice;
