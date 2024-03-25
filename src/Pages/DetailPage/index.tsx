@@ -9,6 +9,8 @@ import ModalStore from '../../state/store/ModalStore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FixDetailHeader from '../CreatePotPage/Components/DetailPage/DetailHeader';
+import { useMyPotStore } from '../../state/store/MyPotStore';
+import DetailHeader from './DetailHeader';
 
 function DetailPage() {
     const [isFull, setIsFull] = useState(false);
@@ -17,12 +19,19 @@ function DetailPage() {
     const [dividerHeight, setDividerHeight] = useState(6);
     const { data, splitedTime, timePart } = location.state;
     const { modalOpen } = ModalStore();
+    const { MyPot } = useMyPotStore();
+    const [isFixDetailHeader, setIsFixDetailHeader] = useState(false);
     if (data.numberOfParticipants == data.numberOfRecruitment) {
         setIsFull(true);
     }
 
     useEffect(() => {
-        console.log(data);
+        MyPot.forEach((element) => {
+            if (element === data.postId) {
+                setIsFixDetailHeader(true);
+            }
+        });
+        // console.log(data.postId);
         const handleScroll = () => {
             const position = window.pageYOffset;
             setScroll(position);
@@ -46,8 +55,7 @@ function DetailPage() {
 
     return (
         <S.Container>
-            {/* <DetailHeader /> */}
-            <FixDetailHeader postId={data.postId} />
+            {isFixDetailHeader ? <FixDetailHeader postId={data.postId} /> : <DetailHeader />}
             <DetailBody data={data} />
             <Divider style={{ height: '10px' }} />
             <DetailBottom
