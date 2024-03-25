@@ -16,6 +16,7 @@ import { instance } from '../../axios';
 import watchPositionHook from '../../Hooks/watchPositionHook';
 import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../state/store/MyInfo';
+import { MyPot, useMyPotStore } from '../../state/store/MyPotStore';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -24,14 +25,28 @@ function MainPage() {
     // const { accessToken, setAccessToken } = AuthStore();
     const accessToken = localStorage.getItem('accessToken');
     const setAccessToken = AuthStore((state) => state.setAccessToken);
-    const { setMyInfo } = useMyInfoStore();
+    const { setMyInfo, id } = useMyInfoStore();
+    const { setMyPot, MyPot } = useMyPotStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     watchPositionHook();
-
+    const getMyPost = async () => {
+        const myPost = await instance.get(`/posts/users/${id}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+            params: {
+                page: 0,
+            },
+        });
+        const newArr: number[] = [];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
+        setMyPot(newArr);
+    };
     useEffect(() => {
         fetchData();
         usersInfo();
-
+        getMyPost();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handleMessage = (event: any) => {
             try {

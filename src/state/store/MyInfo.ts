@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface MyInfo {
     name: string;
@@ -9,20 +10,33 @@ interface MyInfo {
     nickname: string | null;
     phoneNumber: string | null;
     profileImage: string;
-}
-interface MyInfoState extends MyInfo {
+    id: number;
+    school: string | null;
+    status: string;
+    gender: string;
     setMyInfo: (data: MyInfo) => void;
 }
 
-export const useMyInfoStore = create<MyInfoState>((set) => ({
-    name: '',
-    age: 0,
-    averageStarRate: null,
-    email: null,
-    loginId: null,
-    nickname: null,
-    phoneNumber: null,
-    profileImage: '',
-
-    setMyInfo: (data) => set(() => ({ ...data })),
-}));
+export const useMyInfoStore = create(
+    persist<MyInfo>(
+        (set) => ({
+            name: '',
+            age: 0,
+            averageStarRate: null,
+            email: null,
+            loginId: null,
+            nickname: null,
+            phoneNumber: null,
+            profileImage: '',
+            id: 0,
+            gender: '',
+            school: null,
+            status: '',
+            setMyInfo: (data: MyInfo) => set(data),
+        }),
+        {
+            name: 'my-info',
+            getStorage: () => sessionStorage,
+        },
+    ),
+);
