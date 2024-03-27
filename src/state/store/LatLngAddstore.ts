@@ -12,8 +12,8 @@ interface LatLngAddStore {
 const LatLngAddStore = create(
     persist<LatLngAddStore>(
         (set) => ({
-            currentLat: 0,
-            currentLng: 0,
+            currentLat: 37.6294657,
+            currentLng: 127.0807685,
             currentAdd: '',
             setLatLngAdd: (Lat, Lng, currentAdd) =>
                 set(() => ({ currentLat: Lat, currentLng: Lng, currentAdd: currentAdd })),

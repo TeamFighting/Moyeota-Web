@@ -18,7 +18,10 @@ function watchPositionHook() {
     const { currentLat, currentLng } = LatLngAddstore((state) => state);
 
     async function success(pos: PositionOptions) {
-        const d = distance(currentLat, currentLng, pos.coords.latitude, pos.coords.longitude);
+        let d = 0;
+        if (currentLat !== 0 && currentLng !== 0) {
+            d = distance(currentLat, currentLng, pos.coords.latitude, pos.coords.longitude);
+        }
         console.log(d);
         if (d < 10) {
             localStorage.setItem('latitude', pos.coords.latitude.toString());
