@@ -22,7 +22,6 @@ function watchPositionHook() {
         if (currentLat !== 0 && currentLng !== 0) {
             d = distance(currentLat, currentLng, pos.coords.latitude, pos.coords.longitude);
         }
-        console.log(d);
         if (d < 10) {
             localStorage.setItem('latitude', pos.coords.latitude.toString());
             localStorage.setItem('longitude', pos.coords.longitude.toString());
