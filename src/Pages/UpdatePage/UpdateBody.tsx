@@ -18,6 +18,7 @@ function UpdateBody({ destination }: CreateBodyProps) {
     const NavigateToDestination = () => {
         navigate('/updateDestinationPage');
     };
+    console.log('destination:', destination);
     const { data } = usePostDataStore();
     const { currentLocation } = CurrentLocationStore();
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();

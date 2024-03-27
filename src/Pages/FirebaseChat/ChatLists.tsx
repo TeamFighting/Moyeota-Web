@@ -281,19 +281,9 @@ function ChatLists() {
             {isModalOpen && (
                 <ModalBackGround>
                     <Modal>
-                        <img
-                            style={{
-                                marginTop: '16px',
-                                width: 56,
-                                height: 56,
-                                borderRadius: '100%',
-                                objectFit: 'cover',
-                            }}
-                            src={profileImage}
-                        />
                         <div
                             style={{
-                                height: '150px',
+                                paddingTop: '35px',
                                 width: '100%',
                                 textAlign: 'center',
                                 justifyContent: 'center',
@@ -304,21 +294,16 @@ function ChatLists() {
                         >
                             <div
                                 style={{
+                                    color: '#343434',
+                                    textAlign: 'center',
+                                    fontFamily: 'Pretendard',
                                     fontSize: '18px',
-                                    fontFamily: 'pretendard',
-                                    fontWeight: 550,
+                                    fontStyle: 'normal',
+                                    fontWeight: '700',
+                                    lineHeight: '157%',
                                 }}
                             >
-                                {leaveChatRoomName}
-                            </div>
-                            <div
-                                style={{
-                                    fontSize: '14px',
-                                    fontFamily: 'pretendard',
-                                    fontWeight: 500,
-                                }}
-                            >
-                                팟 채팅방을 나가시겠어요?
+                                정말로 나가시겠습니까?
                             </div>
                         </div>
                         <div
@@ -326,9 +311,9 @@ function ChatLists() {
                                 width: '100%',
                                 height: '100px',
                                 display: 'flex',
+                                gap: '15px',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                borderTop: '1px solid #ededed',
                             }}
                         >
                             <div
@@ -338,11 +323,16 @@ function ChatLists() {
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     textAlign: 'center',
-                                    height: '100%',
-                                    flex: 1,
-                                    borderRight: '1px solid #ededed',
-                                    fontWeight: 550,
-                                    color: '#1d7ac7',
+                                    height: '48px',
+                                    width: '142px',
+                                    color: '#5D5D5D',
+                                    fontFamily: 'Pretendard',
+                                    fontSize: '18px',
+                                    fontStyle: 'normal',
+                                    fontWeight: '500',
+                                    lineHeight: 'normal',
+                                    backgroundColor: '#F5F6F8',
+                                    borderRadius: '12px',
                                 }}
                             >
                                 취소
@@ -354,10 +344,16 @@ function ChatLists() {
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     textAlign: 'center',
-                                    height: '100%',
-                                    flex: 1,
-                                    fontWeight: 550,
-                                    color: '#EC5829',
+                                    height: '48px',
+                                    width: '142px',
+                                    borderRadius: '12px',
+                                    color: 'white',
+                                    fontFamily: 'Pretendard',
+                                    fontSize: '18px',
+                                    fontStyle: 'normal',
+                                    fontWeight: '700',
+                                    lineHeight: 'normal',
+                                    backgroundColor: '#1EDD81',
                                 }}
                             >
                                 나가기
@@ -378,8 +374,8 @@ function ChatLists() {
 }
 const Modal = styled.div`
     position: absolute;
-    width: 280px;
-    height: 180px;
+    width: 334px;
+    height: 161px;
     z-index: 100;
     display: flex;
     background-color: white;

@@ -17,18 +17,22 @@ import watchPositionHook from '../../Hooks/watchPositionHook';
 import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../state/store/MyInfo';
 import { MyPot, useMyPotStore } from '../../state/store/MyPotStore';
+import LatLngAddStore from '../../state/store/LatLngAddstore';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
     // const { accessToken, setAccessToken } = AuthStore();
+    const { currentLat, currentLng } = LatLngAddStore((state) => state);
+
+    watchPositionHook();
+    console.log(currentLat, currentLng);
     const accessToken = localStorage.getItem('accessToken');
     const setAccessToken = AuthStore((state) => state.setAccessToken);
     const { setMyInfo, id } = useMyInfoStore();
     const { setMyPot, MyPot } = useMyPotStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
-    watchPositionHook();
     const getMyPost = async () => {
         const myPost = await instance.get(`/posts/users/${id}`, {
             headers: {
@@ -47,6 +51,7 @@ function MainPage() {
         fetchData();
         usersInfo();
         getMyPost();
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handleMessage = (event: any) => {
             try {

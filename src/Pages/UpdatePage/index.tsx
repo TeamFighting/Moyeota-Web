@@ -48,7 +48,7 @@ function UpdatePotPage() {
         <>
             <S.Container>
                 <UpdateHeader />
-                {/* <UpdateBody destination={destination} /> */}
+                <UpdateBody destination={destination} />
                 <Divider style={{ height: '10px' }} />
                 <UpdateBottom totalPeople={totalPeople} onTotalPeopleChange={handleTotalPeopleChange} />
                 <Divider style={{ height: `${dividerHeight}px` }} />

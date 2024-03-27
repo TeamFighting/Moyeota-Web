@@ -55,6 +55,7 @@ function NaverMap({ destination }: NaverMapProps) {
         } else if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
                 const { latitude, longitude } = position.coords;
+                console.log(latitude, longitude);
                 const location = new naver.maps.LatLng(latitude, longitude);
 
                 const mapOptions = {
