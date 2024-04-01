@@ -3,21 +3,30 @@ import * as S from './style';
 import createAgo from '../util/createAgo';
 import DetailMap from './DetailMap';
 
-interface DetailBodyProps {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: {
-        postId: string;
-        title: string;
-        departure: string;
-        destination: string;
-        createAt: string;
-        view: number;
-        userName: string;
-        userGender: string;
-        profileImage: string;
-    };
+interface DetailPageProps {
+    category: string;
+    content: string;
+    createAt: string;
+    departure: string;
+    departureTime: string;
+    destination: string;
+    distance: number;
+    duration: number;
+    fare: number;
+    numberOfParticipants: number;
+    numberOfRecruitment: number;
+    postId: number;
+    profileImage: string;
+    sameGenderStatus: string;
+    status: string;
+    title: string;
+    userGender: string;
+    userName: string;
+    vehicle: string;
+    view: number;
+    roomId: string;
 }
-function DetailBody({ data }: DetailBodyProps) {
+function DetailBody(data: DetailPageProps) {
     const ago = createAgo(data.createAt);
     let gender;
     if (data.userGender == 'F') {
