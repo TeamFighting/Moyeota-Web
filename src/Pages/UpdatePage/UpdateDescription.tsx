@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
-import usePostDataStore from '../../../../state/store/PostDataStore';
-import * as S from '../../style';
+import usePostDataStore from '../../state/store/PostDataStore';
+import * as S from '../CreatePotPage/style';
 
-function CreateDescription() {
+function UpdateDescription() {
     const { data, setPostData } = usePostDataStore();
 
     const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,4 +32,4 @@ function CreateDescription() {
     );
 }
 
-export default CreateDescription;
+export default UpdateDescription;

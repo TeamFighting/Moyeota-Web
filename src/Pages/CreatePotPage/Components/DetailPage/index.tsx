@@ -51,6 +51,7 @@ function DetailPage() {
                     alert(error);
                 });
         }
+        console.log('postId:', postId);
     }, [postId, setPostData]);
 
     return (

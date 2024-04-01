@@ -17,7 +17,6 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
 
     const chatRoomsRef = ref(db, 'chatRooms');
     const userData = JSON.parse(localStorage.getItem('myInfo') as string);
-    console.log(userData);
     const {
         title,
         description: content,
@@ -29,11 +28,10 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     } = potCreateStore;
     const { estimatedDuration, estimatedFare } = durationFareStore;
     const createPost = async () => {
-        console.log('createPost');
         const key = push(chatRoomsRef).key;
         const newChatRoom = {
             id: key,
-            title: '암어 퀸카',
+            title: title,
             createdBy: {
                 user: userData.id,
                 name: userData.name,
@@ -61,7 +59,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 //     modifiedDate: new Date(), //formattedDate,
                 //     numberOfRecruitment: 4, // numberOfRecruitment,
                 //     sameGenderStatus: 'YES', //sameGenderStatus,
-                //     title: '암어 퀸카', //title,
+                //     title: '횰인쓰가 만든 팟이예욥', //title,
                 //     vehicle: '일반', //vehicle,
                 //     roomId: key,
                 // },

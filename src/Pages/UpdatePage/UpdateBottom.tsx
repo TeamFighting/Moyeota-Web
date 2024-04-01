@@ -1,9 +1,9 @@
-import { ChevronRight } from '../../../../assets/svg';
-import * as S from '../../style';
+import { ChevronRight } from '../../assets/svg';
+import * as S from '../CreatePotPage/style';
 import TimeModal from './Modal/TimeModal';
 import { SetStateAction, useState, useEffect } from 'react';
-import PotCreateStore from '../../../../state/store/PotCreateStore';
-import usePostDataStore from '../../../../state/store/PostDataStore';
+import PotCreateStore from '../../state/store/PotCreateStore';
+import usePostDataStore from '../../state/store/PostDataStore';
 
 declare global {
     interface Window {
@@ -18,7 +18,7 @@ interface CreateBottomProps {
     onTotalPeopleChange: (count: SetStateAction<number>) => void;
 }
 
-function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
+function UpdateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const [selectedVehicle, setSelectedVehicle] = useState('일반 승용 택시');
     const { data } = usePostDataStore();
     const [isSameGenderRide, setIsSameGenderRide] = useState(false);
@@ -136,4 +136,4 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         </S.Bottom>
     );
 }
-export default CreateBottom;
+export default UpdateBottom;

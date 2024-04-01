@@ -54,19 +54,27 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const connectToRN = () => {
         window.ReactNativeWebView.postMessage('please open time modal');
     };
-
+    const [openListener, setOpenListener] = useState(false);
     useEffect(() => {
+        if (!openListener) return;
         window.addEventListener('message', (event) => {
             try {
-                const data = JSON.parse(event.data);
-                if (data.selectedTime !== undefined) {
-                    setSelectedTime(data.selectedTime);
+                let data = event.data;
+                console.log('data:', data);
+                if (typeof data === 'object') {
+                    data = JSON.parse(data);
+                    if (data.selectedTime !== undefined) {
+                        setSelectedTime(data.selectedTime);
+                    }
                 }
             } catch (error) {
                 console.error('error:', error);
             }
         });
-    }, []);
+        return () => {
+            window.removeEventListener('message', () => {});
+        };
+    }, [openListener]);
 
     return (
         <S.Bottom>
@@ -77,7 +85,13 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 }}
             >
                 <S.TextWrapper>
-                    <S.BottomTitle>출발시간</S.BottomTitle>
+                    <S.BottomTitle
+                        onClick={() => {
+                            setOpenListener(true);
+                        }}
+                    >
+                        출발시간
+                    </S.BottomTitle>
                     <S.Description>
                         {selectedTime != '' ? (
                             <S.SelectedInfo>

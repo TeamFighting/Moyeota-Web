@@ -30,6 +30,7 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
     const { accessToken } = AuthStore();
     const [onlyParty, setonlyParty] = useState<PARTYINFO[]>([]);
     async function getPartyOne(postId: number) {
+        if (postId == undefined) return;
         try {
             await instance
                 .get(`/posts/${postId}/members`, {

@@ -3,26 +3,78 @@ import DetailBody from './DetailBody';
 import DetailBottom from './DetailBottom';
 import DetailPartySection from './DetailPartySection';
 import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
-import { useLocation } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
 import ModalStore from '../../state/store/ModalStore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FixDetailHeader from '../CreatePotPage/Components/DetailPage/DetailHeader';
+import { useMyPotStore } from '../../state/store/MyPotStore';
+import DetailHeader from './DetailHeader';
+import { instance } from '../../axios';
+import getDays from '../util/getDays';
+import ISOto12 from '../util/ISOto12';
+
+interface DetailPageProps {
+    category: string;
+    content: string;
+    createAt: string;
+    departure: string;
+    departureTime: string;
+    destination: string;
+    distance: number;
+    duration: number;
+    fare: number;
+    numberOfParticipants: number;
+    numberOfRecruitment: number;
+    postId: number;
+    profileImage: string;
+    sameGenderStatus: string;
+    status: string;
+    title: string;
+    userGender: string;
+    userName: string;
+    vehicle: string;
+    view: number;
+    roomId: string;
+}
 
 function DetailPage() {
     const [isFull, setIsFull] = useState(false);
-    const location = useLocation();
     const [scroll, setScroll] = useState(0);
     const [dividerHeight, setDividerHeight] = useState(6);
-    const { data, splitedTime, timePart } = location.state;
     const { modalOpen } = ModalStore();
-    if (data.numberOfParticipants == data.numberOfRecruitment) {
-        setIsFull(true);
-    }
+    const { MyPot } = useMyPotStore();
+    const [data, setData] = useState<DetailPageProps>({} as DetailPageProps);
+    const [isFixDetailHeader, setIsFixDetailHeader] = useState(false);
+    const [splitedTime, setSplitedTime] = useState(['', '', '', '']);
+    const [timePart, setTimePart] = useState('');
+
+    const { postId } = useParams();
+    const getDetailData = async () => {
+        const res = await instance.get(`/posts/${postId}`);
+        setData(res.data.data);
+        if (res.data.data.numberOfParticipants == res.data.data.numberOfRecruitment) {
+            setIsFull(true);
+        }
+        if (res.data.data.departureTime !== undefined) {
+            setSplitedTime(getDays(res.data.data.departureTime));
+            setTimePart(ISOto12(res.data.data.departureTime));
+        }
+        console.log(res);
+    };
 
     useEffect(() => {
-        console.log(data);
+        getDetailData();
+        MyPot.forEach((element) => {
+            if (element === data.postId) {
+                setIsFixDetailHeader(true);
+            }
+        });
+        console.log(data.postId);
+    }, []);
+
+    useEffect(() => {
         const handleScroll = () => {
             const position = window.pageYOffset;
             setScroll(position);
@@ -33,7 +85,7 @@ function DetailPage() {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [scroll]);
 
     useEffect(() => {
         // scroll 값이 변경될 때마다 Divider 컴포넌트의 height 값을 업데이트
@@ -43,12 +95,10 @@ function DetailPage() {
             setDividerHeight(6);
         }
     }, [scroll]);
-
     return (
         <S.Container>
-            {/* <DetailHeader /> */}
-            <FixDetailHeader postId={data.postId} />
-            <DetailBody data={data} />
+            {isFixDetailHeader ? <FixDetailHeader postId={data.postId} /> : <DetailHeader />}
+            <DetailBody {...data} />
             <Divider style={{ height: '10px' }} />
             <DetailBottom
                 fare={data.fare}
@@ -68,8 +118,7 @@ function DetailPage() {
                 gender={data.userGender}
                 participants={data.numberOfParticipants}
             />
-
-            <MatchApplyButton roomId={data.roomId} postId={data.postId} leaderName={data.userName} title={data.title} />
+            <MatchApplyButton roomId={data.roomId} postId={data.postId} leaderName={data.userName} title={data.title} />{' '}
             {modalOpen.isOpen && <MatchApplyModal isFull={isFull} postId={data.postId} />}
         </S.Container>
     );

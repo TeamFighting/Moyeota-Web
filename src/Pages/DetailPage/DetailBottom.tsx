@@ -11,6 +11,7 @@ interface DetailBottomProps {
     recruitment: number;
 }
 function DetailBottom({ data, participants, recruitment, splitedTime, fare, duration, timePart }: DetailBottomProps) {
+    console.log('hti', timePart);
     return (
         <S.Bottom>
             <S.DescriptionTag>

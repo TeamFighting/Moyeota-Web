@@ -1,4 +1,4 @@
-import * as S from '../../style';
+import * as S from '../CreatePotPage/style';
 import UpdateHeader from './UpdateHeader';
 import UpdateBody from './UpdateBody';
 import UpdateBottom from './UpdateBottom';
@@ -9,15 +9,17 @@ import UpdateNote from './UpdateNote';
 import { useState, useEffect, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
+import { instance } from '../../axios';
 
 function UpdatePotPage() {
     const [dividerHeight, setDividerHeight] = useState(6);
     const [scroll, setScroll] = useState(0);
     const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const destination = searchParams.get('destination') || undefined;
     const [totalPeople, setTotalPeople] = useState(0);
 
+    const getPostInfo = async () => {
+        const res = await instance.get(`/posts/${location.state.postId}`);
+    };
     const handleTotalPeopleChange = (count: SetStateAction<number>) => {
         setTotalPeople(count);
     };

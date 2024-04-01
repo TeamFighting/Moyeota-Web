@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import PotCreateStore from '../../../../../state/store/PotCreateStore';
-import DurationFareStore from '../../../../../state/store/DurationFareStore';
-import CurrentLocation from '../../../../../state/store/CurrentLocation';
-import usePostDataStore from '../../../../../state/store/PostDataStore';
-import { AuthStore } from '../../../../../state/store/AuthStore';
+import PotCreateStore from '../../../state/store/PotCreateStore';
+import DurationFareStore from '../../../state/store/DurationFareStore';
+import CurrentLocation from '../../../state/store/CurrentLocation';
+import usePostDataStore from '../../../state/store/PostDataStore';
+import { AuthStore } from '../../../state/store/AuthStore';
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const navigate = useNavigate();
     const currentLocationStore = CurrentLocation();
