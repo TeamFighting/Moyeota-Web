@@ -33,7 +33,7 @@ const BottomSheetContent = () => {
         return (
             <S.ModalContent>
                 <S.ContentWrapper>
-                    <SingleContent />
+                    <SingleContent from={'BottomSheet'} />
                 </S.ContentWrapper>
             </S.ModalContent>
         );

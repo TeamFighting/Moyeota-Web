@@ -99,12 +99,12 @@ function ChatPage() {
     const sendMessage = () => {
         if (newMessage !== '') {
             const time = new Date().toLocaleTimeString().substr(0, 7);
-            const chatMessage = {
-                from: '8',
-                message: newMessage,
-                roomId: '1',
-                to: '1',
-            };
+            // const chatMessage = {
+            //     from: '8',
+            //     message: newMessage,
+            //     roomId: '1',
+            //     to: '1',
+            // };
             // if (stompClient !== null) {
             //     stompClient.publish({
             //         destination: '/pub/chat/enter/users/8/chat-rooms/1',

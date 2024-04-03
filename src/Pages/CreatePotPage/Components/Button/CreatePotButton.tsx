@@ -39,7 +39,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             },
         };
         try {
-            const res = await update(child(chatRoomsRef, key as string), newChatRoom);
+            await update(child(chatRoomsRef, key as string), newChatRoom);
             // console.log('res:', res);
             const formattedDate = new Date().toISOString;
             const numberOfRecruitment = totalPeople;
