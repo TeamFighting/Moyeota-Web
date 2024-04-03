@@ -3,7 +3,7 @@ import DetailBody from './DetailBody';
 import DetailBottom from './DetailBottom';
 import DetailPartySection from './DetailPartySection';
 import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
-import { useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
 import ModalStore from '../../state/store/ModalStore';
 import { useEffect, useState } from 'react';

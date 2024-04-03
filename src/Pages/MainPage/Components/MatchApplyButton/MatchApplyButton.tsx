@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import ModalStore from '../../../../state/store/ModalStore';
-import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
 import { useNavigate } from 'react-router';
+import { useMyPotContentStore } from '../../../../state/store/MyPotPage';
+import { useMyPotStore } from '../../../../state/store/MyPotStore';
 interface ApplyButtonProps {
     postId: number;
     title: string;
@@ -11,7 +12,6 @@ interface ApplyButtonProps {
 
 function MatchApplyButton({ roomId, postId }: ApplyButtonProps) {
     const { setIsModalOpen } = ModalStore();
-    const { appliedParty } = useAppliedPartyStore();
     const navigate = useNavigate();
     const handleApply = () => {
         setIsModalOpen(true, 'apply');
@@ -23,42 +23,35 @@ function MatchApplyButton({ roomId, postId }: ApplyButtonProps) {
     const handleChat = async () => {
         navigate(`/chat/${postId}`, { state: { roomId: roomId, postId: postId } });
     };
-
-    if (appliedParty.length !== 0) {
-        return appliedParty.map((party) => {
-            if (party.postId === postId) {
-                return (
-                    <Wrapper>
-                        <ButtonCancel
-                            style={{ backgroundColor: '#1edd81', color: 'white' }}
-                            onClick={() => {
-                                handleChat();
-                            }}
-                            type="button"
-                        >
-                            채팅하기
-                        </ButtonCancel>
-                        <ButtonCancel
-                            onClick={() => {
-                                handleCancel();
-                            }}
-                            type="button"
-                        >
-                            신청 취소하기
-                        </ButtonCancel>
-                    </Wrapper>
-                );
-            } else {
-                return (
-                    <Wrapper>
-                        <Button onClick={handleApply} type="button">
-                            매칭 신청하기
-                        </Button>
-                    </Wrapper>
-                );
-            }
-        });
-    } else {
+    const { MyPotContent, MyAppliedPotContent } = useMyPotContentStore();
+    const result = MyAppliedPotContent.find((party) => party.postId === postId);
+    // console.log('HI', MyPotContent);
+    const MyPotResult = MyPotContent.find((party) => party.postId === postId);
+    if (MyPotResult !== undefined) {
+        return null;
+    } else if (result !== undefined) {
+        return (
+            <Wrapper>
+                <ButtonCancel
+                    style={{ backgroundColor: '#1edd81', color: 'white' }}
+                    onClick={() => {
+                        handleChat();
+                    }}
+                    type="button"
+                >
+                    채팅하기
+                </ButtonCancel>
+                <ButtonCancel
+                    onClick={() => {
+                        handleCancel();
+                    }}
+                    type="button"
+                >
+                    신청 취소하기
+                </ButtonCancel>
+            </Wrapper>
+        );
+    } else if (result === undefined) {
         return (
             <Wrapper>
                 <Button onClick={handleApply} type="button">
