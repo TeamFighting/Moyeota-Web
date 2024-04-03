@@ -112,7 +112,7 @@ function ChatPage() {
             //     });
             // }
             setMessages([...messages, { message: newMessage, time: time }]);
-            console.log(chatMessage.message);
+            // console.log(chatMessage.message);
             setNewMessage('');
         }
     };

@@ -8,7 +8,7 @@ import { ref, push, update, child } from 'firebase/database';
 import { db } from '../../../../firebase';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
-    console.log(totalPeople);
+    // console.log(totalPeople);
     const potCreateStore = PotCreateStore();
     const durationFareStore = DurationFareStore();
     const currentLocationStore = CurrentLocation();
@@ -40,7 +40,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         };
         try {
             const res = await update(child(chatRoomsRef, key as string), newChatRoom);
-            console.log('res:', res);
+            // console.log('res:', res);
             const formattedDate = new Date().toISOString;
             const numberOfRecruitment = totalPeople;
             const departure = currentLocationStore.currentLocation?.building_name ?? '불암고등학교';

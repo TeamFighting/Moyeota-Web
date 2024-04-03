@@ -61,16 +61,17 @@ function DetailPage() {
             setSplitedTime(getDays(res.data.data.departureTime));
             setTimePart(ISOto12(res.data.data.departureTime));
         }
+        MyPot.forEach((element) => {
+            if (element === res.data.data.postId) {
+                setIsFixDetailHeader(true);
+            }
+        });
         console.log(res);
     };
 
     useEffect(() => {
         getDetailData();
-        MyPot.forEach((element) => {
-            if (element === data.postId) {
-                setIsFixDetailHeader(true);
-            }
-        });
+
         console.log(data.postId);
     }, []);
 
