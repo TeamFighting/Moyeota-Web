@@ -13,7 +13,7 @@ function FixDetailHeader({ postId }: { postId: number }) {
     const { isModalOpen, openModal, closeModal } = useUpdateModalStore();
 
     const goBack = () => {
-        navigate('/mainpage');
+        navigate(-1);
     };
 
     return (

@@ -3,7 +3,7 @@ import DetailBody from './DetailBody';
 import DetailBottom from './DetailBottom';
 import DetailPartySection from './DetailPartySection';
 import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
-import { useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
 import ModalStore from '../../state/store/ModalStore';
 import { useEffect, useState } from 'react';
@@ -49,8 +49,8 @@ function DetailPage() {
     const [isFixDetailHeader, setIsFixDetailHeader] = useState(false);
     const [splitedTime, setSplitedTime] = useState(['', '', '', '']);
     const [timePart, setTimePart] = useState('');
-
     const { postId } = useParams();
+
     const getDetailData = async () => {
         const res = await instance.get(`/posts/${postId}`);
         setData(res.data.data);
@@ -61,17 +61,17 @@ function DetailPage() {
             setSplitedTime(getDays(res.data.data.departureTime));
             setTimePart(ISOto12(res.data.data.departureTime));
         }
+        MyPot.forEach((element) => {
+            console.log(element);
+            if (element === res.data.data.postId) {
+                setIsFixDetailHeader(true);
+            }
+        });
         console.log(res);
     };
 
     useEffect(() => {
         getDetailData();
-        MyPot.forEach((element) => {
-            if (element === data.postId) {
-                setIsFixDetailHeader(true);
-            }
-        });
-        console.log(data.postId);
     }, []);
 
     useEffect(() => {
