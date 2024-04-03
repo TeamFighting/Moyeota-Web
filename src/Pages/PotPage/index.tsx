@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { instance } from '../../axios';
 import SingleContent from '../MainPage/Components/SingleContent';
 import { useMyPotContentStore } from '../../state/store/MyPotPage';

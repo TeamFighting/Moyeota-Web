@@ -7,7 +7,7 @@ import { db } from '../../firebase';
 import { Chevronleft, Plus } from '../../assets/svg';
 import moment from 'moment';
 import { NoneReadChatStore } from '../../state/store/NoneReadChat';
-import { motion, useAnimate, useDragControls, useMotionValue, useMotionValueEvent, useTransform } from 'framer-motion';
+import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 import { ChatTime } from '../util/ChatTime';
 export interface myMessageProps {
     text: string;
@@ -127,9 +127,9 @@ function ChatLists() {
     const { profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
     const itemx = useMotionValue(0);
     const bgColor = useTransform(itemx, [-82, 0, 82], ['white', 'blue', 'white']);
-    const [animateRef, animate] = useAnimate();
+    const [animateRef] = useAnimate();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [leaveChatRoomName, setLeaveChatRoomName] = useState<string>('');
+    const [, setLeaveChatRoomName] = useState<string>('');
     const [leaveChatRoomId, setLeaveChatRoomId] = useState<number>(0);
     const handleleaveChatRoom = (i: number) => {
         setLeaveChatRoomName(chatRooms[i].roomName);
@@ -137,7 +137,6 @@ function ChatLists() {
         setIsModalOpen(true);
     };
     const leaveChatRoom = async (i: number) => {
-        // const postId = chatRooms[i].postId;
         const res = await instance.delete(`/chat-rooms/${i}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('accessToken')}`,

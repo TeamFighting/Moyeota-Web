@@ -8,18 +8,19 @@ import UpdatePotButton from './Button/UpdatePotButton';
 import UpdateNote from './UpdateNote';
 import { useState, useEffect, SetStateAction } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
-import { instance } from '../../axios';
+// import { useLocation } from 'react-router-dom';
+// import { instance } from '../../axios';
 
 function UpdatePotPage() {
     const [dividerHeight, setDividerHeight] = useState(6);
     const [scroll, setScroll] = useState(0);
-    const location = useLocation();
+    // const location = useLocation();
     const [totalPeople, setTotalPeople] = useState(0);
 
-    const getPostInfo = async () => {
-        const res = await instance.get(`/posts/${location.state.postId}`);
-    };
+    // const getPostInfo = async () => {
+    //     const res = await instance.get(`/posts/${location.state.postId}`);
+    // };
+    const destination = '서울';
     const handleTotalPeopleChange = (count: SetStateAction<number>) => {
         setTotalPeople(count);
     };
