@@ -49,8 +49,8 @@ function DetailPage() {
     const [isFixDetailHeader, setIsFixDetailHeader] = useState(false);
     const [splitedTime, setSplitedTime] = useState(['', '', '', '']);
     const [timePart, setTimePart] = useState('');
-
     const { postId } = useParams();
+
     const getDetailData = async () => {
         const res = await instance.get(`/posts/${postId}`);
         setData(res.data.data);
@@ -62,6 +62,7 @@ function DetailPage() {
             setTimePart(ISOto12(res.data.data.departureTime));
         }
         MyPot.forEach((element) => {
+            console.log(element);
             if (element === res.data.data.postId) {
                 setIsFixDetailHeader(true);
             }
@@ -71,8 +72,6 @@ function DetailPage() {
 
     useEffect(() => {
         getDetailData();
-
-        console.log(data.postId);
     }, []);
 
     useEffect(() => {
