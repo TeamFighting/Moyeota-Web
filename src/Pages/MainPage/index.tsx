@@ -142,8 +142,6 @@ function MainPage() {
                 <LocationHeader />
             </Header>
             <Body>
-                {/* <button onClick={() => navigate('/ChatLists')}>참여중인 채팅방</button> */}
-
                 <Icons>
                     <Icon onClick={refresh}>
                         <SvgRefreshButton

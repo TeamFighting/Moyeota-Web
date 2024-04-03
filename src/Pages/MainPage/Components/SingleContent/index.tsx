@@ -10,22 +10,32 @@ import getDays from '../../../util/getDays';
 import createAgo from '../../../util/createAgo';
 import { useQuickPotStore } from '../../../../state/store/QuickPotStore';
 import useStore from '../../../../state/store/ContentStore';
+import { useMyPotContentStore } from '../../../../state/store/MyPotPage';
 
-function SingleContent() {
+function SingleContent({ from }: { from: string }) {
     const navigate = useNavigate();
     const { totalData } = useStore((state) => state);
-    const navigateToDetail = (data: object, splitedTime: string[], timePart: string, postId: number) => {
-        navigate(`/detailpage/${postId}`, {
-            state: {
-                data: data,
-                splitedTime: splitedTime,
-                timePart: timePart,
-            },
-        });
+    const navigateToDetail = (postId: number) => {
+        navigate(`/detailpage/${postId}`);
     };
     const { quickPot } = useQuickPotStore();
+    const { MyPotContent, MyAppliedPotContent, TotalMyPotContent } = useMyPotContentStore();
 
-    return (quickPot.length !== 0 ? quickPot : totalData).map((data, index) => {
+    let fromPot;
+    if (from == 'Total' && TotalMyPotContent.length > 0) {
+        fromPot = TotalMyPotContent;
+    } else if (from == 'MyPot' && MyAppliedPotContent.length > 0) {
+        fromPot = MyPotContent;
+    } else if (from == 'AppliedPot' && MyAppliedPotContent.length > 0) {
+        fromPot = MyAppliedPotContent;
+    } else {
+        if (quickPot.length !== 0) {
+            fromPot = quickPot;
+        } else {
+            fromPot = totalData;
+        }
+    }
+    return fromPot.map((data, index: number) => {
         const splitedTime = getDays(data.departureTime);
         const timePart = ISOto12(data.departureTime);
         const ago = createAgo(data.createAt);
@@ -40,7 +50,7 @@ function SingleContent() {
             <S.SingleContent
                 key={index}
                 onClick={() => {
-                    navigateToDetail(data, splitedTime, timePart, postId);
+                    navigateToDetail(postId);
                 }}
             >
                 <Profile

@@ -16,6 +16,8 @@ import UpdateSearchResults from './Pages/UpdatePage/Map/SearchResults';
 import FirebaseChat from './Pages/FirebaseChat';
 import ChatLists from './Pages/FirebaseChat/ChatLists';
 import UpdatePotPage from './Pages/UpdatePage';
+import PotPage from './Pages/PotPage';
+import MyPotPage from './Pages/PotPage/MyPotPage';
 
 const router = createBrowserRouter([
     {
@@ -23,51 +25,51 @@ const router = createBrowserRouter([
         element: <App />,
     },
     {
-        path: '/mainpage',
+        path: '/Mainpage',
         element: <MainPage />,
     },
     {
-        path: '/detailPage/:postId',
+        path: '/DetailPage/:postId',
         element: <DetailPage />,
     },
     {
-        path: '/createPotPage',
+        path: '/CreatePotPage',
         element: <CreatePotPage />,
     },
     {
-        path: '/createComplete',
+        path: '/CreateComplete',
         element: <CreateComplete />,
     },
     {
-        path: '/destinationPage',
+        path: '/DestinationPage',
         element: <DestinationPage />,
     },
     {
-        path: '/updateDestinationPage',
+        path: '/UpdateDestinationPage',
         element: <UpdateDestinationPage />,
     },
     {
-        path: '/SearchResults',
+        path: '/searchresults',
         element: <SearchResults />,
     },
     {
-        path: '/UpdateSearchResults',
+        path: '/updatesearchresults',
         element: <UpdateSearchResults />,
     },
     {
-        path: '/quickMatch',
+        path: '/quickmatch',
         element: <QuickMatch />,
     },
     {
-        path: '/quickMatchFinding',
+        path: '/quickmatchfinding',
         element: <QuickMatchFinding />,
     },
     {
-        path: '/CreateDetailPage',
+        path: '/createdetail',
         element: <CreateDetailPage />,
     },
     {
-        path: '/updatePotPage',
+        path: '/updatepot',
         element: <UpdatePotPage />,
     },
     {
@@ -75,8 +77,16 @@ const router = createBrowserRouter([
         element: <FirebaseChat />,
     },
     {
-        path: '/chatLists',
+        path: '/chatlists',
         element: <ChatLists />,
+    },
+    {
+        path: '/potpage',
+        element: <PotPage />,
+    },
+    {
+        path: '/potpage/mypotpage',
+        element: <MyPotPage />,
     },
 ]);
 
