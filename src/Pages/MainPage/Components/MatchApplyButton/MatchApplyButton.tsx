@@ -24,7 +24,6 @@ function MatchApplyButton({ roomId, postId }: ApplyButtonProps) {
     };
     const { MyPotContent, MyAppliedPotContent } = useMyPotContentStore();
     const result = MyAppliedPotContent.find((party) => party.postId === postId);
-    // console.log('HI', MyPotContent);
     const MyPotResult = MyPotContent.find((party) => party.postId === postId);
     if (MyPotResult !== undefined) {
         return null;

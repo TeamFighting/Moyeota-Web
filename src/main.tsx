@@ -17,7 +17,8 @@ import FirebaseChat from './Pages/FirebaseChat';
 import ChatLists from './Pages/FirebaseChat/ChatLists';
 import UpdatePotPage from './Pages/UpdatePage';
 import PotPage from './Pages/PotPage';
-import MyPotPage from './Pages/PotPage/MyPotPage';
+import Reimbursement from './Pages/ReimbursementPage';
+import OwnerReimbursement from './Pages/ReimbursementPage';
 
 const router = createBrowserRouter([
     {
@@ -85,8 +86,8 @@ const router = createBrowserRouter([
         element: <PotPage />,
     },
     {
-        path: '/potpage/mypotpage',
-        element: <MyPotPage />,
+        path: '/reimbursement/:postId/:userId',
+        element: <OwnerReimbursement />,
     },
 ]);
 

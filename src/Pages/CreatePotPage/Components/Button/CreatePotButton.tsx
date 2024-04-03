@@ -31,7 +31,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         const key = push(chatRoomsRef).key;
         const newChatRoom = {
             id: key,
-            title: title,
+            title: '더치페이 테스트용',
             createdBy: {
                 user: userData.id,
                 name: userData.name,
@@ -48,18 +48,18 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 '/posts',
                 // {
                 //     category: 'LIFE',
-                //     content: '안녕하세요', //content,
+                //     content: '더치페이 테스트용', //content,
                 //     createdDate: new Date(), //formattedDate,
                 //     departure: '공릉역 7호선', //departure,
                 //     departureTime: new Date(), // selectedTime, //departureTime 으로 바꾸기
-                //     destination: '서울과학기술대학교', //destination,
-                //     distance: 10, // distance,
-                //     duration: '20000', //estimatedDuration,
-                //     fare: '3000', //estimatedFare,
+                //     destination: '건대입구역 7호선', //destination,
+                //     distance: 0.5, // distance,
+                //     duration: '25000', //estimatedDuration,
+                //     fare: '3200', //estimatedFare,
                 //     modifiedDate: new Date(), //formattedDate,
                 //     numberOfRecruitment: 4, // numberOfRecruitment,
                 //     sameGenderStatus: 'YES', //sameGenderStatus,
-                //     title: '횰인쓰가 만든 팟이예욥', //title,
+                //     title: '더치페이 테스트용', //title,
                 //     vehicle: '일반', //vehicle,
                 //     roomId: key,
                 // },
