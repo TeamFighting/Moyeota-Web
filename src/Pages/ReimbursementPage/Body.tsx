@@ -3,7 +3,7 @@ import { Title } from '../CreatePotPage/style';
 import { useParams } from 'react-router';
 import { instance } from '../../axios';
 import { useEffect, useState } from 'react';
-import { CancelIcon, WhiteCancelIcon } from '../../assets/svg';
+import { WhiteCancelIcon } from '../../assets/svg';
 
 interface PartyOneProps {
     nickname: string;
