@@ -28,6 +28,7 @@ export { default as PencilIcon } from './PencilIcon';
 export { default as Plus } from './Plus';
 export { default as ProfileSample } from './ProfileSample';
 export { default as RefreshButton } from './RefreshButton';
+export { default as Robot } from './Robot';
 export { default as Switch } from './Switch';
 export { default as ToTriangle } from './ToTriangle';
 export { default as TrashIcon } from './TrashIcon';

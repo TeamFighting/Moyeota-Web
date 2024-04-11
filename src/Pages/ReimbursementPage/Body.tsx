@@ -6,39 +6,75 @@ import { useEffect, useState } from 'react';
 import { CancelIcon, WhiteCancelIcon } from '../../assets/svg';
 
 interface PartyOneProps {
-    userName: string;
+    nickname: string;
     profileImage: string;
+    potOwner: boolean;
 }
 
 function Body() {
     const width = window.innerWidth - 40;
     const [partyOne, setPartyOne] = useState<PartyOneProps[]>([]);
-    const { postId, userId } = useParams();
-    console.log(postId, userId);
+    const { postId } = useParams();
+    const [money, setMoney] = useState('');
+    const [moyeotaPay, setMoyeotaPay] = useState(0);
+    const [, setQuotient] = useState(0);
     const getPartyOne = async () => {
         const result = await instance.get(`posts/${postId}/members`);
         setPartyOne(result.data.data);
     };
-    // const calcMoney = async () => {
-    //     // 금액 계산
-    //     const result = await instance.get(`posts/calculation/${postId}`);
-    //     console.log(result);
-    // };
+
     useEffect(() => {
         getPartyOne();
-        // calcMoney();
-    }, []);
-    const [money, setMoney] = useState('-1');
+        calcEachMoney();
+    }, [money]);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleChange = (e: any) => {
+    const handleChange = (e: React.KeyboardEvent) => {
         e.preventDefault();
-        setMoney(e.target.value);
-        console.log(e.target.value);
+
+        if (e.key === 'Backspace') {
+            setMoney(money.slice(0, -1));
+        } else if (/\d/g.test(e.key)) {
+            setMoney(money + e.key);
+        }
     };
     function formatNumber(num: string) {
+        if (num === '') return '';
         const nums = num.replace(/\D/g, '');
         return nums.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
     }
+
+    const calcEachMoney = () => {
+        setQuotient(Number(money));
+        const remainder = Number(money) % partyOne.length;
+        if (remainder > 0) {
+            setMoyeotaPay(remainder);
+        } else {
+            setMoyeotaPay(0);
+        }
+    };
+    const render = partyOne.map((party) => {
+        let eachQuotient = Number(money);
+        const remainder = Number(money) % partyOne.length;
+        if (remainder > 0) {
+            eachQuotient -= remainder;
+        }
+        const eachMoney = formatNumber((eachQuotient / partyOne.length).toString());
+        return (
+            <PartyOneRow>
+                <MoneyLeft>
+                    {party.potOwner && <PotOwner>나</PotOwner>}
+                    <PartyOneImage src={party.profileImage} />
+                    <PartyOneName>{party.nickname}</PartyOneName>
+                </MoneyLeft>
+                <MoneyRight>
+                    <EachMoney>{eachMoney}</EachMoney>
+                    <Icon>
+                        <WhiteCancelIcon width={14} />
+                    </Icon>
+                </MoneyRight>
+            </PartyOneRow>
+        );
+    });
     return (
         <div
             style={{
@@ -53,7 +89,6 @@ function Body() {
                 팟장이 전체금액 선결제 후, <br /> 파티원들에게 거리별 비용금액을 송금 받을 수 있어요
             </Content>
             <Money>
-                <div style={{ position: 'absolute', width: '100%' }}></div>
                 <div
                     style={{
                         display: 'flex',
@@ -65,69 +100,83 @@ function Body() {
                 >
                     <MoneyInput
                         type="text"
-                        value={formatNumber(money.toString())}
-                        onChange={handleChange}
-                        inputName={money === '-1' ? 'default' : 'moneyInput'}
+                        value={formatNumber(money)}
+                        onKeyDown={handleChange}
+                        onClick={(e) => (e.currentTarget.selectionStart = e.currentTarget.value.length)}
+                        inputName={money === '' ? 'default' : 'moneyInput'}
                         placeholder="금액 입력 (원)"
                     />
 
-                    <div
-                        style={{
-                            width: '18px',
-                            height: '18px',
-                            borderRadius: '50%',
-                            backgroundColor: '#9A9A9A',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
+                    <Icon>
                         <WhiteCancelIcon width={14} />
-                    </div>
+                    </Icon>
                 </div>
                 <MoneyText>최대 100만원까지 입력 가능</MoneyText>
                 <PartyText>
                     <div style={{ textDecorationLine: 'underline' }}>파티원</div>
                     <div>{partyOne.length - 1}</div>
                 </PartyText>
-                <PartyOne>
-                    {partyOne.map((party) => {
-                        return (
-                            <PartyOneRow>
-                                <div>
-                                    <PartyOneImage src={party.profileImage} />
-                                    <PartyOneName>{party.userName}</PartyOneName>
-                                </div>
-                                <EachMoney>
-                                    <MoneyText>{formatNumber((Number(money) / partyOne.length).toString())}</MoneyText>
-                                    <div
-                                        style={{
-                                            width: '18px',
-                                            height: '18px',
-                                            borderRadius: '50%',
-                                            backgroundColor: '#9A9A9A',
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                        }}
-                                    >
-                                        <WhiteCancelIcon width={14} />
-                                    </div>
-                                </EachMoney>
-                            </PartyOneRow>
-                        );
-                    })}
-                </PartyOne>
+                {moyeotaPay > 0 && (
+                    <PartyOne>
+                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <MoneyLeft>
+                                <PartyOneImage src="/public/png/RobotProfile.png" />
+                                <PartyOneName>모여타가 쏜다</PartyOneName>
+                            </MoneyLeft>
+                            <MoneyRight>
+                                <EachMoney>{moyeotaPay}원</EachMoney>
+                                <Icon>
+                                    <WhiteCancelIcon width={14} />
+                                </Icon>
+                            </MoneyRight>
+                        </div>
+                    </PartyOne>
+                )}
+                <PartyOne>{render}</PartyOne>
             </Money>
         </div>
     );
 }
-const EachMoney = styled.div`
+
+const PotOwner = styled.div`
+    width: 22px;
+    height: 22px;
+    white-space: nowrap;
+    border-radius: 50%;
+    background-color: #5d5d5d;
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    font-family: Pretendard;
+    font-weight: 700;
+`;
+
+const MoneyLeft = styled.div`
     display: flex;
     flex-direction: row;
     gap: 8px;
     align-items: center;
     justify-content: center;
+`;
+const MoneyRight = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+`;
+const EachMoney = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    text-align: right;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration-line: underline;
 `;
 const PartyOneRow = styled.div`
     display: flex;
@@ -211,10 +260,17 @@ const PartyOne = styled.div`
     margin-top: 16px;
     gap: 16px;
     width: 100%;
-    /* height: 1; */
     display: flex;
     flex-direction: column;
-    /* background-color: white; */
     border-radius: 12px;
+`;
+const Icon = styled.div`
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #9a9a9a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 export default Body;

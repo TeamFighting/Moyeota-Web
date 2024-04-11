@@ -46,40 +46,40 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             const departure = currentLocationStore.currentLocation?.building_name ?? '불암고등학교';
             const response = await instance.post(
                 '/posts',
-                // {
-                //     category: 'LIFE',
-                //     content: '더치페이 테스트용', //content,
-                //     createdDate: new Date(), //formattedDate,
-                //     departure: '공릉역 7호선', //departure,
-                //     departureTime: new Date(), // selectedTime, //departureTime 으로 바꾸기
-                //     destination: '건대입구역 7호선', //destination,
-                //     distance: 0.5, // distance,
-                //     duration: '25000', //estimatedDuration,
-                //     fare: '3200', //estimatedFare,
-                //     modifiedDate: new Date(), //formattedDate,
-                //     numberOfRecruitment: 4, // numberOfRecruitment,
-                //     sameGenderStatus: 'YES', //sameGenderStatus,
-                //     title: '더치페이 테스트용', //title,
-                //     vehicle: '일반', //vehicle,
-                //     roomId: key,
-                // },
                 {
                     category: 'LIFE',
-                    content: content,
-                    createdDate: formattedDate,
-                    departure: departure,
-                    departureTime: selectedTime,
-                    destination: destination,
-                    distance: distance,
-                    duration: estimatedDuration,
-                    fare: estimatedFare,
-                    modifiedDate: formattedDate,
-                    numberOfRecruitment: numberOfRecruitment,
-                    sameGenderStatus: sameGenderStatus,
-                    title: title,
-                    vehicle: vehicle,
+                    content: '더치페이 테스트용', //content,
+                    createdDate: new Date(), //formattedDate,
+                    departure: '공릉역 7호선', //departure,
+                    departureTime: new Date(), // selectedTime, //departureTime 으로 바꾸기
+                    destination: '건대입구역 7호선', //destination,
+                    distance: 100, // distance,
+                    duration: '25000', //estimatedDuration,
+                    fare: '3200', //estimatedFare,
+                    modifiedDate: new Date(), //formattedDate,
+                    numberOfRecruitment: 4, // numberOfRecruitment,
+                    sameGenderStatus: 'YES', //sameGenderStatus,
+                    title: 'distance 테스트용', //title,
+                    vehicle: '일반', //vehicle,
                     roomId: key,
                 },
+                // {
+                //     category: 'LIFE',
+                //     content: content,
+                //     createdDate: formattedDate,
+                //     departure: departure,
+                //     departureTime: selectedTime,
+                //     destination: destination,
+                //     distance: distance,
+                //     duration: estimatedDuration,
+                //     fare: estimatedFare,
+                //     modifiedDate: formattedDate,
+                //     numberOfRecruitment: numberOfRecruitment,
+                //     sameGenderStatus: sameGenderStatus,
+                //     title: title,
+                //     vehicle: vehicle,
+                //     roomId: key,
+                // },
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
@@ -87,7 +87,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     },
                 },
             );
-
+            console.log(response);
             if (response.status === 200) {
                 navigate('/createComplete');
             } else {
