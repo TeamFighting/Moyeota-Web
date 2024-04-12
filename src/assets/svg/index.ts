@@ -26,6 +26,7 @@ export { default as LocationMarker } from './LocationMarker';
 export { default as Logo } from './Logo';
 export { default as PencilIcon } from './PencilIcon';
 export { default as Plus } from './Plus';
+export { default as PotOwnerCrown } from './PotOwnerCrown';
 export { default as ProfileSample } from './ProfileSample';
 export { default as RefreshButton } from './RefreshButton';
 export { default as Robot } from './Robot';
