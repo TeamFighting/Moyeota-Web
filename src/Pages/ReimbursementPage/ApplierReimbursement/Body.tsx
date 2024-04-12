@@ -18,9 +18,9 @@ interface PartyOneProps {
 function Body() {
     const width = window.innerWidth - 40;
     const [partyOne, setPartyOne] = useState<PartyOneProps[]>([]);
+    const [MyPayment, setMyPayment] = useState<number>(0);
     const { postId } = useParams();
     const { id } = useMyInfoStore();
-    console.log(id);
     const getPartyOne = async () => {
         const result = await instance.get(`posts/${postId}/members`);
         const partyOneData = result.data.data;
@@ -30,6 +30,7 @@ function Body() {
                     `participation-details/payment/users/${party.userId}/posts/${postId}`,
                 );
                 const money = result.data.data;
+                if (party.userId === id) setMyPayment(money.price);
                 return {
                     ...party,
                     distance: money.distance,
@@ -40,8 +41,6 @@ function Body() {
 
         setPartyOne(updatedPartyOne);
     };
-
-    console.log(partyOne);
 
     const render = partyOne.map((party) => {
         const isMyPayment = party.userId === id;
@@ -93,6 +92,8 @@ function Body() {
                 팟장이 전체금액 선결제 후, <br /> 파티원들에게 거리별 비용금액을 송금 받을 수 있어요
             </S.Content>
             <S.Money>
+                <AccountNumber></AccountNumber>
+                <MyPayments>{MyPayment}원</MyPayments>
                 <S.PartyOne>{render}</S.PartyOne>
             </S.Money>
         </div>
@@ -100,4 +101,21 @@ function Body() {
 }
 
 const Icon = styled.div``;
+const AccountNumber = styled.div`
+    color: #f00;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 157%; /* 25.12px */
+    text-decoration-line: underline;
+`;
+const MyPayments = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+`;
 export default Body;

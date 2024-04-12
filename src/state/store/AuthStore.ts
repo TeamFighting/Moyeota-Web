@@ -10,7 +10,7 @@ export const AuthStore = create(
     persist<AuthStore>(
         (set) => ({
             accessToken:
-                'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNSIsImV4cCI6MTcwOTU2OTQyNn0.oUeDuvpNMaXspU0W-MM74Rsjd5mWZRwgRt2O9Pp0nkU',
+                'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzOSIsImV4cCI6MTcxNDcxNzU4OH0.U2QuxO2SZhMWBlvwJ3awmboRPlsh4uCxOCX5ueeFgZg',
             setAccessToken: (token: string) => set(() => ({ accessToken: token })),
         }),
         {

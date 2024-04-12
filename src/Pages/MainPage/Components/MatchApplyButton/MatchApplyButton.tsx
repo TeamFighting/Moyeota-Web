@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import ModalStore from '../../../../state/store/ModalStore';
 import { useNavigate } from 'react-router';
 import { useMyPotContentStore } from '../../../../state/store/MyPotPage';
+import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
 interface ApplyButtonProps {
     postId: number;
     title: string;
@@ -23,7 +24,10 @@ function MatchApplyButton({ roomId, postId }: ApplyButtonProps) {
         navigate(`/chat/${postId}`, { state: { roomId: roomId, postId: postId } });
     };
     const { MyPotContent, MyAppliedPotContent } = useMyPotContentStore();
-    const result = MyAppliedPotContent.find((party) => party.postId === postId);
+    const { appliedParty } = useAppliedPartyStore();
+
+    // const {appliedParty} = useAppliedPartyStore();
+    const result = appliedParty.find((party) => party.postId === postId);
     const MyPotResult = MyPotContent.find((party) => party.postId === postId);
     if (MyPotResult !== undefined) {
         return null;

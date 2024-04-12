@@ -18,9 +18,11 @@ interface PARTYINFO {
     userName: string;
     profileImage: string;
     userGender: string;
+    nickname: string;
 }
 
 function DetailPartySection({ profileImage, leaderName, content, gender, participants, postId }: Props) {
+    console.log(participants);
     let gender2;
     if (gender == 'M') {
         gender2 = '남자';
@@ -75,33 +77,29 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                     <S.Leader>파티원</S.Leader>
                     <TagsWrapper>
                         <S.Tags style={{}}>
-                            <S.Tag style={{ marginRight: '7px' }}>{participants - 1}명</S.Tag>
+                            <S.Tag style={{ marginRight: '7px' }}>{participants}명</S.Tag>
                         </S.Tags>
                     </TagsWrapper>
                 </div>
                 {/* 나잇대 수정필요 */}
                 {onlyParty.length > 0 ? (
                     onlyParty.map((value, index) => {
+                        console.log(value);
                         return (
                             <Wrapper key={index} style={{ paddingBottom: '16px' }}>
                                 <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
-                                    {value.profileImage ? (
-                                        <img
-                                            src={value.profileImage}
-                                            style={{ borderRadius: '100%' }}
-                                            width="55px"
-                                            height="55px"
-                                        />
-                                    ) : (
-                                        <LionProfile width="55px" height="55px" />
-                                    )}
+                                    <img
+                                        src={value.profileImage}
+                                        style={{ borderRadius: '100%' }}
+                                        width="55px"
+                                        height="55px"
+                                    />
                                 </S.Icon>
-                                <S.Name>{value.userName}</S.Name>
+                                <S.Name>{value.nickname}</S.Name>
                                 <S.Tags style={{}}>
                                     <S.Tag style={{ marginRight: '7px' }}>
                                         {value.userGender == 'M' ? '남자' : '여자'}
                                     </S.Tag>
-                                    {/* 나잇대 수정필요 */}
                                     <S.Tag>20대</S.Tag>
                                 </S.Tags>
                             </Wrapper>

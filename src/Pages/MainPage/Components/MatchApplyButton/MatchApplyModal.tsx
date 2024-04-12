@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
 import ModalStore from '../../../../state/store/ModalStore';
 import { instance } from '../../../../axios';
+import { useMyPotContentStore } from '../../../../state/store/MyPotPage';
 
 interface ModalProps {
     isFull: boolean;
@@ -18,7 +19,6 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
     const closeModal = () => {
         setIsModalOpen(false, 'apply');
     };
-
     async function applyParty(postId: number) {
         try {
             await instance
@@ -37,7 +37,10 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                     if (res.data.status === 'SUCCESS') {
                         console.log('신청 완료');
                         setAppliedParty(postId);
+                        console.log(res.data.data);
                         setIsModalOpen(true, 'applySuccess');
+                    } else {
+                        console.log('이미 신청한 팟입니다.');
                     }
                 });
         } catch (e: unknown) {
