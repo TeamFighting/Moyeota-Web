@@ -3,9 +3,9 @@ import { instance } from '../../../axios';
 import * as S from '../styles';
 import { useEffect, useState } from 'react';
 import { useMyInfoStore } from '../../../state/store/MyInfo';
-import { PotOwnerCrown } from '../../../assets/svg';
+import { CheckCircle, PotOwnerCrown } from '../../../assets/svg';
 import styled from 'styled-components';
-
+import { Toaster, toast } from 'react-hot-toast';
 interface PartyOneProps {
     userId: number;
     nickname: string;
@@ -13,14 +13,76 @@ interface PartyOneProps {
     potOwner: boolean;
     distance: number;
     price: number;
+    accountNumber: string;
+    bankName: string;
 }
 
 function Body() {
     const width = window.innerWidth - 40;
     const [partyOne, setPartyOne] = useState<PartyOneProps[]>([]);
     const [MyPayment, setMyPayment] = useState<number>(0);
+    const [accountNumber, setAccountNumber] = useState<string>('');
+    const [BankName, setBankName] = useState<string>('');
     const { postId } = useParams();
     const { id } = useMyInfoStore();
+    const getAccountNumber = async () => {
+        const result = await instance.get(`posts/${postId}/members`);
+        result.data.data.forEach((party: PartyOneProps) => {
+            if (party.potOwner) {
+                setAccountNumber(party.accountNumber);
+                setBankName(party.bankName);
+            }
+        });
+    };
+    const handleCopyClipBoard = async (text: string) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            toast(
+                () => (
+                    <div
+                        style={{
+                            textAlign: 'center',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: '9px',
+                        }}
+                    >
+                        <CheckCircle width={24} />
+                        <div
+                            style={{
+                                textAlign: 'center',
+                                gap: '9px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            계좌번호가 복사되었습니다
+                        </div>
+                    </div>
+                ),
+                {
+                    style: {
+                        background: '#73737E',
+                        color: 'white',
+                        borderRadius: '99px',
+                        textAlign: 'center',
+                        fontFamily: 'Pretendard',
+                        fontSize: '16px',
+                        fontStyle: 'normal',
+                        fontWeight: '700',
+                        lineHeight: 'normal',
+                        letterSpacing: '0.48px',
+                    },
+                },
+            );
+        } catch (e) {
+            alert('복사에 실패하였습니다');
+        }
+    };
+    const test = async () => {
+        const temp = await instance.post(`posts/calculation/${postId}`);
+    };
     const getPartyOne = async () => {
         const result = await instance.get(`posts/${postId}/members`);
         const partyOneData = result.data.data;
@@ -38,7 +100,6 @@ function Body() {
                 };
             }),
         );
-
         setPartyOne(updatedPartyOne);
     };
 
@@ -46,6 +107,7 @@ function Body() {
         const isMyPayment = party.userId === id;
         return (
             <S.PartyOneRow>
+                <Toaster position="bottom-center" />
                 <S.MoneyLeft>
                     {party.potOwner && (
                         <Icon
@@ -76,6 +138,8 @@ function Body() {
 
     useEffect(() => {
         getPartyOne();
+        test();
+        getAccountNumber();
     }, []);
 
     return (
@@ -92,14 +156,19 @@ function Body() {
                 팟장이 전체금액 선결제 후, <br /> 파티원들에게 거리별 비용금액을 송금 받을 수 있어요
             </S.Content>
             <S.Money>
-                <AccountNumber></AccountNumber>
+                <AccountNumber
+                    onClick={() => {
+                        handleCopyClipBoard(BankName + '은행 ' + accountNumber);
+                    }}
+                >
+                    {BankName}은행 {accountNumber}
+                </AccountNumber>
                 <MyPayments>{MyPayment}원</MyPayments>
                 <S.PartyOne>{render}</S.PartyOne>
             </S.Money>
         </div>
     );
 }
-
 const Icon = styled.div``;
 const AccountNumber = styled.div`
     color: #f00;
@@ -109,6 +178,7 @@ const AccountNumber = styled.div`
     font-weight: 500;
     line-height: 157%; /* 25.12px */
     text-decoration-line: underline;
+    margin-bottom: 4px;
 `;
 const MyPayments = styled.div`
     color: var(--Gray-Text-3, #343434);

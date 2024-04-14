@@ -41,7 +41,7 @@ function DetailPartySection() {
     }
     useEffect(() => {
         getPartyOne(postId);
-    }, [postId]);
+    }, []);
     let gender;
     if (!data.userGender) {
         gender = '여자';
@@ -54,7 +54,7 @@ function DetailPartySection() {
             <S.Leader>팟장</S.Leader>
             <Wrapper>
                 <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
-                    v<img src={data.profileImage} width="86px" height="86px" style={{ borderRadius: '100%' }} />
+                    <img src={data.profileImage} width="86px" height="86px" style={{ borderRadius: '100%' }} />
                 </S.Icon>
                 <S.Name>{leaderName}</S.Name>
                 <S.Tags>

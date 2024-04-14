@@ -19,6 +19,7 @@ interface PARTYINFO {
     profileImage: string;
     userGender: string;
     nickname: string;
+    potOwner: boolean;
 }
 
 function DetailPartySection({ profileImage, leaderName, content, gender, participants, postId }: Props) {
@@ -77,14 +78,14 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                     <S.Leader>파티원</S.Leader>
                     <TagsWrapper>
                         <S.Tags style={{}}>
-                            <S.Tag style={{ marginRight: '7px' }}>{participants}명</S.Tag>
+                            <S.Tag style={{ marginRight: '7px' }}>{onlyParty.length - 1}명</S.Tag>
                         </S.Tags>
                     </TagsWrapper>
                 </div>
                 {/* 나잇대 수정필요 */}
-                {onlyParty.length > 0 ? (
+                {onlyParty.length - 1 > 0 ? (
                     onlyParty.map((value, index) => {
-                        console.log(value);
+                        if (value.potOwner) return null;
                         return (
                             <Wrapper key={index} style={{ paddingBottom: '16px' }}>
                                 <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>

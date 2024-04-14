@@ -48,7 +48,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 '/posts',
                 {
                     category: 'LIFE',
-                    content: '더치페이 테스트용', //content,
+                    content: '경남쓰팟', //content,
                     createdDate: new Date(), //formattedDate,
                     departure: '공릉역 7호선', //departure,
                     departureTime: new Date(), // selectedTime, //departureTime 으로 바꾸기
@@ -59,7 +59,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     modifiedDate: new Date(), //formattedDate,
                     numberOfRecruitment: 4, // numberOfRecruitment,
                     sameGenderStatus: 'YES', //sameGenderStatus,
-                    title: 'distance 테스트용', //title,
+                    title: '경남쓰팟테스트용', //title,
                     vehicle: '일반', //vehicle,
                     roomId: key,
                 },
@@ -82,7 +82,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 // },
                 {
                     headers: {
-                        Authorization: `Bearer ${accessToken}`,
+                        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiZXhwIjoxNzEzMzQxMTYzfQ.koKBXwJ4DqquvgZV9tsGwLrW_CZDFX14jFc-ktkskds`,
                         'Content-Type': 'application/json',
                     },
                 },
