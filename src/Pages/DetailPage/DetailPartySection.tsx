@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { LionProfile } from '../../assets/svg';
 import * as S from './style';
 import { useEffect, useState } from 'react';
 import { instance } from '../../axios';

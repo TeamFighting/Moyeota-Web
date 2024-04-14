@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
 import ModalStore from '../../../../state/store/ModalStore';
 import { instance } from '../../../../axios';
-import { useMyPotContentStore } from '../../../../state/store/MyPotPage';
 
 interface ModalProps {
     isFull: boolean;

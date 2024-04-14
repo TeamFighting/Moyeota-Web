@@ -23,7 +23,7 @@ function MatchApplyButton({ roomId, postId }: ApplyButtonProps) {
     const handleChat = async () => {
         navigate(`/chat/${postId}`, { state: { roomId: roomId, postId: postId } });
     };
-    const { MyPotContent, MyAppliedPotContent } = useMyPotContentStore();
+    const { MyPotContent } = useMyPotContentStore();
     const { appliedParty } = useAppliedPartyStore();
 
     // const {appliedParty} = useAppliedPartyStore();

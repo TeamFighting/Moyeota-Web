@@ -82,6 +82,7 @@ function Body() {
     };
     const test = async () => {
         const temp = await instance.post(`posts/calculation/${postId}`);
+        console.log(temp.data.data);
     };
     const getPartyOne = async () => {
         const result = await instance.get(`posts/${postId}/members`);
