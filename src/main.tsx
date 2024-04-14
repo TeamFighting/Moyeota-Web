@@ -19,6 +19,7 @@ import UpdatePotPage from './Pages/UpdatePage';
 import PotPage from './Pages/PotPage';
 import OwnerReimbursement from './Pages/ReimbursementPage/OwnerReimbursement';
 import ApplierReimbusement from './Pages/ReimbursementPage/ApplierReimbursement';
+import AddAccount from './Pages/AddAccount';
 
 const router = createBrowserRouter([
     {
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
     {
         path: '/reimbursement/:postId/:userId',
         element: <ApplierReimbusement />,
+    },
+    {
+        path: '/addaccount/:userId',
+        element: <AddAccount />,
     },
 ]);
 
