@@ -1,4 +1,3 @@
-import { Title } from '../../CreatePotPage/style';
 import { useParams } from 'react-router';
 import { instance } from '../../../axios';
 import { useEffect, useState } from 'react';
@@ -66,7 +65,7 @@ function Body() {
                     <S.PartyOneName>{party.nickname}</S.PartyOneName>
                 </S.MoneyLeft>
                 <S.MoneyRight>
-                    <S.EachMoney>{eachMoney}</S.EachMoney>
+                    <S.EachMoney isMyPayment={false}>{eachMoney}</S.EachMoney>
                     <S.Icon>
                         <WhiteCancelIcon width={14} />
                     </S.Icon>
@@ -125,7 +124,7 @@ function Body() {
                                 <S.PartyOneName>모여타가 쏜다</S.PartyOneName>
                             </S.MoneyLeft>
                             <S.MoneyRight>
-                                <S.EachMoney>{moyeotaPay}원</S.EachMoney>
+                                <S.EachMoney isMyPayment={false}>{moyeotaPay}원</S.EachMoney>
                                 <S.Icon>
                                     <WhiteCancelIcon width={14} />
                                 </S.Icon>
