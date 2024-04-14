@@ -420,7 +420,7 @@ const SwipeableContainer = styled(motion.div)`
     width: 100%;
     position: relative;
 `;
-const ChatHeader = styled.div`
+export const ChatHeader = styled.div`
     height: 63px;
     background-color: white;
     display: flex;

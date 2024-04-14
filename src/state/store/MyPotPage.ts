@@ -48,7 +48,7 @@ export const useMyPotContentStore = create(
         }),
         {
             name: 'myPotContent-storage',
-            getStorage: () => localStorage,
+            getStorage: () => sessionStorage,
         },
     ),
 );

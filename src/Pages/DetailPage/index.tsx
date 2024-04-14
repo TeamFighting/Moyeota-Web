@@ -14,6 +14,7 @@ import DetailHeader from './DetailHeader';
 import { instance } from '../../axios';
 import getDays from '../util/getDays';
 import ISOto12 from '../util/ISOto12';
+import { useMyPotContentStore } from '../../state/store/MyPotPage';
 
 interface DetailPageProps {
     category: string;
@@ -50,7 +51,33 @@ function DetailPage() {
     const [splitedTime, setSplitedTime] = useState(['', '', '', '']);
     const [timePart, setTimePart] = useState('');
     const { postId } = useParams();
+    const { setMyAppliedPotContent, setMyPotContent } = useMyPotContentStore();
+    const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
 
+    const getMyPot = async () => {
+        try {
+            const res = await instance.get(`/posts/users/${id}`, {
+                params: {
+                    page: 0,
+                },
+            });
+            setMyPotContent(res.data.data.content);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    const getAppliedPot = async () => {
+        try {
+            const res = await instance.get(`/posts/users/${id}`, {
+                params: {
+                    page: 0,
+                },
+            });
+            setMyPotContent(res.data.data.content);
+        } catch (e) {
+            console.log(e);
+        }
+    };
     const getDetailData = async () => {
         const res = await instance.get(`/posts/${postId}`);
         setData(res.data.data);
@@ -72,6 +99,8 @@ function DetailPage() {
 
     useEffect(() => {
         getDetailData();
+        getAppliedPot();
+        getMyPot();
     }, []);
 
     useEffect(() => {

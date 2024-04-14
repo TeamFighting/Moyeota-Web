@@ -31,7 +31,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         const key = push(chatRoomsRef).key;
         const newChatRoom = {
             id: key,
-            title: title,
+            title: '더치페이 테스트용',
             createdBy: {
                 user: userData.id,
                 name: userData.name,
@@ -46,48 +46,48 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             const departure = currentLocationStore.currentLocation?.building_name ?? '불암고등학교';
             const response = await instance.post(
                 '/posts',
+                {
+                    category: 'LIFE',
+                    content: '경남쓰팟', //content,
+                    createdDate: new Date(), //formattedDate,
+                    departure: '공릉역 7호선', //departure,
+                    departureTime: new Date(), // selectedTime, //departureTime 으로 바꾸기
+                    destination: '건대입구역 7호선', //destination,
+                    distance: 100, // distance,
+                    duration: '25000', //estimatedDuration,
+                    fare: '3200', //estimatedFare,
+                    modifiedDate: new Date(), //formattedDate,
+                    numberOfRecruitment: 4, // numberOfRecruitment,
+                    sameGenderStatus: 'YES', //sameGenderStatus,
+                    title: '경남쓰팟테스트용', //title,
+                    vehicle: '일반', //vehicle,
+                    roomId: key,
+                },
                 // {
                 //     category: 'LIFE',
-                //     content: '안녕하세요', //content,
-                //     createdDate: new Date(), //formattedDate,
-                //     departure: '공릉역 7호선', //departure,
-                //     departureTime: new Date(), // selectedTime, //departureTime 으로 바꾸기
-                //     destination: '서울과학기술대학교', //destination,
-                //     distance: 10, // distance,
-                //     duration: '20000', //estimatedDuration,
-                //     fare: '3000', //estimatedFare,
-                //     modifiedDate: new Date(), //formattedDate,
-                //     numberOfRecruitment: 4, // numberOfRecruitment,
-                //     sameGenderStatus: 'YES', //sameGenderStatus,
-                //     title: '횰인쓰가 만든 팟이예욥', //title,
-                //     vehicle: '일반', //vehicle,
+                //     content: content,
+                //     createdDate: formattedDate,
+                //     departure: departure,
+                //     departureTime: selectedTime,
+                //     destination: destination,
+                //     distance: distance,
+                //     duration: estimatedDuration,
+                //     fare: estimatedFare,
+                //     modifiedDate: formattedDate,
+                //     numberOfRecruitment: numberOfRecruitment,
+                //     sameGenderStatus: sameGenderStatus,
+                //     title: title,
+                //     vehicle: vehicle,
                 //     roomId: key,
                 // },
                 {
-                    category: 'LIFE',
-                    content: content,
-                    createdDate: formattedDate,
-                    departure: departure,
-                    departureTime: selectedTime,
-                    destination: destination,
-                    distance: distance,
-                    duration: estimatedDuration,
-                    fare: estimatedFare,
-                    modifiedDate: formattedDate,
-                    numberOfRecruitment: numberOfRecruitment,
-                    sameGenderStatus: sameGenderStatus,
-                    title: title,
-                    vehicle: vehicle,
-                    roomId: key,
-                },
-                {
                     headers: {
-                        Authorization: `Bearer ${accessToken}`,
+                        Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiZXhwIjoxNzEzMzQxMTYzfQ.koKBXwJ4DqquvgZV9tsGwLrW_CZDFX14jFc-ktkskds`,
                         'Content-Type': 'application/json',
                     },
                 },
             );
-
+            console.log(response);
             if (response.status === 200) {
                 navigate('/createComplete');
             } else {
