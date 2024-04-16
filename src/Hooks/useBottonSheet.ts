@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { MIN_Y, MAX_Y } from '../Constants/constant';
+import { BOTTOMSHEET_MIN_Y, BOTTOMSHEET_MAX_Y, BANKLISTSHEET_MIN_Y, BANKLISTSHEET_MAX_Y } from '../Constants/constant';
 
 interface BottomSheetMetrics {
     touchStart: {
@@ -13,7 +13,16 @@ interface BottomSheetMetrics {
     isContentAreaTouched: boolean;
 }
 
-export default function useBottomSheet() {
+export default function useBottomSheet(from: string) {
+    let MIN_Y = 0,
+        MAX_Y = 0;
+    if (from == 'BottomSheet') {
+        MIN_Y = BOTTOMSHEET_MIN_Y;
+        MAX_Y = BOTTOMSHEET_MAX_Y;
+    } else if (from == 'BankList') {
+        MIN_Y = BANKLISTSHEET_MIN_Y;
+        MAX_Y = BANKLISTSHEET_MAX_Y;
+    }
     const sheet = useRef<HTMLDivElement>(null);
     const content = useRef<HTMLDivElement>(null);
 

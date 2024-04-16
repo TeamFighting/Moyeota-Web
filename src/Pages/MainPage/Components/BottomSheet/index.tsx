@@ -8,7 +8,7 @@ import { List } from '../../../../assets/svg';
 import { WINDOWHEIGHT } from '../../../../Constants/constant';
 
 function BottomSheet() {
-    const { sheet, handleUp, content } = useBottomSheet();
+    const { sheet, handleUp, content } = useBottomSheet('BottomSheet');
 
     return (
         <Wrapper ref={sheet}>
@@ -45,7 +45,7 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     width: 100%;
     border-radius: 26px 26px 0 0;
     height: 100%;
-    transition: transform 400ms ease-out;
+    transition: transform 1ms ease-out;
 `;
 const OpenBotton = styled.div`
     width: 96px;
