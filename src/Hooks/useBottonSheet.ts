@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { BOTTOMSHEET_MIN_Y, BOTTOMSHEET_MAX_Y, BANKLISTSHEET_MIN_Y, BANKLISTSHEET_MAX_Y } from '../Constants/constant';
+import { MIN_Y, MAX_Y } from '../Constants/constant';
 
 interface BottomSheetMetrics {
     touchStart: {
@@ -13,16 +13,7 @@ interface BottomSheetMetrics {
     isContentAreaTouched: boolean;
 }
 
-export default function useBottomSheet(from: string) {
-    let MIN_Y = 0,
-        MAX_Y = 0;
-    if (from == 'BottomSheet') {
-        MIN_Y = BOTTOMSHEET_MIN_Y;
-        MAX_Y = BOTTOMSHEET_MAX_Y;
-    } else if (from == 'BankList') {
-        MIN_Y = BANKLISTSHEET_MIN_Y;
-        MAX_Y = BANKLISTSHEET_MAX_Y;
-    }
+export default function useBottomSheet(str: string) {
     const sheet = useRef<HTMLDivElement>(null);
     const content = useRef<HTMLDivElement>(null);
 
@@ -151,6 +142,24 @@ export default function useBottomSheet(from: string) {
 
     const handleUp = () => {
         sheet.current!.style.setProperty('transform', `translateY(${MIN_Y - MAX_Y}px)`);
+
+        // metrics 초기화.
+        metrics.current = {
+            touchStart: {
+                sheetY: 0,
+                touchY: 0,
+            },
+            touchMove: {
+                prevTouchY: 0,
+                movingDirection: 'none',
+            },
+            isContentAreaTouched: false,
+        };
+    };
+
+    const handleDown = () => {
+        const currentSheetY = sheet.current!.getBoundingClientRect().y;
+        sheet.current!.style.setProperty('transform', `translateY(${currentSheetY}px)`);
         // metrics 초기화.
         metrics.current = {
             touchStart: {
@@ -169,11 +178,12 @@ export default function useBottomSheet(from: string) {
         const handleTouchStart = () => {
             metrics.current!.isContentAreaTouched = true;
         };
+
         if (content.current) content.current!.addEventListener('touchstart', handleTouchStart);
         return () => {
             if (content.current) content.current!.removeEventListener('touchstart', handleTouchStart);
         };
     }, []);
 
-    return { sheet, content, handleUp };
+    return { sheet, content, handleUp, handleDown };
 }

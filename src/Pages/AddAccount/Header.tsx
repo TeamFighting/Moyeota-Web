@@ -6,7 +6,7 @@ function Header() {
         window.history.back();
     };
     return (
-        <ChatHeader style={{ zIndex: 1, width: '100%' }}>
+        <ChatHeader style={{ width: '90%' }}>
             <Chevronleft onClick={handleGoback} width={24} height={24} />
         </ChatHeader>
     );
