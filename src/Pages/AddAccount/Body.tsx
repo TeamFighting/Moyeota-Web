@@ -15,31 +15,30 @@ function Body() {
         setBankNameListClicked(!bankNameListClicked);
     };
     return (
-        <div style={{ height: '500px' }}>
-            <div
-                style={{
-                    width: '100%-40px',
-                    paddingLeft: '20px',
-                    paddingRight: '20px',
-                    gap: '25px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                }}
-            >
-                <Text>
-                    계좌번호를 <br /> 입력해주세요
-                </Text>
-                <StyledInput
-                    isFocused={isFocused}
-                    ref={inputRef}
-                    onFocus={() => setIsFocused(true)}
-                    placeholder="계좌번호 입력"
-                    type="number"
-                />
-                <SelectBankNameBtn onClick={handleBankNameList}>
-                    <div>은행 선택</div> <ChevronDown width={24} />
-                </SelectBankNameBtn>
-            </div>
+        <div
+            style={{
+                width: '90%',
+                position: 'relative',
+                gap: '25px',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100vh',
+                overflow: 'hidden',
+            }}
+        >
+            <Text>
+                계좌번호를 <br /> 입력해주세요
+            </Text>
+            <StyledInput
+                isFocused={isFocused}
+                ref={inputRef}
+                onFocus={() => setIsFocused(true)}
+                placeholder="계좌번호 입력"
+                type="number"
+            />
+            <SelectBankNameBtn onClick={handleBankNameList}>
+                <div>은행 선택</div> <ChevronDown width={24} />
+            </SelectBankNameBtn>
             <Bottom>
                 <BankListSheet handleClickUp={bankNameListClicked} />
             </Bottom>
@@ -50,7 +49,7 @@ const Bottom = styled.div`
     display: flex;
     flex-direction: column;
     position: absolute;
-    width: 100%;
+    width: 90%;
     bottom: 0;
     height: 0px;
 `;

@@ -8,47 +8,48 @@ function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
         handleUp();
     }
     const BankName = [
-        'NH농협',
-        '카카오뱅크',
-        'KB국민',
-        '토스벵크',
-        '신한',
-        '우리',
-        'IBK기업',
-        '하나',
-        '새마을',
-        '부산',
-        '대구',
-        '케이뱅크',
-        '신협',
-        '우체국',
-        'SC제일',
-        '경남',
-        '광주',
-        '수협',
-        '전북',
-        '제주',
-        '씨티',
+        { name: 'NH농협', url: '../../../../public/png/NH.png' },
+        { name: '카카오뱅크', url: '../../../../public/png/KAKAO.png' },
+        { name: 'KB국민', url: '../../../../public/png/KB.png' },
+        { name: '토스뱅크', url: '../../../../public/png/Toss.png' },
+        { name: '신한', url: '../../../../public/png/SinHan.png' },
+        { name: '우리', url: '../../../../public/png/Woori.png' },
+        { name: 'IBK기업', url: '../../../../public/png/IBK.svg' },
+        { name: '하나', url: '../../../../public/png/Hana.png' },
+        { name: '새마을', url: '../../../../public/png/SaeMaeul.png' },
+        { name: '부산', url: '../../../../public/png/BNK.png' },
+        { name: '대구', url: '../../../../public/png/DGB.png' },
+        { name: '케이뱅크', url: '../../../../public/png/KBank.png' },
+        { name: '신협', url: '../../../../public/png/Sinhyup.png' },
+        { name: '광주', url: '../../../../public/png/Kwangju.png' },
+        { name: '수협', url: '../../../../public/png/Suhyup.png' },
+        { name: '전북', url: '../../../../public/png/Jeonbuk.png' },
+        { name: '제주', url: '../../../../public/png/Jeju.png' },
+        { name: '씨티', url: '../../../../public/png/Jeju.png' },
     ];
     return (
         <Wrapper ref={sheet}>
             <div
                 style={{
-                    width: '90%',
+                    width: '100%',
                     height: 'wrap-content',
-                    borderRadius: '26px',
-                    border: '10px solid #e0e0e0',
+                    borderRadius: '20px',
                 }}
             >
                 <HeaderWrapper>
                     <Handler />
                 </HeaderWrapper>
-                <div ref={content} style={{ width: '100%', height: '500px', overflow: 'scroll' }}>
+                <div ref={content} style={{ width: '100%', height: '500px' }}>
+                    <BottmSheetText style={{ height: '40px' }}>은행을 선택해주세요</BottmSheetText>
                     <BottomSheetContentWrapper>
-                        <BottmSheetText style={{ height: '100px' }}>은행을 선택해주세요</BottmSheetText>
                         <Grid>
-                            {BankName.map((name) => (
-                                <BankNames>{name}</BankNames>
+                            {BankName.map((item) => (
+                                <div>
+                                    <BankNames>
+                                        <img src={item.url} style={{ width: '18px', height: '18px' }} />
+                                        <div>{item.name}</div>
+                                    </BankNames>
+                                </div>
                             ))}
                         </Grid>
                     </BottomSheetContentWrapper>
@@ -57,12 +58,31 @@ function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
         </Wrapper>
     );
 }
+
+const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    transition: transform 200ms ease-out;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+`;
+
+const BottomSheetContentWrapper = styled.div`
+    height: 450px;
+    overflow: scroll;
+    border-radius: 0 0 26px 26px;
+    display: flex;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+`;
 const Grid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
-    margin: 20px 0;
-
     justify-content: center;
     align-items: center;
 `;
@@ -77,6 +97,7 @@ const BankNames = styled.div`
     justify-content: center;
     align-items: center;
     border: 1px solid #e0e0e0;
+    flex-direction: column;
 `;
 const BottmSheetText = styled.div`
     height: 100%;
@@ -89,33 +110,12 @@ const BottmSheetText = styled.div`
     font-weight: 700;
     line-height: normal;
     position: sticky;
-`;
-const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
-    display: flex;
-    flex-direction: column;
-    z-index: 10000;
-    width: 100%;
-    height: 600px;
-    transition: transform 200ms ease-out;
-    justify-content: center;
-    align-items: center;
-`;
-
-const BottomSheetContentWrapper = styled.div`
-    height: 500px;
-    overflow: scroll;
-    border-radius: 0 0 26px 26px;
-    display: flex;
-    padding: 0 20px;
     background-color: white;
-    display: flex;
-    flex-direction: column;
 `;
-
 const HeaderWrapper = styled.div`
     width: 100%;
     height: 20px;
-    background-color: #ffffff;
+    background-color: white;
     border-radius: 26px 26px 0 0;
     display: flex;
     justify-content: center;

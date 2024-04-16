@@ -3,7 +3,15 @@ import Header from './Header';
 
 function AddAccount() {
     return (
-        <div style={{ height: '100%' }}>
+        <div
+            style={{
+                display: 'flex',
+                justifyContent: 'center',
+                width: '100vw',
+                alignItems: 'center',
+                flexDirection: 'column',
+            }}
+        >
             <Header />
             <Body />
         </div>
