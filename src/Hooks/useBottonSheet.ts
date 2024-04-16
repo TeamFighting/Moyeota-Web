@@ -1,5 +1,10 @@
 import { useRef, useEffect } from 'react';
-import { MIN_Y, MAX_Y } from '../Constants/constant';
+import {
+    BOTTOM_SHEET_MIN_Y,
+    BOTTOM_SHEET_MAX_Y,
+    BANKLIST_SHEET_MIN_Y,
+    BANKLIST_SHEET_MAX_Y,
+} from '../Constants/constant';
 
 interface BottomSheetMetrics {
     touchStart: {
@@ -14,6 +19,12 @@ interface BottomSheetMetrics {
 }
 
 export default function useBottomSheet(str: string) {
+    let MIN_Y = BOTTOM_SHEET_MIN_Y;
+    let MAX_Y = BOTTOM_SHEET_MAX_Y;
+    if (str === 'BankListSheet') {
+        MIN_Y = BANKLIST_SHEET_MIN_Y;
+        MAX_Y = BANKLIST_SHEET_MAX_Y;
+    }
     const sheet = useRef<HTMLDivElement>(null);
     const content = useRef<HTMLDivElement>(null);
 
@@ -33,16 +44,19 @@ export default function useBottomSheet(str: string) {
         // 컨텐츠 영역 터치시 바텀시트가 올라가지 않도록
         const canUserMoveBottomSheet = () => {
             const { touchMove, isContentAreaTouched } = metrics.current;
-
-            if (isContentAreaTouched) {
+            const scrollTop = content.current!.scrollTop;
+            if (isContentAreaTouched && scrollTop > 0) {
                 return false;
             }
 
             if (sheet.current!.getBoundingClientRect().y !== MIN_Y) {
+                console.log('Y', touchMove.movingDirection);
+
                 return true;
             }
 
             if (touchMove.movingDirection === 'down') {
+                console.log('L', content.current!.scrollTop);
                 return content.current!.scrollTop <= 0;
             }
             return false;
@@ -142,7 +156,6 @@ export default function useBottomSheet(str: string) {
 
     const handleUp = () => {
         sheet.current!.style.setProperty('transform', `translateY(${MIN_Y - MAX_Y}px)`);
-
         // metrics 초기화.
         metrics.current = {
             touchStart: {
@@ -158,8 +171,7 @@ export default function useBottomSheet(str: string) {
     };
 
     const handleDown = () => {
-        const currentSheetY = sheet.current!.getBoundingClientRect().y;
-        sheet.current!.style.setProperty('transform', `translateY(${currentSheetY}px)`);
+        sheet.current!.style.setProperty('transform', `translateY(${MAX_Y}px)`);
         // metrics 초기화.
         metrics.current = {
             touchStart: {

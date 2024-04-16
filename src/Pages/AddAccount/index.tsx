@@ -5,9 +5,13 @@ import { instance } from '../../axios';
 import { useAccountStore } from '../../state/store/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
 import { CheckCircle } from '../../assets/svg';
+import useBottomSheet from '../../Hooks/useBottonSheet';
 
 function AddAccount() {
-    const { accountNumber, accountName } = useAccountStore();
+    const { accountNumber, accountName, clickedAccountList, setClickedAccountList } = useAccountStore();
+    const { handleDown } = useBottomSheet('BankListSheet');
+
+    console.log('click', clickedAccountList);
     console.log(accountNumber, accountName);
     const handleAccountClick = () => {
         if (accountNumber === '') {
@@ -64,7 +68,6 @@ function AddAccount() {
                             gap: '9px',
                         }}
                     >
-                        <CheckCircle width={24} />
                         <div
                             style={{
                                 textAlign: 'center',
@@ -111,8 +114,10 @@ function AddAccount() {
                 },
             },
         );
-        console.log(res.status);
         if (res.status === 200) {
+            setTimeout(() => {
+                window.location.href = '/mainpage';
+            }, 500);
             toast(
                 () => (
                     <div
@@ -133,7 +138,7 @@ function AddAccount() {
                                 alignItems: 'center',
                             }}
                         >
-                            계좌번호가 복사되었습니다
+                            계좌번호가 추가되었습니다
                         </div>
                     </div>
                 ),
@@ -152,7 +157,6 @@ function AddAccount() {
                     },
                 },
             );
-            window.location.href = '/mainpage';
         }
     };
     return (
@@ -163,8 +167,25 @@ function AddAccount() {
                 width: '100vw',
                 alignItems: 'center',
                 flexDirection: 'column',
+                height: '100vh',
+                overflow: 'hidden',
             }}
         >
+            {clickedAccountList && (
+                <div
+                    style={{
+                        zIndex: 200,
+                        position: 'absolute',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        width: '100%',
+                        height: '100vh',
+                        flexDirection: 'column',
+                    }}
+                    onClick={() => {
+                        setClickedAccountList(false);
+                    }}
+                />
+            )}
             <Header />
             <Body />
             <Toaster position="bottom-center" />

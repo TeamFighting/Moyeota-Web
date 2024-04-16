@@ -16,47 +16,60 @@ const BankName = [
     { name: '새마을', url: '../../../../public/png/SaeMaeul.png' },
     { name: '부산', url: '../../../../public/png/BNK.png' },
     { name: '대구', url: '../../../../public/png/DGB.png' },
-    { name: '케이뱅크', url: '../../../../public/png/KBank.png' },
-    { name: '신협', url: '../../../../public/png/Sinhyup.png' },
-    { name: '광주', url: '../../../../public/png/Kwangju.png' },
-    { name: '수협', url: '../../../../public/png/Suhyup.png' },
-    { name: '전북', url: '../../../../public/png/Jeonbuk.png' },
-    { name: '제주', url: '../../../../public/png/Jeju.png' },
-    { name: '씨티', url: '../../../../public/png/Jeju.png' },
+    { name: 'NH농협', url: '../../../../public/png/NH.png' },
+    { name: '카카오뱅크', url: '../../../../public/png/KAKAO.png' },
+    { name: 'KB국민', url: '../../../../public/png/KB.png' },
+    { name: '토스뱅크', url: '../../../../public/png/Toss.png' },
+    { name: '신한', url: '../../../../public/png/SinHan.png' },
+    { name: '우리', url: '../../../../public/png/Woori.png' },
+    { name: 'IBK기업', url: '../../../../public/png/IBK.svg' },
+    { name: '하나', url: '../../../../public/png/Hana.png' },
+    { name: '새마을', url: '../../../../public/png/SaeMaeul.png' },
+    { name: '부산', url: '../../../../public/png/BNK.png' },
+    { name: '대구', url: '../../../../public/png/DGB.png' },
+    { name: 'NH농협', url: '../../../../public/png/NH.png' },
+    { name: '카카오뱅크', url: '../../../../public/png/KAKAO.png' },
+    { name: 'KB국민', url: '../../../../public/png/KB.png' },
+    { name: '토스뱅크', url: '../../../../public/png/Toss.png' },
+    { name: '신한', url: '../../../../public/png/SinHan.png' },
+    { name: '우리', url: '../../../../public/png/Woori.png' },
+    { name: 'IBK기업', url: '../../../../public/png/IBK.svg' },
+    { name: '하나', url: '../../../../public/png/Hana.png' },
+    { name: '새마을', url: '../../../../public/png/SaeMaeul.png' },
+    { name: '부산', url: '../../../../public/png/BNK.png' },
+    { name: '대구', url: '../../../../public/png/DGB.png' },
+    { name: 'NH농협', url: '../../../../public/png/NH.png' },
+    { name: '카카오뱅크', url: '../../../../public/png/KAKAO.png' },
+    { name: 'KB국민', url: '../../../../public/png/KB.png' },
+    { name: '토스뱅크', url: '../../../../public/png/Toss.png' },
+    { name: '신한', url: '../../../../public/png/SinHan.png' },
+    { name: '우리', url: '../../../../public/png/Woori.png' },
+    { name: 'IBK기업', url: '../../../../public/png/IBK.svg' },
+    { name: '하나', url: '../../../../public/png/Hana.png' },
+    { name: '새마을', url: '../../../../public/png/SaeMaeul.png' },
+    { name: '부산', url: '../../../../public/png/BNK.png' },
+    { name: '대구', url: '../../../../public/png/DGB.png' },
 ];
-function BankListSheet({ handleClickUp, accountNumber }: { handleClickUp: boolean; accountNumber: string }) {
-    const { sheet, handleUp, content, handleDown } = useBottomSheet('BottomSheet');
-    const { setAccountName } = useAccountStore();
+function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
+    const { sheet, handleUp, content, handleDown } = useBottomSheet('BankListSheet');
+    const { setAccountName, clickedAccountList, setClickedAccountList } = useAccountStore();
     const [handleClick, setHandleClick] = useState(handleClickUp);
     useEffect(() => {
         if (handleClick) {
             handleUp();
             setHandleClick(false);
         }
+        if (clickedAccountList == false) {
+            handleDown();
+        }
         return () => {
             handleUp();
         };
-    }, [handleClickUp]);
+    }, [handleClickUp, clickedAccountList]);
 
     const selectBankName = (selectedBankName: string) => {
         setAccountName(selectedBankName);
         handleDown();
-    };
-
-    const postBankName = async (selectedBankName: string) => {
-        const res = await instance.post(
-            '/users/account',
-            {
-                accountNumber: accountNumber,
-                bankName: selectedBankName,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-                },
-            },
-        );
-        console.log(res);
     };
 
     return (
@@ -64,29 +77,40 @@ function BankListSheet({ handleClickUp, accountNumber }: { handleClickUp: boolea
             <div
                 style={{
                     width: '100%',
-                    height: 'wrap-content',
                     borderRadius: '20px',
                 }}
             >
                 <HeaderWrapper>
                     <Handler />
                 </HeaderWrapper>
-                <div ref={content} style={{ width: '100%', height: '400px' }}>
+                <div style={{ width: '100%', height: '100%' }}>
                     <BottmSheetText
                         style={{
                             height: '40px',
                             width: '100%',
+                            display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center',
+                            paddingLeft: '35px',
                         }}
                     >
                         은행을 선택해주세요
                     </BottmSheetText>
-                    <BottomSheetContentWrapper>
+                    <BottomSheetContentWrapper ref={content}>
                         <Grid>
                             {BankName.map((item) => (
-                                <div>
-                                    <BankNames onClick={() => selectBankName(item.name)}>
+                                <div
+                                    style={{
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        display: 'flex',
+                                    }}
+                                >
+                                    <BankNames
+                                        onClick={() => {
+                                            selectBankName(item.name);
+                                            setClickedAccountList(false);
+                                        }}
+                                    >
                                         <img src={item.url} style={{ width: '24px', height: '24px' }} />
                                         <div>{item.name}</div>
                                     </BankNames>
@@ -101,25 +125,14 @@ function BankListSheet({ handleClickUp, accountNumber }: { handleClickUp: boolea
 }
 
 const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    width: 100%;
     transition: transform 200ms ease-out;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    position: absolute;
     bottom: 0;
-`;
-
-const BottomSheetContentWrapper = styled.div`
-    height: 450px;
-    overflow: scroll;
-    border-radius: 0 0 26px 26px;
-    display: flex;
-    padding: 0 10px;
-    background-color: #f5f6f8;
-    display: flex;
-    flex-direction: column;
+    z-index: 1000;
+    background-color: white;
+    border-radius: 26px 26px 0 0;
+    height: 100%;
 `;
 const Grid = styled.div`
     display: grid;
@@ -128,18 +141,29 @@ const Grid = styled.div`
     justify-content: center;
     align-items: center;
     padding: 15px 0;
+    flex-wrap: wrap;
+    /* background-color: antiquewhite; */
 `;
+const BottomSheetContentWrapper = styled.div`
+    height: ${window.innerHeight - 260}px;
+    overflow: scroll;
+    display: flex;
+    padding: 0 32px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+`;
+
 const BankNames = styled.div`
     font-size: 12px;
     font-weight: 400;
     width: 100px;
     height: 80px;
-    background-color: white;
+    background-color: #f5f6f8;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #e0e0e0;
     flex-direction: column;
 `;
 const BottmSheetText = styled.div`
@@ -154,12 +178,12 @@ const BottmSheetText = styled.div`
     font-weight: 700;
     line-height: normal;
     position: sticky;
-    background-color: #f5f6f8;
+    background-color: white;
 `;
 const HeaderWrapper = styled.div`
     width: 100%;
-    height: 20px;
-    background-color: #f5f6f8;
+    height: 32px;
+    background-color: white;
     border-radius: 26px 26px 0 0;
     display: flex;
     justify-content: center;
