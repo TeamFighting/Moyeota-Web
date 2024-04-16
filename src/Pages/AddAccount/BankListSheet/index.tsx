@@ -37,12 +37,13 @@ function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
                     width: '90%',
                     height: 'wrap-content',
                     borderRadius: '26px',
+                    border: '10px solid #e0e0e0',
                 }}
             >
                 <HeaderWrapper>
                     <Handler />
                 </HeaderWrapper>
-                <div ref={content} style={{ width: '100%', height: '600px', overflow: 'scroll' }}>
+                <div ref={content} style={{ width: '100%', height: '500px', overflow: 'scroll' }}>
                     <BottomSheetContentWrapper>
                         <BottmSheetText style={{ height: '100px' }}>은행을 선택해주세요</BottmSheetText>
                         <Grid>
@@ -60,10 +61,10 @@ const Grid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
-    margin-top: 20px;
+    margin: 20px 0;
+
     justify-content: center;
     align-items: center;
-    padding: 10px;
 `;
 const BankNames = styled.div`
     font-size: 12px;
@@ -105,9 +106,8 @@ const BottomSheetContentWrapper = styled.div`
     overflow: scroll;
     border-radius: 0 0 26px 26px;
     display: flex;
-    padding: 20px;
+    padding: 0 20px;
     background-color: white;
-    margin-bottom: 20px;
     display: flex;
     flex-direction: column;
 `;
