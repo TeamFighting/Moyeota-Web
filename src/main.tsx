@@ -20,6 +20,8 @@ import PotPage from './Pages/PotPage';
 import OwnerReimbursement from './Pages/ReimbursementPage/OwnerReimbursement';
 import ApplierReimbusement from './Pages/ReimbursementPage/ApplierReimbursement';
 import AddAccount from './Pages/AddAccount';
+import ChatRoom from './Pages/(deprecated)ChatPage/newIndex';
+import ChatPage from './Pages/(deprecated)ChatPage';
 
 const router = createBrowserRouter([
     {
@@ -97,6 +99,14 @@ const router = createBrowserRouter([
     {
         path: '/addaccount/:userId',
         element: <AddAccount />,
+    },
+    {
+        path: '/chat',
+        element: <ChatRoom />,
+    },
+    {
+        path: '/chats',
+        element: <ChatPage />,
     },
 ]);
 
