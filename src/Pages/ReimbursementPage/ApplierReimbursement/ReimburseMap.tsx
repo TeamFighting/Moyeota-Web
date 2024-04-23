@@ -32,9 +32,7 @@ function ReimburseMap() {
 
         const mapOptions = {
             center: location,
-
-            zoom: 17,
-
+            zoom: 13,
             zoomControl: false,
         };
 
@@ -50,11 +48,11 @@ function ReimburseMap() {
             icon: {
                 url: '/svg/CurrentLocationIcon.svg',
 
-                size: new naver.maps.Size(50, 52),
+                size: new naver.maps.Size(45, 45),
 
                 origin: new naver.maps.Point(0, 0),
 
-                anchor: new naver.maps.Point(25, 26),
+                anchor: new naver.maps.Point(0, 0),
             },
         });
     }, [latitude, longitude, naver]);
