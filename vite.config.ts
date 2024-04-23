@@ -13,9 +13,6 @@ export default defineConfig({
             },
         }),
     ],
-    define: {
-        global: {},
-    },
     server: {
         host: 'localhost',
         port: 3000,
