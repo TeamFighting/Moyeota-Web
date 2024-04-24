@@ -8,7 +8,7 @@ import { List } from '../../../../assets/svg';
 import { WINDOWHEIGHT } from '../../../../Constants/constant';
 
 function BottomSheet() {
-    const { sheet, handleUp, content } = useBottomSheet();
+    const { sheet, handleUp, content } = useBottomSheet('BottomSheet');
 
     return (
         <Wrapper ref={sheet}>

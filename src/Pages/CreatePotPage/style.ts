@@ -47,7 +47,6 @@ export const MapSample = styled.div`
     gap: 8px;
     height: 118px;
     width: 100%;
-    background-color: aliceblue;
 `;
 export const Route = styled.div`
     display: flex;

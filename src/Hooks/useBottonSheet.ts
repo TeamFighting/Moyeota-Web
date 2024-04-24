@@ -1,5 +1,10 @@
 import { useRef, useEffect } from 'react';
-import { MIN_Y, MAX_Y } from '../Constants/constant';
+import {
+    BOTTOM_SHEET_MIN_Y,
+    BOTTOM_SHEET_MAX_Y,
+    BANKLIST_SHEET_MIN_Y,
+    BANKLIST_SHEET_MAX_Y,
+} from '../Constants/constant';
 
 interface BottomSheetMetrics {
     touchStart: {
@@ -13,7 +18,13 @@ interface BottomSheetMetrics {
     isContentAreaTouched: boolean;
 }
 
-export default function useBottomSheet() {
+export default function useBottomSheet(str: string) {
+    let MIN_Y = BOTTOM_SHEET_MIN_Y;
+    let MAX_Y = BOTTOM_SHEET_MAX_Y;
+    if (str === 'BankListSheet') {
+        MIN_Y = BANKLIST_SHEET_MIN_Y;
+        MAX_Y = BANKLIST_SHEET_MAX_Y;
+    }
     const sheet = useRef<HTMLDivElement>(null);
     const content = useRef<HTMLDivElement>(null);
 
@@ -33,16 +44,19 @@ export default function useBottomSheet() {
         // 컨텐츠 영역 터치시 바텀시트가 올라가지 않도록
         const canUserMoveBottomSheet = () => {
             const { touchMove, isContentAreaTouched } = metrics.current;
-
-            if (isContentAreaTouched) {
+            const scrollTop = content.current!.scrollTop;
+            if (isContentAreaTouched && scrollTop > 0) {
                 return false;
             }
 
             if (sheet.current!.getBoundingClientRect().y !== MIN_Y) {
+                console.log('Y', touchMove.movingDirection);
+
                 return true;
             }
 
             if (touchMove.movingDirection === 'down') {
+                console.log('L', content.current!.scrollTop);
                 return content.current!.scrollTop <= 0;
             }
             return false;
@@ -156,15 +170,32 @@ export default function useBottomSheet() {
         };
     };
 
+    const handleDown = () => {
+        sheet.current!.style.setProperty('transform', `translateY(${MAX_Y}px)`);
+        // metrics 초기화.
+        metrics.current = {
+            touchStart: {
+                sheetY: 0,
+                touchY: 0,
+            },
+            touchMove: {
+                prevTouchY: 0,
+                movingDirection: 'none',
+            },
+            isContentAreaTouched: false,
+        };
+    };
+
     useEffect(() => {
         const handleTouchStart = () => {
             metrics.current!.isContentAreaTouched = true;
         };
+
         if (content.current) content.current!.addEventListener('touchstart', handleTouchStart);
         return () => {
             if (content.current) content.current!.removeEventListener('touchstart', handleTouchStart);
         };
     }, []);
 
-    return { sheet, content, handleUp };
+    return { sheet, content, handleUp, handleDown };
 }

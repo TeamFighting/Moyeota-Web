@@ -17,13 +17,14 @@ import watchPositionHook from '../../Hooks/watchPositionHook';
 import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../state/store/MyInfo';
 import { useMyPotStore } from '../../state/store/MyPotStore';
+import useCurrentLocation from '../../Hooks/CurrentLocation';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
     // const { accessToken, setAccessToken } = AuthStore();
-
+    useCurrentLocation();
     watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
     const setAccessToken = AuthStore((state) => state.setAccessToken);
@@ -219,7 +220,6 @@ const Body = styled.div`
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: aliceblue;
 `;
 
 const Buttons = styled.div`
