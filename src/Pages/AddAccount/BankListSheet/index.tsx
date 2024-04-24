@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import useBottomSheet from '../../../Hooks/useBottonSheet';
 import { useEffect, useState } from 'react';
-import { instance } from '../../../axios';
 import { useAccountStore } from '../../../state/store/AccountStore';
 const BankName = [
     { name: 'NH농협', url: '../../../../public/png/NH.png' },
