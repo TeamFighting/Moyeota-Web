@@ -20,6 +20,7 @@ import PotPage from './Pages/PotPage';
 import OwnerReimbursement from './Pages/ReimbursementPage/OwnerReimbursement';
 import ApplierReimbusement from './Pages/ReimbursementPage/ApplierReimbursement';
 import AddAccount from './Pages/AddAccount';
+import ChatPage from './Pages/(deprecated)ChatPage';
 
 const router = createBrowserRouter([
     {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
     {
         path: '/chat/:postId',
         element: <FirebaseChat />,
+    },
+    {
+        path: '/chats',
+        element: <ChatPage />,
     },
     {
         path: '/chatlists',
