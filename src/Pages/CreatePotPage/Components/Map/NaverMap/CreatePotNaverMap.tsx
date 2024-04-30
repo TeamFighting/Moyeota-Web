@@ -18,7 +18,7 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
     const mapElement = useRef(null);
     const { naver } = window;
     const { currentLat, currentLng } = LatLngAddStore((state) => state);
-    const { destinationResult, setDestinationResult } = DestinationStore((state) => state);
+    const { setDestinationResult } = DestinationStore((state) => state);
     const { setClickedDestinationMarker, clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
     const [changeCenter, setChangeCenter] = useState({ lat: currentLat, lng: currentLng, title: '' });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

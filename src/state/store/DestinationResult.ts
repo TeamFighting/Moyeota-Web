@@ -16,11 +16,15 @@ interface DestinationInfo {
 interface DestinationResultProps {
     destinationResult: DestinationInfo | null;
     setDestinationResult: (destinationResult: DestinationInfo | null) => void;
+    finalDestination: string | null;
+    setFinalDestination: (finalDestination: string | null) => void;
 }
 
 const DestinationStore = create<DestinationResultProps>((set) => ({
     destinationResult: null,
     setDestinationResult: (destinationResult: DestinationInfo | null) => set({ destinationResult }),
+    finalDestination: null,
+    setFinalDestination: (finalDestination: string | null) => set({ finalDestination }),
 }));
 
 export default DestinationStore;

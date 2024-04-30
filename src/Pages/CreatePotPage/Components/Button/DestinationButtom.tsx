@@ -1,19 +1,13 @@
 import styled from 'styled-components';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { DestinationMarkerClickStore } from '../../../../state/store/DestinationMarkerClickStore';
 
 function DestinationButton() {
     const navigate = useNavigate();
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const destination = searchParams.get('destination');
+    const { clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
 
     const navigateToCreateComplete = () => {
-        if (destination) {
-            navigate(`/createPotPage?destination=${destination}`);
-        } else {
-            alert('도착지를 입력해주세요');
-        }
+        navigate(`/createPotPage?destination=${clickedDestinationMarker?.title}`);
     };
     return (
         <Wrapper>

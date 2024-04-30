@@ -12,17 +12,20 @@ interface BottomSheetProps {
 function BottomSheet({ destination }: BottomSheetProps) {
     const { destinationResult } = DestinationStore((state) => state);
     const { clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
-    const [destinationName, setDestinationName] = useState('');
+    const { finalDestination, setFinalDestination } = DestinationStore((state) => state);
+    const [destinationName, setDestinationName] = useState<string | null>(null);
 
     useEffect(() => {
         console.log('Mark', clickedDestinationMarker);
         if (destinationResult?.place_name !== null && destinationResult?.place_name !== undefined) {
+            setFinalDestination(destinationResult?.place_name);
             setDestinationName(destinationResult?.place_name);
         }
         if (clickedDestinationMarker) {
+            setFinalDestination(clickedDestinationMarker.title);
             setDestinationName(clickedDestinationMarker.title);
         }
-        console.log(destinationName);
+        console.log(finalDestination);
     }, [destinationResult, clickedDestinationMarker]);
     return (
         <Wrapper>

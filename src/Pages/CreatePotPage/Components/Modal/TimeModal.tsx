@@ -50,7 +50,6 @@ function TimeModal({
             }
         }
     };
-
     const [isNormalTaxiSelected, setIsNormalTaxiSelected] = useState(selectedVehicle === '일반 승용 택시');
 
     return (
@@ -74,6 +73,7 @@ function TimeModal({
                         <SelectedOff
                             style={{ width: 24, height: 24, marginLeft: 120 }}
                             onClick={() => {
+                                console.log('clicked');
                                 setIsNormalTaxiSelected(true);
                                 onVehicleSelection('일반 승용 택시');
                             }}
@@ -81,10 +81,28 @@ function TimeModal({
                     )}
                 </CarWrapper>
                 <CarWrapper>
-                    <Text style={{ marginRight: 183 }}>
+                    <Text>
                         <Explain>밴 택시</Explain>
                         <SubExplain>최대 5인</SubExplain>
                     </Text>
+                    {isNormalTaxiSelected ? (
+                        <SelectedOff
+                            style={{ width: 24, height: 24, marginLeft: 120 }}
+                            onClick={() => {
+                                console.log('clicked');
+                                setIsNormalTaxiSelected(true);
+                                onVehicleSelection('일반 승용 택시');
+                            }}
+                        />
+                    ) : (
+                        <Check
+                            style={{ width: 24, height: 24, marginLeft: 120 }}
+                            onClick={() => {
+                                setIsNormalTaxiSelected(false);
+                                onVehicleSelection('밴 택시');
+                            }}
+                        />
+                    )}
                 </CarWrapper>
                 <Box style={{ marginBottom: 15 }}>
                     <BoxTitle>총 인원 수 (본인 포함)</BoxTitle>
@@ -152,6 +170,10 @@ const SwitchInput = styled.input`
 const CarWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+    padding-left: 19px;
+    padding-right: 19px;
     padding-bottom: 38px;
 `;
 const BoxTitle = styled.div`
