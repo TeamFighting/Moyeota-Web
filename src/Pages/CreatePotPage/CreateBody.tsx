@@ -7,6 +7,7 @@ import PotCreateStore from '../../state/store/PotCreateStore';
 import { instance } from '../../axios';
 import DetailMap from '../DetailPage/DetailMap';
 import CurrentLocationStore from '../../state/store/CurrentLocation';
+import { DestinationMarkerClickStore } from '../../state/store/DestinationMarkerClickStore';
 interface CreateBodyProps {
     destination?: string;
 }
@@ -16,6 +17,7 @@ function CreateBody({ destination }: CreateBodyProps) {
     const NavigateToDestination = () => {
         navigate('/destinationPage');
     };
+    const { clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
 
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
     const { setTitle, setDistance, setDestination } = PotCreateStore();
@@ -142,7 +144,9 @@ function CreateBody({ destination }: CreateBodyProps) {
                                 <LocationMarker width="24" height="24" />
                             </S.Icon>
                             <S.Text>
-                                <S.StartPointLocation>{destination || '도착지를 입력해주세요'}</S.StartPointLocation>
+                                <S.StartPointLocation>
+                                    {clickedDestinationMarker?.title || '도착지를 입력해주세요'}
+                                </S.StartPointLocation>
                                 <S.StartPoint>도착지</S.StartPoint>
                             </S.Text>
                         </div>

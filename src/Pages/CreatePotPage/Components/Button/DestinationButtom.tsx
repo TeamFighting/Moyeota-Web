@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { DestinationMarkerClickStore } from '../../../../state/store/DestinationMarkerClickStore';
 
 function DestinationButton() {
     const navigate = useNavigate();

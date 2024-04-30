@@ -16,7 +16,7 @@ function BottomSheet({ destination }: BottomSheetProps) {
 
     useEffect(() => {
         console.log('Mark', clickedDestinationMarker);
-        if (destinationResult) {
+        if (destinationResult?.place_name !== null && destinationResult?.place_name !== undefined) {
             setDestinationName(destinationResult?.place_name);
         }
         if (clickedDestinationMarker) {
