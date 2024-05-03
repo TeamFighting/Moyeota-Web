@@ -1,9 +1,8 @@
-import { Chevronleft, VerticalMenu } from '../../assets/svg';
+import { Chevronleft, Plus, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { instance } from '../../axios';
-import { GreenSendBtn } from '../../assets/svg';
 import * as S from './style';
 import { db } from '../../firebase';
 import { serverTimestamp, set, ref as dbRef, push, child, onChildAdded } from 'firebase/database';
@@ -13,6 +12,7 @@ import 'moment/locale/ko';
 import Skeleton from '../../components/Skeleton';
 import { showProfileTime } from '../util/showProfileTime';
 import { NoneReadChatStore } from '../../state/store/NoneReadChat';
+import ChatBottom from './ChatBottom';
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     postId: string;
@@ -42,10 +42,10 @@ function FirebaseChat() {
     const location = useLocation();
     const { postId, roomId } = location.state;
     const [postInfo, setPostInfo] = useState<ChatPageProps>({} as ChatPageProps);
-    const [newMessage, setNewMessage] = useState<string>('');
     const [messages, setMessages] = useState<myMessageProps[]>([]);
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
     const { id, name, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
+    const [newMessage, setNewMessage] = useState<string>('');
     const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
     const navigate = useNavigate();
     const inputRef = useRef<HTMLInputElement>(null);
@@ -102,23 +102,6 @@ function FirebaseChat() {
         return message;
     };
 
-    const sendMessage = async () => {
-        try {
-            if (roomId === undefined) return;
-            await set(push(child(messagesRef, roomId)), createMessage());
-            setNewMessage('');
-            inputRef.current?.focus();
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    };
-
     const renderMessages = (messages: myMessageProps[]) => {
         return (
             messages.length > 0 &&
@@ -157,6 +140,7 @@ function FirebaseChat() {
             )
         );
     };
+
     return (
         <>
             <S.Header>
@@ -179,31 +163,7 @@ function FirebaseChat() {
                 {renderMessages(messages)}
                 <div ref={messageEndRef}></div>
             </S.Body>
-            <S.Bottom>
-                <S.InputWrapper>
-                    <S.StyledInput
-                        ref={inputRef}
-                        placeholder="메시지 보내기..."
-                        onChange={(e) => {
-                            setNewMessage(e.target.value);
-                        }}
-                        value={newMessage}
-                        type="text"
-                        onKeyPress={handleKeyPress}
-                    />
-                    <div
-                        style={{
-                            marginRight: '13px',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            display: 'flex',
-                        }}
-                        onClick={sendMessage}
-                    >
-                        <GreenSendBtn width="24px" />
-                    </div>
-                </S.InputWrapper>
-            </S.Bottom>
+            <ChatBottom roomId={roomId} id={id} profileImage={profileImage} />
         </>
     );
 }

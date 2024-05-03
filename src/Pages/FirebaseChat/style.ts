@@ -173,6 +173,7 @@ export const InputWrapper = styled.div`
     border-radius: 99px;
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
     background-color: white;
 `;
@@ -183,7 +184,7 @@ export const StyledInput = styled.input`
     border: none;
     outline: none;
     font-size: 18px;
-    margin: 0 30px;
+    margin: 0 15px;
     box-sizing: border-box;
     font-family: Pretendard;
     font-style: normal;
