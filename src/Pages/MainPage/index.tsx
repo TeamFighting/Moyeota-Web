@@ -93,6 +93,7 @@ function MainPage() {
         try {
             const res = await instance.get('/posts');
             if (res.status === 200) {
+                console.log('res.data.data', res.data.data);
                 updateTotalData(res.data.data);
             } else {
                 alert(res.status + '에러');
@@ -109,32 +110,32 @@ function MainPage() {
     const refresh = () => {
         console.log('refresh');
         console.log('accessToken', accessToken);
-        submit();
+        // submit();
     };
 
     const goCurrent = () => {
         console.log('goCurrent');
     };
 
-    const submit = async () => {
-        try {
-            const res = await instance.put(
-                '/users/info',
-                {
-                    age: '20대',
-                    gender: 'F',
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                },
-            );
-            console.log('res', res);
-        } catch (e) {
-            console.log(e);
-        }
-    };
+    // const submit = async () => {
+    //     try {
+    //         const res = await instance.put(
+    //             '/users/info',
+    //             {
+    //                 age: '20대',
+    //                 gender: 'F',
+    //             },
+    //             {
+    //                 headers: {
+    //                     Authorization: `Bearer ${accessToken}`,
+    //                 },
+    //             },
+    //         );
+    //         console.log('res', res);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // };
 
     return (
         <Container>

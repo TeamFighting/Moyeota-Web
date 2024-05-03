@@ -7,19 +7,17 @@ import PotCreateStore from '../../state/store/PotCreateStore';
 import { instance } from '../../axios';
 import DetailMap from '../DetailPage/DetailMap';
 import CurrentLocationStore from '../../state/store/CurrentLocation';
-interface CreateBodyProps {
-    destination?: string;
-}
+import DestinationStore from '../../state/store/DestinationResult';
 
-function CreateBody({ destination }: CreateBodyProps) {
+function CreateBody() {
     const navigate = useNavigate();
     const NavigateToDestination = () => {
         navigate('/destinationPage');
     };
-
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
-    const { setTitle, setDistance, setDestination } = PotCreateStore();
+    const { title, setTitle, setDistance, setDestination } = PotCreateStore();
     const { currentLocation } = CurrentLocationStore();
+    const { finalDestination: destination } = DestinationStore((state) => state);
 
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {
@@ -109,6 +107,7 @@ function CreateBody({ destination }: CreateBodyProps) {
                     type="text"
                     placeholder="지역, 목적지가 포함된 제목이면 더 좋아요"
                     onChange={handleTitleChange}
+                    value={title}
                 />
                 <S.MapSample>
                     <DetailMap infoDeparture={currentLocation?.address_name} />

@@ -6,6 +6,7 @@ import styled from 'styled-components';
 function createComplete() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const userData = JSON.parse(localStorage.getItem('myInfo') as string);
+    console.log(userData);
     return (
         <>
             <S.Container>
@@ -32,7 +33,10 @@ function createComplete() {
                     <S.CompleteWrapper>
                         <S.Title>
                             {/* {userData.name} 님의 */}
-                            {userData.nickName == null ? userData.name : userData.nickName} 님의
+                            {userData.nickName == null || userData.nickName == ''
+                                ? userData.name
+                                : userData.nickName}{' '}
+                            님의
                         </S.Title>
                         <S.Title>팟 생성이 완료되었어요!</S.Title>
                     </S.CompleteWrapper>

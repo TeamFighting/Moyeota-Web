@@ -26,12 +26,13 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         sameGenderRide: sameGenderStatus,
         selectedTime,
     } = potCreateStore;
+    console.log(potCreateStore);
     const { estimatedDuration, estimatedFare } = durationFareStore;
     const createPost = async () => {
         const key = push(chatRoomsRef).key;
         const newChatRoom = {
             id: key,
-            title: '더치페이 테스트용',
+            title: title,
             createdBy: {
                 user: userData.id,
                 name: userData.name,
@@ -43,7 +44,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             // console.log('res:', res);
             const formattedDate = new Date().toISOString;
             const numberOfRecruitment = totalPeople;
-            const departure = currentLocationStore.currentLocation?.building_name ?? '불암고등학교';
+            const departure = currentLocationStore.currentLocation?.address_name;
             const response = await instance.post(
                 '/posts',
                 // {
