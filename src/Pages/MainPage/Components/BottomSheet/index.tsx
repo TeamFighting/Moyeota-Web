@@ -44,7 +44,7 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     z-index: 10000;
     width: 100%;
     border-radius: 26px 26px 0 0;
-    height: 100%;
+    height: 150%;
     transition: transform 400ms ease-out;
 `;
 const OpenBotton = styled.div`
