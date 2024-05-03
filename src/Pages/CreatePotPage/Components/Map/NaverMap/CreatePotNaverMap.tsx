@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import LatLngAddStore from '../../../../../state/store/LatLngAddstore';
 import DestinationStore from '../../../../../state/store/DestinationResult';
 import { DestinationMarkerClickStore } from '../../../../../state/store/DestinationMarkerClickStore';
-import { set } from 'firebase/database';
 
 declare global {
     interface Window {

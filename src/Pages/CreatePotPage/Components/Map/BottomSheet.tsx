@@ -9,14 +9,13 @@ interface BottomSheetProps {
     destination?: string;
 }
 
-function BottomSheet({ destination }: BottomSheetProps) {
+function BottomSheet() {
     const { destinationResult } = DestinationStore((state) => state);
     const { clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
     const { finalDestination, setFinalDestination } = DestinationStore((state) => state);
     const [destinationName, setDestinationName] = useState<string | null>(null);
 
     useEffect(() => {
-        console.log('Mark', clickedDestinationMarker);
         if (destinationResult?.place_name !== null && destinationResult?.place_name !== undefined) {
             setFinalDestination(destinationResult?.place_name);
             setDestinationName(destinationResult?.place_name);

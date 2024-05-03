@@ -15,7 +15,7 @@ function CreatePotPage() {
     const [scroll, setScroll] = useState(0);
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const destination = searchParams.get('destination') || undefined;
+    searchParams.get('destination') || undefined;
     const [totalPeople, setTotalPeople] = useState(1);
 
     const handleTotalPeopleChange = (count: SetStateAction<number>) => {
@@ -44,7 +44,7 @@ function CreatePotPage() {
         <>
             <S.Container>
                 <CreateHeader />
-                <CreateBody destination={destination} />
+                <CreateBody />
                 <Divider style={{ height: '10px' }} />
                 <CreateBottom totalPeople={totalPeople} onTotalPeopleChange={handleTotalPeopleChange} />
                 <Divider style={{ height: `${dividerHeight}px` }} />

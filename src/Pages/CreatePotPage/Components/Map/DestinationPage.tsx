@@ -42,7 +42,7 @@ function DestinationPage() {
             <Body>
                 <CreatePotNaverMap destination={destination} />
                 <Bottom>
-                    <BottomSheet destination={destination} />
+                    <BottomSheet />
                     <DestinationButton />
                 </Bottom>
             </Body>
