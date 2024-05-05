@@ -1,23 +1,19 @@
 import { GreenSendBtn } from '../../assets/svg';
 import * as S from './style';
 import { useRef, useState } from 'react';
-import { Chevronleft, Plus, VerticalMenu } from '../../assets/svg';
-import SvgCancelIcon from '../../assets/svg/CancelIcon';
-import { useLocation, useNavigate } from 'react-router';
-import { useEffect } from 'react';
-import { instance } from '../../axios';
+import { Plus } from '../../assets/svg';
 import { db } from '../../firebase';
-import { serverTimestamp, set, ref as dbRef, push, child, onChildAdded } from 'firebase/database';
-import Messages from './Messages';
-import moment from 'moment';
+import { serverTimestamp, set, ref as dbRef, push, child } from 'firebase/database';
 import 'moment/locale/ko';
 
 interface ChatBottomProps {
+    isOpen: boolean;
     roomId: string;
     id: string;
     profileImage: string;
+    toggleOpen: () => void;
 }
-function ChatBottom({ roomId, id, profileImage }: ChatBottomProps) {
+function ChatBottom({ isOpen, roomId, id, profileImage, toggleOpen }: ChatBottomProps) {
     const messagesRef = dbRef(db, 'messages');
     const inputRef = useRef<HTMLInputElement>(null);
     const [newMessage, setNewMessage] = useState<string>('');
@@ -47,9 +43,6 @@ function ChatBottom({ roomId, id, profileImage }: ChatBottomProps) {
             console.log(e);
         }
     };
-    const OpenBottomSheet = () => {
-        console.log('open bottom sheet');
-    };
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -58,44 +51,42 @@ function ChatBottom({ roomId, id, profileImage }: ChatBottomProps) {
     };
 
     return (
-        <div>
-            <S.Bottom>
-                <S.InputWrapper>
-                    <div
-                        style={{
-                            marginLeft: '13px',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            display: 'flex',
-                        }}
-                        onClick={OpenBottomSheet}
-                    >
-                        <Plus width="18" height="18" />
-                    </div>
-                    <S.StyledInput
-                        ref={inputRef}
-                        placeholder="메시지 보내기..."
-                        onChange={(e) => {
-                            setNewMessage(e.target.value);
-                        }}
-                        value={newMessage}
-                        type="text"
-                        onKeyPress={handleKeyPress}
-                    />
-                    <div
-                        style={{
-                            marginRight: '13px',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            display: 'flex',
-                        }}
-                        onClick={sendMessage}
-                    >
-                        <GreenSendBtn width="24px" />
-                    </div>
-                </S.InputWrapper>
-            </S.Bottom>
-        </div>
+        <S.Bottom isOpen={isOpen}>
+            <S.InputWrapper>
+                <div
+                    onClick={toggleOpen}
+                    style={{
+                        marginLeft: '13px',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        display: 'flex',
+                    }}
+                >
+                    <Plus className="plus-icon" width="18" height="18" />
+                </div>
+                <S.StyledInput
+                    ref={inputRef}
+                    placeholder="메시지 보내기..."
+                    onChange={(e) => {
+                        setNewMessage(e.target.value);
+                    }}
+                    value={newMessage}
+                    type="text"
+                    onKeyPress={handleKeyPress}
+                />
+                <div
+                    style={{
+                        marginRight: '13px',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        display: 'flex',
+                    }}
+                    onClick={sendMessage}
+                >
+                    <GreenSendBtn width="24px" />
+                </div>
+            </S.InputWrapper>
+        </S.Bottom>
     );
 }
 

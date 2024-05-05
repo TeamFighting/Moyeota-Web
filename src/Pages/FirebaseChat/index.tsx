@@ -13,6 +13,7 @@ import Skeleton from '../../components/Skeleton';
 import { showProfileTime } from '../util/showProfileTime';
 import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 import ChatBottom from './ChatBottom';
+
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     postId: string;
@@ -48,7 +49,7 @@ function FirebaseChat() {
     const [newMessage, setNewMessage] = useState<string>('');
     const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
     const navigate = useNavigate();
-    const inputRef = useRef<HTMLInputElement>(null);
+    const [open, setOpen] = useState(false);
     const handleBack = () => {
         leaveChatRoom(roomId);
         navigate('/ChatLists');
@@ -158,12 +159,21 @@ function FirebaseChat() {
                     <SvgCancelIcon width="24" height="24" />
                 </S.Icon>
             </S.Header>
-            <S.Body>
-                {renderMessageSkeleton(messagesLoading)}
-                {renderMessages(messages)}
-                <div ref={messageEndRef}></div>
-            </S.Body>
-            <ChatBottom roomId={roomId} id={id} profileImage={profileImage} />
+            <S.SlideWrapper isOpen={open}>
+                <S.Body>
+                    {renderMessageSkeleton(messagesLoading)}
+                    {renderMessages(messages)}
+                    <div ref={messageEndRef}></div>
+                </S.Body>
+            </S.SlideWrapper>
+            <ChatBottom
+                isOpen={open}
+                toggleOpen={() => setOpen(!open)}
+                roomId={roomId}
+                id={id}
+                profileImage={profileImage}
+            />
+            <S.ChatBottomDrawer isOpen={open}>sdfsdfsdfsdfsdf</S.ChatBottomDrawer>
         </>
     );
 }
