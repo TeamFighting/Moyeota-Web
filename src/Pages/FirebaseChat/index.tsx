@@ -1,4 +1,4 @@
-import { Chevronleft, Plus, VerticalMenu } from '../../assets/svg';
+import { Album, Camera, Chevronleft, Plus, Reimbursement, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
@@ -13,6 +13,7 @@ import Skeleton from '../../components/Skeleton';
 import { showProfileTime } from '../util/showProfileTime';
 import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 import ChatBottom from './ChatBottom';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -141,9 +142,18 @@ function FirebaseChat() {
             )
         );
     };
+    const notYet = () => {
+        toast.error('서비스 준비중이예요', {
+            icon: '🚧',
+        });
+    };
 
+    const navigateReimbursement = () => {
+        navigate('/reimbursement/' + postId + '/' + id);
+    };
     return (
         <>
+            <Toaster position="bottom-center" reverseOrder={false} />
             <S.Header>
                 <S.Icon style={{ alignSelf: 'center' }} onClick={handleBack}>
                     <Chevronleft width="24" height="24" />
@@ -173,7 +183,22 @@ function FirebaseChat() {
                 id={id}
                 profileImage={profileImage}
             />
-            <S.ChatBottomDrawer isOpen={open}>sdfsdfsdfsdfsdf</S.ChatBottomDrawer>
+            <S.ChatBottomDrawer isOpen={open}>
+                <S.ChatBottomDrawerContent>
+                    <S.ChatBottomDrawerIcon onClick={notYet}>
+                        <Album width={44} height={44} />
+                        <S.ChatBottomDrawerIconText>카메라</S.ChatBottomDrawerIconText>
+                    </S.ChatBottomDrawerIcon>
+                    <S.ChatBottomDrawerIcon onClick={notYet}>
+                        <Camera width={44} height={44} />
+                        <S.ChatBottomDrawerIconText>앨범</S.ChatBottomDrawerIconText>
+                    </S.ChatBottomDrawerIcon>
+                    <S.ChatBottomDrawerIcon onClick={navigateReimbursement}>
+                        <Reimbursement width={44} height={44} />
+                        <S.ChatBottomDrawerIconText>정산하기</S.ChatBottomDrawerIconText>
+                    </S.ChatBottomDrawerIcon>
+                </S.ChatBottomDrawerContent>
+            </S.ChatBottomDrawer>
         </>
     );
 }

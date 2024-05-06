@@ -218,3 +218,37 @@ export const ChatBottomDrawer = styled.div<{ isOpen: boolean }>`
     width: 100vw;
     background-color: white;
 `;
+export const ChatBottomDrawerContent = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 114px;
+    width: 100%;
+    gap: 15%;
+`;
+
+export const ChatBottomDrawerIcon = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #5d5d5d;
+    &:active {
+        svg {
+            filter: brightness(0.9);
+        }
+    }
+`;
+
+export const ChatBottomDrawerIconText = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 21px */
+`;
