@@ -1,11 +1,11 @@
-import { Album, Camera, Chevronleft, Plus, Reimbursement, VerticalMenu } from '../../assets/svg';
+import { Album, Camera, Chevronleft, Reimbursement, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { instance } from '../../axios';
 import * as S from './style';
 import { db } from '../../firebase';
-import { serverTimestamp, set, ref as dbRef, push, child, onChildAdded } from 'firebase/database';
+import { ref as dbRef, child, onChildAdded } from 'firebase/database';
 import Messages from './Messages';
 import moment from 'moment';
 import 'moment/locale/ko';
@@ -46,8 +46,7 @@ function FirebaseChat() {
     const [postInfo, setPostInfo] = useState<ChatPageProps>({} as ChatPageProps);
     const [messages, setMessages] = useState<myMessageProps[]>([]);
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
-    const { id, name, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
-    const [newMessage, setNewMessage] = useState<string>('');
+    const { id, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
@@ -87,21 +86,6 @@ function FirebaseChat() {
             setMessages(newmessagesArray);
         });
         setMessagesLoading(false);
-    };
-    const createMessage = () => {
-        if (newMessage === '') return;
-        const message = {
-            key: roomId,
-            text: newMessage,
-            user: {
-                id: id,
-                name: name,
-                profileImage: profileImage,
-            },
-            timestamp: serverTimestamp(),
-        };
-
-        return message;
     };
 
     const renderMessages = (messages: myMessageProps[]) => {
@@ -195,7 +179,7 @@ function FirebaseChat() {
                     </S.ChatBottomDrawerIcon>
                     <S.ChatBottomDrawerIcon onClick={navigateReimbursement}>
                         <Reimbursement width={44} height={44} />
-                        <S.ChatBottomDrawerIconText>정산하기</S.ChatBottomDrawerIconText>
+                        <S.ChatBottomDrawerIconText>정산</S.ChatBottomDrawerIconText>
                     </S.ChatBottomDrawerIcon>
                 </S.ChatBottomDrawerContent>
             </S.ChatBottomDrawer>
