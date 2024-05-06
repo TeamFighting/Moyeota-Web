@@ -7,7 +7,7 @@ import CheveronLeft from '../../assets/svg/Chevronleft';
 function CreateHeader() {
     const navigate = useNavigate();
     const goBack = () => {
-        navigate('-1');
+        navigate('/mainpage');
     };
     return (
         <Header>

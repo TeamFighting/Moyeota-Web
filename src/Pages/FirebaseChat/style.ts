@@ -1,20 +1,21 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../Constants/constant';
+import { DRAWER_HEIGHT, HEADER_HEIGHT } from '../../Constants/constant';
 
 export const Header = styled.div`
+    position: fixed;
+    top: 0;
     display: flex;
     flex-direction: row;
     align-items: center;
     height: ${HEADER_HEIGHT}px;
     justify-content: space-between;
     text-align: center;
-    position: fixed;
-    top: 0;
     background-color: white;
     width: 92%;
     padding-right: 4%;
     padding-left: 4%;
     border-bottom: 6px solid #f5f6f8;
+    z-index: 100;
 `;
 export const Icon = styled.div`
     cursor: pointer;
@@ -22,11 +23,19 @@ export const Icon = styled.div`
     align-items: center;
     justify-content: center;
 `;
-export const Body = styled.div`
-    height: calc(100vh - ${HEADER_HEIGHT}px - 100);
-    padding-top: ${HEADER_HEIGHT + 20}px;
-    padding-bottom: 100px;
+export const SlideWrapper = styled.div<{ isOpen: boolean }>`
+    height: 100vh;
+    /* 맨위에 안보일때 */
+    /* height: ${(props) => (props.isOpen ? 'calc(100vh - 100px)' : '100vh')}; */
     overflow-y: scroll;
+    transform: ${(props) => (props.isOpen ? 'translateY(0px)' : `translateY(${DRAWER_HEIGHT}px)`)};
+    transition: all ease 0.3s;
+    flex-direction: column;
+`;
+export const Body = styled.div`
+    margin-bottom: 110px;
+    /* height: calc(100vh - ${HEADER_HEIGHT}px - 100); */
+    padding-top: ${HEADER_HEIGHT + 20}px;
     width: 100vw;
     flex-direction: column;
     display: flex;
@@ -156,14 +165,20 @@ export const Description = styled.div`
     flex-direction: column;
     gap: 5px;
 `;
-export const Bottom = styled.div`
+export const Bottom = styled.div<{ isOpen: boolean }>`
     position: fixed;
+    bottom: ${(props) => (props.isOpen ? `${DRAWER_HEIGHT}px` : '0px')};
+    transition: all ease 0.3s;
     display: flex;
-    bottom: 0;
     height: 100px;
     width: 100vw;
     align-items: center;
     background-color: white;
+
+    svg.plus-icon {
+        transform: ${(props) => (props.isOpen ? 'rotate(45deg)' : 'rotate(0deg)')};
+        transition: all ease 0.3s;
+    }
 `;
 export const InputWrapper = styled.div`
     margin: 0 20px;
@@ -173,6 +188,7 @@ export const InputWrapper = styled.div`
     border-radius: 99px;
     display: flex;
     flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
     background-color: white;
 `;
@@ -183,7 +199,7 @@ export const StyledInput = styled.input`
     border: none;
     outline: none;
     font-size: 18px;
-    margin: 0 30px;
+    margin: 0 15px;
     box-sizing: border-box;
     font-family: Pretendard;
     font-style: normal;
@@ -192,4 +208,47 @@ export const StyledInput = styled.input`
     letter-spacing: 0.54px;
     color: #5d5d5d;
     background-color: white;
+`;
+
+export const ChatBottomDrawer = styled.div<{ isOpen: boolean }>`
+    position: fixed;
+    bottom: ${(props) => (props.isOpen ? '0' : `-${DRAWER_HEIGHT}px`)};
+    transition: all ease 0.3s;
+    height: ${DRAWER_HEIGHT}px;
+    width: 100vw;
+    background-color: white;
+`;
+export const ChatBottomDrawerContent = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 114px;
+    width: 100%;
+    gap: 15%;
+`;
+
+export const ChatBottomDrawerIcon = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #5d5d5d;
+    &:active {
+        svg {
+            filter: brightness(0.9);
+        }
+    }
+`;
+
+export const ChatBottomDrawerIconText = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%; /* 21px */
 `;

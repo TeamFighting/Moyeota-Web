@@ -5,3 +5,4 @@ export const WINDOWHEIGHT = window.innerHeight;
 export const HEADER_HEIGHT = 64;
 export const BANKLIST_SHEET_MIN_Y = 190;
 export const BANKLIST_SHEET_MAX_Y = window.innerHeight;
+export const DRAWER_HEIGHT = 200;

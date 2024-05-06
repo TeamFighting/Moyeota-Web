@@ -5,10 +5,6 @@ import DestinationStore from '../../../../state/store/DestinationResult';
 import { useEffect, useState } from 'react';
 import { DestinationMarkerClickStore } from '../../../../state/store/DestinationMarkerClickStore';
 
-interface BottomSheetProps {
-    destination?: string;
-}
-
 function BottomSheet() {
     const { destinationResult } = DestinationStore((state) => state);
     const { clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);

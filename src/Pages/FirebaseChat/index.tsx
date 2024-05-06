@@ -1,18 +1,20 @@
-import { Chevronleft, VerticalMenu } from '../../assets/svg';
+import { Album, Camera, Chevronleft, Reimbursement, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import { useLocation, useNavigate } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { instance } from '../../axios';
-import { GreenSendBtn } from '../../assets/svg';
 import * as S from './style';
 import { db } from '../../firebase';
-import { serverTimestamp, set, ref as dbRef, push, child, onChildAdded } from 'firebase/database';
+import { ref as dbRef, child, onChildAdded } from 'firebase/database';
 import Messages from './Messages';
 import moment from 'moment';
 import 'moment/locale/ko';
 import Skeleton from '../../components/Skeleton';
 import { showProfileTime } from '../util/showProfileTime';
 import { NoneReadChatStore } from '../../state/store/NoneReadChat';
+import ChatBottom from './ChatBottom';
+import toast, { Toaster } from 'react-hot-toast';
+
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     postId: string;
@@ -42,13 +44,12 @@ function FirebaseChat() {
     const location = useLocation();
     const { postId, roomId } = location.state;
     const [postInfo, setPostInfo] = useState<ChatPageProps>({} as ChatPageProps);
-    const [newMessage, setNewMessage] = useState<string>('');
     const [messages, setMessages] = useState<myMessageProps[]>([]);
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
-    const { id, name, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
+    const { id, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
     const navigate = useNavigate();
-    const inputRef = useRef<HTMLInputElement>(null);
+    const [open, setOpen] = useState(false);
     const handleBack = () => {
         leaveChatRoom(roomId);
         navigate('/ChatLists');
@@ -85,38 +86,6 @@ function FirebaseChat() {
             setMessages(newmessagesArray);
         });
         setMessagesLoading(false);
-    };
-    const createMessage = () => {
-        if (newMessage === '') return;
-        const message = {
-            key: roomId,
-            text: newMessage,
-            user: {
-                id: id,
-                name: name,
-                profileImage: profileImage,
-            },
-            timestamp: serverTimestamp(),
-        };
-
-        return message;
-    };
-
-    const sendMessage = async () => {
-        try {
-            if (roomId === undefined) return;
-            await set(push(child(messagesRef, roomId)), createMessage());
-            setNewMessage('');
-            inputRef.current?.focus();
-        } catch (e) {
-            console.log(e);
-        }
-    };
-
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
     };
 
     const renderMessages = (messages: myMessageProps[]) => {
@@ -157,8 +126,18 @@ function FirebaseChat() {
             )
         );
     };
+    const notYet = () => {
+        toast.error('서비스 준비중이예요', {
+            icon: '🚧',
+        });
+    };
+
+    const navigateReimbursement = () => {
+        navigate('/reimbursement/' + postId + '/' + id);
+    };
     return (
         <>
+            <Toaster position="bottom-center" reverseOrder={false} />
             <S.Header>
                 <S.Icon style={{ alignSelf: 'center' }} onClick={handleBack}>
                     <Chevronleft width="24" height="24" />
@@ -174,36 +153,36 @@ function FirebaseChat() {
                     <SvgCancelIcon width="24" height="24" />
                 </S.Icon>
             </S.Header>
-            <S.Body>
-                {renderMessageSkeleton(messagesLoading)}
-                {renderMessages(messages)}
-                <div ref={messageEndRef}></div>
-            </S.Body>
-            <S.Bottom>
-                <S.InputWrapper>
-                    <S.StyledInput
-                        ref={inputRef}
-                        placeholder="메시지 보내기..."
-                        onChange={(e) => {
-                            setNewMessage(e.target.value);
-                        }}
-                        value={newMessage}
-                        type="text"
-                        onKeyPress={handleKeyPress}
-                    />
-                    <div
-                        style={{
-                            marginRight: '13px',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            display: 'flex',
-                        }}
-                        onClick={sendMessage}
-                    >
-                        <GreenSendBtn width="24px" />
-                    </div>
-                </S.InputWrapper>
-            </S.Bottom>
+            <S.SlideWrapper isOpen={open}>
+                <S.Body>
+                    {renderMessageSkeleton(messagesLoading)}
+                    {renderMessages(messages)}
+                    <div ref={messageEndRef}></div>
+                </S.Body>
+            </S.SlideWrapper>
+            <ChatBottom
+                isOpen={open}
+                toggleOpen={() => setOpen(!open)}
+                roomId={roomId}
+                id={id}
+                profileImage={profileImage}
+            />
+            <S.ChatBottomDrawer isOpen={open}>
+                <S.ChatBottomDrawerContent>
+                    <S.ChatBottomDrawerIcon onClick={notYet}>
+                        <Album width={44} height={44} />
+                        <S.ChatBottomDrawerIconText>카메라</S.ChatBottomDrawerIconText>
+                    </S.ChatBottomDrawerIcon>
+                    <S.ChatBottomDrawerIcon onClick={notYet}>
+                        <Camera width={44} height={44} />
+                        <S.ChatBottomDrawerIconText>앨범</S.ChatBottomDrawerIconText>
+                    </S.ChatBottomDrawerIcon>
+                    <S.ChatBottomDrawerIcon onClick={navigateReimbursement}>
+                        <Reimbursement width={44} height={44} />
+                        <S.ChatBottomDrawerIconText>정산</S.ChatBottomDrawerIconText>
+                    </S.ChatBottomDrawerIcon>
+                </S.ChatBottomDrawerContent>
+            </S.ChatBottomDrawer>
         </>
     );
 }

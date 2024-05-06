@@ -1,6 +1,8 @@
+export { default as Album } from './Album';
 export { default as ArrowRight } from './ArrowRight';
 export { default as BacktoCurrentButton } from './BacktoCurrentButton';
 export { default as Calendar } from './Calendar';
+export { default as Camera } from './Camera';
 export { default as CancelIcon } from './CancelIcon';
 export { default as CheckCircle } from './CheckCircle';
 export { default as ChevronDown } from './ChevronDown';
@@ -32,6 +34,7 @@ export { default as Plus } from './Plus';
 export { default as PotOwnerCrown } from './PotOwnerCrown';
 export { default as ProfileSample } from './ProfileSample';
 export { default as RefreshButton } from './RefreshButton';
+export { default as Reimbursement } from './Reimbursement';
 export { default as Robot } from './Robot';
 export { default as Switch } from './Switch';
 export { default as ToTriangle } from './ToTriangle';
