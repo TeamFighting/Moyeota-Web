@@ -17,14 +17,13 @@ import watchPositionHook from '../../Hooks/watchPositionHook';
 import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../state/store/MyInfo';
 import { useMyPotStore } from '../../state/store/MyPotStore';
-import useCurrentLocation from '../../Hooks/CurrentLocation';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
     // const { accessToken, setAccessToken } = AuthStore();
-    useCurrentLocation();
+
     watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
     const setAccessToken = AuthStore((state) => state.setAccessToken);
