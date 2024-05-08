@@ -56,26 +56,17 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     };
     const [openListener, setOpenListener] = useState(false);
     useEffect(() => {
-        // if (!openListener) return;
         window.addEventListener('message', (event) => {
             try {
-                let data = event.data;
-                console.log('data:', data);
-                if (typeof data === 'object') {
-                    data = JSON.parse(data);
-                    alert(data);
-                    if (data.selectedTime !== undefined) {
-                        setSelectedTime(data.selectedTime);
-                    }
+                const data = JSON.parse(event.data);
+                if (data.selectedTime !== undefined) {
+                    setSelectedTime(data.selectedTime);
                 }
             } catch (error) {
                 console.error('error:', error);
             }
         });
-        return () => {
-            window.removeEventListener('message', () => {});
-        };
-    }, [openListener]);
+    }, []);
 
     return (
         <S.Bottom>
