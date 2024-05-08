@@ -56,7 +56,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     };
     const [openListener, setOpenListener] = useState(false);
     useEffect(() => {
-        if (!openListener) return;
+        // if (!openListener) return;
         window.addEventListener('message', (event) => {
             try {
                 let data = event.data;
