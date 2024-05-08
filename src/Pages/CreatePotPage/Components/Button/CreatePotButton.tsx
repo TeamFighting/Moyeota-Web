@@ -14,7 +14,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const currentLocationStore = CurrentLocation();
     const navigate = useNavigate();
     const accessToken = localStorage.getItem('accessToken');
-
+    alert(accessToken);
     const chatRoomsRef = ref(db, 'chatRooms');
     const userData = JSON.parse(localStorage.getItem('myInfo') as string);
     const {
@@ -26,7 +26,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         sameGenderRide: sameGenderStatus,
         selectedTime,
     } = potCreateStore;
-    console.log(potCreateStore);
+    alert(selectedTime);
     const { estimatedDuration, estimatedFare } = durationFareStore;
     const createPost = async () => {
         const key = push(chatRoomsRef).key;
