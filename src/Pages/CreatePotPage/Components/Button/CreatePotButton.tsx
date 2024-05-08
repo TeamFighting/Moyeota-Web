@@ -1,34 +1,34 @@
 import styled from 'styled-components';
 import PotCreateStore from '../../../../state/store/PotCreateStore';
-import DurationFareStore from '../../../../state/store/DurationFareStore';
-import CurrentLocation from '../../../../state/store/CurrentLocation';
-import { instance } from '../../../../axios';
-import { useNavigate } from 'react-router-dom';
-import { ref, push, update, child } from 'firebase/database';
-import { db } from '../../../../firebase';
-import { useEffect } from 'react';
+// import PotCreateStore from '../../../../state/store/PotCreateStore';
+// import DurationFareStore from '../../../../state/store/DurationFareStore';
+// import CurrentLocation from '../../../../state/store/CurrentLocation';
+// import { instance } from '../../../../axios';
+// import { useNavigate } from 'react-router-dom';
+// import { ref, push, update, child } from 'firebase/database';
+// import { db } from '../../../../firebase';
+// import { useEffect } from 'react';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
-    // console.log(totalPeople);
+    console.log(totalPeople);
     const potCreateStore = PotCreateStore();
-    const durationFareStore = DurationFareStore();
-    const currentLocationStore = CurrentLocation();
-    const navigate = useNavigate();
+    // const durationFareStore = DurationFareStore();
+    // const currentLocationStore = CurrentLocation();
+    // const navigate = useNavigate();
     const accessToken = localStorage.getItem('accessToken');
 
-    const chatRoomsRef = ref(db, 'chatRooms');
-    const userData = JSON.parse(localStorage.getItem('myInfo') as string);
+    // const chatRoomsRef = ref(db, 'chatRooms');
+    // const userData = JSON.parse(localStorage.getItem('myInfo') as string);
     const {
-        title,
-        description: content,
-        distance,
-        destination,
-        VehicleType: vehicle,
-        sameGenderRide: sameGenderStatus,
+        // title,
+        // description: content,
+        // distance,
+        // destination,
+        // VehicleType: vehicle,
+        // sameGenderRide: sameGenderStatus,
         selectedTime,
     } = potCreateStore;
-    alert(selectedTime);
-    const { estimatedDuration, estimatedFare } = durationFareStore;
+    // const { estimatedDuration, estimatedFare } = durationFareStore;
     // const createPost = async () => {
     //     const key = push(chatRoomsRef).key;
     //     const newChatRoom = {
