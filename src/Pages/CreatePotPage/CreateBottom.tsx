@@ -63,6 +63,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                 console.log('data:', data);
                 if (typeof data === 'object') {
                     data = JSON.parse(data);
+                    alert(data);
                     if (data.selectedTime !== undefined) {
                         setSelectedTime(data.selectedTime);
                     }
