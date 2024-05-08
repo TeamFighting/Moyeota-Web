@@ -54,7 +54,6 @@ function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
     const { setAccountName, clickedAccountList, setClickedAccountList } = useAccountStore();
     const [handleClick, setHandleClick] = useState(handleClickUp);
     useEffect(() => {
-        console.log(handleClickUp);
         if (handleClick) {
             handleUp();
             setHandleClick(false);

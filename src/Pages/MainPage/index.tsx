@@ -18,6 +18,7 @@ import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../state/store/MyInfo';
 import { useMyPotStore } from '../../state/store/MyPotStore';
 import useCurrentLocation from '../../Hooks/CurrentLocation';
+import ChatReimbursement from '../FirebaseChat/Reimbursement';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -106,7 +107,7 @@ function MainPage() {
 
     const navigateToCreatePot = () => {
         if (accountDtoList.length === 0) {
-            navigate(`/addAccount/${id}`);
+            navigate(`/createPot/addAccount/${id}`);
         } else {
             navigate('/createPotPage');
         }
@@ -121,26 +122,6 @@ function MainPage() {
     const goCurrent = () => {
         console.log('goCurrent');
     };
-
-    // const submit = async () => {
-    //     try {
-    //         const res = await instance.put(
-    //             '/users/info',
-    //             {
-    //                 age: '20대',
-    //                 gender: 'F',
-    //             },
-    //             {
-    //                 headers: {
-    //                     Authorization: `Bearer ${accessToken}`,
-    //                 },
-    //             },
-    //         );
-    //         console.log('res', res);
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
 
     return (
         <Container>
@@ -161,7 +142,7 @@ function MainPage() {
                     <Icon onClick={goCurrent}>
                         <SvgBacktoCurrentButton
                             style={{
-                                width: '48',
+                                width: '48px',
                                 height: '48px',
                             }}
                         />

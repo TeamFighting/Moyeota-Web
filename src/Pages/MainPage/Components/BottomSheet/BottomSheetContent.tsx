@@ -1,6 +1,7 @@
 import * as S from '../../style';
 import SingleContent from '../SingleContent';
 import useStore from '../../../../state/store/ContentStore';
+import ChatReimbursement from '../../../FirebaseChat/Reimbursement';
 const BottomSheetContent = () => {
     const { totalData } = useStore((state) => state);
     if (totalData === undefined || null) {
@@ -33,7 +34,9 @@ const BottomSheetContent = () => {
         return (
             <S.ModalContent>
                 <S.ContentWrapper>
-                    <SingleContent from={'BottomSheet'} />
+                    <ChatReimbursement />
+
+                    {/* <SingleContent from={'BottomSheet'} /> */}
                 </S.ContentWrapper>
             </S.ModalContent>
         );

@@ -22,6 +22,7 @@ import ApplierReimbusement from './Pages/ReimbursementPage/ApplierReimbursement'
 import AddAccount from './Pages/AddAccount';
 import ChatPage from './Pages/(deprecated)ChatPage';
 import BankRecommend from './Pages/AddAccount/BankListSheet/BankRecommend';
+import Reimbursement from './Pages/FirebaseChat/Reimbursement';
 
 const router = createBrowserRouter([
     {
@@ -101,12 +102,16 @@ const router = createBrowserRouter([
         element: <ApplierReimbusement />,
     },
     {
-        path: '/addaccount/:userId',
+        path: '/:from/addaccount/:userId',
         element: <AddAccount />,
     },
     {
         path: '/bankRecommend',
         element: <BankRecommend />,
+    },
+    {
+        path: '/chatJsx',
+        element: <Reimbursement />,
     },
 ]);
 

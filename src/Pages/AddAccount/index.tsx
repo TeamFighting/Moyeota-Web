@@ -5,10 +5,11 @@ import { instance } from '../../axios';
 import { useAccountStore } from '../../state/store/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
 import { CheckCircle } from '../../assets/svg';
+import { useParams } from 'react-router';
 
 function AddAccount() {
     const { accountNumber, accountName, clickedAccountList, setClickedAccountList } = useAccountStore();
-
+    const { from } = useParams();
     const handleAccountClick = () => {
         if (accountNumber === '') {
             toast(
@@ -111,9 +112,16 @@ function AddAccount() {
             },
         );
         if (res.status === 200) {
-            setTimeout(() => {
-                window.location.href = '/mainpage';
-            }, 500);
+            if (from === 'createPot') {
+                setTimeout(() => {
+                    window.location.href = '/mainpage';
+                }, 500);
+                return;
+            } else {
+                setTimeout(() => {
+                    window.location.href = '/mainpage';
+                }, 500);
+            }
             toast(
                 () => (
                     <div
