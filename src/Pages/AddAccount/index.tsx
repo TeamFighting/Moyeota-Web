@@ -5,14 +5,10 @@ import { instance } from '../../axios';
 import { useAccountStore } from '../../state/store/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
 import { CheckCircle } from '../../assets/svg';
-// import useBottomSheet from '../../Hooks/useBottonSheet';
 
 function AddAccount() {
     const { accountNumber, accountName, clickedAccountList, setClickedAccountList } = useAccountStore();
-    // const { handleDown } = useBottomSheet('BankListSheet');
 
-    console.log('click', clickedAccountList);
-    console.log(accountNumber, accountName);
     const handleAccountClick = () => {
         if (accountNumber === '') {
             toast(

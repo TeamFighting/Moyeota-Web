@@ -21,6 +21,7 @@ import OwnerReimbursement from './Pages/ReimbursementPage/OwnerReimbursement';
 import ApplierReimbusement from './Pages/ReimbursementPage/ApplierReimbursement';
 import AddAccount from './Pages/AddAccount';
 import ChatPage from './Pages/(deprecated)ChatPage';
+import BankRecommend from './Pages/AddAccount/BankListSheet/BankRecommend';
 
 const router = createBrowserRouter([
     {
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
     {
         path: '/addaccount/:userId',
         element: <AddAccount />,
+    },
+    {
+        path: '/bankRecommend',
+        element: <BankRecommend />,
     },
 ]);
 

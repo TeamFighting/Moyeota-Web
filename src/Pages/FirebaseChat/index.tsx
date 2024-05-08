@@ -39,7 +39,6 @@ interface myMessageProps {
     };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function FirebaseChat() {
     const location = useLocation();
     const { postId, roomId } = location.state;
@@ -50,12 +49,13 @@ function FirebaseChat() {
     const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const messageEndRef = useRef<HTMLDivElement>(null);
+    const messagesRef = dbRef(db, 'messages');
+
     const handleBack = () => {
         leaveChatRoom(roomId);
         navigate('/ChatLists');
     };
-    const messageEndRef = useRef<HTMLDivElement>(null);
-    const messagesRef = dbRef(db, 'messages');
 
     useEffect(() => {
         async function getChatRoom() {
@@ -115,6 +115,7 @@ function FirebaseChat() {
             })
         );
     };
+
     const renderMessageSkeleton = (messagesLoading: boolean) => {
         return (
             { messagesLoading } && (
@@ -133,7 +134,7 @@ function FirebaseChat() {
     };
 
     const navigateReimbursement = () => {
-        navigate('/reimbursement/' + postId + '/' + id);
+        navigate('/reimbursement/potowner/' + postId + '/' + id);
     };
     return (
         <>

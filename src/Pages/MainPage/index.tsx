@@ -23,12 +23,11 @@ function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    // const { accessToken, setAccessToken } = AuthStore();
     useCurrentLocation();
     watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
     const setAccessToken = AuthStore((state) => state.setAccessToken);
-    const { setMyInfo, id } = useMyInfoStore();
+    const { setMyInfo, id, accountDtoList } = useMyInfoStore();
     const { setMyPot } = useMyPotStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     const getMyPost = async () => {
@@ -82,6 +81,7 @@ function MainPage() {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
+            console.log('res.data.data', res.data.data);
             setMyInfo(res.data.data);
             localStorage.setItem('myInfo', JSON.stringify(res.data.data));
         } catch (e) {
@@ -91,9 +91,10 @@ function MainPage() {
 
     async function fetchData() {
         try {
+            console.log('fetchData');
             const res = await instance.get('/posts');
+            console.log('res', res.data.data);
             if (res.status === 200) {
-                console.log('res.data.data', res.data.data);
                 updateTotalData(res.data.data);
             } else {
                 alert(res.status + '에러');
@@ -104,7 +105,11 @@ function MainPage() {
     }
 
     const navigateToCreatePot = () => {
-        navigate('/createPotPage');
+        if (accountDtoList.length === 0) {
+            navigate(`/addAccount/${id}`);
+        } else {
+            navigate('/createPotPage');
+        }
     };
 
     const refresh = () => {
