@@ -78,7 +78,7 @@ const router = createBrowserRouter([
         element: <UpdatePotPage />,
     },
     {
-        path: '/chat/:postId',
+        path: '/chat/:postId/:roomId',
         element: <FirebaseChat />,
     },
     {

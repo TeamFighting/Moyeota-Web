@@ -21,7 +21,7 @@ function MatchApplyButton({ roomId, postId }: ApplyButtonProps) {
     };
     // const chatRoomsRef = ref(db, 'chatRooms');
     const handleChat = async () => {
-        navigate(`/chat/${postId}`, { state: { roomId: roomId, postId: postId } });
+        navigate(`/chat/${postId}/${roomId}`);
     };
     const { MyPotContent } = useMyPotContentStore();
     const { appliedParty } = useAppliedPartyStore();

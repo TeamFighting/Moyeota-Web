@@ -46,6 +46,7 @@ export const PartyOneRow = styled.div`
     gap: 8px;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 `;
 export const PartyOneImage = styled.img`
     object-fit: cover;
@@ -72,7 +73,7 @@ export const Content = styled.div`
     line-height: 157%; /* 25.12px */
 `;
 export const Money = styled.div`
-    margin: 20px 19px;
+    margin: 20px 0;
     padding: 19px 20px;
     width: width;
     display: flex;
@@ -138,4 +139,108 @@ export const Title = styled.div`
     font-size: 22px;
     font-weight: 700;
     font-family: Pretendard;
+`;
+
+export const SelectAccount = styled.div<{ isClicked: boolean }>`
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 16px;
+    width: width;
+    height: 63px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: var(--Gray-Icon-Solid, #f5f6f8);
+
+    svg {
+        transform: ${(props) => (props.isClicked ? 'rotate(90deg)' : 'rotate(0deg)')};
+        transition: all ease 0.3s;
+    }
+`;
+
+export const SelectAccountText = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 157%; /* 25.12px */
+`;
+
+export const SelectAccountIcon = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--Gray-Text-1, #9a9a9a);
+    text-align: center;
+`;
+export const SelectAccountLength = styled.div`
+    color: var(--Gray-Text-1, #9a9a9a);
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 157%; /* 18.84px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+`;
+
+export const AccountLists = styled.div<{ selectIdx: string }>`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 16px;
+    padding-left: 21px;
+    gap: 16px;
+    width: width;
+    height: 63px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: var(--Gray-Icon-Solid, #f5f6f8);
+    justify-content: start;
+    border: ${(props) => (props.selectIdx === props.className ? '1px solid #1edd81' : 'none')};
+`;
+
+export const BankName = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 157%; /* 21.98px */
+`;
+export const AccountNumber = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 157%; /* 18.84px */
+`;
+
+export const StyledButton = styled.div`
+    position: absolute;
+    bottom: 0;
+    width: 335px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: var(--Green-Button, #1edd81);
+    color: #fff;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.54px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;

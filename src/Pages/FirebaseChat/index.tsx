@@ -1,6 +1,6 @@
 import { Album, Camera, Chevronleft, Reimbursement, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { instance } from '../../axios';
 import * as S from './style';
@@ -40,8 +40,7 @@ interface myMessageProps {
 }
 
 function FirebaseChat() {
-    const location = useLocation();
-    const { postId, roomId } = location.state;
+    const { postId, roomId } = useParams();
     const [postInfo, setPostInfo] = useState<ChatPageProps>({} as ChatPageProps);
     const [messages, setMessages] = useState<myMessageProps[]>([]);
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
@@ -53,7 +52,9 @@ function FirebaseChat() {
     const messagesRef = dbRef(db, 'messages');
 
     const handleBack = () => {
-        leaveChatRoom(roomId);
+        if (roomId !== undefined) {
+            leaveChatRoom(roomId);
+        }
         navigate('/ChatLists');
     };
 
@@ -136,6 +137,7 @@ function FirebaseChat() {
     const navigateReimbursement = () => {
         navigate('/reimbursement/potowner/' + postId + '/' + id);
     };
+    if (postId === undefined || roomId == undefined) return;
     return (
         <>
             <Toaster position="bottom-center" reverseOrder={false} />
