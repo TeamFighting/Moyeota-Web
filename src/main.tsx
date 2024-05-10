@@ -25,6 +25,7 @@ import OwnerCalc from './Pages/ReimbursementPage/Calculation/OwnerCalc';
 import ApplierCalc from './Pages/ReimbursementPage/Calculation/ApplierCalc';
 import BankRecommend from './Pages/AddAccount/BankListSheet/BankRecommend';
 import ChatReimbursement from './Pages/FirebaseChat/Reimbursement';
+import WaitPlease from './Pages/ReimbursementPage/Calculation/WaitPlease';
 
 const router = createBrowserRouter([
     {
@@ -122,6 +123,10 @@ const router = createBrowserRouter([
     {
         path: '/chatJsx',
         element: <ChatReimbursement />,
+    },
+    {
+        path: '/waitPlease',
+        element: <WaitPlease />,
     },
 ]);
 

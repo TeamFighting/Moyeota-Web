@@ -1,11 +1,14 @@
-import styled from 'styled-components';
 import Header from '../OwnerReimbursement/Header';
-import { MoneyInput } from '../styles';
+import { MoneyInput, StyledButton } from '../styles';
 import { useState } from 'react';
+import { instance } from '../../../axios';
+import { useNavigate, useParams } from 'react-router';
+import * as S from './styles';
 
 function OwnerCalc() {
     const [money, setMoney] = useState('');
-
+    const accessToken = localStorage.getItem('accessToken');
+    const { postId } = useParams();
     const handleChange = (e: React.KeyboardEvent) => {
         e.preventDefault();
 
@@ -20,21 +23,39 @@ function OwnerCalc() {
         const nums = num.replace(/\D/g, '');
         return nums.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
     }
+    const navigate = useNavigate();
+    const submitTotalMoney = async () => {
+        const res = await instance.post(
+            `/totalDetails/${postId}`,
+            {
+                totalDistance: 15,
+                totalPayment: Number(money),
+            },
+            {
+                headers: {
+                    Authorization: 'Bearer ' + accessToken,
+                },
+            },
+        );
+        if (res.status === 200) {
+            navigate('/waitPlease');
+        }
+        console.log(res);
+    };
 
     return (
         <div>
             <Header />
-            <Body>
-                <Title>
+            <S.Body>
+                <S.Title>
                     아직
                     <br />
                     정산결과가 안 나왔어요 !
-                </Title>
-                <Explanation>
+                </S.Title>
+                <S.Explanation>
                     최종금액을 입력해주세요.
                     <br /> 계산해서 파티원에게 전달할게요
-                </Explanation>
-
+                </S.Explanation>
                 <MoneyInput
                     type="text"
                     style={{ marginLeft: '20px', width: '80%', borderBottom: '2px solid #9a9a9a' }}
@@ -44,33 +65,12 @@ function OwnerCalc() {
                     inputName={money === '' ? 'default' : 'moneyInput'}
                     placeholder="최종 금액 입력 (원)"
                 />
-            </Body>
+            </S.Body>
+            <div style={{ width: '100%', justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+                <StyledButton onClick={submitTotalMoney}>다음</StyledButton>
+            </div>
         </div>
     );
 }
-const Body = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    height: 224px;
-    background-color: #f5f5f5;
-    gap: 15px;
-`;
-const Title = styled.div`
-    color: #000;
-    font-family: Pretendard;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-`;
-const Explanation = styled.div`
-    color: var(--Gray-Text-1, #9a9a9a);
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 157%; /* 25.12px */
-`;
 
 export default OwnerCalc;
