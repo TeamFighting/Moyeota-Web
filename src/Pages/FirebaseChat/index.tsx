@@ -1,6 +1,6 @@
 import { Album, Camera, Chevronleft, Reimbursement, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
-import { useLocation, useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { instance } from '../../axios';
 import * as S from './style';
