@@ -133,7 +133,7 @@ function FirebaseChat() {
     };
 
     const navigateReimbursement = () => {
-        navigate('/reimbursement/' + postId + '/' + id);
+        navigate('/reimbursement/potowner/' + postId + '/' + id);
     };
     return (
         <>

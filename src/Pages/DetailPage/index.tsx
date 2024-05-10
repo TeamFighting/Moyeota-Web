@@ -51,7 +51,7 @@ function DetailPage() {
     const [splitedTime, setSplitedTime] = useState(['', '', '', '']);
     const [timePart, setTimePart] = useState('');
     const { postId } = useParams();
-    const { setMyPotContent } = useMyPotContentStore();
+    const { MyPotContent, setMyPotContent } = useMyPotContentStore();
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
 
     const getMyPot = async () => {
@@ -62,6 +62,7 @@ function DetailPage() {
                 },
             });
             setMyPotContent(res.data.data.content);
+            console.log('MyContent', res);
         } catch (e) {
             console.log(e);
         }

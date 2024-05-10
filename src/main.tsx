@@ -21,6 +21,8 @@ import OwnerReimbursement from './Pages/ReimbursementPage/OwnerReimbursement';
 import ApplierReimbusement from './Pages/ReimbursementPage/ApplierReimbursement';
 import AddAccount from './Pages/AddAccount';
 import ChatPage from './Pages/(deprecated)ChatPage';
+import OwnerCalc from './Pages/ReimbursementPage/Calculation/OwnerCalc';
+import ApplierCalc from './Pages/ReimbursementPage/Calculation/ApplierCalc';
 
 const router = createBrowserRouter([
     {
@@ -102,6 +104,14 @@ const router = createBrowserRouter([
     {
         path: '/addaccount/:userId',
         element: <AddAccount />,
+    },
+    {
+        path: '/OwnerCalc/:postId/:userId',
+        element: <OwnerCalc />,
+    },
+    {
+        path: '/ApplierCalc/:postId/:userId',
+        element: <ApplierCalc />,
     },
 ]);
 

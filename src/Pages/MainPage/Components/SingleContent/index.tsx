@@ -82,8 +82,8 @@ function SingleContent({ from }: { from: string }) {
                         <Tags>
                             <Tag>{data.vehicle}</Tag>
                             {!data.sameGenderStatus && <Tag>성별무관</Tag>}
-                            {data.sameGenderStatus && data.userGender && <Tag>남자만</Tag>}
-                            {data.sameGenderStatus && !data.userGender && <Tag>여자만</Tag>}
+                            {data.sameGenderStatus && data.userGender == 'M' && <Tag>남자만</Tag>}
+                            {data.sameGenderStatus && data.userGender == 'F' && <Tag>여자만</Tag>}
                             <Tag>{data.category}</Tag>
                         </Tags>
                         <Status>
