@@ -9,6 +9,8 @@ function OwnerCalc() {
     const [money, setMoney] = useState('');
     const accessToken = localStorage.getItem('accessToken');
     const { postId } = useParams();
+    const navigate = useNavigate();
+
     const handleChange = (e: React.KeyboardEvent) => {
         e.preventDefault();
 
@@ -23,12 +25,11 @@ function OwnerCalc() {
         const nums = num.replace(/\D/g, '');
         return nums.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
     }
-    const navigate = useNavigate();
     const submitTotalMoney = async () => {
         const res = await instance.post(
             `/totalDetails/${postId}`,
             {
-                totalDistance: 15,
+                totalDistance: 0,
                 totalPayment: Number(money),
             },
             {

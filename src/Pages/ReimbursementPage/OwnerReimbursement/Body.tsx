@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { ChevronRight, WhiteCancelIcon } from '../../../assets/svg';
 import { BankLists } from '../../../assets/BankLists';
 import * as S from '../styles';
+import { instance } from '../../../axios';
+import { useParams } from 'react-router';
 interface PartyOneProps {
     nickname: string;
     profileImage: string;
@@ -12,28 +14,14 @@ function Body() {
     const width = window.innerWidth - 40;
     const [partyOne, setPartyOne] = useState<PartyOneProps[]>([]);
     const [money, setMoney] = useState('');
+    const { postId } = useParams();
     const [moyeotaPay, setMoyeotaPay] = useState(0);
     const [, setQuotient] = useState(0);
-    const getPartyOne = () => {
-        // const result = await instance.get(`posts/${postId}/members`);
-        const data = [
-            {
-                nickname: '모연두',
-                profileImage: '/public/png/RobotProfile.png',
-                potOwner: true,
-            },
-            {
-                nickname: '모사자',
-                profileImage: '/public/png/RobotProfile.png',
-                potOwner: false,
-            },
-            {
-                nickname: '모치즈',
-                profileImage: '/public/png/RobotProfile.png',
-                potOwner: false,
-            },
-        ];
-        setPartyOne(data);
+    const getPartyOne = async () => {
+        const result = await instance.get(`posts/${postId}/members`);
+        if (result.status === 200) {
+            setPartyOne(result.data.data);
+        }
     };
     const AccountData = [
         {
@@ -92,17 +80,7 @@ function Body() {
     };
     const [message, setMessage] = useState({});
     const messages: object[] = [];
-    // const data = {
-    //     potName: '판교팟',
-    //     postId: 1,
-    //     totalAmount: 13600,
-    //     totalPeople: 4,
-    //     EachAmount: [
-    //         { name: '모연두', amount: 5700, userId: 1 },
-    //         { name: '모사자', amount: 4100, userId: 2 },
-    //         { name: '모치즈', amount: 3800, userId: 6 },
-    //     ],
-    // };
+
     const handleData = () => {
         setMessage({ potName: '판교팟', postId: 1, totalAmount: 1600, EachAmount: messages });
         console.log(message);
@@ -118,8 +96,8 @@ function Body() {
         return (
             <S.PartyOneRow>
                 <S.MoneyLeft>
-                    {party.potOwner && <S.PotOwner>나</S.PotOwner>}
                     <S.PartyOneImage src={party.profileImage} />
+                    {party.potOwner && <S.PotOwner>나</S.PotOwner>}
                     <S.PartyOneName>{party.nickname}</S.PartyOneName>
                 </S.MoneyLeft>
                 <S.MoneyRight>

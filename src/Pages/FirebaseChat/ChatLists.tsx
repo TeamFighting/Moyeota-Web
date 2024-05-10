@@ -84,7 +84,7 @@ function ChatLists() {
     }, [chatRooms]);
 
     const handleChatRoom = (roomId: string, postId: number) => {
-        navigate(`/chat/${postId}`, { state: { roomId: roomId, postId: postId } });
+        navigate(`/chat/${postId}/${roomId}`);
     };
 
     useEffect(() => {
