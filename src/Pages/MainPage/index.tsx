@@ -17,14 +17,13 @@ import watchPositionHook from '../../Hooks/watchPositionHook';
 import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../state/store/MyInfo';
 import { useMyPotStore } from '../../state/store/MyPotStore';
-import useCurrentLocation from '../../Hooks/CurrentLocation';
-import ChatReimbursement from '../FirebaseChat/Reimbursement';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    useCurrentLocation();
+    // const { accessToken, setAccessToken } = AuthStore();
+
     watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
     const setAccessToken = AuthStore((state) => state.setAccessToken);

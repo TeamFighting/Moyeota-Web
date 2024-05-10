@@ -8,7 +8,7 @@ import { ref, push, update, child } from 'firebase/database';
 import { db } from '../../../../firebase';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
-    // console.log(totalPeople);
+    console.log(totalPeople);
     const potCreateStore = PotCreateStore();
     const durationFareStore = DurationFareStore();
     const currentLocationStore = CurrentLocation();
@@ -26,7 +26,6 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         sameGenderRide: sameGenderStatus,
         selectedTime,
     } = potCreateStore;
-    console.log(potCreateStore);
     const { estimatedDuration, estimatedFare } = durationFareStore;
     const createPost = async () => {
         const key = push(chatRoomsRef).key;

@@ -51,7 +51,6 @@ export default function useBottomSheet(str: string) {
 
             if (sheet.current!.getBoundingClientRect().y !== MIN_Y) {
                 console.log('Y', touchMove.movingDirection);
-
                 return true;
             }
 
