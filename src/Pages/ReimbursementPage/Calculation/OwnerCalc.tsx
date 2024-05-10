@@ -41,7 +41,6 @@ function OwnerCalc() {
         if (res.status === 200) {
             navigate('/waitPlease');
         }
-        console.log(res);
     };
 
     return (

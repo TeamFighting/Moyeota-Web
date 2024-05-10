@@ -4,53 +4,125 @@ import { BankLists } from '../../../assets/BankLists';
 import * as S from '../styles';
 import { instance } from '../../../axios';
 import { useParams } from 'react-router';
+import { useMyInfoStore } from '../../../state/store/MyInfo';
+import { useReimbursementMessageStore } from '../../../state/store/ReimbursementMessage';
+import { useRef } from 'react';
+import { serverTimestamp, ref as dbRef, set, push, child } from 'firebase/database';
+import 'moment/locale/ko';
+import { db } from '../../../firebase';
+
 interface PartyOneProps {
     nickname: string;
     profileImage: string;
     potOwner: boolean;
+    userId: number;
 }
-
+interface PostInfoType {
+    title: string;
+    postId: number;
+    roomId: string;
+    userName: string;
+}
 function Body() {
     const width = window.innerWidth - 40;
     const [partyOne, setPartyOne] = useState<PartyOneProps[]>([]);
     const [money, setMoney] = useState('');
-    const { postId } = useParams();
+    const { postId, userId } = useParams();
     const [moyeotaPay, setMoyeotaPay] = useState(0);
     const [, setQuotient] = useState(0);
+    const { accountDtoList, profileImage } = useMyInfoStore();
+    const [potInfo, setPotInfo] = useState<PostInfoType>({ title: '', postId: 0, roomId: '', userName: '' });
+    // 계좌 리스트 오픈 여부
+    const [isOpenAccountLists, setIsOpenAccountLists] = useState(false);
+    // 선택된 계좌 인덱스, border 스타일링을 위해 사용
+    const [selectSingleAccount, setSelectSingleAccount] = useState(-1);
+    // 선택된 계좌 정보 (메시지 전송시 사용)
+    const [selectedAccount, setSelectedAccount] = useState({ bankName: '', accountNumber: '' });
+    const { setReimbursementMessage } = useReimbursementMessageStore();
+    const EachMoneyData: object[] = [];
+    const roomId = potInfo.roomId;
+    const name = potInfo.userName;
+
+    // 송금 메시지 데이터 생성
+    const handleData = () => {
+        if (potInfo?.postId === undefined) return;
+        if (potInfo?.title === undefined) return;
+
+        setReimbursementMessage({
+            account: selectedAccount,
+            potName: potInfo?.title,
+            postId: potInfo?.postId,
+            totalAmount: formatNumber(money),
+            EachAmount: EachMoneyData,
+            totalPeople: EachMoneyData.length,
+        });
+        console.log(reimbursementMessage);
+    };
+
+    const messagesRef = dbRef(db, 'messages');
+    const inputRef = useRef<HTMLInputElement>(null);
+    const { reimbursementMessage } = useReimbursementMessageStore();
+    const createMessage = () => {
+        const message = {
+            key: roomId,
+            JSONMessage: JSON.stringify(reimbursementMessage),
+            user: {
+                id: userId,
+                name: name,
+                profileImage: profileImage,
+            },
+            timestamp: serverTimestamp(),
+        };
+
+        return message;
+    };
+
+    const sendMessage = async () => {
+        try {
+            if (roomId === undefined) return;
+            await set(push(child(messagesRef, roomId)), createMessage());
+            inputRef.current?.focus();
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const getPotInfo = async () => {
+        const result = await instance.get(`posts/${postId}`);
+        if (result.status === 200) {
+            setPotInfo(result.data.data);
+        }
+    };
+
     const getPartyOne = async () => {
         const result = await instance.get(`posts/${postId}/members`);
         if (result.status === 200) {
-            setPartyOne(result.data.data);
+            const arr = result.data.data;
+            const newArr = [];
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].userId == userId) {
+                    newArr.push(arr[i]);
+                }
+            }
+            for (let i = 0; i < arr.length - 1; i++) {
+                if (arr[i].userId !== userId) {
+                    newArr.push(arr[i]);
+                }
+            }
+            setPartyOne(newArr);
+            console.log(result.data.data);
         }
     };
-    const AccountData = [
-        {
-            accountNumber: '123456789',
-            bank: '카카오뱅크',
-        },
-        {
-            accountNumber: '123456789',
-            bank: 'NH농협',
-        },
-        {
-            accountNumber: '123456789',
-            bank: '카카오뱅크',
-        },
-        {
-            accountNumber: '123456789',
-            bank: 'NH농협',
-        },
-        {
-            accountNumber: '123456789',
-            bank: '카카오뱅크',
-        },
-        {
-            accountNumber: '123456789',
-            bank: 'NH농협',
-        },
-    ];
+    const calcFinalMoney = async () => {
+        const res = await instance.post(`/posts/calculation/${postId}`);
+        console.log(res);
+    };
     useEffect(() => {
         getPartyOne();
+        getPotInfo();
+        calcFinalMoney();
+    }, []);
+    useEffect(() => {
         calcEachMoney();
     }, [money]);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -78,13 +150,7 @@ function Body() {
             setMoyeotaPay(0);
         }
     };
-    const [message, setMessage] = useState({});
-    const messages: object[] = [];
 
-    const handleData = () => {
-        setMessage({ potName: '판교팟', postId: 1, totalAmount: 1600, EachAmount: messages });
-        console.log(message);
-    };
     const render = partyOne.map((party) => {
         let eachQuotient = Number(money);
         const remainder = Number(money) % partyOne.length;
@@ -92,12 +158,12 @@ function Body() {
             eachQuotient -= remainder;
         }
         const eachMoney = formatNumber((eachQuotient / partyOne.length).toString());
-        messages.push({ [party.nickname]: eachMoney });
+        EachMoneyData.push({ name: party.nickname, amount: eachMoney, userId: party.userId });
         return (
             <S.PartyOneRow>
                 <S.MoneyLeft>
                     <S.PartyOneImage src={party.profileImage} />
-                    {party.potOwner && <S.PotOwner>나</S.PotOwner>}
+                    {party.userId == Number(userId) && <S.PotOwner>나</S.PotOwner>}
                     <S.PartyOneName>{party.nickname}</S.PartyOneName>
                 </S.MoneyLeft>
                 <S.MoneyRight>
@@ -109,15 +175,15 @@ function Body() {
             </S.PartyOneRow>
         );
     });
-    const [isOpenAccountLists, setIsOpenAccountLists] = useState(false);
-    const [selectSingleAccount, setSelectSingleAccount] = useState(-1);
     const selectAccount = () => {
-        console.log('계좌 선택하기');
         setIsOpenAccountLists(!isOpenAccountLists);
     };
     const clickedAccount = (idx: number) => {
         setSelectSingleAccount(idx);
-        console.log('clickedAccount', idx);
+        setSelectedAccount({
+            bankName: accountDtoList[idx].bankName,
+            accountNumber: accountDtoList[idx].accountNumber,
+        });
     };
     const windowHeight = window.innerHeight;
     const accountListsHeight = windowHeight - 111;
@@ -130,6 +196,7 @@ function Body() {
                 justifyContent: 'center',
                 alignItems: 'center',
                 display: 'flex',
+                flexDirection: 'column',
             }}
         >
             <div
@@ -195,7 +262,7 @@ function Body() {
                 <S.SelectAccount isClicked={isOpenAccountLists} onClick={selectAccount}>
                     <S.SelectAccountText>계좌 선택하기</S.SelectAccountText>
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <S.SelectAccountLength>1개</S.SelectAccountLength>
+                        <S.SelectAccountLength>{accountDtoList.length}개</S.SelectAccountLength>
                         <S.SelectAccountIcon>
                             <ChevronRight width={24} height={24} />
                         </S.SelectAccountIcon>
@@ -203,8 +270,8 @@ function Body() {
                 </S.SelectAccount>
                 {isOpenAccountLists && (
                     <div style={{ paddingBottom: '16px' }}>
-                        {AccountData.map((account, idx) => {
-                            const url = BankLists.find((bank) => bank.name === account.bank)?.url || '';
+                        {accountDtoList.map((account, idx) => {
+                            const url = BankLists.find((bank) => bank.name === account.bankName)?.url || '';
                             return (
                                 <S.AccountLists
                                     className={idx.toString()}
@@ -215,7 +282,7 @@ function Body() {
                                         <img style={{ width: '24px', height: '24px' }} src={url}></img>
                                     </div>
                                     <div>
-                                        <S.BankName>{account.bank}</S.BankName>
+                                        <S.BankName>{account.bankName}</S.BankName>
                                         <S.AccountNumber>{account.accountNumber} </S.AccountNumber>
                                     </div>
                                 </S.AccountLists>
@@ -224,7 +291,8 @@ function Body() {
                     </div>
                 )}
             </div>
-            <S.StyledButton onClick={handleData}>확인</S.StyledButton>
+            <div onClick={handleData}>확인</div>
+            <div onClick={sendMessage}>메시지 보내기</div>
         </div>
     );
 }

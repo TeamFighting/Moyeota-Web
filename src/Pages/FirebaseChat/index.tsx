@@ -14,6 +14,7 @@ import { showProfileTime } from '../util/showProfileTime';
 import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 import ChatBottom from './ChatBottom';
 import toast, { Toaster } from 'react-hot-toast';
+import ChatReimbursement from './Reimbursement';
 
 interface ChatPageProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,10 +31,11 @@ interface ChatPageProps {
 }
 
 interface myMessageProps {
+    JSONMessage: string;
     text: string;
     timestamp: number;
     user: {
-        id: string;
+        id: number;
         name: string;
         profileImage: string;
     };
@@ -83,6 +85,7 @@ function FirebaseChat() {
         const messagesArray = [] as myMessageProps[];
         onChildAdded(child(messagesRef, roomId), (snapshot) => {
             messagesArray.push(snapshot.val());
+            console.log(messagesArray);
             const newmessagesArray = [...messagesArray];
             setMessages(newmessagesArray);
         });
@@ -103,16 +106,22 @@ function FirebaseChat() {
                 } else {
                     timeValue = '오전 ' + timeValue;
                 }
-                return (
-                    <Messages
-                        key={index}
-                        displayTime={displayTime}
-                        displayProfile={displayProfile}
-                        timeStamp={timeValue}
-                        message={items.text}
-                        user={items.user}
-                    />
-                );
+                if (items.JSONMessage == undefined) {
+                    return (
+                        <Messages
+                            key={index}
+                            displayTime={displayTime}
+                            displayProfile={displayProfile}
+                            timeStamp={timeValue}
+                            message={items.text}
+                            user={items.user}
+                        />
+                    );
+                } else {
+                    const JSONMessage = items.JSONMessage;
+                    const user = items.user;
+                    return ChatReimbursement({ JSONMessage, user, displayTime, timeValue });
+                }
             })
         );
     };
