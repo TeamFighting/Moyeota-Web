@@ -4,6 +4,8 @@ export { default as BacktoCurrentButton } from './BacktoCurrentButton';
 export { default as Calendar } from './Calendar';
 export { default as Camera } from './Camera';
 export { default as CancelIcon } from './CancelIcon';
+export { default as CharacterCrown } from './CharacterCrown';
+export { default as ChatSeeU } from './ChatSeeU';
 export { default as CheckCircle } from './CheckCircle';
 export { default as ChevronDown } from './ChevronDown';
 export { default as ChevronRight } from './ChevronRight';

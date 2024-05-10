@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router';
 import { Chevronleft } from '../../assets/svg';
 import { ChatHeader } from '../FirebaseChat/ChatLists';
 
 function Header() {
+    const navigate = useNavigate();
     const handleGoback = () => {
-        window.history.back();
+        navigate('/mainpage');
     };
     return (
         <ChatHeader style={{ width: '90%' }}>

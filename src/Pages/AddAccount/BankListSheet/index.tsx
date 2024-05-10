@@ -3,52 +3,8 @@ import { motion } from 'framer-motion';
 import useBottomSheet from '../../../Hooks/useBottonSheet';
 import { useEffect, useState } from 'react';
 import { useAccountStore } from '../../../state/store/AccountStore';
-const BankName = [
-    { name: 'NH농협', url: '../../../../public/png/NH.png' },
-    { name: '카카오뱅크', url: '../../../../public/png/KAKAO.png' },
-    { name: 'KB국민', url: '../../../../public/png/KB.png' },
-    { name: '토스뱅크', url: '../../../../public/png/Toss.png' },
-    { name: '신한', url: '../../../../public/png/SinHan.png' },
-    { name: '우리', url: '../../../../public/png/Woori.png' },
-    { name: 'IBK기업', url: '../../../../public/png/IBK.svg' },
-    { name: '하나', url: '../../../../public/png/Hana.png' },
-    { name: '새마을', url: '../../../../public/png/SaeMaeul.png' },
-    { name: '부산', url: '../../../../public/png/BNK.png' },
-    { name: '대구', url: '../../../../public/png/DGB.png' },
-    { name: 'NH농협', url: '../../../../public/png/NH.png' },
-    { name: '카카오뱅크', url: '../../../../public/png/KAKAO.png' },
-    { name: 'KB국민', url: '../../../../public/png/KB.png' },
-    { name: '토스뱅크', url: '../../../../public/png/Toss.png' },
-    { name: '신한', url: '../../../../public/png/SinHan.png' },
-    { name: '우리', url: '../../../../public/png/Woori.png' },
-    { name: 'IBK기업', url: '../../../../public/png/IBK.svg' },
-    { name: '하나', url: '../../../../public/png/Hana.png' },
-    { name: '새마을', url: '../../../../public/png/SaeMaeul.png' },
-    { name: '부산', url: '../../../../public/png/BNK.png' },
-    { name: '대구', url: '../../../../public/png/DGB.png' },
-    { name: 'NH농협', url: '../../../../public/png/NH.png' },
-    { name: '카카오뱅크', url: '../../../../public/png/KAKAO.png' },
-    { name: 'KB국민', url: '../../../../public/png/KB.png' },
-    { name: '토스뱅크', url: '../../../../public/png/Toss.png' },
-    { name: '신한', url: '../../../../public/png/SinHan.png' },
-    { name: '우리', url: '../../../../public/png/Woori.png' },
-    { name: 'IBK기업', url: '../../../../public/png/IBK.svg' },
-    { name: '하나', url: '../../../../public/png/Hana.png' },
-    { name: '새마을', url: '../../../../public/png/SaeMaeul.png' },
-    { name: '부산', url: '../../../../public/png/BNK.png' },
-    { name: '대구', url: '../../../../public/png/DGB.png' },
-    { name: 'NH농협', url: '../../../../public/png/NH.png' },
-    { name: '카카오뱅크', url: '../../../../public/png/KAKAO.png' },
-    { name: 'KB국민', url: '../../../../public/png/KB.png' },
-    { name: '토스뱅크', url: '../../../../public/png/Toss.png' },
-    { name: '신한', url: '../../../../public/png/SinHan.png' },
-    { name: '우리', url: '../../../../public/png/Woori.png' },
-    { name: 'IBK기업', url: '../../../../public/png/IBK.svg' },
-    { name: '하나', url: '../../../../public/png/Hana.png' },
-    { name: '새마을', url: '../../../../public/png/SaeMaeul.png' },
-    { name: '부산', url: '../../../../public/png/BNK.png' },
-    { name: '대구', url: '../../../../public/png/DGB.png' },
-];
+import { BankLists } from '../../../assets/BankLists';
+
 function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
     const { sheet, handleUp, content, handleDown } = useBottomSheet('BankListSheet');
     const { setAccountName, clickedAccountList, setClickedAccountList } = useAccountStore();
@@ -96,7 +52,7 @@ function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
                     </BottmSheetText>
                     <BottomSheetContentWrapper ref={content}>
                         <Grid>
-                            {BankName.map((item) => (
+                            {BankLists.map((item) => (
                                 <div
                                     style={{
                                         justifyContent: 'center',
