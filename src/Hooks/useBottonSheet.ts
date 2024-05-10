@@ -154,7 +154,9 @@ export default function useBottomSheet(str: string) {
     }, []);
 
     const handleUp = () => {
+        if (sheet.current === null) return;
         sheet.current!.style.setProperty('transform', `translateY(${MIN_Y - MAX_Y}px)`);
+
         // metrics 초기화.
         metrics.current = {
             touchStart: {

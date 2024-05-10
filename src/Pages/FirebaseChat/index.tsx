@@ -1,6 +1,6 @@
 import { Album, Camera, Chevronleft, Reimbursement, VerticalMenu } from '../../assets/svg';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { instance } from '../../axios';
 import * as S from './style';
@@ -39,10 +39,8 @@ interface myMessageProps {
     };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function FirebaseChat() {
-    const location = useLocation();
-    const { postId, roomId } = location.state;
+    const { postId, roomId } = useParams();
     const [postInfo, setPostInfo] = useState<ChatPageProps>({} as ChatPageProps);
     const [messages, setMessages] = useState<myMessageProps[]>([]);
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
@@ -50,12 +48,15 @@ function FirebaseChat() {
     const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
-    const handleBack = () => {
-        leaveChatRoom(roomId);
-        navigate('/ChatLists');
-    };
     const messageEndRef = useRef<HTMLDivElement>(null);
     const messagesRef = dbRef(db, 'messages');
+
+    const handleBack = () => {
+        if (roomId !== undefined) {
+            leaveChatRoom(roomId);
+        }
+        navigate('/ChatLists');
+    };
 
     useEffect(() => {
         async function getChatRoom() {
@@ -115,6 +116,7 @@ function FirebaseChat() {
             })
         );
     };
+
     const renderMessageSkeleton = (messagesLoading: boolean) => {
         return (
             { messagesLoading } && (
@@ -135,6 +137,7 @@ function FirebaseChat() {
     const navigateReimbursement = () => {
         navigate('/reimbursement/potowner/' + postId + '/' + id);
     };
+    if (postId === undefined || roomId == undefined) return;
     return (
         <>
             <Toaster position="bottom-center" reverseOrder={false} />

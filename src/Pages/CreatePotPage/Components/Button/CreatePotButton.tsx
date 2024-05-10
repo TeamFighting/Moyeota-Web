@@ -82,7 +82,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${accessToken}`,
+                        Authorization: 'Bearer ' + accessToken,
                         'Content-Type': 'application/json',
                     },
                 },

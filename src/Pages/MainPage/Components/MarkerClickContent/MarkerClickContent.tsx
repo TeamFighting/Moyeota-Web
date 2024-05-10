@@ -23,7 +23,7 @@ function MarkerClickContent({ postId: postId }: { postId: number }) {
     };
 
     let gender = '';
-    if (!data.userGender) {
+    if (data.userGender == 'F') {
         gender = '여';
     } else {
         gender = '남';

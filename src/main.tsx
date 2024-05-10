@@ -23,6 +23,8 @@ import AddAccount from './Pages/AddAccount';
 import ChatPage from './Pages/(deprecated)ChatPage';
 import OwnerCalc from './Pages/ReimbursementPage/Calculation/OwnerCalc';
 import ApplierCalc from './Pages/ReimbursementPage/Calculation/ApplierCalc';
+import BankRecommend from './Pages/AddAccount/BankListSheet/BankRecommend';
+import ChatReimbursement from './Pages/FirebaseChat/Reimbursement';
 
 const router = createBrowserRouter([
     {
@@ -78,7 +80,7 @@ const router = createBrowserRouter([
         element: <UpdatePotPage />,
     },
     {
-        path: '/chat/:postId',
+        path: '/chat/:postId/:roomId',
         element: <FirebaseChat />,
     },
     {
@@ -102,7 +104,7 @@ const router = createBrowserRouter([
         element: <ApplierReimbusement />,
     },
     {
-        path: '/addaccount/:userId',
+        path: '/:from/addaccount/:userId',
         element: <AddAccount />,
     },
     {
@@ -112,6 +114,14 @@ const router = createBrowserRouter([
     {
         path: '/ApplierCalc/:postId/:userId',
         element: <ApplierCalc />,
+    },
+    {
+        path: '/bankRecommend',
+        element: <BankRecommend />,
+    },
+    {
+        path: '/chatJsx',
+        element: <ChatReimbursement />,
     },
 ]);
 

@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+interface accountDtoList {
+    accountNumber: string;
+    bankName: string;
+}
 interface MyInfo {
     name: string;
     age: number;
@@ -14,12 +18,14 @@ interface MyInfo {
     school: string | null;
     status: string;
     gender: string;
+    accountDtoList: accountDtoList[];
     setMyInfo: (data: MyInfo) => void;
 }
 
 export const useMyInfoStore = create(
     persist<MyInfo>(
         (set) => ({
+            accountDtoList: [{ accountNumber: '', bankName: '' }],
             name: '',
             age: 0,
             averageStarRate: null,
