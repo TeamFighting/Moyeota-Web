@@ -100,17 +100,18 @@ function Body() {
             const arr = result.data.data;
             const newArr = [];
             for (let i = 0; i < arr.length; i++) {
-                if (arr[i].userId == userId) {
+                if (arr[i].userId == Number(userId)) {
                     newArr.push(arr[i]);
+                    console.log('나', arr[i]);
                 }
             }
-            for (let i = 0; i < arr.length - 1; i++) {
-                if (arr[i].userId !== userId) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].userId !== Number(userId)) {
                     newArr.push(arr[i]);
+                    console.log('너', arr[i]);
                 }
             }
             setPartyOne(newArr);
-            console.log(result.data.data);
         }
     };
     const calcFinalMoney = async () => {

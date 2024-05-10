@@ -53,7 +53,6 @@ function ChatLists() {
             message.timestamp > lastReadTime &&
             message.user.id !== JSON.parse(localStorage.getItem('myInfo') as string).id
         ) {
-            // console.log('new ');
             setNoneReadChat(roomId);
         }
     }
@@ -66,7 +65,6 @@ function ChatLists() {
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setChatRooms(res.data.data);
-        console.log('chatRooms', res.data.data);
     };
     // 채팅방에 메시지가 도착할 때 호출
 
@@ -101,6 +99,7 @@ function ChatLists() {
                             const messageKeys = Object.keys(data[key]);
                             const latestKey = messageKeys[messageKeys.length - 1];
                             const latestMessage = data[key][latestKey];
+                            console.log(latestMessage);
                             messages.push({ ...latestMessage, key });
                         }
                     }
@@ -169,12 +168,6 @@ function ChatLists() {
                                                 dragControls={dragControls}
                                                 dragConstraints={{ left: -82, right: 0 }}
                                                 drag="x"
-                                                // onDragEnd={() => {
-                                                //     const isOverThreshold = itemx.get() < -41;
-                                                //     animate(animateRef.current, {
-                                                //         x: isOverThreshold ? -82 : 0,
-                                                //     });
-                                                // }}
                                                 onClick={() => handleChatRoom(chatRoom.roomId, chatRoom.postId)}
                                                 style={{
                                                     height: '84px',
@@ -222,7 +215,11 @@ function ChatLists() {
                                                             justifyContent: 'space-between',
                                                         }}
                                                     >
-                                                        <LastestMessage key={i}>{message.text}</LastestMessage>
+                                                        <LastestMessage key={i}>
+                                                            {message.text == undefined
+                                                                ? '정산하기를 요청했어요...'
+                                                                : message.text}
+                                                        </LastestMessage>
                                                         {noneReadChat[chatRoom.roomId] > 0 ? (
                                                             <div
                                                                 style={{

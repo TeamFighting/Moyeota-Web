@@ -83,7 +83,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue }: ChatRe
                             <Amount>
                                 요청인원 : {data.totalPeople}명
                                 <br />
-                                전체금액 : {data.totalAmount}원
+                                전체금액 : {data.totalAmount}
                                 {data.EachAmount.map((each) => {
                                     return (
                                         <Amount key={each.userId}>
@@ -95,7 +95,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue }: ChatRe
                             <div>
                                 {isMe ? (
                                     <MyAmount>
-                                        <div style={{ textDecoration: 'underline' }}>{data.totalAmount}원</div>
+                                        <div style={{ textDecoration: 'underline' }}>{data.totalAmount}</div>
                                         <div>을 송금해주세요!</div>
                                     </MyAmount>
                                 ) : null}
