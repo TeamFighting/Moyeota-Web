@@ -32,6 +32,9 @@ function Body() {
     const [, setQuotient] = useState(0);
     const { accountDtoList, profileImage } = useMyInfoStore();
     const [potInfo, setPotInfo] = useState<PostInfoType>({ title: '', postId: 0, roomId: '', userName: '' });
+    const [calcType, setCalcType] = useState('');
+    const windowHeight = window.innerHeight;
+    const accountListsHeight = windowHeight - 111;
     // 계좌 리스트 오픈 여부
     const [isOpenAccountLists, setIsOpenAccountLists] = useState(false);
     // 선택된 계좌 인덱스, border 스타일링을 위해 사용
@@ -39,7 +42,6 @@ function Body() {
     // 선택된 계좌 정보 (메시지 전송시 사용)
     const [selectedAccount, setSelectedAccount] = useState({ bankName: '', accountNumber: '' });
     const { setReimbursementMessage } = useReimbursementMessageStore();
-    const EachMoneyData: object[] = [];
     const roomId = potInfo.roomId;
     const name = potInfo.userName;
 
@@ -47,16 +49,21 @@ function Body() {
     const handleData = () => {
         if (potInfo?.postId === undefined) return;
         if (potInfo?.title === undefined) return;
+        let totalMoney;
+        if (money === '') {
+            totalMoney = formatNumber(totalEachInputMoney.toString());
+        } else {
+            totalMoney = formatNumber(money);
+        }
 
         setReimbursementMessage({
             account: selectedAccount,
             potName: potInfo?.title,
             postId: potInfo?.postId,
-            totalAmount: formatNumber(money),
-            EachAmount: EachMoneyData,
-            totalPeople: EachMoneyData.length,
+            totalAmount: totalMoney,
+            EachAmount: EachMoney,
+            totalPeople: EachMoney.length,
         });
-        console.log(reimbursementMessage);
     };
 
     const messagesRef = dbRef(db, 'messages');
@@ -78,13 +85,14 @@ function Body() {
     };
 
     const sendMessage = async () => {
-        try {
-            if (roomId === undefined) return;
-            await set(push(child(messagesRef, roomId)), createMessage());
-            inputRef.current?.focus();
-        } catch (e) {
-            console.log(e);
-        }
+        console.log(reimbursementMessage);
+        // try {
+        //     if (roomId === undefined) return;
+        //     await set(push(child(messagesRef, roomId)), createMessage());
+        //     inputRef.current?.focus();
+        // } catch (e) {
+        //     console.log(e);
+        // }
     };
 
     const getPotInfo = async () => {
@@ -94,6 +102,7 @@ function Body() {
         }
     };
 
+    // 파티원 정보 받아오고 내 정보를 맨 앞으로 보내주는 함수
     const getPartyOne = async () => {
         const result = await instance.get(`posts/${postId}/members`);
         if (result.status === 200) {
@@ -102,22 +111,22 @@ function Body() {
             for (let i = 0; i < arr.length; i++) {
                 if (arr[i].userId == Number(userId)) {
                     newArr.push(arr[i]);
-                    console.log('나', arr[i]);
                 }
             }
             for (let i = 0; i < arr.length; i++) {
                 if (arr[i].userId !== Number(userId)) {
                     newArr.push(arr[i]);
-                    console.log('너', arr[i]);
                 }
             }
             setPartyOne(newArr);
+            setEachMoney(newArr.map((each) => ({ name: each.nickname, amount: 0, userId: each.userId })));
         }
     };
+    // 모여타에서 N빵 계산해주는 함수
     const calcFinalMoney = async () => {
         const res = await instance.post(`/posts/calculation/${postId}`);
-        console.log(res);
     };
+
     useEffect(() => {
         getPartyOne();
         getPotInfo();
@@ -141,7 +150,6 @@ function Body() {
         const nums = num.replace(/\D/g, '');
         return nums.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
     }
-
     const calcEachMoney = () => {
         setQuotient(Number(money));
         const remainder = Number(money) % partyOne.length;
@@ -150,16 +158,44 @@ function Body() {
         } else {
             setMoyeotaPay(0);
         }
-    };
-
-    const render = partyOne.map((party) => {
         let eachQuotient = Number(money);
-        const remainder = Number(money) % partyOne.length;
+
         if (remainder > 0) {
             eachQuotient -= remainder;
         }
-        const eachMoney = formatNumber((eachQuotient / partyOne.length).toString());
-        EachMoneyData.push({ name: party.nickname, amount: eachMoney, userId: party.userId });
+        if (eachQuotient < 0 || partyOne.length <= 0) return;
+        const defaultEachMoney = eachQuotient / partyOne.length;
+        setNEachMoney(defaultEachMoney);
+    };
+
+    // N빵했을때 각 인당 가격
+    const [NEachMoney, setNEachMoney] = useState(0);
+    // 직접 입력한 금액
+    const [EachMoney, setEachMoney] = useState([{ name: '', amount: 0, userId: 0 }]);
+    // newEachMoney에서 필요한 유저 인덱스
+    const [clickedUserId, setClickedUserId] = useState(0);
+    // 인당 가격 입력 전체 금액 계산
+    let totalEachInputMoney = 0;
+    for (let i = 0; i < EachMoney.length; i++) {
+        totalEachInputMoney += EachMoney[i].amount;
+    }
+
+    // 인당 가격 직접 입력 함수
+    const newEachMoney = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newMoney = e.target.value;
+        setEachMoney((prev) => {
+            return prev.map((each) => {
+                if (each.userId === clickedUserId) {
+                    return { ...each, amount: Number(newMoney) };
+                } else {
+                    return each;
+                }
+            });
+        });
+    };
+
+    // 직접 입력 금액 렌더링
+    const Irender = partyOne.map((party) => {
         return (
             <S.PartyOneRow>
                 <S.MoneyLeft>
@@ -168,17 +204,43 @@ function Body() {
                     <S.PartyOneName>{party.nickname}</S.PartyOneName>
                 </S.MoneyLeft>
                 <S.MoneyRight>
-                    <S.EachMoney isMyPayment={false}>{eachMoney}</S.EachMoney>
-                    {/* <S.Icon>
-                        <WhiteCancelIcon width={14} />
-                    </S.Icon> */}
+                    <input
+                        style={{
+                            border: 'none',
+                            width: '80px',
+                            background: 'none',
+                        }}
+                        placeholder="금액 입력 (원)"
+                        onFocus={() => setClickedUserId(party.userId)}
+                        onChange={newEachMoney}
+                    />
                 </S.MoneyRight>
             </S.PartyOneRow>
         );
     });
+
+    // N빵했을때 각 인당 가격 렌더링
+    const Nrender = partyOne.map((party) => {
+        return (
+            <S.PartyOneRow>
+                <S.MoneyLeft>
+                    <S.PartyOneImage src={party.profileImage} />
+                    {party.userId == Number(userId) && <S.PotOwner>나</S.PotOwner>}
+                    <S.PartyOneName>{party.nickname}</S.PartyOneName>
+                </S.MoneyLeft>
+                <S.MoneyRight>
+                    <S.EachMoney isMyPayment={false}>{NEachMoney}</S.EachMoney>
+                </S.MoneyRight>
+            </S.PartyOneRow>
+        );
+    });
+
+    // 계좌 리스트 오픈 함수
     const selectAccount = () => {
         setIsOpenAccountLists(!isOpenAccountLists);
     };
+
+    // 계좌 선택 함수
     const clickedAccount = (idx: number) => {
         setSelectSingleAccount(idx);
         setSelectedAccount({
@@ -186,8 +248,7 @@ function Body() {
             accountNumber: accountDtoList[idx].accountNumber,
         });
     };
-    const windowHeight = window.innerHeight;
-    const accountListsHeight = windowHeight - 111;
+
     return (
         <div
             style={{
@@ -215,29 +276,51 @@ function Body() {
                     팟장이 전체금액 선결제 후, <br /> 파티원들에게 거리별 비용금액을 송금 받을 수 있어요
                 </S.Content>
                 <S.Money>
-                    <div
-                        style={{
-                            display: 'flex',
-                            borderBottom: '2px solid var(--Gray-Text-1, #9a9a9a)',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            paddingRight: '5px',
-                        }}
-                    >
-                        <S.MoneyInput
-                            type="text"
-                            value={formatNumber(money)}
-                            onKeyDown={handleChange}
-                            onClick={(e) => (e.currentTarget.selectionStart = e.currentTarget.value.length)}
-                            inputName={money === '' ? 'default' : 'moneyInput'}
-                            placeholder="금액 입력 (원)"
-                        />
-
-                        <S.Icon>
-                            <WhiteCancelIcon width={14} />
-                        </S.Icon>
+                    <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+                        <div
+                            onClick={() => {
+                                setCalcType('N');
+                                setMoney('');
+                            }}
+                        >
+                            엔빵하기
+                        </div>
+                        <div
+                            onClick={() => {
+                                setCalcType('input');
+                                setMoney('');
+                            }}
+                        >
+                            직접 입력
+                        </div>
                     </div>
-                    <S.MoneyText>최대 100만원까지 입력 가능</S.MoneyText>
+                    {calcType === 'N' ? (
+                        <div
+                            style={{
+                                display: 'flex',
+                                borderBottom: '2px solid var(--Gray-Text-1, #9a9a9a)',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                paddingRight: '5px',
+                            }}
+                        >
+                            <S.MoneyInput
+                                type="text"
+                                value={formatNumber(money)}
+                                onKeyDown={handleChange}
+                                onClick={(e) => (e.currentTarget.selectionStart = e.currentTarget.value.length)}
+                                inputName={money === '' ? 'default' : 'moneyInput'}
+                                placeholder="금액 입력 (원)"
+                            />
+
+                            <S.Icon>
+                                <WhiteCancelIcon width={14} />
+                            </S.Icon>
+                        </div>
+                    ) : (
+                        <S.MoneyText>{formatNumber(totalEachInputMoney.toString())}</S.MoneyText>
+                    )}
+                    <S.MoneyExplainText>최대 100만원까지 입력 가능</S.MoneyExplainText>
                     <S.PartyText>
                         <div style={{ textDecorationLine: 'underline' }}>파티원</div>
                         <div>{partyOne.length - 1}</div>
@@ -258,12 +341,15 @@ function Body() {
                             </div>
                         </S.PartyOne>
                     )}
-                    <S.PartyOne>{render}</S.PartyOne>
+                    {calcType === 'N' ? <S.PartyOne>{Nrender}</S.PartyOne> : <S.PartyOne>{Irender}</S.PartyOne>}
                 </S.Money>
                 <S.SelectAccount isClicked={isOpenAccountLists} onClick={selectAccount}>
                     <S.SelectAccountText>계좌 선택하기</S.SelectAccountText>
-                    <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        <S.SelectAccountLength>{accountDtoList.length}개</S.SelectAccountLength>
+                    <div style={{ display: 'flex', flexDirection: 'row', marginRight: '16px', gap: '10px' }}>
+                        <S.SelectAccountLength>
+                            {' '}
+                            {accountDtoList[0].bankName} 외 {accountDtoList.length - 1}개
+                        </S.SelectAccountLength>
                         <S.SelectAccountIcon>
                             <ChevronRight width={24} height={24} />
                         </S.SelectAccountIcon>

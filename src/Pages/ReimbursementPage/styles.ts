@@ -97,7 +97,17 @@ export const MoneyInput = styled.input<{ inputName?: string }>`
         outline: none;
     }
 `;
+
 export const MoneyText = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 157%; /* 25.12px */
+`;
+
+export const MoneyExplainText = styled.div`
     color: #9a9a9a;
     font-family: Pretendard;
     font-size: 12px;
@@ -146,8 +156,7 @@ export const SelectAccount = styled.div<{ isClicked: boolean }>`
     flex-direction: row;
     gap: 8px;
     align-items: center;
-    justify-content: space-around;
-    margin-top: 16px;
+    justify-content: space-between;
     width: width;
     height: 63px;
     flex-shrink: 0;
@@ -167,6 +176,8 @@ export const SelectAccountText = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: 157%; /* 25.12px */
+    display: flex;
+    margin-left: 16px;
 `;
 
 export const SelectAccountIcon = styled.div`
