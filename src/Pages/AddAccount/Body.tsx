@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ChevronDown } from '../../assets/svg';
 import BankListSheet from './BankListSheet';

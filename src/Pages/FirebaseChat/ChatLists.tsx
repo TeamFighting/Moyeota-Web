@@ -9,7 +9,6 @@ import moment from 'moment';
 import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 import { ChatTime } from '../util/ChatTime';
-import { Bottom } from './style';
 import BottomBtn from '../../components/BottomBtn';
 export interface myMessageProps {
     text: string;

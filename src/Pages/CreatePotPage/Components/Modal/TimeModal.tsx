@@ -23,7 +23,6 @@ function TimeModal({
     onVehicleSelection,
     onTotalPeopleChange,
     onSameGenderRideToggle,
-    selectedVehicle,
 }: TimeModalProps) {
     const handleModalClose = () => {
         closeModal();
