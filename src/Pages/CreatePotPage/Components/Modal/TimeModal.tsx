@@ -28,7 +28,6 @@ function TimeModal({
     const handleModalClose = () => {
         closeModal();
     };
-
     const handlePlusClick = () => {
         if (totalPeople < 5) {
             onTotalPeopleChange(totalPeople + 1);
@@ -50,7 +49,8 @@ function TimeModal({
             }
         }
     };
-    const [isNormalTaxiSelected, setIsNormalTaxiSelected] = useState(selectedVehicle === '일반 승용 택시');
+    const [taxiCategory, setTaxiCategory] = useState('normalTaxi');
+    console.log(taxiCategory);
 
     return (
         <ModalWrapper>
@@ -61,19 +61,13 @@ function TimeModal({
                         <Explain>일반 승용 택시</Explain>
                         <SubExplain>최대 4인</SubExplain>
                     </Text>
-                    {isNormalTaxiSelected ? (
-                        <Check
-                            style={{ width: 24, height: 24, marginLeft: 120 }}
-                            onClick={() => {
-                                setIsNormalTaxiSelected(false);
-                                onVehicleSelection('밴 택시');
-                            }}
-                        />
+                    {taxiCategory == 'normalTaxi' ? (
+                        <Check style={{ width: 24, height: 24, marginLeft: 120 }} />
                     ) : (
                         <SelectedOff
                             style={{ width: 24, height: 24, marginLeft: 120 }}
                             onClick={() => {
-                                setIsNormalTaxiSelected(true);
+                                setTaxiCategory('normalTaxi');
                                 onVehicleSelection('일반 승용 택시');
                             }}
                         />
@@ -84,19 +78,13 @@ function TimeModal({
                         <Explain>밴 택시</Explain>
                         <SubExplain>최대 5인</SubExplain>
                     </Text>
-                    {isNormalTaxiSelected ? (
+                    {taxiCategory == 'benTaxi' ? (
+                        <Check style={{ width: 24, height: 24, marginLeft: 120 }} />
+                    ) : (
                         <SelectedOff
                             style={{ width: 24, height: 24, marginLeft: 120 }}
                             onClick={() => {
-                                setIsNormalTaxiSelected(true);
-                                onVehicleSelection('일반 승용 택시');
-                            }}
-                        />
-                    ) : (
-                        <Check
-                            style={{ width: 24, height: 24, marginLeft: 120 }}
-                            onClick={() => {
-                                setIsNormalTaxiSelected(false);
+                                setTaxiCategory('benTaxi');
                                 onVehicleSelection('밴 택시');
                             }}
                         />

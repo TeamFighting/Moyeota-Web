@@ -27,7 +27,7 @@ const Header = styled.div`
     align-items: end;
     height: ${HEADER_HEIGHT}px;
     justify-content: space-between;
-    padding: 0 4%;
+    padding: 4% 4%;
 `;
 const Icon = styled.div`
     cursor: pointer;
