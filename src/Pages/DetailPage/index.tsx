@@ -64,7 +64,7 @@ function DetailPage() {
             setMyPotContent(res.data.data.content);
             console.log('MyContent', res);
         } catch (e) {
-            console.log(e);
+            // //console.log(e);
         }
     };
     const getAppliedPot = async () => {
@@ -76,7 +76,7 @@ function DetailPage() {
             });
             setMyPotContent(res.data.data.content);
         } catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     };
     const getDetailData = async () => {

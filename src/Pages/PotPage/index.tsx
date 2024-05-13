@@ -27,7 +27,7 @@ function PotPage() {
             });
             setMyPotContent(res.data.data.content);
         } catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     };
     const getAppliedPot = async () => {
@@ -38,7 +38,7 @@ function PotPage() {
             console.log(res.data.data);
             setMyAppliedPotContent(res.data.data);
         } catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     };
     const navigateMypot = () => {

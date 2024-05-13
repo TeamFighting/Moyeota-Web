@@ -69,7 +69,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                 },
             );
         } catch (e: unknown) {
-            console.log(e);
+            //console.log(e);
         }
         closeModal();
     }

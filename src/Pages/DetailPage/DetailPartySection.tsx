@@ -47,11 +47,10 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                             return value.userName !== leaderName;
                         });
                         setonlyParty(participants);
-                        console.log(participants);
                     }
                 });
         } catch (e) {
-            console.log(e);
+            // //console.log(e);
         }
     }
     useEffect(() => {

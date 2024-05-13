@@ -5,17 +5,18 @@ export const ModalContent = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 150vh;
     font-family: Pretendard;
 `;
 
 export const ContentWrapper = styled.div`
     width: 100%;
-    height: 100%;
+    height: 150%;
     display: flex;
     flex-direction: column;
     justify-content: right;
     align-items: center;
+
     gap: 20px;
     padding-top: 20px;
     scroll-behavior: smooth;

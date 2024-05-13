@@ -17,6 +17,7 @@ import watchPositionHook from '../../Hooks/watchPositionHook';
 import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../state/store/MyInfo';
 import { useMyPotStore } from '../../state/store/MyPotStore';
+import BottomBtn from '../../components/BottomBtn';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -85,7 +86,7 @@ function MainPage() {
             setMyInfo(res.data.data);
             localStorage.setItem('myInfo', JSON.stringify(res.data.data));
         } catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     }
 
@@ -157,6 +158,7 @@ function MainPage() {
                     </Buttons>
                 </Bottom>
             </Body>
+            <BottomBtn />
         </Container>
     );
 }

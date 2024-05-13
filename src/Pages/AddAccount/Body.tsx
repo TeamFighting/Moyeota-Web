@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { ChevronDown } from '../../assets/svg';
 import BankListSheet from './BankListSheet';
@@ -9,11 +9,8 @@ function Body() {
     const [isFocused, setIsFocused] = useState(false);
     const [bankNameListClicked, setBankNameListClicked] = useState(false);
     const { setAccountNumber, accountName, setClickedAccountList } = useAccountStore();
-    useEffect(() => {
-        console.log(isFocused);
-    }, [isFocused]);
+
     const handleBankNameList = () => {
-        console.log('handleBankNameList');
         setBankNameListClicked(!bankNameListClicked);
         setClickedAccountList(true);
     };

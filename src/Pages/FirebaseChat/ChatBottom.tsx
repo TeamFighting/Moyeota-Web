@@ -40,7 +40,7 @@ function ChatBottom({ isOpen, roomId, id, profileImage, toggleOpen }: ChatBottom
             setNewMessage('');
             inputRef.current?.focus();
         } catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     };
 
