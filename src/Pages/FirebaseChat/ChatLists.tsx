@@ -9,6 +9,8 @@ import moment from 'moment';
 import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 import { ChatTime } from '../util/ChatTime';
+import { Bottom } from './style';
+import BottomBtn from '../../components/BottomBtn';
 export interface myMessageProps {
     text: string;
     timestamp: number;
@@ -275,8 +277,9 @@ function ChatLists() {
     const handleClick = () => {
         navigate('/Mainpage');
     };
+    const height = window.innerHeight - 126;
     return (
-        <div style={{ height: '100vh' }}>
+        <div style={{ height: height, width: '100vw' }}>
             {isModalOpen && (
                 <ModalBackGround>
                     <Modal>
@@ -368,6 +371,7 @@ function ChatLists() {
                 <Plus width={18} height={18} />
             </ChatHeader>
             <Body>{renderChatRooms()}</Body>
+            <BottomBtn />
         </div>
     );
 }

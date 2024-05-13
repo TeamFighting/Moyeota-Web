@@ -16,7 +16,6 @@ function DeleteModal({ postId, onClose }: DeleteModalProps) {
     const ToMainPage = () => {
         navigate('/mainpage');
     };
-    console.log('postId:', postId);
 
     const handleDelete = async () => {
         try {

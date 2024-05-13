@@ -50,12 +50,10 @@ export default function useBottomSheet(str: string) {
             }
 
             if (sheet.current!.getBoundingClientRect().y !== MIN_Y) {
-                console.log('Y', touchMove.movingDirection);
                 return true;
             }
 
             if (touchMove.movingDirection === 'down') {
-                console.log('L', content.current!.scrollTop);
                 return content.current!.scrollTop <= 0;
             }
             return false;

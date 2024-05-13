@@ -22,7 +22,6 @@ interface PARTYINFO {
 }
 
 function DetailPartySection({ profileImage, leaderName, content, gender, participants, postId }: Props) {
-    console.log(participants);
     let gender2;
     if (gender == 'M') {
         gender2 = '남자';
@@ -47,11 +46,10 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                             return value.userName !== leaderName;
                         });
                         setonlyParty(participants);
-                        console.log(participants);
                     }
                 });
         } catch (e) {
-            console.log(e);
+            // //console.log(e);
         }
     }
     useEffect(() => {

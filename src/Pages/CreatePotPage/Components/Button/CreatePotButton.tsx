@@ -8,7 +8,6 @@ import { ref, push, update, child } from 'firebase/database';
 import { db } from '../../../../firebase';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
-    console.log(totalPeople);
     const potCreateStore = PotCreateStore();
     const durationFareStore = DurationFareStore();
     const currentLocationStore = CurrentLocation();
@@ -94,7 +93,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 alert('API 요청 실패');
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
         }
     };
 

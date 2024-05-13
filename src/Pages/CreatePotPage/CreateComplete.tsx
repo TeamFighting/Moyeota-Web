@@ -6,7 +6,6 @@ import styled from 'styled-components';
 function createComplete() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const userData = JSON.parse(localStorage.getItem('myInfo') as string);
-    console.log(userData);
     return (
         <>
             <S.Container>

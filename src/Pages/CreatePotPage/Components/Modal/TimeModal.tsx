@@ -73,7 +73,6 @@ function TimeModal({
                         <SelectedOff
                             style={{ width: 24, height: 24, marginLeft: 120 }}
                             onClick={() => {
-                                console.log('clicked');
                                 setIsNormalTaxiSelected(true);
                                 onVehicleSelection('일반 승용 택시');
                             }}
@@ -89,7 +88,6 @@ function TimeModal({
                         <SelectedOff
                             style={{ width: 24, height: 24, marginLeft: 120 }}
                             onClick={() => {
-                                console.log('clicked');
                                 setIsNormalTaxiSelected(true);
                                 onVehicleSelection('일반 승용 택시');
                             }}
