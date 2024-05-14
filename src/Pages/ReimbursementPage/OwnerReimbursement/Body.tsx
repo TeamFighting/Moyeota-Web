@@ -10,6 +10,7 @@ import { useRef } from 'react';
 import { serverTimestamp, ref as dbRef, set, push, child } from 'firebase/database';
 import 'moment/locale/ko';
 import { db } from '../../../firebase';
+import { calcLength } from 'framer-motion';
 
 interface PartyOneProps {
     nickname: string;
@@ -32,7 +33,7 @@ function Body() {
     const [, setQuotient] = useState(0);
     const { accountDtoList, profileImage } = useMyInfoStore();
     const [potInfo, setPotInfo] = useState<PostInfoType>({ title: '', postId: 0, roomId: '', userName: '' });
-    const [calcType, setCalcType] = useState('');
+    const [calcType, setCalcType] = useState('N');
     const windowHeight = window.innerHeight;
     const accountListsHeight = windowHeight - 111;
     // 계좌 리스트 오픈 여부
@@ -166,6 +167,11 @@ function Body() {
         if (eachQuotient < 0 || partyOne.length <= 0) return;
         const defaultEachMoney = eachQuotient / partyOne.length;
         setNEachMoney(defaultEachMoney);
+        setEachMoney((prev) => {
+            return prev.map((each) => {
+                return { ...each, amount: defaultEachMoney };
+            });
+        });
     };
 
     // N빵했을때 각 인당 가격
@@ -176,8 +182,10 @@ function Body() {
     const [clickedUserId, setClickedUserId] = useState(0);
     // 인당 가격 입력 전체 금액 계산
     let totalEachInputMoney = 0;
-    for (let i = 0; i < EachMoney.length; i++) {
-        totalEachInputMoney += EachMoney[i].amount;
+    if (calcType === 'input') {
+        for (let i = 0; i < EachMoney.length; i++) {
+            totalEachInputMoney += EachMoney[i].amount;
+        }
     }
 
     // 인당 가격 직접 입력 함수
@@ -283,7 +291,7 @@ function Body() {
                                 setMoney('');
                             }}
                         >
-                            엔빵하기
+                            1/N
                         </div>
                         <div
                             onClick={() => {
