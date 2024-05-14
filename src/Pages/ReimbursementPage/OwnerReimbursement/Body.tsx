@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
 import { ChevronRight, WhiteCancelIcon } from '../../../assets/svg';
+import ANIM from '../../../assets/ANIM.gif';
 import { BankLists } from '../../../assets/BankLists';
 import * as S from '../styles';
 import { instance } from '../../../axios';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useMyInfoStore } from '../../../state/store/MyInfo';
 import { useReimbursementMessageStore } from '../../../state/store/ReimbursementMessage';
 import { useRef } from 'react';
 import { serverTimestamp, ref as dbRef, set, push, child } from 'firebase/database';
 import 'moment/locale/ko';
 import { db } from '../../../firebase';
-import { calcLength } from 'framer-motion';
+import styled from 'styled-components';
+import useBottomSheet from '../../../Hooks/useBottonSheet';
+import BottomSheetHandle from '../../AddAccount/BankListSheet/BankListSheetHandle';
+import { motion } from 'framer-motion';
+import { WINDOWHEIGHT } from '../../../Constants/constant';
 
 interface PartyOneProps {
     nickname: string;
@@ -24,6 +29,21 @@ interface PostInfoType {
     roomId: string;
     userName: string;
 }
+
+interface EachAmountProps {
+    userId: number;
+    amount: number;
+    name: string;
+}
+interface MessageProps {
+    account: { bankName: string; accountNumber: string };
+    potName: string;
+    postId: number;
+    totalAmount: string;
+    EachAmount: EachAmountProps[];
+    totalPeople: number;
+}
+
 function Body() {
     const width = window.innerWidth - 40;
     const [partyOne, setPartyOne] = useState<PartyOneProps[]>([]);
@@ -36,18 +56,20 @@ function Body() {
     const [calcType, setCalcType] = useState('N');
     const windowHeight = window.innerHeight;
     const accountListsHeight = windowHeight - 111;
+    const token = localStorage.getItem('accessToken');
     // 계좌 리스트 오픈 여부
     const [isOpenAccountLists, setIsOpenAccountLists] = useState(false);
     // 선택된 계좌 인덱스, border 스타일링을 위해 사용
     const [selectSingleAccount, setSelectSingleAccount] = useState(-1);
     // 선택된 계좌 정보 (메시지 전송시 사용)
     const [selectedAccount, setSelectedAccount] = useState({ bankName: '', accountNumber: '' });
-    const { setReimbursementMessage } = useReimbursementMessageStore();
+    const { setReimbursementMessage, setEachAmount } = useReimbursementMessageStore();
     const roomId = potInfo.roomId;
     const name = potInfo.userName;
+    // 송금 메시지 데이터 생성 및 각 인원에 대한 정보 입력
+    const handleData = async () => {
+        handleUp();
 
-    // 송금 메시지 데이터 생성
-    const handleData = () => {
         if (potInfo?.postId === undefined) return;
         if (potInfo?.title === undefined) return;
         let totalMoney;
@@ -66,7 +88,70 @@ function Body() {
             totalPeople: EachMoney.length,
         });
     };
+    const [loading, setLoading] = useState(false);
 
+    const sendFare = async () => {
+        setLoading(true);
+        reimbursementMessage.EachAmount.map(async (each): Promise<void> => {
+            try {
+                const res = await instance.post(
+                    `participation-details/users/${each.userId}/posts/${postId}?fare=${each.amount}`,
+                    null,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    },
+                );
+                console.log('fare', res);
+            } catch (error) {
+                console.log(error);
+            }
+        });
+        console.log('loading', loading);
+        setTimeout(() => {
+            setShowNextButton(true);
+            console.log('showNextButton', showNextButton);
+        }, 2000);
+    };
+
+    interface EachMoneyProps {
+        userId: number;
+        amount: number;
+        name: string;
+    }
+
+    const { sheet, handleUp, content, handleDown } = useBottomSheet('BottomSheet');
+    const [showNextButton, setShowNextButton] = useState(false);
+
+    const calculation = async () => {
+        const arr: EachMoneyProps[] = [];
+        const res = await instance.post(`/posts/calculation/${postId}`);
+        if (res.status === 200) {
+            reimbursementMessage.EachAmount.map(async (each) => {
+                try {
+                    const res = await instance.get(
+                        `participation-details/payment/users/${each.userId}/posts/${postId}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        },
+                    );
+                    console.log('결과', res);
+
+                    if (res.status === 200) {
+                        arr.push({ userId: each.userId, amount: res.data.data.price, name: each.name });
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            });
+            console.log('arr', arr);
+            setEachAmount(arr);
+            setLoading(false);
+        }
+    };
     const messagesRef = dbRef(db, 'messages');
     const inputRef = useRef<HTMLInputElement>(null);
     const { reimbursementMessage } = useReimbursementMessageStore();
@@ -84,16 +169,18 @@ function Body() {
 
         return message;
     };
-
+    const navigate = useNavigate();
     const sendMessage = async () => {
         console.log(reimbursementMessage);
-        // try {
-        //     if (roomId === undefined) return;
-        //     await set(push(child(messagesRef, roomId)), createMessage());
-        //     inputRef.current?.focus();
-        // } catch (e) {
-        //     console.log(e);
-        // }
+
+        try {
+            if (roomId === undefined) return;
+            await set(push(child(messagesRef, roomId)), createMessage());
+            inputRef.current?.focus();
+        } catch (e) {
+            console.log(e);
+        }
+        navigate(`/chat/${postId}/${roomId}`);
     };
 
     const getPotInfo = async () => {
@@ -123,15 +210,10 @@ function Body() {
             setEachMoney(newArr.map((each) => ({ name: each.nickname, amount: 0, userId: each.userId })));
         }
     };
-    // 모여타에서 N빵 계산해주는 함수
-    const calcFinalMoney = async () => {
-        const res = await instance.post(`/posts/calculation/${postId}`);
-    };
 
     useEffect(() => {
         getPartyOne();
         getPotInfo();
-        calcFinalMoney();
     }, []);
     useEffect(() => {
         calcEachMoney();
@@ -243,6 +325,27 @@ function Body() {
         );
     });
 
+    const BottomSheetRender = partyOne.map((party) => {
+        let amount = 0;
+        reimbursementMessage.EachAmount.map((each) => {
+            if (each.userId === party.userId) {
+                amount = Number(each.amount);
+            }
+        });
+        return (
+            <S.PartyOneRow>
+                <S.MoneyLeft>
+                    <S.PartyOneImage src={party.profileImage} />
+                    {party.userId == Number(userId) && <S.PotOwner>나</S.PotOwner>}
+                    <S.PartyOneName>{party.nickname}</S.PartyOneName>
+                </S.MoneyLeft>
+                <S.MoneyRight>
+                    <S.EachMoney isMyPayment={false}>{amount}</S.EachMoney>
+                </S.MoneyRight>
+            </S.PartyOneRow>
+        );
+    });
+
     // 계좌 리스트 오픈 함수
     const selectAccount = () => {
         setIsOpenAccountLists(!isOpenAccountLists);
@@ -256,7 +359,6 @@ function Body() {
             accountNumber: accountDtoList[idx].accountNumber,
         });
     };
-
     return (
         <div
             style={{
@@ -390,10 +492,99 @@ function Body() {
                     </div>
                 )}
             </div>
+            <Bottom>
+                <Wrapper ref={sheet}>
+                    <div
+                        style={{
+                            marginTop: '17px',
+                            width: '100%',
+                            height: '100%',
+                            backgroundColor: 'white',
+                            borderRadius: '26px 26px 0 0',
+                        }}
+                    >
+                        <BottomSheetHandle />
+                        <div
+                            ref={content}
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                overflow: 'scroll',
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <BottomSheetContentWrapper>
+                                {!loading ? (
+                                    <div>
+                                        <div>
+                                            <div>최종확인</div>
+                                            <div>총 {reimbursementMessage.totalAmount}</div>
+                                        </div>
+                                        <div>파티원 {reimbursementMessage.totalPeople}명</div>
+                                        {BottomSheetRender}
+                                        {!showNextButton ? (
+                                            <div onClick={sendFare}>금액 입력</div>
+                                        ) : (
+                                            <div onClick={sendMessage}>요청하기</div>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div>
+                                        거리별 더치페이 계산하고있어요 잠시만 기다려주세요
+                                        <img
+                                            width={300}
+                                            height={300}
+                                            style={{ marginTop: '50px', borderRadius: '50%' }}
+                                            src={ANIM}
+                                        />
+                                        {showNextButton && (
+                                            <div
+                                                id="nextButton"
+                                                style={{ width: '1000ms', height: '1000ms', transition: '1000ms' }}
+                                                onClick={calculation}
+                                            >
+                                                다음
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+                            </BottomSheetContentWrapper>
+                        </div>
+                    </div>
+                </Wrapper>
+            </Bottom>
             <div onClick={handleData}>확인</div>
-            <div onClick={sendMessage}>메시지 보내기</div>
         </div>
     );
 }
 
+const Bottom = styled.div`
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 0;
+    background-color: aliceblue;
+`;
+const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    z-index: 10000;
+    width: 100%;
+    border-radius: 26px 26px 0 0;
+    height: 100%;
+    transition: transform 400ms ease-out;
+`;
+
+const BottomSheetContentWrapper = styled.div`
+    width: 80%;
+    /* height: ${WINDOWHEIGHT}; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+`;
 export default Body;
