@@ -94,7 +94,7 @@ function Body() {
         setLoading(true);
         reimbursementMessage.EachAmount.map(async (each): Promise<void> => {
             try {
-                const res = await instance.post(
+                await instance.post(
                     `participation-details/users/${each.userId}/posts/${postId}?fare=${each.amount}`,
                     null,
                     {
@@ -103,15 +103,12 @@ function Body() {
                         },
                     },
                 );
-                console.log('fare', res);
             } catch (error) {
                 console.log(error);
             }
         });
-        console.log('loading', loading);
         setTimeout(() => {
             setShowNextButton(true);
-            console.log('showNextButton', showNextButton);
         }, 2000);
     };
 
@@ -123,7 +120,7 @@ function Body() {
 
     const { sheet, handleUp, content, handleDown } = useBottomSheet('BottomSheet');
     const [showNextButton, setShowNextButton] = useState(false);
-
+    const [, setCalcResult] = useState<EachMoneyProps[]>([]);
     const calculation = async () => {
         const arr: EachMoneyProps[] = [];
         const res = await instance.post(`/posts/calculation/${postId}`);
@@ -138,8 +135,7 @@ function Body() {
                             },
                         },
                     );
-                    console.log('결과', res);
-
+                    setCalcResult(res.data.data);
                     if (res.status === 200) {
                         arr.push({ userId: each.userId, amount: res.data.data.price, name: each.name });
                     }
@@ -147,14 +143,16 @@ function Body() {
                     console.log(error);
                 }
             });
-            console.log('arr', arr);
-            setEachAmount(arr);
+            // setEachAmount(arr);
             setLoading(false);
+            setReimbursementMessage({ ...reimbursementMessage, EachAmount: arr }); // reimbursementMessage 객체도 업데이트
         }
     };
+
     const messagesRef = dbRef(db, 'messages');
     const inputRef = useRef<HTMLInputElement>(null);
     const { reimbursementMessage } = useReimbursementMessageStore();
+
     const createMessage = () => {
         const message = {
             key: roomId,
@@ -171,8 +169,6 @@ function Body() {
     };
     const navigate = useNavigate();
     const sendMessage = async () => {
-        console.log(reimbursementMessage);
-
         try {
             if (roomId === undefined) return;
             await set(push(child(messagesRef, roomId)), createMessage());
@@ -324,28 +320,31 @@ function Body() {
             </S.PartyOneRow>
         );
     });
-
-    const BottomSheetRender = partyOne.map((party) => {
-        let amount = 0;
-        reimbursementMessage.EachAmount.map((each) => {
-            if (each.userId === party.userId) {
-                amount = Number(each.amount);
-            }
+    const onClicked = (e: React.MouseEvent<HTMLDivElement>) => {
+        BottomSheetRender();
+    };
+    const BottomSheetRender = () => {
+        return partyOne.map((party) => {
+            let amount = 0;
+            reimbursementMessage.EachAmount.map((each) => {
+                if (each.userId === party.userId) {
+                    amount = Number(each.amount);
+                }
+            });
+            return (
+                <S.PartyOneRow>
+                    <S.MoneyLeft>
+                        <S.PartyOneImage src={party.profileImage} />
+                        {party.userId == Number(userId) && <S.PotOwner>나</S.PotOwner>}
+                        <S.PartyOneName>{party.nickname}</S.PartyOneName>
+                    </S.MoneyLeft>
+                    <S.MoneyRight>
+                        <S.EachMoney isMyPayment={false}>{amount}</S.EachMoney>
+                    </S.MoneyRight>
+                </S.PartyOneRow>
+            );
         });
-        return (
-            <S.PartyOneRow>
-                <S.MoneyLeft>
-                    <S.PartyOneImage src={party.profileImage} />
-                    {party.userId == Number(userId) && <S.PotOwner>나</S.PotOwner>}
-                    <S.PartyOneName>{party.nickname}</S.PartyOneName>
-                </S.MoneyLeft>
-                <S.MoneyRight>
-                    <S.EachMoney isMyPayment={false}>{amount}</S.EachMoney>
-                </S.MoneyRight>
-            </S.PartyOneRow>
-        );
-    });
-
+    };
     // 계좌 리스트 오픈 함수
     const selectAccount = () => {
         setIsOpenAccountLists(!isOpenAccountLists);
@@ -522,11 +521,14 @@ function Body() {
                                             <div>총 {reimbursementMessage.totalAmount}</div>
                                         </div>
                                         <div>파티원 {reimbursementMessage.totalPeople}명</div>
-                                        {BottomSheetRender}
+                                        {BottomSheetRender()}
                                         {!showNextButton ? (
                                             <div onClick={sendFare}>금액 입력</div>
                                         ) : (
-                                            <div onClick={sendMessage}>요청하기</div>
+                                            <div>
+                                                <div onClick={onClicked}>리렌더링</div>
+                                                <div onClick={sendMessage}>요청하기</div>
+                                            </div>
                                         )}
                                     </div>
                                 ) : (
