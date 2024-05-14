@@ -121,10 +121,6 @@ const router = createBrowserRouter([
         element: <BankRecommend />,
     },
     {
-        path: '/chatJsx',
-        element: <ChatReimbursement />,
-    },
-    {
         path: '/waitPlease',
         element: <WaitPlease />,
     },

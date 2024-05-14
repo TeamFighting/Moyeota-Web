@@ -15,7 +15,18 @@ export const PotOwner = styled.div`
     font-family: Pretendard;
     font-weight: 700;
 `;
-
+export const CalcTypeBar = styled.div<{ calcType: string }>`
+    width: 100%;
+    height: 25px;
+    white-space: nowrap;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: ${(props) => (props.calcType === props.className ? 600 : 400)};
+    color: ${(props) => (props.calcType === props.className ? '#343434' : '#9a9a9a')};
+    border-bottom: ${(props) => (props.calcType === props.className ? '2px solid #343434' : 'none')};
+    color: var(--Gray-Text-3, #343434);
+    margin-bottom: 10px;
+`;
 export const MoneyLeft = styled.div`
     display: flex;
     flex-direction: row;

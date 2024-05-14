@@ -285,22 +285,26 @@ function Body() {
                 </S.Content>
                 <S.Money>
                     <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-                        <div
+                        <S.CalcTypeBar
+                            calcType={calcType}
+                            className="N"
                             onClick={() => {
                                 setCalcType('N');
                                 setMoney('');
                             }}
                         >
                             1/N
-                        </div>
-                        <div
+                        </S.CalcTypeBar>
+                        <S.CalcTypeBar
+                            calcType={calcType}
+                            className="input"
                             onClick={() => {
                                 setCalcType('input');
                                 setMoney('');
                             }}
                         >
                             직접 입력
-                        </div>
+                        </S.CalcTypeBar>
                     </div>
                     {calcType === 'N' ? (
                         <div
