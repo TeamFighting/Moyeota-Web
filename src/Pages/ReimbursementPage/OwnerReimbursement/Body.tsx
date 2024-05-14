@@ -332,7 +332,7 @@ function Body() {
                 }
             });
             return (
-                <S.PartyOneRow>
+                <S.PartyOneRow style={{ marginBottom: '10px' }}>
                     <S.MoneyLeft>
                         <S.PartyOneImage src={party.profileImage} />
                         {party.userId == Number(userId) && <S.PotOwner>나</S.PotOwner>}
@@ -515,40 +515,99 @@ function Body() {
                         >
                             <BottomSheetContentWrapper>
                                 {!loading ? (
-                                    <div>
+                                    <div
+                                        style={{
+                                            width: '90%',
+                                            height: '100%',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            justifyContent: 'space-between',
+                                        }}
+                                    >
                                         <div>
-                                            <div>최종확인</div>
-                                            <div>총 {reimbursementMessage.totalAmount}</div>
+                                            <S.Title
+                                                style={{
+                                                    width: '100%',
+
+                                                    fontWeight: '600',
+                                                    fontSize: '20px',
+                                                }}
+                                            >
+                                                <div>최종확인</div>
+                                                <div>총 {reimbursementMessage.totalAmount}</div>
+                                            </S.Title>
+                                            <S.PartyText style={{ margin: '10px 0' }}>
+                                                파티원 {reimbursementMessage.totalPeople}명
+                                            </S.PartyText>
+                                            {BottomSheetRender()}
                                         </div>
-                                        <div>파티원 {reimbursementMessage.totalPeople}명</div>
-                                        {BottomSheetRender()}
-                                        {!showNextButton ? (
-                                            <div onClick={sendFare}>금액 입력</div>
-                                        ) : (
-                                            <div>
-                                                <div onClick={onClicked}>리렌더링</div>
-                                                <div onClick={sendMessage}>요청하기</div>
-                                            </div>
-                                        )}
+                                        <div
+                                            style={{
+                                                width: '100%',
+                                                height: '50px',
+                                                justifyContent: 'center',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                flexDirection: 'row',
+                                            }}
+                                        >
+                                            {!showNextButton ? (
+                                                <BottomSheetBTN onClick={sendFare}>금액 입력</BottomSheetBTN>
+                                            ) : (
+                                                <div
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '50px',
+                                                        justifyContent: 'center',
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        flexDirection: 'row',
+                                                        gap: '10px',
+                                                    }}
+                                                >
+                                                    <BottomSheetBTN onClick={sendMessage}>요청하기</BottomSheetBTN>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 ) : (
-                                    <div>
-                                        거리별 더치페이 계산하고있어요 잠시만 기다려주세요
-                                        <img
-                                            width={300}
-                                            height={300}
-                                            style={{ marginTop: '50px', borderRadius: '50%' }}
-                                            src={ANIM}
-                                        />
-                                        {showNextButton && (
-                                            <div
-                                                id="nextButton"
-                                                style={{ width: '1000ms', height: '1000ms', transition: '1000ms' }}
-                                                onClick={calculation}
-                                            >
-                                                다음
-                                            </div>
-                                        )}
+                                    <div
+                                        style={{
+                                            width: '90%',
+                                            height: '90%',
+                                            justifyContent: 'space-between',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <div
+                                            style={{
+                                                width: '100%',
+                                                height: '100%',
+                                                alignItems: 'center',
+                                            }}
+                                        >
+                                            <S.Title style={{ fontWeight: 630, fontSize: '20px' }}>
+                                                거리 별 더치페이 계산 중이예요 <br />
+                                                잠시만 기다려주세요
+                                            </S.Title>
+                                            <img
+                                                width={300}
+                                                height={300}
+                                                style={{ marginTop: '20px', borderRadius: '50%' }}
+                                                src={ANIM}
+                                            />
+                                        </div>
+                                        <div>
+                                            {showNextButton && (
+                                                <BottomSheetBTN
+                                                    id="nextButton"
+                                                    style={{ width: '1000ms', height: '1000ms', transition: '1000ms' }}
+                                                    onClick={calculation}
+                                                >
+                                                    다음
+                                                </BottomSheetBTN>
+                                            )}
+                                        </div>
                                     </div>
                                 )}
                             </BottomSheetContentWrapper>
@@ -560,16 +619,32 @@ function Body() {
         </div>
     );
 }
-
+const BottomSheetBTN = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 48px;
+    border-radius: 12px;
+    background: #1edd81;
+    color: #fff;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.54px;
+`;
 const Bottom = styled.div`
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     width: 100%;
     bottom: 0;
-    height: 0;
-    background-color: aliceblue;
+    height: auto; /* 아래에 있는 내용만큼 높이를 가지도록 */
 `;
+
 const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     display: flex;
     flex-direction: column;
@@ -579,14 +654,15 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     border-radius: 26px 26px 0 0;
     height: 100%;
     transition: transform 400ms ease-out;
+    margin-top: auto;
 `;
 
 const BottomSheetContentWrapper = styled.div`
-    width: 80%;
-    /* height: ${WINDOWHEIGHT}; */
+    width: 100%;
+    height: 60%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     margin: 0 10px;
+    align-items: center;
 `;
 export default Body;
