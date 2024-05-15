@@ -15,7 +15,6 @@ import styled from 'styled-components';
 import useBottomSheet from '../../../Hooks/useBottonSheet';
 import BottomSheetHandle from '../../AddAccount/BankListSheet/BankListSheetHandle';
 import { motion } from 'framer-motion';
-import { WINDOWHEIGHT } from '../../../Constants/constant';
 
 interface PartyOneProps {
     nickname: string;
@@ -28,20 +27,6 @@ interface PostInfoType {
     postId: number;
     roomId: string;
     userName: string;
-}
-
-interface EachAmountProps {
-    userId: number;
-    amount: number;
-    name: string;
-}
-interface MessageProps {
-    account: { bankName: string; accountNumber: string };
-    potName: string;
-    postId: number;
-    totalAmount: string;
-    EachAmount: EachAmountProps[];
-    totalPeople: number;
 }
 
 function Body() {
@@ -120,7 +105,7 @@ function Body() {
         isPartyOwner: boolean;
     }
 
-    const { sheet, handleUp, content, handleDown } = useBottomSheet('BottomSheet');
+    const { sheet, handleUp, content } = useBottomSheet('BottomSheet');
     const [showNextButton, setShowNextButton] = useState(false);
     const [, setCalcResult] = useState<EachMoneyProps[]>([]);
     const calculation = async () => {

@@ -3,7 +3,6 @@ import { CharacterCrown, ChatSeeU } from '../../assets/svg';
 import { PotOwner } from '../ReimbursementPage/styles';
 import { Image } from 'react-bootstrap';
 import { Time } from './style';
-import { useNavigate } from 'react-router';
 
 interface JSONType {
     potName: string;
