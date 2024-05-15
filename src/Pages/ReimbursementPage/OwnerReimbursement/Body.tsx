@@ -116,6 +116,8 @@ function Body() {
         userId: number;
         amount: number;
         name: string;
+        profileImage: string;
+        isPartyOwner: boolean;
     }
 
     const { sheet, handleUp, content, handleDown } = useBottomSheet('BottomSheet');
@@ -125,25 +127,37 @@ function Body() {
         const arr: EachMoneyProps[] = [];
         const res = await instance.post(`/posts/calculation/${postId}`);
         if (res.status === 200) {
-            reimbursementMessage.EachAmount.map(async (each) => {
-                try {
-                    const res = await instance.get(
-                        `participation-details/payment/users/${each.userId}/posts/${postId}`,
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
+            partyOne.map((party) => {
+                reimbursementMessage.EachAmount.map(async (each) => {
+                    try {
+                        const res = await instance.get(
+                            `participation-details/payment/users/${each.userId}/posts/${postId}`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${token}`,
+                                },
                             },
-                        },
-                    );
-                    setCalcResult(res.data.data);
-                    if (res.status === 200) {
-                        arr.push({ userId: each.userId, amount: res.data.data.price, name: each.name });
+                        );
+                        setCalcResult(res.data.data);
+
+                        if (res.status === 200) {
+                            if (each.userId === party.userId) {
+                                const isPartyOwner = each.userId === Number(userId);
+                                arr.push({
+                                    userId: each.userId,
+                                    amount: res.data.data.price,
+                                    name: each.name,
+                                    profileImage: party.profileImage,
+                                    isPartyOwner: isPartyOwner,
+                                });
+                            }
+                        }
+                    } catch (error) {
+                        console.log(error);
                     }
-                } catch (error) {
-                    console.log(error);
-                }
+                });
             });
-            // setEachAmount(arr);
+            setEachAmount(arr);
             setLoading(false);
             setReimbursementMessage({ ...reimbursementMessage, EachAmount: arr }); // reimbursementMessage 객체도 업데이트
         }
@@ -320,9 +334,7 @@ function Body() {
             </S.PartyOneRow>
         );
     });
-    const onClicked = (e: React.MouseEvent<HTMLDivElement>) => {
-        BottomSheetRender();
-    };
+
     const BottomSheetRender = () => {
         return partyOne.map((party) => {
             let amount = 0;
@@ -619,7 +631,7 @@ function Body() {
         </div>
     );
 }
-const BottomSheetBTN = styled.div`
+export const BottomSheetBTN = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;

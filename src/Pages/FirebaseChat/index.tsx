@@ -120,7 +120,7 @@ function FirebaseChat() {
                 } else {
                     const JSONMessage = items.JSONMessage;
                     const user = items.user;
-                    return ChatReimbursement({ JSONMessage, user, displayTime, timeValue });
+                    return ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate });
                 }
             })
         );

@@ -3,6 +3,7 @@ import { CharacterCrown, ChatSeeU } from '../../assets/svg';
 import { PotOwner } from '../ReimbursementPage/styles';
 import { Image } from 'react-bootstrap';
 import { Time } from './style';
+import { useNavigate } from 'react-router';
 
 interface JSONType {
     potName: string;
@@ -20,13 +21,18 @@ interface ChatReimbursementProps {
     };
     displayTime: boolean;
     timeValue: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    navigate: any;
 }
-function ChatReimbursement({ JSONMessage, user, displayTime, timeValue }: ChatReimbursementProps) {
+function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate }: ChatReimbursementProps) {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const data: JSONType = JSON.parse(JSONMessage);
     const isMe = user.id == Number(id);
     const jusify = isMe ? 'end' : 'start';
-
+    const navigateToApplierReimbursement = () => {
+        console.log('navigateToApplierReimbursement');
+        navigate(`/reimbursement/${data.postId}/${id}`, { state: { data } });
+    };
     return (
         <div
             style={{
@@ -123,7 +129,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue }: ChatRe
                                 </PotOwner>
                             ) : (
                                 <Participants>
-                                    <ParticipantsBTN>
+                                    <ParticipantsBTN onClick={() => navigateToApplierReimbursement()}>
                                         <div
                                             style={{
                                                 color: '#5D5D5D',

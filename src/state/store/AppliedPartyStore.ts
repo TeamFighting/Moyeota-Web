@@ -22,7 +22,7 @@ export const useAppliedPartyStore = create(
         }),
         {
             name: 'applied-party',
-            getStorage: () => sessionStorage,
+            getStorage: () => localStorage,
         },
     ),
 );
