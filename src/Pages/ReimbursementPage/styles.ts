@@ -15,7 +15,18 @@ export const PotOwner = styled.div`
     font-family: Pretendard;
     font-weight: 700;
 `;
-
+export const CalcTypeBar = styled.div<{ calcType: string }>`
+    width: 100%;
+    height: 25px;
+    white-space: nowrap;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: ${(props) => (props.calcType === props.className ? 600 : 400)};
+    color: ${(props) => (props.calcType === props.className ? '#343434' : '#9a9a9a')};
+    border-bottom: ${(props) => (props.calcType === props.className ? '2px solid #343434' : 'none')};
+    color: var(--Gray-Text-3, #343434);
+    margin-bottom: 10px;
+`;
 export const MoneyLeft = styled.div`
     display: flex;
     flex-direction: row;
@@ -97,7 +108,17 @@ export const MoneyInput = styled.input<{ inputName?: string }>`
         outline: none;
     }
 `;
+
 export const MoneyText = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 157%; /* 25.12px */
+`;
+
+export const MoneyExplainText = styled.div`
     color: #9a9a9a;
     font-family: Pretendard;
     font-size: 12px;
@@ -146,8 +167,7 @@ export const SelectAccount = styled.div<{ isClicked: boolean }>`
     flex-direction: row;
     gap: 8px;
     align-items: center;
-    justify-content: space-around;
-    margin-top: 16px;
+    justify-content: space-between;
     width: width;
     height: 63px;
     flex-shrink: 0;
@@ -167,6 +187,8 @@ export const SelectAccountText = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: 157%; /* 25.12px */
+    display: flex;
+    margin-left: 16px;
 `;
 
 export const SelectAccountIcon = styled.div`

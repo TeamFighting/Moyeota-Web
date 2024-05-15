@@ -4,7 +4,7 @@ interface myMessageProps {
     text: string;
     timestamp: number;
     user: {
-        id: string;
+        id: number;
         name: string;
         profileImage: string;
     };
@@ -14,7 +14,7 @@ interface profileTimeProps {
     index: number;
     items: {
         user: {
-            id: string;
+            id: number;
             name: string;
             profileImage: string;
         };

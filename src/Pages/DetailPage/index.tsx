@@ -62,6 +62,7 @@ function DetailPage() {
                 },
             });
             setMyPotContent(res.data.data.content);
+            console.log('MyContent', res);
         } catch (e) {
             // //console.log(e);
         }

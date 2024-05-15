@@ -30,7 +30,19 @@ function MatchApplyButton({ roomId, postId }: ApplyButtonProps) {
     const result = appliedParty.find((party) => party.postId === postId);
     const MyPotResult = MyPotContent.find((party) => party.postId === postId);
     if (MyPotResult !== undefined) {
-        return null;
+        return (
+            <Wrapper>
+                <ButtonCancel
+                    style={{ backgroundColor: '#1edd81', color: 'white' }}
+                    onClick={() => {
+                        handleChat();
+                    }}
+                    type="button"
+                >
+                    채팅하기
+                </ButtonCancel>
+            </Wrapper>
+        );
     } else if (result !== undefined) {
         return (
             <Wrapper>

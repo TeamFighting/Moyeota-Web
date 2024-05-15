@@ -21,8 +21,10 @@ import OwnerReimbursement from './Pages/ReimbursementPage/OwnerReimbursement';
 import ApplierReimbusement from './Pages/ReimbursementPage/ApplierReimbursement';
 import AddAccount from './Pages/AddAccount';
 import ChatPage from './Pages/(deprecated)ChatPage';
+import OwnerCalc from './Pages/ReimbursementPage/Calculation/OwnerCalc';
+import ApplierCalc from './Pages/ReimbursementPage/Calculation/ApplierCalc';
 import BankRecommend from './Pages/AddAccount/BankListSheet/BankRecommend';
-import Reimbursement from './Pages/FirebaseChat/Reimbursement';
+import WaitPlease from './Pages/ReimbursementPage/Calculation/WaitPlease';
 
 const router = createBrowserRouter([
     {
@@ -106,12 +108,20 @@ const router = createBrowserRouter([
         element: <AddAccount />,
     },
     {
+        path: '/OwnerCalc/:postId/:userId',
+        element: <OwnerCalc />,
+    },
+    {
+        path: '/ApplierCalc/:postId/:userId',
+        element: <ApplierCalc />,
+    },
+    {
         path: '/bankRecommend',
         element: <BankRecommend />,
     },
     {
-        path: '/chatJsx',
-        element: <Reimbursement />,
+        path: '/waitPlease',
+        element: <WaitPlease />,
     },
 ]);
 
