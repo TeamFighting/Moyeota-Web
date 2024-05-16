@@ -24,10 +24,10 @@ function UpdateHeader() {
 const Header = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: end;
-    height: ${HEADER_HEIGHT}px;
+    height: 64px;
     justify-content: space-between;
-    padding: 0 4%;
+    padding: 4% 4%;
+    align-items: center;
 `;
 const Icon = styled.div`
     cursor: pointer;
