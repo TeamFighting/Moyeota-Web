@@ -107,7 +107,7 @@ export default function useBottomSheet(str: string) {
         };
 
         const handleTouchEnd = () => {
-            document.body.style.overflowY = 'auto';
+            document.body.style.overflowY = 'hidden';
             const { touchMove } = metrics.current;
 
             // Snap Animation
