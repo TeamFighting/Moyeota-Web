@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import PotCreateStore from '../../../../state/store/PotCreateStore';
 import DurationFareStore from '../../../../state/store/DurationFareStore';
-import CurrentLocation from '../../../../state/store/CurrentLocation';
 import { instance } from '../../../../axios';
 import { useNavigate } from 'react-router-dom';
 import { ref, push, update, child } from 'firebase/database';

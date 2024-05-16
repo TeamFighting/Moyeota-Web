@@ -15,8 +15,6 @@ import { instance } from '../../axios';
 import getDays from '../util/getDays';
 import ISOto12 from '../util/ISOto12';
 import { useMyPotContentStore } from '../../state/store/MyPotPage';
-import CurrentLocationStore from '../../state/store/CurrentLocation';
-import LatLngAddStore from '../../state/store/LatLngAddstore';
 
 interface DetailPageProps {
     category: string;

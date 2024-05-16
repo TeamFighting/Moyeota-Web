@@ -3,8 +3,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import ContentStore from '../../../state/store/ContentStore';
 import { useQuickPotStore } from '../../../state/store/QuickPotStore';
 import { useClickedMarker } from '../../../state/store/ClickedMarker';
-import { instance } from '../../../axios';
 import LatLngAddStore from '../../../state/store/LatLngAddstore';
+import { instance } from '../../../axios';
 
 declare global {
     interface Window {
@@ -56,43 +56,43 @@ function NaverMap({ from }: { from: string }) {
         const fetchDestinations = async () => {
             if (quickPot.length !== 0) {
                 try {
-                    // const promises = quickPot.map((data) => {
-                    //     console.log(data.departure);
-                    //     instance
-                    //         .get(`/distance/keyword`, {
-                    //             params: { query: `${data.departure}` },
-                    //         })
-                    //         .then((res) => {
-                    //             setFinalArray((prev) => [
-                    //                 ...prev,
-                    //                 {
-                    //                     data: res.data.data,
-                    //                     status: res.status,
-                    //                     postId: data.postId,
-                    //                 },
-                    //             ]);
-                    //         });
-                    // });
-                    // await Promise.all(promises);
+                    const promises = quickPot.map((data) => {
+                        console.log(data.departure);
+                        instance
+                            .get(`/distance/keyword`, {
+                                params: { query: `${data.departure}` },
+                            })
+                            .then((res) => {
+                                setFinalArray((prev) => [
+                                    ...prev,
+                                    {
+                                        data: res.data.data,
+                                        status: res.status,
+                                        postId: data.postId,
+                                    },
+                                ]);
+                            });
+                    });
+                    await Promise.all(promises);
                 } catch (e) {
                     // //console.log(e);
                 }
             } else {
                 try {
-                    // const promises = departures.map((data) =>
-                    //     instance.get(`/distance/keyword`, {
-                    //         params: { query: `${data.departure}` },
-                    //     }),
-                    // );
-                    // const results = await Promise.all(promises);
-                    // const finalData = results.map((result) => ({
-                    //     data: result.data.data,
-                    //     status: result.status,
-                    //     postId: departures[results.indexOf(result)].postId,
-                    // }));
-                    // setFinalArray(finalData);
+                    const promises = departures.map((data) =>
+                        instance.get(`/distance/keyword`, {
+                            params: { query: `${data.departure}` },
+                        }),
+                    );
+                    const results = await Promise.all(promises);
+                    const finalData = results.map((result) => ({
+                        data: result.data.data,
+                        status: result.status,
+                        postId: departures[results.indexOf(result)].postId,
+                    }));
+                    setFinalArray(finalData);
                 } catch (e) {
-                    // //console.log(e);
+                    //console.log(e);
                 }
             }
         };

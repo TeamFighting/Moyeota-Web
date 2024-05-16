@@ -23,7 +23,12 @@ function UpdateBody({ destination }: CreateBodyProps) {
     const { currentLocation } = CurrentLocationStore();
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
     const { setDistance, setDestination } = PotCreateStore();
-
+    let curLat = data.latitude;
+    let curLng = data.longitude;
+    if (curLat == null || curLng == null || curLat == '' || curLng == '' || curLat == 'string' || curLng == 'string') {
+        curLat = '37.5662952';
+        curLng = '126.9779451';
+    }
     useEffect(() => {
         if (destination) {
             usePostDataStore.getState().setPostData({ destination });
@@ -120,7 +125,7 @@ function UpdateBody({ destination }: CreateBodyProps) {
                     value={data.title}
                 />
                 <S.MapSample>
-                    <DetailMap infoDeparture={currentLocation?.address_name} />
+                    <DetailMap curLat={curLat} curLng={curLng} />
                 </S.MapSample>{' '}
                 <S.Route>
                     <S.From>

@@ -21,6 +21,8 @@ function BottomSheet() {
                     width: '100%',
                     marginTop: '7px',
                     borderRadius: '26px 26px 0 0',
+                    backgroundColor: '#fff',
+                    paddingBottom: '100px',
                 }}
             >
                 <BottomSheetHandle />
@@ -41,9 +43,7 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     position: fixed;
     z-index: 10000;
     width: 100%;
-    height: calc(100vh + 164px);
     transition: transform 400ms ease-out;
-    background-color: white;
 `;
 const OpenBotton = styled.div`
     width: 96px;

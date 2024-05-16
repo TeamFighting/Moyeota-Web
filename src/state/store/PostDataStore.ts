@@ -1,50 +1,54 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
 interface PostDataStoreState {
     data: {
-        category: string
-        content: string
-        createAt: string
-        departure: string
-        departureTime: string
-        destination: string
-        distance: number
-        duration: number
-        fare: number
-        numberOfParticipants: number
-        numberOfRecruitment: number
-        postId: number
-        profileImage: string
-        sameGenderStatus: string
-        status: string
-        title: string
-        userGender: boolean
-        userName: string
-        vehicle: string
-        view: number
-    }
+        category: string;
+        content: string;
+        createAt: string;
+        departure: string;
+        departureTime: string;
+        destination: string;
+        distance: number;
+        duration: number;
+        fare: number;
+        numberOfParticipants: number;
+        numberOfRecruitment: number;
+        postId: number;
+        profileImage: string;
+        sameGenderStatus: string;
+        status: string;
+        title: string;
+        userGender: boolean;
+        userName: string;
+        vehicle: string;
+        view: number;
+        longitude: string;
+        latitude: string;
+    };
     setPostData: (data: {
-        category?: string
-        content?: string
-        createAt?: string
-        departure?: string
-        departureTime?: string
-        destination?: string
-        distance?: number
-        duration?: number
-        fare?: number
-        numberOfParticipants?: number
-        numberOfRecruitment?: number
-        postId?: number
-        profileImage?: string
-        sameGenderStatus?: string
-        status?: string
-        title?: string
-        userGender?: boolean
-        userName?: string
-        vehicle?: string
-        view?: number
-    }) => void
+        category?: string;
+        content?: string;
+        createAt?: string;
+        departure?: string;
+        departureTime?: string;
+        destination?: string;
+        distance?: number;
+        duration?: number;
+        fare?: number;
+        numberOfParticipants?: number;
+        numberOfRecruitment?: number;
+        postId?: number;
+        profileImage?: string;
+        sameGenderStatus?: string;
+        status?: string;
+        title?: string;
+        userGender?: boolean;
+        userName?: string;
+        vehicle?: string;
+        view?: number;
+        longitude: string;
+        latitude: string;
+    }) => void;
 }
 
 const usePostDataStore = create<PostDataStoreState>((set) => ({
@@ -69,8 +73,10 @@ const usePostDataStore = create<PostDataStoreState>((set) => ({
         userName: '',
         vehicle: '',
         view: 0,
+        longitude: '',
+        latitude: '',
     },
     setPostData: (newData) => set((state) => ({ data: { ...state.data, ...newData } })),
-}))
+}));
 
-export default usePostDataStore
+export default usePostDataStore;
