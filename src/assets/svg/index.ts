@@ -35,6 +35,7 @@ export { default as List } from './List';
 export { default as LocationFrom } from './LocationFrom';
 export { default as LocationMarker } from './LocationMarker';
 export { default as Logo } from './Logo';
+export { default as NotCheck } from './NotCheck';
 export { default as NotSelectedDestinationMarker } from './NotSelectedDestinationMarker';
 export { default as PencilIcon } from './PencilIcon';
 export { default as Plus } from './Plus';

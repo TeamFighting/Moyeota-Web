@@ -25,6 +25,7 @@ import OwnerCalc from './Pages/ReimbursementPage/Calculation/OwnerCalc';
 import ApplierCalc from './Pages/ReimbursementPage/Calculation/ApplierCalc';
 import BankRecommend from './Pages/AddAccount/BankListSheet/BankRecommend';
 import WaitPlease from './Pages/ReimbursementPage/Calculation/WaitPlease';
+import CurrentReimbursement from './Pages/ReimbursementPage/CurrentReimbursement';
 
 const router = createBrowserRouter([
     {
@@ -102,6 +103,10 @@ const router = createBrowserRouter([
     {
         path: '/reimbursement/:postId/:userId',
         element: <ApplierReimbusement />,
+    },
+    {
+        path: '/reimbursement/current/:postId/:userId',
+        element: <CurrentReimbursement />,
     },
     {
         path: '/:from/addaccount/:userId',

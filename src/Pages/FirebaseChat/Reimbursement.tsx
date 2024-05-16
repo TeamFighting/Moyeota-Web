@@ -32,6 +32,10 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
         console.log('navigateToApplierReimbursement');
         navigate(`/reimbursement/${data.postId}/${id}`, { state: { data } });
     };
+    const navigateToCurrentReimbursement = () => {
+        console.log('navigateToCurrentReimbursement');
+        navigate(`/reimbursement/current/${data.postId}/${id}`, { state: { data } });
+    };
     return (
         <div
             style={{
@@ -123,7 +127,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                         </Body>
                         <Bottom>
                             {isMe ? (
-                                <PotOwner>
+                                <PotOwner onClick={navigateToCurrentReimbursement}>
                                     <Status>정산 현황</Status>
                                 </PotOwner>
                             ) : (
@@ -143,7 +147,10 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                                             송금하기
                                         </div>
                                     </ParticipantsBTN>
-                                    <ParticipantsBTN style={{ backgroundColor: '#1EDD81', color: '#fff' }}>
+                                    <ParticipantsBTN
+                                        onClick={navigateToCurrentReimbursement}
+                                        style={{ backgroundColor: '#1EDD81', color: '#fff' }}
+                                    >
                                         <div
                                             style={{
                                                 textAlign: 'center',

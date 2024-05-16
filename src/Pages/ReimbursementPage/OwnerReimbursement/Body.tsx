@@ -77,7 +77,9 @@ function Body() {
 
     const sendFare = async () => {
         setLoading(true);
+        let max = -1;
         reimbursementMessage.EachAmount.map(async (each): Promise<void> => {
+            max = Math.max(max, each.amount);
             try {
                 await instance.post(
                     `participation-details/users/${each.userId}/posts/${postId}?fare=${each.amount}`,
@@ -92,6 +94,21 @@ function Body() {
                 console.log(error);
             }
         });
+
+        const rest = await instance.post(
+            `totalDetails/${postId}`,
+            {
+                totalDistance: 10,
+                totalPayment: max,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            },
+        );
+        console.log(rest);
+
         setTimeout(() => {
             setShowNextButton(true);
         }, 2000);
