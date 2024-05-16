@@ -46,8 +46,8 @@ interface PostDataStoreState {
         userName?: string;
         vehicle?: string;
         view?: number;
-        longitude: string;
-        latitude: string;
+        longitude?: string;
+        latitude?: string;
     }) => void;
 }
 

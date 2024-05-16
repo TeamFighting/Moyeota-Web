@@ -18,7 +18,6 @@ function UpdateBody({ destination }: CreateBodyProps) {
     const NavigateToDestination = () => {
         navigate('/updateDestinationPage');
     };
-    console.log('destination:', destination);
     const { data } = usePostDataStore();
     const { currentLocation } = CurrentLocationStore();
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
@@ -29,9 +28,12 @@ function UpdateBody({ destination }: CreateBodyProps) {
         curLat = '37.5662952';
         curLng = '126.9779451';
     }
+
     useEffect(() => {
         if (destination) {
-            usePostDataStore.getState().setPostData({ destination });
+            usePostDataStore.getState().setPostData({
+                destination,
+            });
         }
     }, [destination]);
 
@@ -101,7 +103,11 @@ function UpdateBody({ destination }: CreateBodyProps) {
 
     const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
-        usePostDataStore.getState().setPostData({ title: inputValue });
+        usePostDataStore.getState().setPostData({
+            title: inputValue,
+            longitude: '',
+            latitude: '',
+        });
     };
 
     useEffect(() => {

@@ -1,10 +1,6 @@
 import * as S from './style';
 import * as St from '../styles';
-import SvgCheck from '../../../assets/svg/Check';
-import SvgCheckCircle from '../../../assets/svg/CheckCircle';
-import SvgWhiteCancelIcon from '../../../assets/svg/WhiteCancelIcon';
 import SvgNotCheck from '../../../assets/svg/NotCheck';
-import styled from 'styled-components';
 
 interface BodyDataProps {
     data: {
