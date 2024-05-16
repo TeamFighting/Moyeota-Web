@@ -15,6 +15,8 @@ import { instance } from '../../axios';
 import getDays from '../util/getDays';
 import ISOto12 from '../util/ISOto12';
 import { useMyPotContentStore } from '../../state/store/MyPotPage';
+import CurrentLocationStore from '../../state/store/CurrentLocation';
+import LatLngAddStore from '../../state/store/LatLngAddstore';
 
 interface DetailPageProps {
     category: string;
@@ -38,6 +40,8 @@ interface DetailPageProps {
     vehicle: string;
     view: number;
     roomId: string;
+    latitude: string;
+    longitude: string;
 }
 
 function DetailPage() {
@@ -62,7 +66,6 @@ function DetailPage() {
                 },
             });
             setMyPotContent(res.data.data.content);
-            console.log('MyContent', res);
         } catch (e) {
             // //console.log(e);
         }
@@ -82,6 +85,7 @@ function DetailPage() {
     const getDetailData = async () => {
         const res = await instance.get(`/posts/${postId}`);
         setData(res.data.data);
+        console.log('RES', res.data.data);
         if (res.data.data.numberOfParticipants == res.data.data.numberOfRecruitment) {
             setIsFull(true);
         }

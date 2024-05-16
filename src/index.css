@@ -13,5 +13,6 @@ body {
     margin: 0;
     -webkit-overflow-scrolling: touch;
     overflow: hidden;
+    overflow-y: hidden;
     touch-action: none;
 }

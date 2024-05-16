@@ -25,6 +25,8 @@ interface DetailPageProps {
     vehicle: string;
     view: number;
     roomId: string;
+    latitude: string;
+    longitude: string;
 }
 function DetailBody(data: DetailPageProps) {
     const ago = createAgo(data.createAt);
@@ -33,6 +35,12 @@ function DetailBody(data: DetailPageProps) {
         gender = '여';
     } else {
         gender = '남';
+    }
+    let latitude = data.latitude;
+    let longitude = data.longitude;
+    if (latitude == null || longitude == null) {
+        longitude = '127.0276';
+        latitude = '37.4979';
     }
     return (
         <S.Body>
@@ -54,7 +62,7 @@ function DetailBody(data: DetailPageProps) {
                     </S.ContentDetail>
                 </S.Explanation>
                 <S.MapSample>
-                    <DetailMap keyWordDeparture={data.departure} />
+                    <DetailMap curLat={latitude} curLng={longitude} />
                 </S.MapSample>
                 <S.Route>
                     <S.From>

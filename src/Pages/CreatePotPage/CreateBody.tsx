@@ -17,8 +17,10 @@ function CreateBody() {
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
     const { title, setTitle, setDistance, setDestination } = PotCreateStore();
     const { currentLocation } = CurrentLocationStore();
+    const curLocation = localStorage.getItem('address');
+    const curLat = localStorage.getItem('latitude');
+    const curLng = localStorage.getItem('longitude');
     const { finalDestination: destination } = DestinationStore((state) => state);
-
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {
         return instance
@@ -59,19 +61,20 @@ function CreateBody() {
 
     //거리 계산
     useEffect(() => {
-        if (currentLocation && destination) {
+        if (curLocation && destination) {
             convertDestinationToRoadAddress(destination).then((roadDestination) => {
                 if (roadDestination) {
                     instance
                         .get('/distance/compare', {
                             params: {
-                                address1: currentLocation,
+                                address1: curLocation,
                                 address2: roadDestination,
                             },
                         })
                         .then((response) => {
                             const data = response.data.data;
                             const distance = parseFloat(data);
+                            console.log('distance:', distance);
                             setDistance(distance);
                         })
                         .catch((error) => {
@@ -81,7 +84,7 @@ function CreateBody() {
             });
             setDestination(destination);
         }
-    }, [currentLocation, destination]);
+    }, [curLocation, destination]);
 
     const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
@@ -90,10 +93,12 @@ function CreateBody() {
 
     useEffect(() => {
         // getCurrentLocation();
-        if (currentLocation && destination) {
-            getEstimatedDurationAndFare(currentLocation.address_name, destination);
+        if (curLocation && destination) {
+            getEstimatedDurationAndFare(curLocation, destination);
         }
     }, [currentLocation, destination]);
+
+    if (curLat == null || curLng == null) return;
 
     return (
         <S.Body>
@@ -110,7 +115,7 @@ function CreateBody() {
                     value={title}
                 />
                 <S.MapSample>
-                    <DetailMap infoDeparture={currentLocation?.address_name} />
+                    <DetailMap curLat={curLat} curLng={curLng} />
                 </S.MapSample>
                 <S.Route>
                     <S.From>
@@ -118,9 +123,7 @@ function CreateBody() {
                             <LocationFrom width="24" height="64" />
                             <S.Text>
                                 <S.StartPointLocation>
-                                    {currentLocation?.address_name
-                                        ? currentLocation.address_name
-                                        : '현재 위치를 가져오는 중...'}
+                                    {currentLocation?.address_name ? currentLocation.address_name : curLocation}
                                 </S.StartPointLocation>
                                 <S.StartPoint>출발지</S.StartPoint>
                             </S.Text>

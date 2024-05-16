@@ -3,6 +3,9 @@ import * as S from './style';
 import TimeModal from './Components/Modal/TimeModal';
 import { SetStateAction, useEffect, useState } from 'react';
 import PotCreateStore from '../../state/store/PotCreateStore';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 declare global {
     interface Window {
@@ -50,37 +53,48 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     };
 
     const isSelectionComplete = totalPeople > 1;
+    const [DateTimeValue, setDateTimeValue] = useState<Dayjs | null>(null);
+    console.log(new Date());
+    // console.log('DateTimeValue:', DateTimeValue.getMilliseconds());
 
-    const connectToRN = () => {
-        window.ReactNativeWebView.postMessage('please open time modal');
-    };
-    useEffect(() => {
-        window.addEventListener('message', (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                if (data.selectedTime !== undefined) {
-                    setSelectedTime(data.selectedTime);
-                }
-            } catch (error) {
-                console.error('error:', error);
-            }
-        });
-    }, []);
+    // const connectToRN = () => {
+    //     window.ReactNativeWebView.postMessage('please open time modal');
+    // };
+    // useEffect(() => {
+    //     window.addEventListener('message', (event) => {
+    //         try {
+    //             const data = JSON.parse(event.data);
+    //             if (data.selectedTime !== undefined) {
+    //                 setSelectedTime(data.selectedTime);
+    //             }
+    //         } catch (error) {
+    //             console.error('error:', error);
+    //         }
+    //     });
+    // }, []);
 
     return (
         <S.Bottom>
             <S.Wrapper
-                onClick={connectToRN}
                 style={{
                     paddingBottom: '40px',
                 }}
             >
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
+
+                    <DateTimePicker
+                        value={DateTimeValue}
+                        onChange={(newValue) => {
+                            setDateTimeValue(newValue);
+                            if (newValue != null) setSelectedTime(newValue?.format('YYYY-MM-DD HH:mm:ss'));
+                        }}
+                    />
                     <S.Description>
-                        {selectedTime != '' ? (
+                        {/* {DateTimeValue != null ? (
                             <S.SelectedInfo>
                                 <div>
+                                    {selectedTime} <br />
                                     {new Date(selectedTime)
                                         .toLocaleString('ko-KR', {
                                             weekday: 'short',
@@ -96,7 +110,7 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                             </S.SelectedInfo>
                         ) : (
                             '탑승일시를 선택해주세요'
-                        )}
+                        )} */}
                     </S.Description>
                 </S.TextWrapper>
                 <ChevronRight width="24" height="24" />

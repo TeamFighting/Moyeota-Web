@@ -9,7 +9,7 @@ import { WINDOWHEIGHT } from '../../../../Constants/constant';
 
 function BottomSheet() {
     const { sheet, handleUp, content } = useBottomSheet('BottomSheet');
-
+    // bottomBar 없어지면 marginTop 조정
     return (
         <Wrapper ref={sheet}>
             <OpenBotton onClick={handleUp}>
@@ -18,16 +18,14 @@ function BottomSheet() {
             </OpenBotton>
             <div
                 style={{
-                    marginTop: '17px',
                     width: '100%',
-                    height: '100%',
-                    backgroundColor: 'white',
+                    marginTop: '7px',
                     borderRadius: '26px 26px 0 0',
                 }}
             >
                 <BottomSheetHandle />
                 <ContentHeader />
-                <div ref={content} style={{ width: '100%', height: '100%', overflow: 'scroll' }}>
+                <div ref={content} style={{ width: '100%', overflow: 'scroll' }}>
                     <BottomSheetContentWrapper>
                         <BottomSheetContent />
                     </BottomSheetContentWrapper>
@@ -43,9 +41,9 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     position: fixed;
     z-index: 10000;
     width: 100%;
-    border-radius: 26px 26px 0 0;
-    height: 150%;
+    height: calc(100vh + 164px);
     transition: transform 400ms ease-out;
+    background-color: white;
 `;
 const OpenBotton = styled.div`
     width: 96px;
@@ -70,6 +68,6 @@ const OpenBotton = styled.div`
 `;
 const BottomSheetContentWrapper = styled.div`
     width: 100%;
-    height: ${WINDOWHEIGHT};
+    height: ${WINDOWHEIGHT + 64};
 `;
 export default BottomSheet;

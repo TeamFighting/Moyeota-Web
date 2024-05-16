@@ -42,8 +42,8 @@ const Section = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    height: 100%;
     flex: 1;
+    height: 100%;
 `;
 const Text = styled.div`
     color: var(--Icon, #606060);
@@ -57,7 +57,7 @@ const Text = styled.div`
 const Wrapper = styled.div`
     width: 100vw;
     height: 74px;
-    position: relative;
+    position: absolute;
     bottom: 0;
     z-index: 10000000000000;
     background-color: white;

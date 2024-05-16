@@ -301,6 +301,7 @@ function Body() {
         return (
             <S.PartyOneRow>
                 <S.MoneyLeft>
+                    d
                     <S.PartyOneImage src={party.profileImage} />
                     {party.userId == Number(userId) && <S.PotOwner>나</S.PotOwner>}
                     <S.PartyOneName>{party.nickname}</S.PartyOneName>
@@ -669,6 +670,7 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     height: 100%;
     transition: transform 400ms ease-out;
     margin-top: auto;
+    margin-bottom: 100px;
 `;
 
 const BottomSheetContentWrapper = styled.div`

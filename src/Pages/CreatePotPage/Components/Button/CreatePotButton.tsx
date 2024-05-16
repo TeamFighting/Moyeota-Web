@@ -10,7 +10,6 @@ import { db } from '../../../../firebase';
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const potCreateStore = PotCreateStore();
     const durationFareStore = DurationFareStore();
-    const currentLocationStore = CurrentLocation();
     const navigate = useNavigate();
     const accessToken = localStorage.getItem('accessToken');
 
@@ -26,6 +25,8 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         selectedTime,
     } = potCreateStore;
     const { estimatedDuration, estimatedFare } = durationFareStore;
+    const currentLat = localStorage.getItem('latitude');
+    const currentLng = localStorage.getItem('longitude');
     const createPost = async () => {
         const key = push(chatRoomsRef).key;
         const newChatRoom = {
@@ -40,9 +41,10 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         try {
             await update(child(chatRoomsRef, key as string), newChatRoom);
             // console.log('res:', res);
-            const formattedDate = new Date().toISOString;
+            const formattedDate = new Date();
+
             const numberOfRecruitment = totalPeople;
-            const departure = currentLocationStore.currentLocation?.address_name;
+            const departure = localStorage.getItem('address');
             const response = await instance.post(
                 '/posts',
                 // {
@@ -67,7 +69,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     content: content,
                     createdDate: formattedDate,
                     departure: departure,
-                    departureTime: selectedTime,
+                    departureTime: new Date(selectedTime),
                     destination: destination,
                     distance: distance,
                     duration: estimatedDuration,
@@ -78,6 +80,8 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     title: title,
                     vehicle: vehicle,
                     roomId: key,
+                    latitude: currentLat,
+                    longitude: currentLng,
                 },
                 {
                     headers: {

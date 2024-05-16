@@ -26,6 +26,8 @@ import ApplierCalc from './Pages/ReimbursementPage/Calculation/ApplierCalc';
 import BankRecommend from './Pages/AddAccount/BankListSheet/BankRecommend';
 import WaitPlease from './Pages/ReimbursementPage/Calculation/WaitPlease';
 import CurrentReimbursement from './Pages/ReimbursementPage/CurrentReimbursement';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 const router = createBrowserRouter([
     {
@@ -132,6 +134,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     // <React.StrictMode>
-    <RouterProvider router={router} />,
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <RouterProvider router={router} />,
+    </LocalizationProvider>,
     // </React.StrictMode>
 );

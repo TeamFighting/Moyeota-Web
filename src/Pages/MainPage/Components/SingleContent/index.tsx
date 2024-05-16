@@ -105,8 +105,7 @@ export default SingleContent;
 const Bottom = styled.div`
     display: flex;
     flex-direction: row;
-    margin-top: 18px;
-    margin-left: 22px;
+    padding: 8px 15px;
     align-items: center;
 `;
 
