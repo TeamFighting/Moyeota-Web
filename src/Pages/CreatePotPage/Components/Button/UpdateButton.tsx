@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
-function UpdateButton() {
+function UpdateButton({ postId }: { postId: number }) {
     const navigate = useNavigate();
     const goToUpdate = () => {
-        navigate('/updatePotPage');
+        navigate(`/updatePot/${postId}`);
     };
     return (
         <Wrapper>

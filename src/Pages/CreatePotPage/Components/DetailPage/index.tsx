@@ -61,7 +61,7 @@ function DetailPage() {
             <DetailBottom />
             <Divider style={{ height: `${dividerHeight}px` }} />
             <DetailPartySection />
-            {!isModalOpen && <UpdateButton />}
+            {!isModalOpen && <UpdateButton postId={postId} />}
         </S.Container>
     );
 }

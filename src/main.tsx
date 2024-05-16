@@ -79,7 +79,7 @@ const router = createBrowserRouter([
         element: <CreateDetailPage />,
     },
     {
-        path: '/updatepot',
+        path: '/updatepot/:postId',
         element: <UpdatePotPage />,
     },
     {
