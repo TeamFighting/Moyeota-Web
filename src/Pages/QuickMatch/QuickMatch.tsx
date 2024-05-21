@@ -16,12 +16,10 @@ function QuickMatch() {
     const { destination, setDestination } = useQuickMathDestinationStore();
     const { totalData } = ContentStore();
     const handleDestination = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // console.log(e.target.value);
         setDestination(e.target.value);
     };
 
     const handleTime = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // console.log(e.target.value)
         setTime(e.target.value);
     };
 
@@ -37,6 +35,7 @@ function QuickMatch() {
             .map((data: object) => {
                 return data;
             });
+        console.log(pot);
         setQuickPot(pot);
         if (destination !== '' && time !== '') {
             navigate('/quickMatchFinding', {

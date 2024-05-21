@@ -12,7 +12,7 @@ function UpdateDestinationPage() {
         navigate('/UpdateSearchResults');
     };
     const goToback = () => {
-        navigate('/updatePotPage');
+        // navigate('/updatePotPage');
     };
     const location = useLocation();
     const destination = (new URLSearchParams(location.search).get('destination') || undefined) as string | undefined;

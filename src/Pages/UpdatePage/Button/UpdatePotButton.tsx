@@ -2,25 +2,41 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import PotCreateStore from '../../../state/store/PotCreateStore';
 import DurationFareStore from '../../../state/store/DurationFareStore';
-import CurrentLocation from '../../../state/store/CurrentLocation';
 import usePostDataStore from '../../../state/store/PostDataStore';
-import { AuthStore } from '../../../state/store/AuthStore';
-function CreatePotButton({ totalPeople }: { totalPeople: number }) {
+function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number; roomId: string; postId: number }) {
     const navigate = useNavigate();
-    const currentLocationStore = CurrentLocation();
     const { data } = usePostDataStore();
-
+    const currentDate = new Date();
+    const formattedDate = currentDate.toISOString();
+    const { distance, selectedTime } = PotCreateStore();
+    const { estimatedDuration, estimatedFare } = DurationFareStore();
+    const { content, destination, sameGenderStatus, vehicle, title } = data;
+    const numberOfRecruitment = totalPeople;
+    const departure = localStorage.getItem('address');
+    const accessToken = localStorage.getItem('accessToken');
+    const latitude = localStorage.getItem('latitude');
+    const longitude = localStorage.getItem('longitude');
+    console.log('content', content);
+    console.log('departure', departure);
+    console.log('createdDate', formattedDate);
+    console.log(
+        'departureTime',
+        selectedTime, //departureTime으로 바꾸기
+    );
+    console.log('destination', destination);
+    console.log('distance', distance);
+    console.log('duration', estimatedDuration);
+    console.log('fare', estimatedFare);
+    console.log('numberOfRecruitment', numberOfRecruitment);
+    console.log('sameGenderStatus', sameGenderStatus);
+    console.log('title', title);
+    console.log('vehicle', vehicle);
+    console.log('latitude', latitude);
+    console.log('longitude', longitude);
+    console.log('modifiedDate', formattedDate);
+    console.log('roomId', roomId);
     const updatePost = async () => {
         try {
-            const currentDate = new Date();
-            const formattedDate = currentDate.toISOString();
-            const { distance } = PotCreateStore();
-            const { estimatedDuration, estimatedFare } = DurationFareStore();
-            const { postId, content, destination, sameGenderStatus, vehicle, title } = data;
-            const numberOfRecruitment = totalPeople;
-            const departure = currentLocationStore.currentLocation?.building_name ?? '미입력';
-            const { accessToken } = AuthStore();
-
             const response = await fetch(`/posts/${postId}`, {
                 method: 'PATCH',
                 headers: {
@@ -31,7 +47,8 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     category: 'LIFE',
                     content: content,
                     departure: departure,
-                    departureTime: formattedDate, //departureTime으로 바꾸기
+                    createdDate: formattedDate,
+                    departureTime: selectedTime, //departureTime으로 바꾸기
                     destination: destination,
                     distance: distance,
                     duration: estimatedDuration,
@@ -40,8 +57,34 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     sameGenderStatus: sameGenderStatus,
                     title: title,
                     vehicle: vehicle,
+                    latitude: latitude,
+                    longitude: longitude,
+                    modifiedDate: formattedDate,
+                    roomId: roomId,
                 }),
             });
+
+            /**
+             *{
+  "category": "LIFE",
+  "content": "같이 갈 사람 참가 신청 ㄱㄱ",
+  "createdDate": "2024-05-16T12:02:27.071Z",
+  "departure": "공릉역 7호선",
+  "departureTime": "2024-05-16T12:02:27.071Z",
+  "destination": "서울과학기술대학교 어의관",
+  "distance": 0.5,
+  "duration": 313,
+  "fare": 5200,
+  "latitude": "string",
+  "longitude": "string",
+  "modifiedDate": "2024-05-16T12:02:27.071Z",
+  "numberOfRecruitment": 4,
+  "roomId": "uuid",
+  "sameGenderStatus": "YES",
+  "title": "공릉역에서 어의관 갈사람?",
+  "vehicle": "일반"
+}
+             */
 
             if (response.status == 200) {
                 alert('팟이 성공적으로 수정되었습니다.');

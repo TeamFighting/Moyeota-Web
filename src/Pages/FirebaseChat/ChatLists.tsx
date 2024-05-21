@@ -66,6 +66,7 @@ function ChatLists() {
         });
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         setChatRooms(res.data.data);
+        console.log('chatRooms', res.data.data);
     };
     // 채팅방에 메시지가 도착할 때 호출
 

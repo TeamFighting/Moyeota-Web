@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         element: <CreateComplete />,
     },
     {
-        path: '/DestinationPage',
+        path: '/DestinationPage/:from/:postId',
         element: <DestinationPage />,
     },
     {
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         element: <UpdateDestinationPage />,
     },
     {
-        path: '/searchresults',
+        path: '/searchresults/:from/:postId',
         element: <SearchResults />,
     },
     {

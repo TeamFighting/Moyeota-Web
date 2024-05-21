@@ -1,6 +1,6 @@
 import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg';
 import * as S from './style';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ChangeEvent, useEffect } from 'react';
 import DurationFareStore from '../../state/store/DurationFareStore';
 import PotCreateStore from '../../state/store/PotCreateStore';
@@ -11,8 +11,9 @@ import DestinationStore from '../../state/store/DestinationResult';
 
 function CreateBody() {
     const navigate = useNavigate();
+    const { postId } = useParams();
     const NavigateToDestination = () => {
-        navigate('/destinationPage');
+        navigate(`/destinationPage/create/${postId}`);
     };
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
     const { title, setTitle, setDistance, setDestination } = PotCreateStore();

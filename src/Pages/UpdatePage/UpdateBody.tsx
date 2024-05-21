@@ -13,12 +13,36 @@ interface CreateBodyProps {
     destination?: string;
 }
 
-function UpdateBody({ destination }: CreateBodyProps) {
+interface PostProps {
+    category: string;
+    content: string;
+    createAt: string;
+    departure: string;
+    departureTime: string;
+    destination: string;
+    distance: number;
+    duration: number;
+    fare: number;
+    numberOfParticipants: number;
+    numberOfRecruitment: number;
+    postId: number;
+    profileImage: string;
+    sameGenderStatus: string;
+    status: string;
+    title: string;
+    userGender: boolean;
+    userName: string;
+    vehicle: string;
+    view: number;
+    longitude: string;
+    latitude: string;
+}
+
+function UpdateBody(data: PostProps) {
     const navigate = useNavigate();
     const NavigateToDestination = () => {
-        navigate('/updateDestinationPage');
+        navigate(`/DestinationPage/Update/${data.postId}`);
     };
-    const { data } = usePostDataStore();
     const { currentLocation } = CurrentLocationStore();
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
     const { setDistance, setDestination } = PotCreateStore();
@@ -28,7 +52,18 @@ function UpdateBody({ destination }: CreateBodyProps) {
         curLat = '37.5662952';
         curLng = '126.9779451';
     }
+    const newD = (new URLSearchParams(location.search).get('destination') || undefined) as string;
 
+    const destination = data.destination;
+    const currentlocation = data.departure;
+
+    useEffect(() => {
+        if (data.title) {
+            usePostDataStore.getState().setPostData({
+                title: data.title,
+            });
+        }
+    }, []);
     useEffect(() => {
         if (destination) {
             usePostDataStore.getState().setPostData({
@@ -65,6 +100,7 @@ function UpdateBody({ destination }: CreateBodyProps) {
                     })
                     .then((response) => {
                         const data = response.data;
+                        console.log('UPDATE BODY DURATION', data.data.duration);
                         setEstimatedDuration(data.data.duration);
                         setEstimatedFare(data.data.fare);
                     })
@@ -77,19 +113,21 @@ function UpdateBody({ destination }: CreateBodyProps) {
 
     //거리 계산
     useEffect(() => {
-        if (currentLocation?.address_name && destination) {
-            convertDestinationToRoadAddress(destination).then((roadDestination) => {
+        console.log('UPDATE BODY', data.departure, destination, newD);
+        if (data.departure && newD) {
+            convertDestinationToRoadAddress(newD).then((roadDestination) => {
                 if (roadDestination) {
                     instance
                         .get('/distance/compare', {
                             params: {
-                                address1: currentLocation.address_name,
+                                address1: data.departure,
                                 address2: roadDestination,
                             },
                         })
                         .then((response) => {
                             const data = response.data.data;
                             const distance = parseFloat(data);
+                            console.log('UPDATE BODY DISTANCE', distance);
                             setDistance(distance);
                         })
                         .catch((error) => {
@@ -99,7 +137,7 @@ function UpdateBody({ destination }: CreateBodyProps) {
             });
             setDestination(destination);
         }
-    }, [currentLocation, destination]);
+    }, [currentLocation, destination, newD]);
 
     const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
@@ -111,10 +149,10 @@ function UpdateBody({ destination }: CreateBodyProps) {
     };
 
     useEffect(() => {
-        if (currentLocation && destination) {
-            getEstimatedDurationAndFare(currentLocation.address_name, destination);
+        if (data.departure && newD) {
+            getEstimatedDurationAndFare(data.departure, newD);
         }
-    }, [currentLocation, destination]);
+    }, [currentLocation, newD]);
 
     return (
         <S.Body>
@@ -128,7 +166,7 @@ function UpdateBody({ destination }: CreateBodyProps) {
                     type="text"
                     placeholder="지역, 목적지가 포함된 제목이면 더 좋아요"
                     onChange={handleTitleChange}
-                    value={data.title}
+                    defaultValue={data.title}
                 />
                 <S.MapSample>
                     <DetailMap curLat={curLat} curLng={curLng} />
@@ -139,9 +177,7 @@ function UpdateBody({ destination }: CreateBodyProps) {
                             <LocationFrom width="24" height="64" />
                             <S.Text>
                                 <S.StartPointLocation>
-                                    {currentLocation?.address_name
-                                        ? currentLocation.address_name
-                                        : '현재 위치를 가져오는 중...'}
+                                    {currentLocation?.address_name ? currentLocation.address_name : currentlocation}
                                 </S.StartPointLocation>
                                 <S.StartPoint>출발지</S.StartPoint>
                             </S.Text>
@@ -162,7 +198,9 @@ function UpdateBody({ destination }: CreateBodyProps) {
                                 <LocationMarker width="24" height="24" />
                             </S.Icon>
                             <S.Text>
-                                <S.StartPointLocation>{data.destination}</S.StartPointLocation>
+                                <S.StartPointLocation>
+                                    {newD === undefined ? data.destination : newD}
+                                </S.StartPointLocation>
                                 <S.StartPoint>도착지</S.StartPoint>
                             </S.Text>
                         </div>

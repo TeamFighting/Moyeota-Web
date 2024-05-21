@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { HEADER_HEIGHT } from '../../../../Constants/constant';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CheveronLeft from '../../../../assets/svg/Chevronleft';
 import My_location from '../../../../assets/svg/My_location';
 import Star from '../../../../assets/svg/Star';
@@ -8,9 +8,9 @@ import { useState } from 'react';
 
 function SearchResults() {
     const navigate = useNavigate();
-
+    const { from, postId } = useParams();
     const goBack = () => {
-        navigate('/destinationPage');
+        navigate(`/destinationPage/${from}/${postId}`);
     };
 
     const [destination, setDestination] = useState('');
@@ -21,7 +21,7 @@ function SearchResults() {
 
     const goTomap = () => {
         if (destination) {
-            navigate(`/destinationPage?destination=${destination}`);
+            navigate(`/destinationPage/${from}/${postId}?destination=${destination}`);
         } else {
             alert('검색어를 입력해주세요');
         }

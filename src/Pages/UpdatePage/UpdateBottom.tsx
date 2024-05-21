@@ -1,10 +1,11 @@
 import { ChevronRight } from '../../assets/svg';
-import * as S from '../CreatePotPage/style';
-import TimeModal from './Modal/TimeModal';
-import { SetStateAction, useState, useEffect } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import PotCreateStore from '../../state/store/PotCreateStore';
-import usePostDataStore from '../../state/store/PostDataStore';
-
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { Dayjs } from 'dayjs';
+import * as S from '../CreatePotPage/style';
+import TimeModal from '../CreatePotPage/Components/Modal/TimeModal';
+import dayjs from 'dayjs';
 declare global {
     interface Window {
         ReactNativeWebView: {
@@ -16,22 +17,36 @@ declare global {
 interface CreateBottomProps {
     totalPeople: number;
     onTotalPeopleChange: (count: SetStateAction<number>) => void;
+    data: {
+        category: string;
+        content: string;
+        createAt: string;
+        departure: string;
+        departureTime: string;
+        destination: string;
+        distance: number;
+        duration: number;
+        fare: number;
+        numberOfParticipants: number;
+        numberOfRecruitment: number;
+        postId: number;
+        profileImage: string;
+        sameGenderStatus: string;
+        status: string;
+        title: string;
+        userGender: boolean;
+        vehicle: string;
+    };
 }
 
-function UpdateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
+function UpdateBody({ totalPeople, onTotalPeopleChange, data }: CreateBottomProps) {
     const [selectedVehicle, setSelectedVehicle] = useState('일반 승용 택시');
-    const { data } = usePostDataStore();
     const [isSameGenderRide, setIsSameGenderRide] = useState(false);
-    const postDataStore = usePostDataStore();
     const [selectedModal, setSelectedModal] = useState<string | null>(null);
-
     const { setSelectedTime } = PotCreateStore((state) => ({
         selectedTime: state.selectedTime,
         setSelectedTime: state.setSelectedTime,
     }));
-    useEffect(() => {
-        onTotalPeopleChange(postDataStore.data.numberOfRecruitment);
-    }, []);
     const openTimeModal = () => {
         setSelectedModal('time');
     };
@@ -39,68 +54,85 @@ function UpdateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
     const closeModal = () => {
         setSelectedModal(null);
     };
+    const { setSameGenderRide, setVehicleType } = PotCreateStore();
 
-    // const setVehicleType = PotCreateStore((state) => state.setVehicleType);
+    useEffect(() => {
+        console.log('data:', data.vehicle);
+        setSelectedVehicle(data.vehicle);
+        setIsSameGenderRide(data.sameGenderStatus === 'YES');
+    }, []);
+
     const handleVehicleSelection = (vehicle: SetStateAction<string>) => {
         setSelectedVehicle(vehicle);
         if (vehicle === '일반 승용 택시') {
-            postDataStore.setPostData({ vehicle: '일반' });
+            setVehicleType('일반');
         } else if (vehicle === '밴 택시') {
-            postDataStore.setPostData({ vehicle: '밴' });
+            setVehicleType('밴');
         }
     };
 
     const handleSameGenderRideToggle = () => {
         setIsSameGenderRide(!isSameGenderRide);
-        postDataStore.setPostData({
-            sameGenderStatus: isSameGenderRide ? 'NO' : 'YES',
-        });
+        setSameGenderRide(isSameGenderRide ? 'NO' : 'YES');
     };
 
-    const isSelectionComplete = data.numberOfParticipants > 0;
+    const isSelectionComplete = totalPeople > 1;
+    const [DateTimeValue, setDateTimeValue] = useState<Dayjs | null>(null);
+    // console.log('DateTimeValue:', DateTimeValue.getMilliseconds());
 
-    const connectToRN = () => {
-        window.ReactNativeWebView.postMessage('h');
-    };
-
-    window.addEventListener('message', (event) => {
-        try {
-            if (typeof event.data === 'string') {
-                const data = JSON.parse(event.data);
-                setSelectedTime(data.selectedTime);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    });
-
+    // const connectToRN = () => {
+    //     window.ReactNativeWebView.postMessage('please open time modal');
+    // };
+    // useEffect(() => {
+    //     window.addEventListener('message', (event) => {
+    //         try {
+    //             const data = JSON.parse(event.data);
+    //             if (data.selectedTime !== undefined) {
+    //                 setSelectedTime(data.selectedTime);
+    //             }
+    //         } catch (error) {
+    //             console.error('error:', error);
+    //         }
+    //     });
+    // }, []);
     return (
         <S.Bottom>
             <S.Wrapper
-                onClick={connectToRN}
                 style={{
                     paddingBottom: '40px',
                 }}
             >
                 <S.TextWrapper>
                     <S.BottomTitle>출발시간</S.BottomTitle>
+
+                    <DateTimePicker
+                        value={DateTimeValue}
+                        onChange={(newValue) => {
+                            setDateTimeValue(newValue);
+                            if (newValue != null) setSelectedTime(newValue?.format('YYYY-MM-DD HH:mm:ss'));
+                        }}
+                    />
                     <S.Description>
-                        {postDataStore.data.departureTime ? (
+                        {/* {DateTimeValue != null ? (
                             <S.SelectedInfo>
-                                {new Date(postDataStore.data.departureTime)
-                                    .toLocaleString('ko-KR', {
-                                        weekday: 'short',
-                                        month: 'long',
-                                        day: 'numeric',
-                                        hour: '2-digit',
-                                        minute: '2-digit',
-                                        hour12: true,
-                                    })
-                                    .replace('.', '')}
+                                <div>
+                                    {selectedTime} <br />
+                                    {new Date(selectedTime)
+                                        .toLocaleString('ko-KR', {
+                                            weekday: 'short',
+                                            month: 'long',
+                                            day: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                            hour12: true,
+                                            timeZone: 'UTC',
+                                        })
+                                        .replace('.', '')}
+                                </div>
                             </S.SelectedInfo>
                         ) : (
                             '탑승일시를 선택해주세요'
-                        )}
+                        )} */}
                     </S.Description>
                 </S.TextWrapper>
                 <ChevronRight width="24" height="24" />
@@ -111,9 +143,8 @@ function UpdateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                     <S.Description>
                         {isSelectionComplete ? (
                             <S.SelectedInfo>
-                                {postDataStore.data.vehicle === '일반' ? '일반 승용 택시' : '밴 택시'} / 총{' '}
-                                {totalPeople}명 /{' '}
-                                {postDataStore.data.sameGenderStatus === 'YES' ? '동성끼리 탑승' : '혼성탑승'}
+                                {selectedVehicle} / 총 {totalPeople}명 /{' '}
+                                {isSameGenderRide ? '동성끼리 탑승' : '혼성탑승'}
                             </S.SelectedInfo>
                         ) : (
                             '이동수단 및 인원을 선택해주세요'
@@ -136,4 +167,4 @@ function UpdateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
         </S.Bottom>
     );
 }
-export default UpdateBottom;
+export default UpdateBody;

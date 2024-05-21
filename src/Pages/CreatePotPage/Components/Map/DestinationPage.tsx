@@ -1,22 +1,24 @@
 import styled from 'styled-components';
 import { Chevronleft } from '../../../../assets/svg';
 import { HEADER_HEIGHT } from '../../../../Constants/constant';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import BottomSheet from './BottomSheet';
 import DestinationButton from '../Button/DestinationButtom';
 import CreatePotNaverMap from './NaverMap/CreatePotNaverMap';
 
 function DestinationPage() {
     const navigate = useNavigate();
+    const { from, postId } = useParams();
     const goToSearchResults = () => {
-        navigate('/searchResults');
+        navigate(`/searchResults/${from}/${postId}`);
     };
     const goToback = () => {
-        navigate('/createPotPage');
+        if (from == 'update') navigate(`/updatepot/${postId}`);
+        else navigate(`/createPotPage/${postId}`);
     };
     const location = useLocation();
     const destination = (new URLSearchParams(location.search).get('destination') || undefined) as string | undefined;
-
+    if (from == undefined) return;
     return (
         <Container>
             <Header>
@@ -43,7 +45,7 @@ function DestinationPage() {
                 <CreatePotNaverMap destination={destination} />
                 <Bottom>
                     <BottomSheet />
-                    <DestinationButton />
+                    <DestinationButton from={from} />
                 </Bottom>
             </Body>
         </Container>

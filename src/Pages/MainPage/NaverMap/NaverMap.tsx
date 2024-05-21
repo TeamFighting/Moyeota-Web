@@ -14,13 +14,8 @@ declare global {
 }
 
 interface ArrayElement {
-    data: {
-        x: number;
-        y: number;
-        place_name: string;
-        road_address_name: string;
-    };
-    status: number;
+    latitude: number;
+    longitude: number;
     postId: string;
 }
 
@@ -38,67 +33,28 @@ function NaverMap({ from }: { from: string }) {
     const { totalData } = ContentStore();
 
     const { quickPot } = useQuickPotStore();
-
     const { setClickedMarker } = useClickedMarker();
-
     const departures = useMemo(
         () =>
             totalData.map((data) => ({
                 departure: data.departure,
                 postId: data.postId,
+                latitude: data.latitude,
+                longitude: data.longitude,
             })),
         [totalData],
     );
-
     const [finalArray, setFinalArray] = useState<ArrayElement[]>([]);
 
     useEffect(() => {
-        const fetchDestinations = async () => {
-            if (quickPot.length !== 0) {
-                try {
-                    const promises = quickPot.map((data) => {
-                        console.log(data.departure);
-                        instance
-                            .get(`/distance/keyword`, {
-                                params: { query: `${data.departure}` },
-                            })
-                            .then((res) => {
-                                setFinalArray((prev) => [
-                                    ...prev,
-                                    {
-                                        data: res.data.data,
-                                        status: res.status,
-                                        postId: data.postId,
-                                    },
-                                ]);
-                            });
-                    });
-                    await Promise.all(promises);
-                } catch (e) {
-                    // //console.log(e);
-                }
-            } else {
-                try {
-                    const promises = departures.map((data) =>
-                        instance.get(`/distance/keyword`, {
-                            params: { query: `${data.departure}` },
-                        }),
-                    );
-                    const results = await Promise.all(promises);
-                    const finalData = results.map((result) => ({
-                        data: result.data.data,
-                        status: result.status,
-                        postId: departures[results.indexOf(result)].postId,
-                    }));
-                    setFinalArray(finalData);
-                } catch (e) {
-                    //console.log(e);
-                }
-            }
-        };
-        fetchDestinations();
+        if (quickPot.length !== 0) {
+            setFinalArray(quickPot);
+        } else {
+            setFinalArray(departures);
+        }
     }, [departures, quickPot]);
 
+    console.log(finalArray);
     useEffect(() => {
         if (!mapElement.current || !naver) return;
 
@@ -115,7 +71,7 @@ function NaverMap({ from }: { from: string }) {
         const markers: any = [];
 
         for (const key in finalArray) {
-            const position = new naver.maps.LatLng(finalArray[key].data.y, finalArray[key].data.x);
+            const position = new naver.maps.LatLng(finalArray[key].latitude, finalArray[key].longitude);
 
             const marker = new naver.maps.Marker({
                 position: position,
@@ -125,7 +81,7 @@ function NaverMap({ from }: { from: string }) {
                     size: new naver.maps.Size(50, 52),
                     origin: new naver.maps.Point(0, 0),
                     anchor: new naver.maps.Point(25, 26),
-                    title: finalArray[key].data.place_name,
+                    // title: finalArray[key].data.place_name,
                 },
                 postId: finalArray[key].postId,
             });
