@@ -188,6 +188,9 @@ const AccountNumber = styled.div`
     line-height: 157%; /* 25.12px */
     text-decoration-line: underline;
     margin-bottom: 4px;
+    :hover {
+        cursor: pointer;
+    }
 `;
 const MyPayments = styled.div`
     color: var(--Gray-Text-3, #343434);

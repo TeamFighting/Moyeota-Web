@@ -425,6 +425,7 @@ export const ChatHeader = styled.div`
     height: 63px;
     background-color: white;
     display: flex;
+
     align-items: center;
     justify-content: space-between;
     font-size: 18px;

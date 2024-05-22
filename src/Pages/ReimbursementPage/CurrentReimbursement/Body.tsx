@@ -1,6 +1,8 @@
 import * as S from './style';
 import * as St from '../styles';
 import SvgNotCheck from '../../../assets/svg/NotCheck';
+import { useState } from 'react';
+import SvgCheck from '../../../assets/svg/Check';
 
 interface BodyDataProps {
     data: {
@@ -19,7 +21,9 @@ interface BodyDataProps {
         totalPeople: number;
     };
 }
+
 function Body({ data }: BodyDataProps) {
+    const [isClicked, setIsClicked] = useState(false);
     const render = data.EachAmount.map((each) => {
         return (
             <St.PartyOneRow>
@@ -27,9 +31,11 @@ function Body({ data }: BodyDataProps) {
                     <St.PartyOneImage src={each.profileImage} />
                     <S.Name>{each.name}</S.Name>
                 </St.MoneyLeft>
-                <St.MoneyRight style={{ textDecoration: 'underline' }}>{each.amount}원</St.MoneyRight>
-                {/* <SvgCheck /> */}
-                <SvgNotCheck width={24} height={24} />
+                <St.MoneyRight>
+                    <St.MoneyRight style={{ textDecoration: 'underline' }}>{each.amount}원</St.MoneyRight>
+                    {isClicked && <SvgCheck onClick={() => setIsClicked(!isClicked)} />}
+                    {!isClicked && <SvgNotCheck onClick={() => setIsClicked(!isClicked)} width={24} height={24} />}
+                </St.MoneyRight>
             </St.PartyOneRow>
         );
     });

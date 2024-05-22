@@ -7,7 +7,7 @@ function CurrentReimbursement() {
     const { data } = location.state;
     console.log(data);
     return (
-        <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ width: '100vw', display: 'flex', flexDirection: 'column' }}>
             <Header />
             <Body data={data} />
         </div>

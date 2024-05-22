@@ -135,7 +135,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')!).render(
     // <React.StrictMode>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <RouterProvider router={router} />,
+        <RouterProvider router={router} />
     </LocalizationProvider>,
     // </React.StrictMode>
 );
