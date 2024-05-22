@@ -130,6 +130,8 @@ function MainPage() {
                 <LocationHeader />
             </Header>
             <Body>
+                <a href="sms:moyeota6340@gmail.com?body=”인증 코드”">인증문자 보내기</a>
+
                 <Icons>
                     <Icon onClick={refresh}>
                         <SvgRefreshButton
