@@ -74,12 +74,16 @@ function Body() {
         });
     };
     const [loading, setLoading] = useState(false);
-
     const sendFare = async () => {
         setLoading(true);
-        let max = -1;
+        // const max = reimbursementMessage.totalAmount;
+        let max = 0;
         reimbursementMessage.EachAmount.map(async (each): Promise<void> => {
-            max = Math.max(max, each.amount);
+            if (calcType === 'N') {
+                max += each.amount;
+            } else {
+                max = Math.max(max, each.amount);
+            }
             try {
                 await instance.post(
                     `participation-details/users/${each.userId}/posts/${postId}?fare=${each.amount}`,
@@ -94,7 +98,6 @@ function Body() {
                 console.log(error);
             }
         });
-
         const rest = await instance.post(
             `totalDetails/${postId}`,
             {
@@ -301,7 +304,6 @@ function Body() {
         return (
             <S.PartyOneRow>
                 <S.MoneyLeft>
-                    d
                     <S.PartyOneImage src={party.profileImage} />
                     {party.userId == Number(userId) && <S.PotOwner>나</S.PotOwner>}
                     <S.PartyOneName>{party.nickname}</S.PartyOneName>
@@ -549,7 +551,14 @@ function Body() {
                                                 }}
                                             >
                                                 <div>최종확인</div>
-                                                <div>총 {reimbursementMessage.totalAmount}</div>
+                                                <div>
+                                                    총{' '}
+                                                    {reimbursementMessage.EachAmount.reduce(
+                                                        (acc, cur) => (acc = Math.max(acc, cur.amount)),
+                                                        0,
+                                                    )}
+                                                    원
+                                                </div>
                                             </S.Title>
                                             <S.PartyText style={{ margin: '10px 0' }}>
                                                 파티원 {reimbursementMessage.totalPeople}명

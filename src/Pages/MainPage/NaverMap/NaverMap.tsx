@@ -4,7 +4,6 @@ import ContentStore from '../../../state/store/ContentStore';
 import { useQuickPotStore } from '../../../state/store/QuickPotStore';
 import { useClickedMarker } from '../../../state/store/ClickedMarker';
 import LatLngAddStore from '../../../state/store/LatLngAddstore';
-import { instance } from '../../../axios';
 
 declare global {
     interface Window {

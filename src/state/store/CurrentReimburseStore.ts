@@ -1,44 +1,50 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-interface BodyDataProps {
-    data: {
-        EachAmount: {
-            userId: number;
-            amount: number;
-            name: string;
-            profileImage: string;
-            isPartyOwner: boolean;
-        }[];
-        isPayed: {
-            userId: number;
-            isPayed: boolean;
-        }[];
-        isPartyOwner: boolean;
-        account: { accountNumber: string; bankName: string };
-        postId: number;
-        potName: string;
-        totalAmount: string;
-        totalPeople: number;
-    };
+interface IsPayed {
+    userId: number;
+    isPayed: boolean;
 }
 
-interface MyPotStore {
-    MyPotContent: BodyDataProps[];
-    setMyPotContent: (MyPotContent: BodyDataProps[]) => void;
-    setClearMyPotContent: () => void;
+interface BodyDataProps {
+    isPayed: IsPayed;
+    postId: number;
+}
+
+interface CurrentReimburseStore {
+    CurrentReimbursement: BodyDataProps[];
+    setCurrentReimbursement: (CurrentReimbursement: BodyDataProps[]) => void;
+    setClearCurrentReimbursement: () => void;
+    updatePaymentStatusForUserId: (postId: number, userId: number, isPayed: boolean) => void;
+    areAllUsersPayed: () => void;
 }
 
 export const CurrentReimburseStore = create(
-    persist<MyPotStore>(
+    persist<CurrentReimburseStore>(
         (set) => ({
-            MyPotContent: [],
-            setMyPotContent: (MyPotContent) => set({ MyPotContent }),
-            setClearMyPotContent: () => set({}),
+            CurrentReimbursement: [],
+            setCurrentReimbursement: (CurrentReimbursement) => set({ CurrentReimbursement }),
+            setClearCurrentReimbursement: () => set({ CurrentReimbursement: [] }),
+            updatePaymentStatusForUserId: (postId: number, userId: number, isPayed: boolean) =>
+                set((state) => ({
+                    CurrentReimbursement: state.CurrentReimbursement.map((data) =>
+                        data.postId === postId
+                            ? {
+                                  ...data,
+                                  isPayed:
+                                      data.isPayed.userId === userId
+                                          ? { userId: userId, isPayed: isPayed }
+                                          : data.isPayed,
+                              }
+                            : data,
+                    ),
+                })),
+            areAllUsersPayed: () => {
+                // CurrentReimbursement.every((data) => data.isPayed.isPayed),
+            },
         }),
         {
             name: 'current-reimburse-storage',
-            getStorage: () => localStorage,
         },
     ),
 );

@@ -116,7 +116,6 @@ function MainPage() {
     const refresh = () => {
         console.log('refresh');
         console.log('accessToken', accessToken);
-        // submit();
     };
 
     const goCurrent = () => {
