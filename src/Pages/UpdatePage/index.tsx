@@ -43,7 +43,7 @@ function UpdatePotPage() {
     const [dividerHeight, setDividerHeight] = useState(6);
     const [scroll, setScroll] = useState(0);
     const { postId } = useParams();
-    const [newDestination, setNewDestination] = useState('');
+    const [, setNewDestination] = useState('');
     const [totalPeople, setTotalPeople] = useState(0);
     const [postInfo, setPostInfo] = useState<PostProps | null>(null);
     const getPostInfo = async () => {

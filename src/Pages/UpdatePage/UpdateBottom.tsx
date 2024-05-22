@@ -5,7 +5,6 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { Dayjs } from 'dayjs';
 import * as S from '../CreatePotPage/style';
 import TimeModal from '../CreatePotPage/Components/Modal/TimeModal';
-import dayjs from 'dayjs';
 declare global {
     interface Window {
         ReactNativeWebView: {
