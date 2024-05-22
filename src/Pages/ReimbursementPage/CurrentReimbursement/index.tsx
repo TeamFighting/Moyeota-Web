@@ -15,7 +15,7 @@ function CurrentReimbursement() {
     const location = useLocation();
     const { data } = location.state;
     const { CurrentReimbursement, setCurrentReimbursement } = CurrentReimburseStore();
-    const [modalOpen, setModalOpen] = useState(true);
+    const [modalOpen, setModalOpen] = useState(false);
     const [modalName, setModalName] = useState('default');
     // console.log('CurrentReimbursement', CurrentReimbursement.length);
     useEffect(() => {
@@ -29,30 +29,62 @@ function CurrentReimbursement() {
     }, []);
 
     const confirm = () => {
+        setModalName('Finish');
+    };
+
+    const closeModal = () => {
         setModalOpen(false);
+        console.log(modalOpen);
+        setModalName('default');
     };
     return (
         <div style={{ width: '100vw', display: 'flex', flexDirection: 'column' }}>
             <Header />
             <Body setModalOpen={setModalOpen} data={data} />
-            {modalOpen && (
-                <ModalWrapper>
-                    <Modal>
-                        <Text>
-                            <Title>
-                                정산이 완료되었습니다! <br />
-                                정산 완료로 바꾸시겠습니까?
-                            </Title>
-                        </Text>
-                        <Buttons>
-                            <StyledBtn style={{ backgroundColor: '#F5F6F8', color: '#5D5D5D' }}>대기</StyledBtn>
-                            <StyledBtn onClick={confirm} style={{ backgroundColor: '#1EDD81' }}>
-                                확인
-                            </StyledBtn>
-                        </Buttons>
-                    </Modal>
-                </ModalWrapper>
-            )}
+            {modalOpen ? (
+                modalName == 'default' ? (
+                    <ModalWrapper>
+                        <Modal style={{ gap: '14px' }}>
+                            <Text>
+                                <Title>
+                                    정산이 완료되었습니다! <br />
+                                    정산 완료로 바꾸시겠습니까?
+                                </Title>
+                            </Text>
+                            <Buttons>
+                                <StyledBtn
+                                    onClick={closeModal}
+                                    style={{ backgroundColor: '#F5F6F8', color: '#5D5D5D', fontWeight: '500' }}
+                                >
+                                    대기
+                                </StyledBtn>
+                                <StyledBtn onClick={confirm} style={{ backgroundColor: '#1EDD81' }}>
+                                    확인
+                                </StyledBtn>
+                            </Buttons>
+                        </Modal>
+                    </ModalWrapper>
+                ) : (
+                    <ModalWrapper>
+                        <Modal>
+                            <Text>
+                                <Title>
+                                    🎉 정산이 완료되었어요 ! <br />
+                                </Title>
+                                <Explanation>내 정보에서 계좌와 정산 내역을 관리할 수 있어요</Explanation>
+                            </Text>
+                            <Buttons>
+                                <StyledBtn
+                                    onClick={() => closeModal()}
+                                    style={{ width: '100%', backgroundColor: '#1EDD81' }}
+                                >
+                                    확인
+                                </StyledBtn>
+                            </Buttons>
+                        </Modal>
+                    </ModalWrapper>
+                )
+            ) : null}
         </div>
     );
 }
@@ -73,12 +105,11 @@ const ModalWrapper = styled.div`
 const Modal = styled.div`
     width: 334px;
     position: relative;
-    height: 161px;
     flex-direction: column;
     background-color: white;
     align-items: center;
     border-radius: 12px;
-    gap: 12px;
+    gap: 22px;
     z-index: 100;
     display: flex;
     box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14),
@@ -91,6 +122,15 @@ const Text = styled.div`
     justify-content: center;
     margin-top: 30px;
     text-align: center;
+`;
+const Explanation = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 157%; /* 18.84px */
 `;
 const Title = styled.div`
     color: #000;
@@ -105,6 +145,8 @@ const Buttons = styled.div`
     display: flex;
     flex-direction: row;
     gap: 15px;
+    width: 90%;
+    margin-bottom: 10px;
 `;
 
 const StyledBtn = styled.button`

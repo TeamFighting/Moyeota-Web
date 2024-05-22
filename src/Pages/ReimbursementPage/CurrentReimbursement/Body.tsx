@@ -4,8 +4,6 @@ import SvgNotCheck from '../../../assets/svg/NotCheck';
 import { useEffect, useState } from 'react';
 import SvgCheck from '../../../assets/svg/Check';
 import { CurrentReimburseStore } from '../../../state/store/CurrentReimburseStore';
-import { set } from 'firebase/database';
-import styled from 'styled-components';
 
 interface EachAmount {
     userId: number;
@@ -50,10 +48,12 @@ function Body({ data, setModalOpen }: BodyProps) {
         const isPayed = !isUserClicked(userId);
         updatePaymentStatusForUserId(data.postId, userId, isPayed);
         setClickedUsers((prev) => (isPayed ? [...prev, userId] : prev.filter((id) => id !== userId)));
+    };
+    useEffect(() => {
         if (clickedUsers.length === data.totalPeople - 1) {
             setModalOpen(true);
         }
-    };
+    }, [clickedUsers]);
     const render = () =>
         data.EachAmount.map((each) => (
             <St.PartyOneRow key={each.userId}>
