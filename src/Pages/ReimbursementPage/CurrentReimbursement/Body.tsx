@@ -4,6 +4,7 @@ import SvgNotCheck from '../../../assets/svg/NotCheck';
 import { useEffect, useState } from 'react';
 import SvgCheck from '../../../assets/svg/Check';
 import { CurrentReimburseStore } from '../../../state/store/CurrentReimburseStore';
+import { set } from 'firebase/database';
 
 interface EachAmount {
     userId: number;
@@ -31,9 +32,12 @@ function Body({ data, setModalOpen }: BodyProps) {
     const { CurrentReimbursement } = CurrentReimburseStoreState.state;
     const { updatePaymentStatusForUserId } = CurrentReimburseStore();
     const [clickedUsers, setClickedUsers] = useState<number[]>([]);
-
+    const [userIds, setUserIds] = useState<number[]>([]);
     useEffect(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         CurrentReimbursement.forEach((element: any) => {
+            if (!userIds.includes(element.isPayed.userId)) setUserIds((prev) => [...prev, element.isPayed.userId]);
+            userIds.sort((a, b) => a - b);
             if (element.postId === data.postId) {
                 if (element.isPayed.isPayed) {
                     setClickedUsers((prev) => [...prev, element.isPayed.userId]);
@@ -43,17 +47,25 @@ function Body({ data, setModalOpen }: BodyProps) {
             }
         });
     }, []);
+
+    useEffect(() => {
+        let cnt = 0;
+        clickedUsers.forEach((userId) => {
+            if (userIds.includes(userId)) {
+                cnt++;
+            }
+        });
+        if (cnt === data.totalPeople) {
+            setModalOpen(true);
+        }
+    }, [clickedUsers, userIds, data.totalPeople, setModalOpen]);
     const isUserClicked = (userId: number) => clickedUsers.includes(userId);
     const handlePaymentStateChange = (userId: number) => {
         const isPayed = !isUserClicked(userId);
         updatePaymentStatusForUserId(data.postId, userId, isPayed);
         setClickedUsers((prev) => (isPayed ? [...prev, userId] : prev.filter((id) => id !== userId)));
     };
-    useEffect(() => {
-        if (clickedUsers.length === data.totalPeople - 1) {
-            setModalOpen(true);
-        }
-    }, [clickedUsers]);
+
     const render = () =>
         data.EachAmount.map((each) => (
             <St.PartyOneRow key={each.userId}>
@@ -71,9 +83,11 @@ function Body({ data, setModalOpen }: BodyProps) {
                 </St.MoneyRight>
             </St.PartyOneRow>
         ));
+
     useEffect(() => {
         render();
     }, [isUserClicked, clickedUsers]);
+
     return (
         <S.Wrapper>
             <S.Content>

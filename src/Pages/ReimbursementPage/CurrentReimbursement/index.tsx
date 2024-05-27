@@ -17,7 +17,6 @@ function CurrentReimbursement() {
     const { CurrentReimbursement, setCurrentReimbursement } = CurrentReimburseStore();
     const [modalOpen, setModalOpen] = useState(false);
     const [modalName, setModalName] = useState('default');
-    // console.log('CurrentReimbursement', CurrentReimbursement.length);
     useEffect(() => {
         if (CurrentReimbursement.length == 0) {
             const transformedData = data.EachAmount.map((element: EachAmount) => ({
@@ -34,7 +33,6 @@ function CurrentReimbursement() {
 
     const closeModal = () => {
         setModalOpen(false);
-        console.log(modalOpen);
         setModalName('default');
     };
     return (
