@@ -94,11 +94,10 @@ function Body({ data, setModalOpen }: BodyProps) {
                 <S.PotName>{data.potName}</S.PotName>
                 <S.TotalAmount>{data.totalAmount}</S.TotalAmount>
                 <S.RequestDate>요청일 24.01.17(수) 오후 07:02</S.RequestDate>
-                <S.ManagementWrapper>
-                    <div>파티원</div>
-                </S.ManagementWrapper>
+                <S.ManagementWrapper>{/* <div>파티원 편집</div> */}</S.ManagementWrapper>
                 {render()}
             </S.Content>
+            <S.Stroke />
         </S.Wrapper>
     );
 }

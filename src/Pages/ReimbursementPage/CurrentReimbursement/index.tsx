@@ -4,6 +4,7 @@ import { useLocation } from 'react-router';
 import { CurrentReimburseStore } from '../../../state/store/CurrentReimburseStore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Bottom from './Bottom';
 interface EachAmount {
     userId: number;
     amount: number;
@@ -36,9 +37,34 @@ function CurrentReimbursement() {
         setModalName('default');
     };
     return (
-        <div style={{ width: '100vw', display: 'flex', flexDirection: 'column' }}>
+        <div
+            style={{
+                width: '100vw',
+                height: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+            }}
+        >
             <Header />
             <Body setModalOpen={setModalOpen} data={data} />
+            <Bottom reimburseData={data} />
+            <Buttons
+                style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    right: 0,
+                    display: 'flex',
+                    width: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '80px',
+                    backgroundColor: '#fff',
+                }}
+            >
+                <StyledBtn onClick={() => closeModal()} style={{ width: '90%', backgroundColor: '#1EDD81' }}>
+                    정산 완료
+                </StyledBtn>
+            </Buttons>
             {modalOpen ? (
                 modalName == 'default' ? (
                     <ModalWrapper>
