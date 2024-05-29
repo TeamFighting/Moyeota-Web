@@ -58,6 +58,7 @@ function MainPage() {
                     if (data.token !== undefined) {
                         setAccessToken(data.token);
                         setUseToken(data.token);
+                        alert('로그인 되었습니다');
                         localStorage.setItem('accessToken', data.token.toString());
                     }
                 }
