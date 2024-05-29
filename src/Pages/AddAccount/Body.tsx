@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { ChevronDown } from '../../assets/svg';
+import { ChevronDown, CopyIcon } from '../../assets/svg';
 import BankListSheet from './BankListSheet';
 import { useAccountStore } from '../../state/store/AccountStore';
 

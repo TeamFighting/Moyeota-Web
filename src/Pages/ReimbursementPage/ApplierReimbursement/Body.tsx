@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router';
 import * as S from '../styles';
 import { useMyInfoStore } from '../../../state/store/MyInfo';
-import { CheckCircle, PotOwnerCrown } from '../../../assets/svg';
+import { CheckCircle, CopyIcon, PotOwnerCrown } from '../../../assets/svg';
 import styled from 'styled-components';
 import { Toaster, toast } from 'react-hot-toast';
 import SvgDollar from '../../../assets/svg/Dollar';
@@ -125,7 +125,20 @@ function Body() {
                             handleCopyClipBoard(data.account.bankName + data.account.accountNumber);
                         }}
                     >
-                        {data.account.bankName} {data.account.accountNumber}
+                        <div style={{ textDecorationLine: 'underline' }}>
+                            {data.account.bankName} {data.account.accountNumber}
+                        </div>
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                gap: '3px',
+                                marginLeft: '1px',
+                            }}
+                        >
+                            <CopyIcon width={10} height={10} />
+                            <CopyText>복사</CopyText>
+                        </div>
                     </AccountNumber>
                     <MyPayments>{data.totalAmount}</MyPayments>
                     <S.PartyOne>{render}</S.PartyOne>
@@ -154,6 +167,16 @@ function Body() {
     );
 }
 
+const CopyText = styled.div`
+    color: #606060;
+    font-family: Pretendard;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 157%; /* 12.56px */
+    text-decoration-line: none;
+`;
+
 const CalaExplain = styled.div`
     color: var(--Gray-Text-2, #7e7e7e);
     font-family: Pretendard;
@@ -180,14 +203,15 @@ const Icon = styled.div`
     height: 16px;
 `;
 const AccountNumber = styled.div`
-    color: #f00;
+    color: #606060;
     font-family: Pretendard;
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
     line-height: 157%; /* 25.12px */
-    text-decoration-line: underline;
     margin-bottom: 4px;
+    display: flex;
+    flex-direction: row;
     :hover {
         cursor: pointer;
     }

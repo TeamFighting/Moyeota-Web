@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CharacterCrown, ChatSeeU, CheckCircle } from '../../assets/svg';
+import { CharacterCrown, ChatSeeU, CheckCircle, CopyIcon } from '../../assets/svg';
 import { PotOwner } from '../ReimbursementPage/styles';
 import { Image } from 'react-bootstrap';
 import { Time } from './style';
@@ -172,7 +172,20 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                                                             );
                                                         }}
                                                     >
-                                                        {data.account.bankName} {data.account.accountNumber}
+                                                        <div style={{ textDecorationLine: 'underline' }}>
+                                                            {data.account.bankName} {data.account.accountNumber}
+                                                        </div>
+                                                        <div
+                                                            style={{
+                                                                display: 'flex',
+                                                                flexDirection: 'row',
+                                                                gap: '3px',
+                                                                marginLeft: '1px',
+                                                            }}
+                                                        >
+                                                            <CopyIcon width={10} height={10} />
+                                                            <CopyText>복사</CopyText>
+                                                        </div>
                                                     </AccountNumber>
                                                 </div>
                                             )
@@ -204,6 +217,16 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
         </div>
     );
 }
+
+const CopyText = styled.div`
+    color: #606060;
+    font-family: Pretendard;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 157%; /* 12.56px */
+    text-decoration-line: none;
+`;
 const Participants = styled.div`
     display: flex;
     flex-direction: row;
@@ -355,12 +378,13 @@ const BTNText = styled.div`
 `;
 
 const AccountNumber = styled.div`
-    color: #f00;
+    color: #606060;
     font-family: Pretendard;
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 157%; /* 21.98px */
-    text-decoration-line: underline;
+    display: flex;
+    flex-direction: row;
 `;
 export default ChatReimbursement;

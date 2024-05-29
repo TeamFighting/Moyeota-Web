@@ -15,6 +15,7 @@ export { default as ClickedChat } from './ClickedChat';
 export { default as ClickedHome } from './ClickedHome';
 export { default as ClickedUser } from './ClickedUser';
 export { default as Clock } from './Clock';
+export { default as CopyIcon } from './CopyIcon';
 export { default as CurrentLocationIcon } from './CurrentLocationIcon';
 export { default as DeleteButton } from './DeleteButton';
 export { default as DesPangyo } from './DesPangyo';
