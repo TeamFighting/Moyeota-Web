@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../Constants/constant';
 import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import CheveronLeft from '../../assets/svg/Chevronleft';

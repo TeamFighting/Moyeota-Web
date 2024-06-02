@@ -1,5 +1,5 @@
 import LatLngAddstore from '../state/store/LatLngAddstore';
-// import { distance } from '../Pages/util/calc';
+import { distance } from '../Pages/util/calc';
 
 interface PositionOptions {
     coords: {
@@ -15,22 +15,21 @@ interface Options {
 }
 
 function watchPositionHook() {
-    // const { currentLat, currentLng } = LatLngAddstore((state) => state);
+    const { currentLat, currentLng } = LatLngAddstore((state) => state);
 
     async function success(pos: PositionOptions) {
-        // let d = 0;
-        // if (currentLat !== 0 && currentLng !== 0) {
-        //     d = distance(currentLat, currentLng, pos.coords.latitude, pos.coords.longitude);
-        // }
-        // console.log(d);
-        // if (d < 10) {
-        localStorage.setItem('latitude', pos.coords.latitude.toString());
-        localStorage.setItem('longitude', pos.coords.longitude.toString());
-        LatLngAddstore.setState({
-            currentLat: pos.coords.latitude,
-            currentLng: pos.coords.longitude,
-        });
-        // }
+        let d = 0;
+        if (currentLat !== 0 && currentLng !== 0) {
+            d = distance(currentLat, currentLng, pos.coords.latitude, pos.coords.longitude);
+        }
+        if (d < 10) {
+            localStorage.setItem('latitude', pos.coords.latitude.toString());
+            localStorage.setItem('longitude', pos.coords.longitude.toString());
+            LatLngAddstore.setState({
+                currentLat: pos.coords.latitude,
+                currentLng: pos.coords.longitude,
+            });
+        }
     }
 
     function error(err: { code: number; message: string }) {
