@@ -28,6 +28,7 @@ import WaitPlease from './Pages/ReimbursementPage/Calculation/WaitPlease';
 import CurrentReimbursement from './Pages/ReimbursementPage/CurrentReimbursement';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import LoginPage from './Pages/LoginPage';
 
 const router = createBrowserRouter([
     {
@@ -130,12 +131,16 @@ const router = createBrowserRouter([
         path: '/waitPlease',
         element: <WaitPlease />,
     },
+    {
+        path: '/login',
+        element: <LoginPage />,
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     // <React.StrictMode>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <RouterProvider router={router} />,
+        <RouterProvider router={router} />
     </LocalizationProvider>,
     // </React.StrictMode>
 );
