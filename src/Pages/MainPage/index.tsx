@@ -32,18 +32,23 @@ function MainPage() {
     const { setMyPot } = useMyPotStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     const getMyPost = async () => {
-        const myPost = await instance.get(`/posts/users/${id}`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-            params: {
-                page: 0,
-            },
-        });
-        const newArr: number[] = [];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
-        setMyPot(newArr);
+        try {
+            const myPost = await instance.get(`/posts/users/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+                params: {
+                    page: 0,
+                },
+            });
+
+            const newArr: number[] = [];
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
+            setMyPot(newArr);
+        } catch (e) {
+            console.log(e);
+        }
     };
     useEffect(() => {
         fetchData();
