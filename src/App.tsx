@@ -1,4 +1,4 @@
-import OAuth2RedirectHandler from './Pages/LoginPage/OAuth';
+// import OAuth2RedirectHandler from './Pages/LoginPage/OAuth';
 function App() {
     // OAuth2RedirectHandler({ data: window.location.href, from: 'Kakao' });
 
