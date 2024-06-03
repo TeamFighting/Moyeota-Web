@@ -21,8 +21,8 @@ export async function RequestToken(code: string, from: string) {
                     console.log('유효하지 않은 토큰');
                 }
             })
-            .catch(function (e) {
-                console.log(e);
+            .catch(function () {
+                alert('로그인에 실패했습니다.');
             });
     } else if (from === 'Google') {
         axios
@@ -39,8 +39,8 @@ export async function RequestToken(code: string, from: string) {
                     console.log('유효하지 않은 토큰');
                 }
             })
-            .catch(function (e) {
-                console.log(e);
+            .catch(function () {
+                alert('로그인에 실패했습니다.');
             });
     } else if (from === 'Naver') {
         axios
@@ -53,11 +53,11 @@ export async function RequestToken(code: string, from: string) {
                     const token = response.data.data.accessToken;
                     localStorage.setItem('accessToken', token);
                 } else {
-                    console.log('유효하지 않은 토큰');
+                    alert('로그인에 실패했습니다.');
                 }
             })
-            .catch(function (e) {
-                console.log(e);
+            .catch(function () {
+                alert('로그인에 실패했습니다.');
             });
     }
 }
