@@ -29,6 +29,7 @@ import CurrentReimbursement from './Pages/ReimbursementPage/CurrentReimbursement
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import LoginPage from './Pages/LoginPage';
+import React from 'react';
 
 const router = createBrowserRouter([
     {
@@ -138,9 +139,9 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    // <React.StrictMode>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <RouterProvider router={router} />
-    </LocalizationProvider>,
-    // </React.StrictMode>
+    <React.StrictMode>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <RouterProvider router={router} />
+        </LocalizationProvider>
+    </React.StrictMode>,
 );
