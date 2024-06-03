@@ -6,10 +6,10 @@ function Body() {
         import.meta.env.VITE_KAKAO_REST_API_KEY
     }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}`;
     const NAVERLOGIN = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${
-        import.meta.env.VITE_NAVER_CLIENT_ID
+        import.meta.env.VITE_NAVERLOGIN_CLIENT_ID
     }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&state=nid/me`;
     const GOOGLELOGIN = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${
-        import.meta.env.VITE_GOOGLE_CLIENT_ID
+        import.meta.env.VITE_GOOGLELOGIN_CLIENT_ID
     }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&response_type=code&scope=email%20profile`;
     const NavToLogin = (from: string) => {
         if (from === 'KAKAO') {
