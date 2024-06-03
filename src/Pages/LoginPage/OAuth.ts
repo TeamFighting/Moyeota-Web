@@ -13,9 +13,9 @@ export async function RequestToken(code: string, from: string) {
                 authorizationCode: code,
             })
             .then((response) => {
-                console.log('토큰이다 이것들아', response.data.data.accessToken);
                 if (response.data && response.data.data.accessToken) {
                     const token = response.data.data.accessToken;
+                    localStorage.setItem('accessToken', token);
                     console.log('get token', token);
                 } else {
                     console.log('유효하지 않은 토큰');
@@ -34,7 +34,7 @@ export async function RequestToken(code: string, from: string) {
 
                 if (response.data && response.data.data.accessToken) {
                     const token = response.data.data.accessToken;
-                    console.log('get token', token);
+                    localStorage.setItem('accessToken', token);
                 } else {
                     console.log('유효하지 않은 토큰');
                 }
@@ -51,7 +51,7 @@ export async function RequestToken(code: string, from: string) {
                 console.log('토큰이다 이것들아', response.data.data.accessToken);
                 if (response.data && response.data.data.accessToken) {
                     const token = response.data.data.accessToken;
-                    console.log('get token', token);
+                    localStorage.setItem('accessToken', token);
                 } else {
                     console.log('유효하지 않은 토큰');
                 }
