@@ -1,4 +1,5 @@
 import { GoogleLogin, KakaoLogin, NaverLogin } from '../../assets/svg';
+import OAuth2RedirectHandler from './OAuth';
 import * as S from './style';
 
 function Body() {
@@ -11,16 +12,21 @@ function Body() {
     const GOOGLELOGIN = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${
         import.meta.env.VITE_GOOGLELOGIN_CLIENT_ID
     }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&response_type=code&scope=email%20profile`;
+
+    // https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=YAr_BNWN5Q_wraQE0iCy&redirect_uri=https://moyeota-webview.netlify.app&state=nid/me
+    // https://moyeota-webview.netlify.app/?code=4%2F0AdLIrYfqVhGT1cTszhDpZlPi3Pbx-93pZzXrPrvsCGcPLQow9zjHCa-SlrogGE0_iFztyQ&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=consent
     const NavToLogin = (from: string) => {
         if (from === 'KAKAO') {
             window.location.href = KAKAOLOGIN;
-            console.log('카카오로 로그인');
+            OAuth2RedirectHandler({ from: 'KAKAO' });
         }
         if (from === 'GOOGLE') {
             window.location.href = GOOGLELOGIN;
+            OAuth2RedirectHandler({ from: 'GOOGLE' });
         }
         if (from === 'NAVER') {
             window.location.href = NAVERLOGIN;
+            OAuth2RedirectHandler({ from: 'NAVER' });
         }
     };
     return (
