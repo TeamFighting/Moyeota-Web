@@ -19,11 +19,11 @@ export const HeaderText = styled.div`
 
 export const ProfileWrapper = styled.div`
     width: 100%;
-    height: 104px;
+    height: 94px;
     display: flex;
     flex-direction: row;
-    margin-left: 20px;
-    margin-top: 32px;
+    padding-left: 20px;
+    padding-top: 32px;
     gap: 14px;
 `;
 
@@ -80,4 +80,65 @@ export const Tag = styled.div`
     font-style: normal;
     font-weight: 600;
     line-height: 157%; /* 15.7px */
+`;
+
+export const FavoritePotWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const FavoritePot = styled.div`
+    border-radius: 12px;
+    background: var(--Gray-Icon-Solid, #f5f6f8);
+    width: 90%;
+    height: 75px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    color: var(--Gray-Text-3, #343434);
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    align-items: center;
+    flex-direction: column;
+    gap: 6px;
+`;
+
+export const ListWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 32px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 32px;
+`;
+
+export const List = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+`;
+
+export const ListLeft = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+`;
+export const ListText = styled.div`
+    color: var(--Gray-Text-3, #343434);
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    white-space: nowrap;
 `;
