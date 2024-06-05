@@ -148,124 +148,156 @@ function ChatLists() {
         console.log('leave chat room', res);
     };
     const renderChatRooms = () => {
-        return (
-            lastMessage.length > 0 &&
-            chatRooms.length > 0 &&
-            lastMessage.map((message, i) => {
-                const chatRoom = chatRooms.find((room) => room.roomId === message.key);
-                if (chatRoom)
-                    return (
-                        <ChatList key={i}>
-                            {chatRooms.map((chatRoom, i) => {
-                                moment.locale('ko');
-                                let time = moment(message.timestamp).fromNow();
-                                if (ChatTime(time) !== undefined) {
-                                    time = ChatTime(time);
-                                }
-                                if (chatRoom.roomId === message.key) {
-                                    return (
-                                        <SwipeableContainer key={i}>
-                                            <motion.div
-                                                ref={animateRef}
-                                                dragControls={dragControls}
-                                                dragConstraints={{ left: -82, right: 0 }}
-                                                drag="x"
-                                                onClick={() => handleChatRoom(chatRoom.roomId, chatRoom.postId)}
-                                                style={{
-                                                    height: '84px',
-                                                    display: 'flex',
-                                                    gap: '26px',
-                                                    width: '100%',
-                                                    alignItems: 'center',
-                                                    backgroundColor: bgColor,
-                                                    zIndex: 1,
-                                                }}
-                                            >
-                                                <div
+        if (chatRooms.length === 0) {
+            return (
+                <div
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <div
+                        style={{
+                            width: '100%',
+                            paddingBottom: '200px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            color: '#9A9A9A',
+                            textAlign: 'center',
+                            fontFamily: 'Pretendard',
+                            fontSize: '18px',
+                            fontStyle: 'normal',
+                            fontWeight: '500',
+                        }}
+                    >
+                        팟 매칭 신청하고 채팅을 시작해봐요 !
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                lastMessage.length > 0 &&
+                chatRooms.length > 0 &&
+                lastMessage.map((message, i) => {
+                    const chatRoom = chatRooms.find((room) => room.roomId === message.key);
+                    if (chatRoom)
+                        return (
+                            <ChatList key={i}>
+                                {chatRooms.map((chatRoom, i) => {
+                                    moment.locale('ko');
+                                    let time = moment(message.timestamp).fromNow();
+                                    if (ChatTime(time) !== undefined) {
+                                        time = ChatTime(time);
+                                    }
+                                    if (chatRoom.roomId === message.key) {
+                                        return (
+                                            <SwipeableContainer key={i}>
+                                                <motion.div
+                                                    ref={animateRef}
+                                                    dragControls={dragControls}
+                                                    dragConstraints={{ left: -82, right: 0 }}
+                                                    drag="x"
+                                                    onClick={() => handleChatRoom(chatRoom.roomId, chatRoom.postId)}
                                                     style={{
-                                                        width: '16px',
-                                                        height: '100%',
-                                                        backgroundColor: 'white',
+                                                        height: '84px',
+                                                        display: 'flex',
+                                                        gap: '26px',
+                                                        width: '100%',
+                                                        alignItems: 'center',
+                                                        backgroundColor: bgColor,
+                                                        zIndex: 1,
                                                     }}
-                                                />
-                                                <img
-                                                    style={{
-                                                        width: 36,
-                                                        height: 36,
-                                                        borderRadius: '100%',
-                                                        objectFit: 'cover',
-                                                        border: '3px solid #ededed',
-                                                    }}
-                                                    src={profileImage}
-                                                />
-                                                <div style={{ flex: 1 }}>
-                                                    <motion.div
-                                                        style={{
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            width: '100%',
-                                                            justifyContent: 'space-between',
-                                                        }}
-                                                    >
-                                                        <RoomName>{chatRoom.roomName}</RoomName>{' '}
-                                                        <Time style={{ whiteSpace: 'nowrap' }}>{time}</Time>
-                                                    </motion.div>
+                                                >
                                                     <div
                                                         style={{
-                                                            display: 'flex',
-                                                            flexDirection: 'row',
-                                                            justifyContent: 'space-between',
+                                                            width: '16px',
+                                                            height: '100%',
+                                                            backgroundColor: 'white',
                                                         }}
-                                                    >
-                                                        <LastestMessage key={i}>
-                                                            {message.text == undefined
-                                                                ? '정산하기를 요청했어요...'
-                                                                : message.text}
-                                                        </LastestMessage>
-                                                        {noneReadChat[chatRoom.roomId] > 0 ? (
-                                                            <div
-                                                                style={{
-                                                                    fontSize: '12px',
-                                                                    borderRadius: '50%',
-                                                                    backgroundColor: '#EC5829',
-                                                                    width: '20px',
-                                                                    height: '20px',
-                                                                    display: 'flex',
-                                                                    justifyContent: 'center',
-                                                                    alignItems: 'center',
-                                                                    color: 'white',
-                                                                    fontWeight: 'bold',
-                                                                }}
-                                                            >
-                                                                {noneReadChat[chatRoom.roomId]}
-                                                            </div>
-                                                        ) : null}
+                                                    />
+                                                    <img
+                                                        style={{
+                                                            width: 36,
+                                                            height: 36,
+                                                            borderRadius: '100%',
+                                                            objectFit: 'cover',
+                                                            border: '3px solid #ededed',
+                                                        }}
+                                                        src={profileImage}
+                                                    />
+                                                    <div style={{ flex: 1 }}>
+                                                        <motion.div
+                                                            style={{
+                                                                display: 'flex',
+                                                                alignItems: 'center',
+                                                                width: '100%',
+                                                                justifyContent: 'space-between',
+                                                            }}
+                                                        >
+                                                            <RoomName>{chatRoom.roomName}</RoomName>{' '}
+                                                            <Time style={{ whiteSpace: 'nowrap' }}>{time}</Time>
+                                                        </motion.div>
+                                                        <div
+                                                            style={{
+                                                                display: 'flex',
+                                                                flexDirection: 'row',
+                                                                justifyContent: 'space-between',
+                                                            }}
+                                                        >
+                                                            <LastestMessage key={i}>
+                                                                {message.text == undefined
+                                                                    ? '정산하기를 요청했어요...'
+                                                                    : message.text}
+                                                            </LastestMessage>
+                                                            {noneReadChat[chatRoom.roomId] > 0 ? (
+                                                                <div
+                                                                    style={{
+                                                                        fontSize: '12px',
+                                                                        borderRadius: '50%',
+                                                                        backgroundColor: '#EC5829',
+                                                                        width: '20px',
+                                                                        height: '20px',
+                                                                        display: 'flex',
+                                                                        justifyContent: 'center',
+                                                                        alignItems: 'center',
+                                                                        color: 'white',
+                                                                        fontWeight: 'bold',
+                                                                    }}
+                                                                >
+                                                                    {noneReadChat[chatRoom.roomId]}
+                                                                </div>
+                                                            ) : null}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div
-                                                    style={{
-                                                        width: '16px',
-                                                        height: '100%',
-                                                        backgroundColor: 'white',
+                                                    <div
+                                                        style={{
+                                                            width: '16px',
+                                                            height: '100%',
+                                                            backgroundColor: 'white',
+                                                        }}
+                                                    />
+                                                </motion.div>
+                                                <LeaveChatRoom
+                                                    initial="disappear"
+                                                    onClick={() => {
+                                                        handleleaveChatRoom(i);
                                                     }}
-                                                />
-                                            </motion.div>
-                                            <LeaveChatRoom
-                                                initial="disappear"
-                                                onClick={() => {
-                                                    handleleaveChatRoom(i);
-                                                }}
-                                            >
-                                                나가기
-                                            </LeaveChatRoom>
-                                        </SwipeableContainer>
-                                    );
-                                }
-                            })}
-                        </ChatList>
-                    );
-            })
-        );
+                                                >
+                                                    나가기
+                                                </LeaveChatRoom>
+                                            </SwipeableContainer>
+                                        );
+                                    }
+                                })}
+                            </ChatList>
+                        );
+                })
+            );
+        }
     };
 
     useEffect(() => {
