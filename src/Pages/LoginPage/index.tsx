@@ -1,8 +1,16 @@
 import styled from 'styled-components';
 import Body from './Body';
 import Header from './Header';
+import { useEffect } from 'react';
 
 function LoginPage() {
+    useEffect(() => {
+        const haveToken = localStorage.getItem('accessToken');
+        if (haveToken !== null) {
+            window.location.href = '/mainpage';
+        }
+    }, []);
+
     return (
         <Container>
             <Header />

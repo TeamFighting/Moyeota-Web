@@ -3,7 +3,7 @@ function App() {
     const url = new URL(window.location.href);
     const isNaver = url.searchParams.get('state')?.toString();
     const isGoogle = url.searchParams.get('scope')?.toString();
-
+    console.log(isGoogle);
     if (isNaver === 'nid/me') {
         OAuth2RedirectHandler({ from: 'NAVER' });
     } else if (isGoogle === 'email profile openid') {
