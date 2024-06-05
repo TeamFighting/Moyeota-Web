@@ -6,7 +6,7 @@ function App() {
 
     if (isNaver === 'nid/me') {
         OAuth2RedirectHandler({ from: 'NAVER' });
-    } else if (isGoogle === 'email profile') {
+    } else if (isGoogle === 'email profile openid') {
         OAuth2RedirectHandler({ from: 'Google' });
     } else {
         OAuth2RedirectHandler({ from: 'Kakao' });

@@ -8,7 +8,6 @@ interface OAuth2RedirectHandlerProps {
 export async function RequestToken(code: string, from: string) {
     const navigate = useNavigate();
     if (from === 'Kakao') {
-        console.log('카카오로 로그인');
         axios
             .post('https://moyeota.shop/api/oauth/kakao', {
                 authorizationCode: code,
@@ -68,8 +67,12 @@ export async function RequestToken(code: string, from: string) {
 export function OAuth2RedirectHandler({ from }: OAuth2RedirectHandlerProps) {
     const url = new URL(window.location.href);
     const code = url.searchParams.get('code')?.toString();
-    if (!code) return;
-    RequestToken(code, from);
+    let AuthToken = code;
+    if (!code || !AuthToken) return;
+    if (from == 'GOOGLE') {
+        AuthToken = code.substring(3, code.length);
+    }
+    RequestToken(AuthToken, from);
 }
 
 export default OAuth2RedirectHandler;
