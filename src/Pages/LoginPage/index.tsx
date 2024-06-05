@@ -14,7 +14,7 @@ function LoginPage() {
     return (
         <Container>
             <Header />
-            <Body></Body>
+            <Body />
         </Container>
     );
 }

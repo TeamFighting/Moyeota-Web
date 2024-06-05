@@ -30,6 +30,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import LoginPage from './Pages/LoginPage';
 import React from 'react';
+import MyPage from './Pages/MyPage';
 
 const router = createBrowserRouter([
     {
@@ -135,6 +136,10 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: <LoginPage />,
+    },
+    {
+        path: '/mypage/:userId',
+        element: <MyPage />,
     },
 ]);
 
