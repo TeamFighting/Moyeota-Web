@@ -72,6 +72,7 @@ export function OAuth2RedirectHandler({ from }: OAuth2RedirectHandlerProps) {
     if (from == 'GOOGLE') {
         AuthToken = code.substring(3, code.length);
     }
+    console.log('AuthToken', AuthToken);
     RequestToken(AuthToken, from);
 }
 
