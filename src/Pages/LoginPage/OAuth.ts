@@ -7,7 +7,7 @@ interface OAuth2RedirectHandlerProps {
 
 export async function RequestToken(code: string, from: string) {
     const navigate = useNavigate();
-    if (from === 'Kakao') {
+    if (from === 'KAKAO') {
         axios
             .post('https://moyeota.shop/api/oauth/kakao', {
                 authorizationCode: code,
@@ -25,7 +25,7 @@ export async function RequestToken(code: string, from: string) {
             .catch(function () {
                 alert('로그인에 실패했습니다.');
             });
-    } else if (from === 'Google') {
+    } else if (from === 'GOOGLE') {
         axios
             .post('https://moyeota.shop/api/oauth/google', {
                 authorizationCode: code,
@@ -44,7 +44,7 @@ export async function RequestToken(code: string, from: string) {
             .catch(function () {
                 alert('로그인에 실패했습니다.');
             });
-    } else if (from === 'Naver') {
+    } else if (from === 'NAVER') {
         axios
             .post('https://moyeota.shop/api/oauth/naver', {
                 authorizationCode: code,

@@ -9,7 +9,7 @@ function App() {
     } else if (isGoogle === 'email profile openid') {
         OAuth2RedirectHandler({ from: 'Google' });
     } else {
-        OAuth2RedirectHandler({ from: 'Kakao' });
+        OAuth2RedirectHandler({ from: 'KAKAO' });
     }
     return <div>로그인 중..</div>;
 }
