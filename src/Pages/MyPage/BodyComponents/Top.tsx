@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router';
 import { PencilIcon } from '../../../assets/svg';
 import SvgHeart from '../../../assets/svg/Heart';
 import * as S from '../MyPage_styles';
 
 function BodyTop() {
     const userInfo = JSON.parse(localStorage.getItem('myInfo') || '{}');
+    const navigate = useNavigate();
     let gender = '남자';
     if (userInfo.gender == 'F') gender = '여자';
     let age = userInfo.age[0];
@@ -13,12 +15,18 @@ function BodyTop() {
     else if (age == '4') age = '40대';
     else if (age == '5') age = '50대';
     else age = '60대 이상';
+
+    const navigateToEdit = () => {
+        const userId = userInfo.id;
+        navigate(`/mypage/modify/${userId}`);
+    };
+
     return (
         <div>
             <S.ProfileWrapper>
                 <S.ProfileImage src={userInfo.profileImage} />
                 <S.ProfileInfo>
-                    <S.ProfileNameRow>
+                    <S.ProfileNameRow onClick={navigateToEdit}>
                         <S.ProfileName>{userInfo.nickName ?? userInfo.name}</S.ProfileName>
                         <PencilIcon width={20} height={20} />
                     </S.ProfileNameRow>

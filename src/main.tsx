@@ -31,6 +31,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import LoginPage from './Pages/LoginPage';
 import React from 'react';
 import MyPage from './Pages/MyPage';
+import EditAccount from './Pages/MyPage/ListsPages/EditAccount';
+import ModifyProfile from './Pages/MyPage/ListsPages/ModifyProfile';
+import ManageAccount from './Pages/MyPage/ListsPages/ManageAccount';
+import ManageProfile from './Pages/MyPage/ListsPages/ManageAccount';
 
 const router = createBrowserRouter([
     {
@@ -137,9 +141,25 @@ const router = createBrowserRouter([
         path: '/login',
         element: <LoginPage />,
     },
+
     {
         path: '/mypage/:userId',
         element: <MyPage />,
+    },
+    {
+        // 닉네임 수정
+        path: '/mypage/modify/:userId',
+        element: <ModifyProfile />,
+    },
+    {
+        // 계좌 관리
+        path: '/mypage/editAccount/:userId',
+        element: <EditAccount />,
+    },
+    {
+        // 계정 관리
+        path: '/mypage/manageprofile/:userId',
+        element: <ManageProfile />,
     },
 ]);
 

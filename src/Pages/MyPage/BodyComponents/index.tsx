@@ -15,7 +15,7 @@ function Body() {
     return (
         <div>
             <BodyTop />
-            <Lists />
+            <Lists userId={userInfo.id} />
         </div>
     );
 }
