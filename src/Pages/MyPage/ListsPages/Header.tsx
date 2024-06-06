@@ -14,27 +14,42 @@ function Header({ title }: HeaderProps) {
     };
     return (
         <HeaderWrapper>
-            <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
-                <CheveronLeft width="24" height="24" />
-            </Icon>
-            <Title>{title}</Title>
-            <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
-                <SvgCancelIcon width="24" height="24" />
-            </Icon>
+            <DIV>
+                <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
+                    <CheveronLeft width="24" height="24" />
+                </Icon>
+                <Title>{title}</Title>
+                <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
+                    <SvgCancelIcon width="24" height="24" />
+                </Icon>
+            </DIV>
         </HeaderWrapper>
     );
 }
+const DIV = styled.div`
+    width: 90%;
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`;
+
 const HeaderWrapper = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
     height: ${HEADER_HEIGHT}px;
-    justify-content: space-between;
     padding: 4% 4%;
+    width: 100%;
+    justify-content: center;
 `;
 const Icon = styled.div`
     cursor: pointer;
-    align-self: flex-start;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
 `;
 const Title = styled.div`
     color: #000;
