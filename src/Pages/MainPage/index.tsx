@@ -48,7 +48,7 @@ function MainPage() {
             myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
             setMyPot(newArr);
         } catch (e) {
-            console.log(e);
+            console.log('getMyPost', e);
         }
     };
     useEffect(() => {
