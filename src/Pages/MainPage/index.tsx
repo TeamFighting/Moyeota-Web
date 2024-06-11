@@ -29,6 +29,7 @@ function MainPage() {
     const accessToken = localStorage.getItem('accessToken');
     const setAccessToken = AuthStore((state) => state.setAccessToken);
     const { setMyInfo, id, accountDtoList } = useMyInfoStore();
+    console.log(id);
     const { setMyPot } = useMyPotStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     const getMyPost = async () => {
@@ -53,7 +54,9 @@ function MainPage() {
     useEffect(() => {
         fetchData();
         usersInfo();
-        getMyPost();
+        if (id !== undefined || id !== null) {
+            getMyPost();
+        }
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const handleMessage = (event: any) => {
@@ -88,7 +91,6 @@ function MainPage() {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log('res.data.data', res.data.data);
             setMyInfo(res.data.data);
             localStorage.setItem('myInfo', JSON.stringify(res.data.data));
         } catch (e) {
