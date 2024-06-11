@@ -24,7 +24,7 @@ interface ChatReimbursementProps {
     navigate: any;
 }
 function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate }: ChatReimbursementProps) {
-    const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
+    const { id } = JSON.parse(sessionStorage.getItem('myInfo') as string);
     const data: JSONType = JSON.parse(JSONMessage);
     const isMe = user.id == Number(id);
     const jusify = isMe ? 'end' : 'start';

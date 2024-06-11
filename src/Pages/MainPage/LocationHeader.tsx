@@ -17,8 +17,8 @@ declare global {
 }
 
 function LocationHeader() {
-    const latitude = Number(localStorage.getItem('latitude'));
-    const longitude = Number(localStorage.getItem('longitude'));
+    const latitude = Number(sessionStorage.getItem('latitude'));
+    const longitude = Number(sessionStorage.getItem('longitude'));
 
     const [location, setLocation] = useState<string>('');
     const { setCurrentLocation } = CurrentLocationStore();
@@ -42,7 +42,7 @@ function LocationHeader() {
             const location = result[0].address?.region_1depth_name + ' ' + result[0].address?.region_2depth_name;
             setLocation(location);
             setCurrentLocation(result[0].address);
-            localStorage.setItem('address', result[0].address.address_name);
+            sessionStorage.setItem('address', result[0].address.address_name);
         }
     };
 

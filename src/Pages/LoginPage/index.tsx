@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 function LoginPage() {
     useEffect(() => {
-        const haveToken = localStorage.getItem('accessToken');
+        const haveToken = sessionStorage.getItem('accessToken');
         if (haveToken !== null) {
             window.location.href = '/mainpage';
         }
