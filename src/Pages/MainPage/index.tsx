@@ -29,7 +29,7 @@ function MainPage() {
     const accessToken = localStorage.getItem('accessToken');
     const setAccessToken = AuthStore((state) => state.setAccessToken);
     const { setMyInfo, id, accountDtoList } = useMyInfoStore();
-    console.log(id);
+    console.log('id', id);
     const { setMyPot } = useMyPotStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     const getMyPost = async () => {
@@ -54,7 +54,7 @@ function MainPage() {
     useEffect(() => {
         fetchData();
         usersInfo();
-        if (id !== undefined || id !== null) {
+        if (id !== undefined || id !== null || id !== 0) {
             getMyPost();
         }
 
