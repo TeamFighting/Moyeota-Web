@@ -2,25 +2,20 @@ import { useNavigate } from 'react-router';
 import { PencilIcon } from '../../../assets/svg';
 import SvgHeart from '../../../assets/svg/Heart';
 import * as S from '../MyPage_styles';
+import { useMyInfoStore } from '../../../state/store/MyInfo';
 
 function BodyTop() {
-    const userInfo = JSON.parse(localStorage.getItem('myInfo') || '{}');
+    const userInfo = useMyInfoStore();
+    console.log(userInfo);
     const navigate = useNavigate();
     let gender = '남자';
     if (userInfo.gender == 'F') gender = '여자';
-    let age = userInfo.age[0];
-    if (age == '1') age = '10대';
-    else if (age == '2') age = '20대';
-    else if (age == '3') age = '30대';
-    else if (age == '4') age = '40대';
-    else if (age == '5') age = '50대';
-    else age = '60대 이상';
+    const age = userInfo.age;
 
     const navigateToEdit = () => {
         const userId = userInfo.id;
         navigate(`/mypage/modify/${userId}`);
     };
-
     return (
         <div>
             <S.ProfileWrapper>

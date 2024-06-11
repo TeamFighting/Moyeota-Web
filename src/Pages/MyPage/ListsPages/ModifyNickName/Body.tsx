@@ -1,48 +1,76 @@
+import { useState } from 'react';
 import { WhiteCancelIcon } from '../../../../assets/svg';
+import { instance } from '../../../../axios';
 import * as S from './ModifyNickname_styles';
+import { useMyInfoStore } from '../../../../state/store/MyInfo';
 
 interface BodyProps {
     userInfo: string | null;
 }
 interface UserInfoData {
     profileImage: string;
-    nickname: string;
+    nickName: string;
     name: string;
     age: string;
     id: number;
     gender: string;
 }
 function Body({ userInfo }: BodyProps) {
+    const { nickName, setMyInfo, name, age, gender } = useMyInfoStore();
+    const [nickNameState, setNickNameState] = useState<string>(nickName ?? '');
+    console.log('myInfo', nickName);
     if (userInfo == null) {
         alert('로그인이 필요합니다.');
         window.location.href = '/login';
         return;
     }
     const userInfoData: UserInfoData = JSON.parse(userInfo);
-    const { name, nickname, age, gender } = userInfoData;
-    console.log(age);
-    // let newage: string = '';
-    // if (age === '10-19') {
-    //     newage = '10대';
-    // } else if (age === '20-29') {
-    //     newage = '20대';
-    // } else if (age === '30-39') {
-    //     newage = '30대';
-    // } else if (age === '40-49') {
-    //     newage = '40대';
-    // } else if (age === '50-50') {
-    //     newage = '50대';
-    // } else if (age === '60-69') {
-    //     newage = '60대';
-    // } else if (age === '70-79') {
-    //     newage = '70대';
-    // } else if (age === '80-89') {
-    //     newage = '80대';
-    // }
-
     let gen: string = '남자';
     if (gender == 'F') gen = '여자';
+    async function usersInfo() {
+        try {
+            const res = await instance.get('/users', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+            });
+            console.log('res', res);
+            setMyInfo(res.data.data);
+            // localStorage.setItem('myInfo', JSON.stringify(res.data.data));
+        } catch (e) {
+            //console.log(e);
+        }
+    }
+    const sendModifiedNickName = async () => {
+        try {
+            const res = await instance.put(
+                `/users/nickname`,
+                {
+                    nickName: nickNameState,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    },
+                },
+            );
+            console.log(res);
+            if (res.status !== 200) {
+                alert('닉네임 수정에 실패했습니다.');
+                return;
+            } else {
+                usersInfo();
+                alert('닉네임이 수정되었습니다.');
+            }
+        } catch (e) {
+            alert('닉네임 수정에 실패했습니다.');
+            return;
+        }
+    };
 
+    const onChangeNickName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNickNameState(e.target.value);
+    };
     return (
         <S.BodyWrapper>
             <S.BodyExplain>
@@ -66,7 +94,7 @@ function Body({ userInfo }: BodyProps) {
                 </S.Tags>
             </S.UserInfo>
             <S.StyledInputWrapper>
-                <S.StyledInput defaultValue={nickname ?? name} />
+                <S.StyledInput onChange={onChangeNickName} defaultValue={nickName ?? name} />
                 <S.Icon
                     style={{
                         border: 'none',
@@ -81,7 +109,7 @@ function Body({ userInfo }: BodyProps) {
                     <WhiteCancelIcon width={14} style={{ stroke: 'white' }} />
                 </S.Icon>
             </S.StyledInputWrapper>
-            <S.ButtonWrapper>저장하기</S.ButtonWrapper>
+            <S.ButtonWrapper onClick={sendModifiedNickName}>저장하기</S.ButtonWrapper>
         </S.BodyWrapper>
     );
 }

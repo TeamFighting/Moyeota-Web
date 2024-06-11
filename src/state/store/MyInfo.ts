@@ -7,11 +7,11 @@ interface accountDtoList {
 }
 interface MyInfo {
     name: string;
-    age: number;
+    age: string;
     averageStarRate: number | null;
     email: string | null;
     loginId: string | null;
-    nickname: string | null;
+    nickName: string | null;
     phoneNumber: string | null;
     profileImage: string;
     id: number;
@@ -27,11 +27,11 @@ export const useMyInfoStore = create(
         (set) => ({
             accountDtoList: [{ accountNumber: '', bankName: '' }],
             name: '',
-            age: 0,
+            age: '',
             averageStarRate: null,
             email: null,
             loginId: null,
-            nickname: null,
+            nickName: null,
             phoneNumber: null,
             profileImage: '',
             id: 0,
@@ -42,7 +42,7 @@ export const useMyInfoStore = create(
         }),
         {
             name: 'my-info',
-            getStorage: () => sessionStorage,
+            getStorage: () => localStorage,
         },
     ),
 );

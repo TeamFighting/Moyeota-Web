@@ -13,8 +13,6 @@ function Body() {
         import.meta.env.VITE_GOOGLELOGIN_CLIENT_ID
     }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&response_type=code&scope=email%20profile`;
 
-    // https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=YAr_BNWN5Q_wraQE0iCy&redirect_uri=https://moyeota-webview.netlify.app&state=nid/me
-    // https://moyeota-webview.netlify.app/?code=4%2F0AdLIrYfqVhGT1cTszhDpZlPi3Pbx-93pZzXrPrvsCGcPLQow9zjHCa-SlrogGE0_iFztyQ&scope=email+profile+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=consent
     const NavToLogin = (from: string) => {
         if (from === 'KAKAO') {
             window.location.href = KAKAOLOGIN;

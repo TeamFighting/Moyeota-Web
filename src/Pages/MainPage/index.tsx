@@ -29,7 +29,6 @@ function MainPage() {
     const accessToken = localStorage.getItem('accessToken');
     const setAccessToken = AuthStore((state) => state.setAccessToken);
     const { setMyInfo, id, accountDtoList } = useMyInfoStore();
-    console.log('id', id);
     const { setMyPot } = useMyPotStore();
     const [useToken, setUseToken] = useState<string | undefined>(undefined);
     const getMyPost = async () => {
