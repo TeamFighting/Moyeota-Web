@@ -8,7 +8,7 @@ import { DestinationMarkerClickStore } from '../../../../state/store/Destination
 function BottomSheet() {
     const { destinationResult } = DestinationStore((state) => state);
     const { clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
-    const { finalDestination, setFinalDestination } = DestinationStore((state) => state);
+    const { setFinalDestination } = DestinationStore((state) => state);
     const [destinationName, setDestinationName] = useState<string | null>(null);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ function BottomSheet() {
             setFinalDestination(clickedDestinationMarker.title);
             setDestinationName(clickedDestinationMarker.title);
         }
-        console.log(finalDestination);
+        // console.log(finalDestination);
     }, [destinationResult, clickedDestinationMarker]);
     return (
         <Wrapper>

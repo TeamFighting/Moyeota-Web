@@ -89,7 +89,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     },
                 },
             );
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
                 navigate('/createComplete');
             } else {

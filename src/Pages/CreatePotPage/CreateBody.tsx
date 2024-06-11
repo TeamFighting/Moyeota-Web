@@ -75,7 +75,7 @@ function CreateBody() {
                         .then((response) => {
                             const data = response.data.data;
                             const distance = parseFloat(data);
-                            console.log('distance:', distance);
+                            // console.log('distance:', distance);
                             setDistance(distance);
                         })
                         .catch((error) => {

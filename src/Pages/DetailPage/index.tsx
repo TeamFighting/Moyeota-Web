@@ -83,7 +83,7 @@ function DetailPage() {
     const getDetailData = async () => {
         const res = await instance.get(`/posts/${postId}`);
         setData(res.data.data);
-        console.log('RES', res.data.data);
+        // console.log('RES', res.data.data);
         if (res.data.data.numberOfParticipants == res.data.data.numberOfRecruitment) {
             setIsFull(true);
         }
@@ -92,12 +92,12 @@ function DetailPage() {
             setTimePart(ISOto12(res.data.data.departureTime));
         }
         MyPot.forEach((element) => {
-            console.log(element);
+            // console.log(element);
             if (element === res.data.data.postId) {
                 setIsFixDetailHeader(true);
             }
         });
-        console.log(res);
+        // console.log(res);
     };
 
     useEffect(() => {
