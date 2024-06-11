@@ -18,9 +18,9 @@ function CreateBody() {
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
     const { title, setTitle, setDistance, setDestination } = PotCreateStore();
     const { currentLocation } = CurrentLocationStore();
-    const curLocation = localStorage.getItem('address');
-    const curLat = localStorage.getItem('latitude');
-    const curLng = localStorage.getItem('longitude');
+    const curLocation = sessionStorage.getItem('address');
+    const curLat = sessionStorage.getItem('latitude');
+    const curLng = sessionStorage.getItem('longitude');
     const { finalDestination: destination } = DestinationStore((state) => state);
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {

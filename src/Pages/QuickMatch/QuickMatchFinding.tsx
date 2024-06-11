@@ -18,7 +18,7 @@ function QuickMatchFinding() {
     const navigate = useNavigate();
     const currentBuildingName = currentLocation?.building_name;
     console.log(currentBuildingName);
-    const cur = localStorage.getItem('address');
+    const cur = sessionStorage.getItem('address');
 
     setTimeout(() => {
         navigate('/mainPage');

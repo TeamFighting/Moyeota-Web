@@ -24,8 +24,8 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         selectedTime,
     } = potCreateStore;
     const { estimatedDuration, estimatedFare } = durationFareStore;
-    const currentLat = localStorage.getItem('latitude');
-    const currentLng = localStorage.getItem('longitude');
+    const currentLat = sessionStorage.getItem('latitude');
+    const currentLng = sessionStorage.getItem('longitude');
     const createPost = async () => {
         const key = push(chatRoomsRef).key;
         const newChatRoom = {
