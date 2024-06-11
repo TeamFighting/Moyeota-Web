@@ -20,24 +20,25 @@ function Body({ userInfo }: BodyProps) {
     }
     const userInfoData: UserInfoData = JSON.parse(userInfo);
     const { name, nickname, age, gender } = userInfoData;
-    let newage: string = '';
-    if (age === '10-19') {
-        newage = '10대';
-    } else if (age === '20-29') {
-        newage = '20대';
-    } else if (age === '30-39') {
-        newage = '30대';
-    } else if (age === '40-49') {
-        newage = '40대';
-    } else if (age === '50-50') {
-        newage = '50대';
-    } else if (age === '60-69') {
-        newage = '60대';
-    } else if (age === '70-79') {
-        newage = '70대';
-    } else if (age === '80-89') {
-        newage = '80대';
-    }
+    console.log(age);
+    // let newage: string = '';
+    // if (age === '10-19') {
+    //     newage = '10대';
+    // } else if (age === '20-29') {
+    //     newage = '20대';
+    // } else if (age === '30-39') {
+    //     newage = '30대';
+    // } else if (age === '40-49') {
+    //     newage = '40대';
+    // } else if (age === '50-50') {
+    //     newage = '50대';
+    // } else if (age === '60-69') {
+    //     newage = '60대';
+    // } else if (age === '70-79') {
+    //     newage = '70대';
+    // } else if (age === '80-89') {
+    //     newage = '80대';
+    // }
 
     let gen: string = '남자';
     if (gender == 'F') gen = '여자';
@@ -53,11 +54,15 @@ function Body({ userInfo }: BodyProps) {
             </S.BodyExplain>
             <S.UserInfo>
                 <S.Icon>
-                    <img style={{ width: '84px', height: '84px' }} src={userInfoData.profileImage} alt="profile" />
+                    <img
+                        style={{ width: '84px', height: '84px', borderRadius: '50%' }}
+                        src={userInfoData.profileImage}
+                        alt="profile"
+                    />
                 </S.Icon>
                 <S.Tags>
                     <S.Tag>{gen}</S.Tag>
-                    <S.Tag>{newage}</S.Tag>
+                    <S.Tag>{age}</S.Tag>
                 </S.Tags>
             </S.UserInfo>
             <S.StyledInputWrapper>
