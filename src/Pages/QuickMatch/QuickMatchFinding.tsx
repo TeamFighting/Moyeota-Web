@@ -13,10 +13,8 @@ function QuickMatchFinding() {
 
     const { destination } = location.state;
 
-    const { currentLocation } = CurrentLocationStore();
     const { destination: quickDestination } = useQuickMathDestinationStore();
     const navigate = useNavigate();
-    const currentBuildingName = currentLocation?.building_name;
     const cur = sessionStorage.getItem('address');
 
     setTimeout(() => {
