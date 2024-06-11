@@ -1,4 +1,4 @@
-import { CancelIcon, WhiteCancelIcon } from '../../../../assets/svg';
+import { WhiteCancelIcon } from '../../../../assets/svg';
 import * as S from './ModifyNickname_styles';
 
 interface BodyProps {

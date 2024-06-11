@@ -33,7 +33,7 @@ import React from 'react';
 import MyPage from './Pages/MyPage';
 import EditAccount from './Pages/MyPage/ListsPages/EditAccount';
 import ModifyProfile from './Pages/MyPage/ListsPages/ModifyNickName';
-import ManageAccount from './Pages/MyPage/ListsPages/ManageAccount';
+// import ManageAccount from './Pages/MyPage/ListsPages/ManageAccount';
 import ManageProfile from './Pages/MyPage/ListsPages/ManageAccount';
 
 const router = createBrowserRouter([
