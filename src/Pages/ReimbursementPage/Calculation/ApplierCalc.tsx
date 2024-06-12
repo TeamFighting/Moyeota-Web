@@ -9,7 +9,7 @@ import { useMyInfoStore } from '../../../state/store/MyInfo';
 function ApplierCalc() {
     const [money, setMoney] = useState('');
     const accessToken = localStorage.getItem('accessToken');
-    const { name, nickname } = useMyInfoStore();
+    const { name, nickName } = useMyInfoStore();
     const { postId } = useParams();
     const navigate = useNavigate();
     const handleChange = (e: React.KeyboardEvent) => {
@@ -49,7 +49,7 @@ function ApplierCalc() {
             <Header />
             <S.Body>
                 <S.Title>
-                    {nickname ? nickname : name}님이 내릴 당시
+                    {nickName ?? name}님이 내릴 당시
                     <br />
                     미터기 금액 입력해주세요.
                 </S.Title>

@@ -7,6 +7,7 @@ interface OAuth2RedirectHandlerProps {
 
 export async function RequestToken(code: string, from: string) {
     const navigate = useNavigate();
+    console.log('code', code);
     if (from === 'KAKAO') {
         axios
             .post('https://moyeota.shop/api/oauth/kakao', {
