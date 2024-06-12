@@ -1,3 +1,4 @@
+import BottomBtn from '../../../components/BottomBtn';
 import Lists from './Lists';
 import BodyTop from './Top';
 
@@ -8,6 +9,7 @@ function Body() {
         <div>
             <BodyTop />
             <Lists userId={userInfo.id} />
+            <BottomBtn />
         </div>
     );
 }

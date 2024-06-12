@@ -6,9 +6,10 @@ export const Title = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: 157%; /* 28.26px */
-    background-color: red;
+    background-color: white;
     width: 90%;
     margin-left: 5px;
+    margin-top: 32px;
 `;
 
 export const SubTitle = styled.div`
@@ -35,7 +36,7 @@ export const BasicInfo = styled.div`
     justify-content: flex-start;
     width: 88%;
     padding-left: 20px;
-    background-color: antiquewhite;
+    background-color: white;
     gap: 36px;
 `;
 
@@ -48,23 +49,33 @@ export const ManageAccountWrapper = styled.div`
     width: 100vw;
     display: flex;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: white;
     justify-content: center;
     align-items: center;
     margin-bottom: 36px;
+`;
+
+export const IconWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #9a9a9a;
 `;
 
 export const ManageAccount = styled.div`
     width: 90%;
     display: flex;
     flex-direction: column;
-    background-color: blue;
+    background-color: white;
     justify-content: center;
     align-items: center;
 `;
 export const EmailInput = styled.input`
     border-radius: 12px;
-    width: 100%;
+    width: 90%;
     height: 40px;
     background: #f5f6f8;
     color: var(--Gray-Text-3, #343434);
@@ -98,5 +109,4 @@ export const BTN = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 16px;
 `;
