@@ -5,7 +5,6 @@ export const Header = styled.div`
     height: 84px;
     justify-content: center;
     align-items: center;
-    border-bottom: 9px solid #f5f6f8;
 `;
 
 export const HeaderText = styled.div`

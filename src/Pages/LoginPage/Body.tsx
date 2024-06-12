@@ -5,7 +5,7 @@ import * as S from './style';
 function Body() {
     const KAKAOLOGIN = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${
         import.meta.env.VITE_KAKAO_REST_API_KEY
-    }&redirect_uri=http://localhost:3000`;
+    }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}`;
     const NAVERLOGIN = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${
         import.meta.env.VITE_NAVERLOGIN_CLIENT_ID
     }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&state=nid/me`;

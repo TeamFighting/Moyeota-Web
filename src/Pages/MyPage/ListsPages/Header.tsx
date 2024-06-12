@@ -28,7 +28,6 @@ function Header({ title }: HeaderProps) {
 }
 const DIV = styled.div`
     width: 90%;
-    flex-direction: row;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,8 +38,8 @@ const HeaderWrapper = styled.div`
     flex-direction: row;
     align-items: center;
     height: ${HEADER_HEIGHT}px;
-    padding: 4% 4%;
-    width: 100%;
+    width: 100vw;
+    height: 84px;
     justify-content: center;
 `;
 const Icon = styled.div`
