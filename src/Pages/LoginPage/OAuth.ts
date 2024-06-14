@@ -17,7 +17,6 @@ export async function RequestToken(code: string, from: string) {
                 if (response.data && response.data.data.accessToken) {
                     const token = response.data.data.accessToken;
                     localStorage.setItem('accessToken', token);
-                    console.log('get token', token);
                     navigate('/mainpage');
                 } else {
                     console.log('유효하지 않은 토큰');

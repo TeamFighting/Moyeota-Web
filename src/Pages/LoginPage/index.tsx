@@ -2,8 +2,10 @@ import styled from 'styled-components';
 import Body from './Body';
 import Header from './Header';
 import { useEffect } from 'react';
+import watchPositionHook from '../../Hooks/watchPositionHook';
 
 function LoginPage() {
+    watchPositionHook();
     useEffect(() => {
         const haveToken = sessionStorage.getItem('accessToken');
         if (haveToken !== null) {

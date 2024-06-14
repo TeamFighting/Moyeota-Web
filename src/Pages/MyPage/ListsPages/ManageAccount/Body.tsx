@@ -1,8 +1,36 @@
-import { CancelIcon, WhiteCancelIcon } from '../../../../assets/svg';
+import { useState } from 'react';
+import { WhiteCancelIcon } from '../../../../assets/svg';
 import { useMyInfoStore } from '../../../../state/store/MyInfo';
 import * as S from './style';
+import { instance } from '../../../../axios';
 function Body() {
     const { email, name } = useMyInfoStore();
+    
+    const [newEmail, setNewEmail] = useState(email ?? '');
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setNewEmail(e.target.value);
+    };
+
+    const modifyEmail = async () => {
+        try {
+            const res = await instance.put(
+                'users/info',
+                {
+                    email: newEmail,
+                },
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    },
+                },
+            );
+            if (res.status === 200) {
+                alert('이메일이 변경되었습니다.');
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
     return (
         <div>
@@ -16,7 +44,7 @@ function Body() {
                     <S.InfoWrapper>
                         <S.SubTitle>이메일</S.SubTitle>
                         <S.BTN>
-                            <S.EmailInput type="email" defaultValue={email ?? ''} />
+                            <S.EmailInput onChange={handleEmailChange} type="email" defaultValue={email ?? ''} />
                             <S.IconWrapper style={{ marginRight: '16px' }}>
                                 <WhiteCancelIcon width={14} height={14} />
                             </S.IconWrapper>
@@ -35,7 +63,7 @@ function Body() {
                 <S.ManageAccount style={{ gap: '16px' }}>
                     <S.BTN>로그아웃</S.BTN>
                     <S.BTN>회원탈퇴</S.BTN>
-                    <S.BTN>수정하기</S.BTN>
+                    <S.BTN onClick={modifyEmail}>수정하기</S.BTN>
                 </S.ManageAccount>
             </S.ManageAccountWrapper>
         </div>

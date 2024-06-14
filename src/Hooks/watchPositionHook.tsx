@@ -22,14 +22,13 @@ function watchPositionHook() {
         if (currentLat !== 37.6294657 && currentLng !== 127.0807685) {
             d = distance(currentLat, currentLng, pos.coords.latitude, pos.coords.longitude);
         }
-        if (d < 10) {
-            sessionStorage.setItem('latitude', pos.coords.latitude.toString());
-            sessionStorage.setItem('longitude', pos.coords.longitude.toString());
-            LatLngAddstore.setState({
-                currentLat: pos.coords.latitude,
-                currentLng: pos.coords.longitude,
-            });
-        }
+
+        sessionStorage.setItem('latitude', pos.coords.latitude.toString());
+        sessionStorage.setItem('longitude', pos.coords.longitude.toString());
+        LatLngAddstore.setState({
+            currentLat: pos.coords.latitude,
+            currentLng: pos.coords.longitude,
+        });
     }
 
     function error(err: { code: number; message: string }) {
