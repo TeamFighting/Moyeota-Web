@@ -53,7 +53,7 @@ function NaverMap({ from }: { from: string }) {
         }
     }, [departures, quickPot]);
 
-    console.log(finalArray);
+    // console.log(finalArray);
     useEffect(() => {
         if (!mapElement.current || !naver) return;
 
