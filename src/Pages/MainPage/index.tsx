@@ -23,10 +23,21 @@ function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-    // const { accessToken, setAccessToken } = AuthStore();
 
     watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
+
+    const getNewAccessToken = async () => {
+        try {
+            const res = await instance.post('users/refresh-token', {
+                accessToken: accessToken,
+                refreshToken: accessToken,
+            });
+            console.log(res);
+        } catch (e) {
+            console.error(e);
+        }
+    };
     const setAccessToken = AuthStore((state) => state.setAccessToken);
     const { setMyInfo, id, accountDtoList } = useMyInfoStore();
     const { setMyPot } = useMyPotStore();
@@ -124,6 +135,7 @@ function MainPage() {
         console.log('refresh');
         console.log('accessToken', accessToken);
         // submit();
+        getNewAccessToken();
     };
 
     const goCurrent = () => {
