@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { HEADER_HEIGHT } from '../../../Constants/constant';
-import LocationHeader from '../LocationHeader';
 import BlogBottomSheet from './BlogBottonSheet';
-import { Chevronleft } from '../../../assets/svg';
 import NaverMap from '../NaverMap/NaverMap';
 
 function Blog() {
