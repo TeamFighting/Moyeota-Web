@@ -18,7 +18,7 @@ export default defineConfig({
         port: 3000,
         // proxy: {
         //     '/api': {
-        //         target: 'https://moyeota.shop',
+        //         target: 'https://moyeota.site',
         //         changeOrigin: true,
         //         rewrite: (path) => path.replace(/^\/api/, ''),
         //         secure: false,
