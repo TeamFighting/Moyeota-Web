@@ -10,7 +10,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
   const potCreateStore = PotCreateStore();
   const durationFareStore = DurationFareStore();
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem('accessToken');
+  //   const accessToken = localStorage.getItem('accessToken');
 
   const chatRoomsRef = ref(db, 'chatRooms');
   const userData = JSON.parse(localStorage.getItem('myInfo') as string);
