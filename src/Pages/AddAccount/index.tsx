@@ -6,10 +6,12 @@ import { useAccountStore } from '../../state/store/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
 import { CheckCircle } from '../../assets/svg';
 import { useParams } from 'react-router';
+import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
 
 function AddAccount() {
     const { accountNumber, accountName, clickedAccountList, setClickedAccountList } = useAccountStore();
     const { from } = useParams();
+    const accessToken = localStorage.getItem('accessToken');
     const handleAccountClick = () => {
         if (accountNumber === '') {
             toast(
@@ -107,7 +109,7 @@ function AddAccount() {
             },
             {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
             },
         );
@@ -161,6 +163,10 @@ function AddAccount() {
                     },
                 },
             );
+        } else if (res.status === 401) {
+            if (await UseGetNewAccessToken(accessToken!)) {
+                postBankName();
+            }
         }
     };
     return (
