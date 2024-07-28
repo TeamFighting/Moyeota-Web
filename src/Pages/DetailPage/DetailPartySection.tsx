@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from 'styled-components';
 import * as S from './style';
 import { useEffect, useState } from 'react';
@@ -47,14 +48,18 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                             return value.userName !== leaderName;
                         });
                         setonlyParty(participants);
-                    } else if (res.status === 401) {
-                        if (await UseGetNewAccessToken(accessToken!)) {
-                            getPartyOne(postId);
-                        }
                     }
                 });
-        } catch (e) {
+        } catch (e: any) {
             // //console.log(e);
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    getPartyOne(postId);
+                } else {
+                    alert('로그인이 필요합니다.');
+                    window.location.href = '/login';
+                }
+            }
         }
     }
     useEffect(() => {

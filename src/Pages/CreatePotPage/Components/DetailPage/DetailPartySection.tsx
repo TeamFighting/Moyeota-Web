@@ -34,14 +34,16 @@ function DetailPartySection() {
                             return value.userName !== leaderName;
                         });
                         setonlyParty(participants);
-                    } else if (res.status === 401) {
-                        if (await UseGetNewAccessToken(accessToken!)) {
-                            getPartyOne(postId);
-                        }
                     }
                 });
-        } catch (e) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (e: any) {
             alert(e);
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    getPartyOne(postId);
+                }
+            }
         }
     }
     useEffect(() => {

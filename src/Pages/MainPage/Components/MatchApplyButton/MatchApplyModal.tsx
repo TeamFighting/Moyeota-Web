@@ -37,16 +37,17 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                     if (res.status === 200) {
                         setAppliedParty(postId);
                         setIsModalOpen(true, 'applySuccess');
-                    } else if (res.status === 401) {
-                        if (await UseGetNewAccessToken(accessToken!)) {
-                            applyParty(postId);
-                        }
                     } else {
                         console.log('이미 신청한 팟입니다.');
                     }
                 });
-        } catch (e: unknown) {
+        } catch (e: any) {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    applyParty(postId);
+                }
+            }
             if ((e as any)?.response?.data?.code === 422) {
                 console.log('이미 신청한 팟입니다.');
                 setAppliedParty(postId);
@@ -73,15 +74,16 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
             );
             if (res.status === 200) {
                 console.log('취소 성공');
-            } else if (res.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    cancelParty(postId);
-                }
             } else {
                 console.error('취소 실패');
             }
-        } catch (e: unknown) {
+        } catch (e: any) {
             //console.log(e);
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    cancelParty(postId);
+                }
+            }
         }
         closeModal();
     }

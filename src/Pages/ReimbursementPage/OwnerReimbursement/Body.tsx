@@ -82,7 +82,7 @@ function Body() {
         reimbursementMessage.EachAmount.map(async (each): Promise<void> => {
             max = Math.max(max, each.amount);
             try {
-                const res = await instance.post(
+                await instance.post(
                     `participation-details/users/${each.userId}/posts/${postId}?fare=${each.amount}`,
                     null,
                     {
@@ -91,38 +91,41 @@ function Body() {
                         },
                     },
                 );
-                if (res.status === 401) {
+            } catch (e: any) {
+                console.log(e);
+                if (e.response.status === 401) {
                     if (await UseGetNewAccessToken(accessToken!)) {
                         sendFare();
                     }
                 }
-            } catch (error) {
-                console.log(error);
             }
         });
 
-        const res = await instance.post(
-            `totalDetails/${postId}`,
-            {
-                totalDistance: 10,
-                totalPayment: max,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
+        try {
+            const res = await instance.post(
+                `totalDetails/${postId}`,
+                {
+                    totalDistance: 10,
+                    totalPayment: max,
                 },
-            },
-        );
-
-        if (res.status === 401) {
-            if (await UseGetNewAccessToken(accessToken!)) {
-                sendFare();
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                },
+            );
+            if (res.status === 200) {
+                setTimeout(() => {
+                    setShowNextButton(true);
+                }, 2000);
+            }
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    sendFare();
+                }
             }
         }
-
-        setTimeout(() => {
-            setShowNextButton(true);
-        }, 2000);
     };
 
     interface EachMoneyProps {
@@ -164,13 +167,14 @@ function Body() {
                                     isPartyOwner: isPartyOwner,
                                 });
                             }
-                        } else if (res.status === 401) {
+                        }
+                    } catch (e: any) {
+                        console.log(e);
+                        if (e.response.status === 401) {
                             if (await UseGetNewAccessToken(accessToken!)) {
                                 calculation();
                             }
                         }
-                    } catch (error) {
-                        console.log(error);
                     }
                 });
             });
@@ -219,25 +223,29 @@ function Body() {
 
     // 파티원 정보 받아오고 내 정보를 맨 앞으로 보내주는 함수
     const getPartyOne = async () => {
-        const result = await instance.get(`posts/${postId}/members`);
-        if (result.status === 200) {
-            const arr = result.data.data;
-            const newArr = [];
-            for (let i = 0; i < arr.length; i++) {
-                if (arr[i].userId == Number(userId)) {
-                    newArr.push(arr[i]);
+        try {
+            const result = await instance.get(`posts/${postId}/members`);
+            if (result.status === 200) {
+                const arr = result.data.data;
+                const newArr = [];
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i].userId == Number(userId)) {
+                        newArr.push(arr[i]);
+                    }
                 }
-            }
-            for (let i = 0; i < arr.length; i++) {
-                if (arr[i].userId !== Number(userId)) {
-                    newArr.push(arr[i]);
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i].userId !== Number(userId)) {
+                        newArr.push(arr[i]);
+                    }
                 }
+                setPartyOne(newArr);
+                setEachMoney(newArr.map((each) => ({ name: each.nickname, amount: 0, userId: each.userId })));
             }
-            setPartyOne(newArr);
-            setEachMoney(newArr.map((each) => ({ name: each.nickname, amount: 0, userId: each.userId })));
-        } else if (result.status === 401) {
-            if (await UseGetNewAccessToken(accessToken!)) {
-                getPartyOne();
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    getPartyOne();
+                }
             }
         }
     };

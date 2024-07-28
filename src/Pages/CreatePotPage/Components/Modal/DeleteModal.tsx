@@ -29,15 +29,16 @@ function DeleteModal({ postId, onClose }: DeleteModalProps) {
 
             if (response.status == 200) {
                 setIsDeleted(true);
-            } else if (response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    handleDelete();
-                }
             } else {
                 console.error('삭제 실패');
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error('삭제 요청 중 오류 발생', error);
+            if (error.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    handleDelete();
+                }
+            }
         }
     };
 

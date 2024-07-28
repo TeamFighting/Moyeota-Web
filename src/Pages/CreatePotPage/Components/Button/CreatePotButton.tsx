@@ -27,6 +27,8 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const { estimatedDuration, estimatedFare } = durationFareStore;
     const currentLat = sessionStorage.getItem('latitude');
     const currentLng = sessionStorage.getItem('longitude');
+    const accessToken = localStorage.getItem('accessToken');
+
     const createPost = async () => {
         const key = push(chatRoomsRef).key;
         const newChatRoom = {
@@ -42,7 +44,6 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             await update(child(chatRoomsRef, key as string), newChatRoom);
             // console.log('res:', res);
             const formattedDate = new Date();
-            const accessToken = localStorage.getItem('accessToken');
             const numberOfRecruitment = totalPeople;
             const departure = sessionStorage.getItem('address');
             const response = await instance.post(
@@ -93,15 +94,15 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             // console.log(response);
             if (response.status === 200) {
                 navigate('/createComplete');
-            } else if (response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    createPost();
-                }
             } else {
                 alert('API 요청 실패');
             }
-        } catch (error) {
-            // console.log(error);
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    createPost();
+                }
+            }
         }
     };
 

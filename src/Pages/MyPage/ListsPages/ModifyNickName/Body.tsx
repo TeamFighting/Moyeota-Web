@@ -38,12 +38,13 @@ function Body({ userInfo }: BodyProps) {
             if (res.status === 200) {
                 console.log('res', res);
                 setMyInfo(res.data.data);
-            } else if (res.status === 401) {
+            }
+        } catch (e: any) {
+            if (e.response.status === 401) {
                 if (await UseGetNewAccessToken(accessToken!)) {
                     usersInfo();
                 }
             }
-        } catch (e) {
             //console.log(e);
         }
     }
@@ -61,16 +62,17 @@ function Body({ userInfo }: BodyProps) {
                 },
             );
             console.log(res);
-            if (res.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    sendModifiedNickName();
-                }
-            } else if (res.status === 200) {
+            if (res.status === 200) {
                 usersInfo();
                 alert('닉네임이 수정되었습니다.');
             }
-        } catch (e) {
+        } catch (e: any) {
             alert('닉네임 수정에 실패했습니다.');
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    sendModifiedNickName();
+                }
+            }
             return;
         }
     };

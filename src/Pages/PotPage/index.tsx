@@ -40,12 +40,13 @@ function PotPage() {
             if (res.status === 200) {
                 console.log(res.data.data);
                 setMyAppliedPotContent(res.data.data);
-            } else if (res.status === 401) {
+            }
+        } catch (e: any) {
+            if (e.response.status === 401) {
                 if (await UseGetNewAccessToken(accessToken!)) {
                     getAppliedPot();
                 }
             }
-        } catch (e) {
             //console.log(e);
         }
     };

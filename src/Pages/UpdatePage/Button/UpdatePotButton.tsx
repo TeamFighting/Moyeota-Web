@@ -90,17 +90,18 @@ function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number;
             if (response.status == 200) {
                 alert('팟이 성공적으로 수정되었습니다.');
                 navigate(`/CreateDetailPage`);
-            } else if (response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    updatePost();
-                }
             } else {
                 const errorData = await response.json();
                 console.error('팟 수정에 실패했습니다.', response.status, errorData);
                 alert(response);
             }
-        } catch (error) {
-            console.error('팟 수정 중 오류 발생', error);
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    updatePost();
+                }
+            }
+            console.error('팟 수정 중 오류 발생', e);
         }
     };
     return (

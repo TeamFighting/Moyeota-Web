@@ -45,13 +45,15 @@ function MainPage() {
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
                 setMyPot(newArr);
-            } else if (myPost.status === 401) {
+            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (e: any) {
+            console.log('getMyPost', e);
+            if (e.response.status === 401) {
                 if (await UseGetNewAccessToken(accessToken!)) {
                     getMyPost();
                 }
             }
-        } catch (e) {
-            console.log('getMyPost', e);
         }
     };
     useEffect(() => {
@@ -98,15 +100,14 @@ function MainPage() {
             if (res.status === 200) {
                 setMyInfo(res.data.data);
                 localStorage.setItem('myInfo', JSON.stringify(res.data.data));
-            } else if (res.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    usersInfo();
-                }
-            } else {
-                alert(res.status + '에러');
             }
-        } catch (e) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (e: any) {
             alert(e + '에러');
+            if (e.response.status === 401) {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/login';
+            }
         }
     }
 

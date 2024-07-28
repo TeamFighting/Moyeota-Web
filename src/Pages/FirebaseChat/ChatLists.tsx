@@ -60,19 +60,21 @@ function ChatLists() {
     }
 
     const totalChatRooms = async () => {
-        const res = await instance.get('/chat-rooms/lists', {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-        });
-        if (res.status === 200) {
-            setChatRooms(res.data.data);
-        } else if (res.status === 401) {
-            await UseGetNewAccessToken(localStorage.getItem('accessToken')!);
-            totalChatRooms();
+        try {
+            const res = await instance.get('/chat-rooms/lists', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+            });
+            if (res.status === 200) {
+                setChatRooms(res.data.data);
+            }
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                await UseGetNewAccessToken(localStorage.getItem('accessToken')!);
+                totalChatRooms();
+            }
         }
-
-        setChatRooms(res.data.data);
     };
     // 채팅방에 메시지가 도착할 때 호출
 
