@@ -40,11 +40,16 @@ function MainPage() {
                     page: 0,
                 },
             });
-
-            const newArr: number[] = [];
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
-            setMyPot(newArr);
+            if (myPost.status === 200) {
+                const newArr: number[] = [];
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
+                setMyPot(newArr);
+            } else if (myPost.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    getMyPost();
+                }
+            }
         } catch (e) {
             console.log('getMyPost', e);
         }
@@ -94,7 +99,9 @@ function MainPage() {
                 setMyInfo(res.data.data);
                 localStorage.setItem('myInfo', JSON.stringify(res.data.data));
             } else if (res.status === 401) {
-                UseGetNewAccessToken(accessToken!);
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    usersInfo();
+                }
             } else {
                 alert(res.status + '에러');
             }

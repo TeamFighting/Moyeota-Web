@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PotCreateStore from '../../../state/store/PotCreateStore';
 import DurationFareStore from '../../../state/store/DurationFareStore';
 import usePostDataStore from '../../../state/store/PostDataStore';
+import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
 function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number; roomId: string; postId: number }) {
     const navigate = useNavigate();
     const { data } = usePostDataStore();
@@ -89,6 +90,10 @@ function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number;
             if (response.status == 200) {
                 alert('팟이 성공적으로 수정되었습니다.');
                 navigate(`/CreateDetailPage`);
+            } else if (response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    updatePost();
+                }
             } else {
                 const errorData = await response.json();
                 console.error('팟 수정에 실패했습니다.', response.status, errorData);

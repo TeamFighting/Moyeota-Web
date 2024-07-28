@@ -6,11 +6,13 @@ import * as S from '../MainPage/style';
 import styled from 'styled-components';
 import { Chevronleft } from '../../assets/svg';
 import { Icon } from '../DetailPage/style';
+import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
 function PotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { MyAppliedPotContent, MyPotContent, setMyPotContent, setMyAppliedPotContent, setTotalMyPotContent } =
         useMyPotContentStore((state) => state);
     const [pageName, setPageName] = useState('MyPot');
+    const accessToken = localStorage.getItem('accessToken');
     useEffect(() => {
         getMyPot();
         getAppliedPot();
@@ -33,10 +35,16 @@ function PotPage() {
     const getAppliedPot = async () => {
         try {
             const res = await instance.get(`/participation-details/all`, {
-                headers: { Authorization: `Bearer ${localStorage.getItem('accessToken')}` },
+                headers: { Authorization: `Bearer ${accessToken}` },
             });
-            console.log(res.data.data);
-            setMyAppliedPotContent(res.data.data);
+            if (res.status === 200) {
+                console.log(res.data.data);
+                setMyAppliedPotContent(res.data.data);
+            } else if (res.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    getAppliedPot();
+                }
+            }
         } catch (e) {
             //console.log(e);
         }

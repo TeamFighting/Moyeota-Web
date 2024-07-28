@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import usePostDataStore from '../../../../state/store/PostDataStore';
 import { instance } from '../../../../axios';
 import { AuthStore } from '../../../../state/store/AuthStore';
+import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
 
 interface PARTYINFO {
     userName: string;
@@ -26,13 +27,17 @@ function DetailPartySection() {
                         Authorization: `Bearer ${accessToken}`,
                     },
                 })
-                .then((res) => {
+                .then(async (res) => {
                     if (res.status == 200) {
                         const partyInfo: PARTYINFO[] = res.data.data;
                         const participants = partyInfo.filter((value) => {
                             return value.userName !== leaderName;
                         });
                         setonlyParty(participants);
+                    } else if (res.status === 401) {
+                        if (await UseGetNewAccessToken(accessToken!)) {
+                            getPartyOne(postId);
+                        }
                     }
                 });
         } catch (e) {

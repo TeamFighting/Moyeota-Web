@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { instance } from '../../../axios';
 import { useNavigate, useParams } from 'react-router';
 import * as S from './styles';
+import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
 
 function OwnerCalc() {
     const [money, setMoney] = useState('');
@@ -40,6 +41,10 @@ function OwnerCalc() {
         );
         if (res.status === 200) {
             navigate('/waitPlease');
+        } else if (res.status === 401) {
+            if (await UseGetNewAccessToken(accessToken!)) {
+                submitTotalMoney();
+            }
         }
     };
 

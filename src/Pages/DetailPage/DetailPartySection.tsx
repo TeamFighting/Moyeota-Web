@@ -3,6 +3,7 @@ import * as S from './style';
 import { useEffect, useState } from 'react';
 import { instance } from '../../axios';
 import { AuthStore } from '../../state/store/AuthStore';
+import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
 
 interface Props {
     leaderName: string;
@@ -39,13 +40,17 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                         Authorization: `Bearer ${accessToken}`,
                     },
                 })
-                .then((res) => {
+                .then(async (res) => {
                     if (res.status == 200) {
                         const partyInfo: PARTYINFO[] = res.data.data;
                         const participants = partyInfo.filter((value) => {
                             return value.userName !== leaderName;
                         });
                         setonlyParty(participants);
+                    } else if (res.status === 401) {
+                        if (await UseGetNewAccessToken(accessToken!)) {
+                            getPartyOne(postId);
+                        }
                     }
                 });
         } catch (e) {

@@ -5,6 +5,7 @@ import { MoneyInput, StyledButton } from '../styles';
 import * as S from './styles';
 import { useState } from 'react';
 import { useMyInfoStore } from '../../../state/store/MyInfo';
+import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
 
 function ApplierCalc() {
     const [money, setMoney] = useState('');
@@ -40,6 +41,10 @@ function ApplierCalc() {
         );
         if (res.status === 200) {
             navigate('/waitPlease');
+        } else if (res.status === 401) {
+            if (await UseGetNewAccessToken(accessToken!)) {
+                submitTotalMoney();
+            }
         }
         console.log(res);
     };

@@ -15,6 +15,7 @@ import styled from 'styled-components';
 import useBottomSheet from '../../../Hooks/useBottonSheet';
 import BottomSheetHandle from '../../AddAccount/BankListSheet/BankListSheetHandle';
 import { motion } from 'framer-motion';
+import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
 
 interface PartyOneProps {
     nickname: string;
@@ -41,7 +42,7 @@ function Body() {
     const [calcType, setCalcType] = useState('N');
     const windowHeight = window.innerHeight;
     const accountListsHeight = windowHeight - 111;
-    const token = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');
     // 계좌 리스트 오픈 여부
     const [isOpenAccountLists, setIsOpenAccountLists] = useState(false);
     // 선택된 계좌 인덱스, border 스타일링을 위해 사용
@@ -81,21 +82,26 @@ function Body() {
         reimbursementMessage.EachAmount.map(async (each): Promise<void> => {
             max = Math.max(max, each.amount);
             try {
-                await instance.post(
+                const res = await instance.post(
                     `participation-details/users/${each.userId}/posts/${postId}?fare=${each.amount}`,
                     null,
                     {
                         headers: {
-                            Authorization: `Bearer ${token}`,
+                            Authorization: `Bearer ${accessToken}`,
                         },
                     },
                 );
+                if (res.status === 401) {
+                    if (await UseGetNewAccessToken(accessToken!)) {
+                        sendFare();
+                    }
+                }
             } catch (error) {
                 console.log(error);
             }
         });
 
-        const rest = await instance.post(
+        const res = await instance.post(
             `totalDetails/${postId}`,
             {
                 totalDistance: 10,
@@ -103,11 +109,16 @@ function Body() {
             },
             {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
             },
         );
-        console.log(rest);
+
+        if (res.status === 401) {
+            if (await UseGetNewAccessToken(accessToken!)) {
+                sendFare();
+            }
+        }
 
         setTimeout(() => {
             setShowNextButton(true);
@@ -136,7 +147,7 @@ function Body() {
                             `participation-details/payment/users/${each.userId}/posts/${postId}`,
                             {
                                 headers: {
-                                    Authorization: `Bearer ${token}`,
+                                    Authorization: `Bearer ${accessToken}`,
                                 },
                             },
                         );
@@ -152,6 +163,10 @@ function Body() {
                                     profileImage: party.profileImage,
                                     isPartyOwner: isPartyOwner,
                                 });
+                            }
+                        } else if (res.status === 401) {
+                            if (await UseGetNewAccessToken(accessToken!)) {
+                                calculation();
                             }
                         }
                     } catch (error) {
@@ -220,6 +235,10 @@ function Body() {
             }
             setPartyOne(newArr);
             setEachMoney(newArr.map((each) => ({ name: each.nickname, amount: 0, userId: each.userId })));
+        } else if (result.status === 401) {
+            if (await UseGetNewAccessToken(accessToken!)) {
+                getPartyOne();
+            }
         }
     };
 
