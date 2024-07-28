@@ -16,25 +16,25 @@ function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number;
     const accessToken = sessionStorage.getItem('accessToken');
     const latitude = sessionStorage.getItem('latitude');
     const longitude = sessionStorage.getItem('longitude');
-    console.log('content', content);
-    console.log('departure', departure);
-    console.log('createdDate', formattedDate);
-    console.log(
-        'departureTime',
-        selectedTime, //departureTime으로 바꾸기
-    );
-    console.log('destination', destination);
-    console.log('distance', distance);
-    console.log('duration', estimatedDuration);
-    console.log('fare', estimatedFare);
-    console.log('numberOfRecruitment', numberOfRecruitment);
-    console.log('sameGenderStatus', sameGenderStatus);
-    console.log('title', title);
-    console.log('vehicle', vehicle);
-    console.log('latitude', latitude);
-    console.log('longitude', longitude);
-    console.log('modifiedDate', formattedDate);
-    console.log('roomId', roomId);
+    // console.log('content', content);
+    // console.log('departure', departure);
+    // console.log('createdDate', formattedDate);
+    // console.log(
+    //     'departureTime',
+    //     selectedTime, //departureTime으로 바꾸기
+    // );
+    // console.log('destination', destination);
+    // console.log('distance', distance);
+    // console.log('duration', estimatedDuration);
+    // console.log('fare', estimatedFare);
+    // console.log('numberOfRecruitment', numberOfRecruitment);
+    // console.log('sameGenderStatus', sameGenderStatus);
+    // console.log('title', title);
+    // console.log('vehicle', vehicle);
+    // console.log('latitude', latitude);
+    // console.log('longitude', longitude);
+    // console.log('modifiedDate', formattedDate);
+    // console.log('roomId', roomId);
     const updatePost = async () => {
         try {
             const response = await fetch(`/posts/${postId}`, {

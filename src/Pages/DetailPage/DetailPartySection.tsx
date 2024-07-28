@@ -22,7 +22,6 @@ interface PARTYINFO {
 }
 
 function DetailPartySection({ profileImage, leaderName, content, gender, participants, postId }: Props) {
-    console.log(participants);
     let gender2;
     if (gender == 'M') {
         gender2 = '남자';

@@ -97,7 +97,7 @@ function UpdateBody(data: PostProps) {
                     })
                     .then((response) => {
                         const data = response.data;
-                        console.log('UPDATE BODY DURATION', data.data.duration);
+                        // console.log('UPDATE BODY DURATION', data.data.duration);
                         setEstimatedDuration(data.data.duration);
                         setEstimatedFare(data.data.fare);
                     })
@@ -110,7 +110,7 @@ function UpdateBody(data: PostProps) {
 
     //거리 계산
     useEffect(() => {
-        console.log('UPDATE BODY', data.departure, destination, newD);
+        // console.log('UPDATE BODY', data.departure, destination, newD);
         if (data.departure && newD) {
             convertDestinationToRoadAddress(newD).then((roadDestination) => {
                 if (roadDestination) {
@@ -124,7 +124,7 @@ function UpdateBody(data: PostProps) {
                         .then((response) => {
                             const data = response.data.data;
                             const distance = parseFloat(data);
-                            console.log('UPDATE BODY DISTANCE', distance);
+                            // console.log('UPDATE BODY DISTANCE', distance);
                             setDistance(distance);
                         })
                         .catch((error) => {

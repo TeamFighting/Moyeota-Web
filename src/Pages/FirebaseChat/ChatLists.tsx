@@ -145,7 +145,7 @@ function ChatLists() {
     });
     setIsModalOpen(false);
     totalChatRooms();
-    console.log('leave chat room', res);
+    // console.log('leave chat room', res);
   };
   const renderChatRooms = () => {
     if (chatRooms.length === 0) {

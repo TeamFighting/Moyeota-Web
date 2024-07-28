@@ -6,7 +6,7 @@ import { useMyInfoStore } from '../../../state/store/MyInfo';
 
 function BodyTop() {
     const userInfo = useMyInfoStore();
-    console.log(userInfo);
+    // console.log(userInfo);
     const navigate = useNavigate();
     let gender = '남자';
     if (userInfo.gender == 'F') gender = '여자';
