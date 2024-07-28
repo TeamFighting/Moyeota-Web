@@ -56,7 +56,7 @@ function UpdateBody({ totalPeople, onTotalPeopleChange, data }: CreateBottomProp
     const { setSameGenderRide, setVehicleType } = PotCreateStore();
 
     useEffect(() => {
-        console.log('data:', data.vehicle);
+        // console.log('data:', data.vehicle);
         setSelectedVehicle(data.vehicle);
         setIsSameGenderRide(data.sameGenderStatus === 'YES');
     }, []);

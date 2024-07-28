@@ -5,6 +5,7 @@ import { MoneyInput, StyledButton } from '../styles';
 import * as S from './styles';
 import { useState } from 'react';
 import { useMyInfoStore } from '../../../state/store/MyInfo';
+import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
 
 function ApplierCalc() {
     const [money, setMoney] = useState('');
@@ -27,21 +28,29 @@ function ApplierCalc() {
         return nums.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
     }
     const submitTotalMoney = async () => {
-        const res = await instance.post(
-            `/participation-details/posts/${postId}`,
-            new URLSearchParams({
-                fare: money,
-            }),
-            {
-                headers: {
-                    Authorization: 'Bearer ' + accessToken,
+        try {
+            const res = await instance.post(
+                `/participation-details/posts/${postId}`,
+                new URLSearchParams({
+                    fare: money,
+                }),
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + accessToken,
+                    },
                 },
-            },
-        );
-        if (res.status === 200) {
-            navigate('/waitPlease');
+            );
+            if (res.status === 200) {
+                navigate('/waitPlease');
+            }
+            console.log(res);
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    submitTotalMoney();
+                }
+            }
         }
-        console.log(res);
     };
 
     return (

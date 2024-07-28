@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from 'styled-components';
 import * as S from './style';
 import { useEffect, useState } from 'react';
 import { instance } from '../../axios';
 import { AuthStore } from '../../state/store/AuthStore';
+import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
 
 interface Props {
     leaderName: string;
@@ -22,7 +24,6 @@ interface PARTYINFO {
 }
 
 function DetailPartySection({ profileImage, leaderName, content, gender, participants, postId }: Props) {
-    console.log(participants);
     let gender2;
     if (gender == 'M') {
         gender2 = '남자';
@@ -40,7 +41,7 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                         Authorization: `Bearer ${accessToken}`,
                     },
                 })
-                .then((res) => {
+                .then(async (res) => {
                     if (res.status == 200) {
                         const partyInfo: PARTYINFO[] = res.data.data;
                         const participants = partyInfo.filter((value) => {
@@ -49,8 +50,16 @@ function DetailPartySection({ profileImage, leaderName, content, gender, partici
                         setonlyParty(participants);
                     }
                 });
-        } catch (e) {
+        } catch (e: any) {
             // //console.log(e);
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    getPartyOne(postId);
+                } else {
+                    alert('로그인이 필요합니다.');
+                    window.location.href = '/login';
+                }
+            }
         }
     }
     useEffect(() => {

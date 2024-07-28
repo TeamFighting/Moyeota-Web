@@ -6,10 +6,12 @@ import { useAccountStore } from '../../state/store/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
 import { CheckCircle } from '../../assets/svg';
 import { useParams } from 'react-router';
+import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
 
 function AddAccount() {
     const { accountNumber, accountName, clickedAccountList, setClickedAccountList } = useAccountStore();
     const { from } = useParams();
+    const accessToken = localStorage.getItem('accessToken');
     const handleAccountClick = () => {
         if (accountNumber === '') {
             toast(
@@ -99,68 +101,79 @@ function AddAccount() {
         postBankName();
     };
     const postBankName = async () => {
-        const res = await instance.post(
-            '/users/account',
-            {
-                accountNumber: accountNumber,
-                bankName: accountName,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-                },
-            },
-        );
-        if (res.status === 200) {
-            if (from === 'createPot') {
-                setTimeout(() => {
-                    window.location.href = '/mainpage';
-                }, 500);
-                return;
-            } else {
-                setTimeout(() => {
-                    window.location.href = '/mainpage';
-                }, 500);
-            }
-            toast(
-                () => (
-                    <div
-                        style={{
-                            textAlign: 'center',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: '9px',
-                        }}
-                    >
-                        <CheckCircle width={24} />
-                        <div
-                            style={{
-                                textAlign: 'center',
-                                gap: '9px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            계좌번호가 추가되었습니다
-                        </div>
-                    </div>
-                ),
+        try {
+            const res = await instance.post(
+                '/users/account',
                 {
-                    style: {
-                        background: '#73737E',
-                        color: 'white',
-                        borderRadius: '99px',
-                        textAlign: 'center',
-                        fontFamily: 'Pretendard',
-                        fontSize: '16px',
-                        fontStyle: 'normal',
-                        fontWeight: '700',
-                        lineHeight: 'normal',
-                        letterSpacing: '0.48px',
+                    accountNumber: accountNumber,
+                    bankName: accountName,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
                     },
                 },
             );
+            if (res.status === 200) {
+                if (from === 'createPot') {
+                    setTimeout(() => {
+                        window.location.href = '/mainpage';
+                    }, 500);
+                    return;
+                } else {
+                    setTimeout(() => {
+                        window.location.href = '/mainpage';
+                    }, 500);
+                }
+                toast(
+                    () => (
+                        <div
+                            style={{
+                                textAlign: 'center',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                gap: '9px',
+                            }}
+                        >
+                            <CheckCircle width={24} />
+                            <div
+                                style={{
+                                    textAlign: 'center',
+                                    gap: '9px',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                계좌번호가 추가되었습니다
+                            </div>
+                        </div>
+                    ),
+                    {
+                        style: {
+                            background: '#73737E',
+                            color: 'white',
+                            borderRadius: '99px',
+                            textAlign: 'center',
+                            fontFamily: 'Pretendard',
+                            fontSize: '16px',
+                            fontStyle: 'normal',
+                            fontWeight: '700',
+                            lineHeight: 'normal',
+                            letterSpacing: '0.48px',
+                        },
+                    },
+                );
+            }
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    postBankName();
+                }
+            } else {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/login';
+            }
         }
     };
     return (

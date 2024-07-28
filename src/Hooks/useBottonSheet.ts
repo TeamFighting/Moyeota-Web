@@ -69,7 +69,7 @@ export default function useBottomSheet(str: string) {
       //   console.log('handleTouchMove', e.touches[0]);
       const { touchStart, touchMove } = metrics.current;
       const currentTouch = e.touches[0];
-      console.log(touchStart.touchY, currentTouch.clientY);
+      // console.log(touchStart.touchY, currentTouch.clientY);
       if (touchMove.prevTouchY === undefined) {
         touchMove.prevTouchY = touchStart.touchY;
       }

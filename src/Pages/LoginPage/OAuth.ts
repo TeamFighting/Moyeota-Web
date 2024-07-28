@@ -15,10 +15,10 @@ export async function RequestToken(code: string, from: string) {
         authorizationCode: code,
       })
       .then((response) => {
-        console.log('kakao login res', response);
+        // console.log('kakao login res', response);
         if (response.data && response.data.data.accessToken) {
-          const token = response.data.data.accessToken;
-          localStorage.setItem('accessToken', token);
+          localStorage.setItem('accessToken', response.data.data.accessToken);
+          localStorage.setItem('refreshToken', response.data.data.refreshToken);
           navigate('/mainpage');
         } else {
           console.log('유효하지 않은 토큰');
@@ -27,43 +27,45 @@ export async function RequestToken(code: string, from: string) {
       .catch(function () {
         alert('로그인에 실패했습니다.');
       });
-  } else if (from === 'GOOGLE') {
-    instance
-      .post('/oauth/google', {
-        authorizationCode: code,
-      })
-      .then((response) => {
-        console.log('토큰이다 이것들아', response.data.data);
 
-        if (response.data && response.data.data.accessToken) {
-          const token = response.data.data.accessToken;
-          localStorage.setItem('accessToken', token);
-          navigate('/mainpage');
-        } else {
-          console.log('유효하지 않은 토큰');
-        }
-      })
-      .catch(function () {
-        alert('로그인에 실패했습니다.');
-      });
-  } else if (from === 'NAVER') {
-    instance
-      .post('oauth/naver', {
-        authorizationCode: code,
-      })
-      .then((response) => {
-        console.log('토큰이다 이것들아', response.data.data);
-        if (response.data && response.data.data.accessToken) {
-          const token = response.data.data.accessToken;
-          localStorage.setItem('accessToken', token);
-          navigate('/mainpage');
-        } else {
-          alert('로그인에 실패했습니다.');
-        }
-      })
-      .catch(function () {
-        alert('로그인에 실패했습니다.');
-      });
+  // 추후 리팩토링 예정
+  // } else if (from === 'GOOGLE') {
+  //   instance
+  //     .post('/oauth/google', {
+  //       authorizationCode: code,
+  //     })
+  //     .then((response) => {
+  //       // console.log('토큰이다 이것들아', response.data.data);
+
+  //       if (response.data && response.data.data.accessToken) {
+  //         const token = response.data.data.accessToken;
+  //         localStorage.setItem('accessToken', token);
+  //         navigate('/mainpage');
+  //       } else {
+  //         console.log('유효하지 않은 토큰');
+  //       }
+  //     })
+  //     .catch(function () {
+  //       alert('로그인에 실패했습니다.');
+  //     });
+  // } else if (from === 'NAVER') {
+  //   instance
+  //     .post('oauth/naver', {
+  //       authorizationCode: code,
+  //     })
+  //     .then((response) => {
+  //       // console.log('토큰이다 이것들아', response.data.data);
+  //       if (response.data && response.data.data.accessToken) {
+  //         const token = response.data.data.accessToken;
+  //         localStorage.setItem('accessToken', token);
+  //         navigate('/mainpage');
+  //       } else {
+  //         alert('로그인에 실패했습니다.');
+  //       }
+  //     })
+  //     .catch(function () {
+  //       alert('로그인에 실패했습니다.');
+  //     });
   }
 }
 export function OAuth2RedirectHandler({ from }: OAuth2RedirectHandlerProps) {

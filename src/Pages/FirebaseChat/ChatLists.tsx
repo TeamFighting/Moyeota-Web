@@ -10,6 +10,7 @@ import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 import { ChatTime } from '../util/ChatTime';
 import BottomBtn from '../../components/BottomBtn';
+import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
 export interface myMessageProps {
     text: string;
     timestamp: number;
@@ -59,14 +60,21 @@ function ChatLists() {
     }
 
     const totalChatRooms = async () => {
-        const res = await instance.get('/chat-rooms/lists', {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-        });
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        setChatRooms(res.data.data);
-        console.log('chatRooms', res.data.data);
+        try {
+            const res = await instance.get('/chat-rooms/lists', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+            });
+            if (res.status === 200) {
+                setChatRooms(res.data.data);
+            }
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                await UseGetNewAccessToken(localStorage.getItem('accessToken')!);
+                totalChatRooms();
+            }
+        }
     };
     // 채팅방에 메시지가 도착할 때 호출
 
@@ -138,14 +146,14 @@ function ChatLists() {
         setIsModalOpen(true);
     };
     const leaveChatRoom = async (i: number) => {
-        const res = await instance.delete(`/chat-rooms/${i}`, {
+        await instance.delete(`/chat-rooms/${i}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
             },
         });
         setIsModalOpen(false);
         totalChatRooms();
-        console.log('leave chat room', res);
+        // console.log('leave chat room', res);
     };
     const renderChatRooms = () => {
         if (chatRooms.length === 0) {
