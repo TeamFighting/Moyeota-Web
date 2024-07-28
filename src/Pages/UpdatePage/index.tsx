@@ -60,9 +60,7 @@ function UpdatePotPage() {
     };
     const newD = (new URLSearchParams(location.search).get('destination') || undefined) as string;
 
-    useEffect(() => {
-        
-    }, []);
+    useEffect(() => {}, []);
     useEffect(() => {
         setNewDestination(newD);
         const handleScroll = () => {
