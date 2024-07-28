@@ -29,7 +29,6 @@ import CurrentReimbursement from './Pages/ReimbursementPage/CurrentReimbursement
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import LoginPage from './Pages/LoginPage';
-import React from 'react';
 import MyPage from './Pages/MyPage';
 import EditAccount from './Pages/MyPage/ListsPages/EditAccount';
 import ModifyProfile from './Pages/MyPage/ListsPages/ModifyNickName';
