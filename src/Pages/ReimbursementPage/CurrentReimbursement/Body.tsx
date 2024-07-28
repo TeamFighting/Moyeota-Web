@@ -1,9 +1,6 @@
 import * as S from './style';
 import * as St from '../styles';
-import SvgNotCheck from '../../../assets/svg/NotCheck';
 import { useEffect, useState } from 'react';
-import SvgCheck from '../../../assets/svg/Check';
-import { CurrentReimburseStore } from '../../../state/store/CurrentReimburseStore';
 
 interface EachAmount {
     userId: number;
@@ -29,7 +26,7 @@ interface BodyProps {
 function Body({ data, setModalOpen }: BodyProps) {
     const CurrentReimburseStoreState = JSON.parse(localStorage.getItem('current-reimburse-storage') as string);
     const { CurrentReimbursement } = CurrentReimburseStoreState.state;
-    const { updatePaymentStatusForUserId } = CurrentReimburseStore();
+    // const { updatePaymentStatusForUserId } = CurrentReimburseStore();
     const [clickedUsers, setClickedUsers] = useState<number[]>([]);
     const [userIds, setUserIds] = useState<number[]>([]);
     useEffect(() => {
