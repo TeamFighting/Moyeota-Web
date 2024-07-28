@@ -5,12 +5,13 @@ import { instance } from '../../../../axios';
 import { useNavigate } from 'react-router-dom';
 import { ref, push, update, child } from 'firebase/database';
 import { db } from '../../../../firebase';
+import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const potCreateStore = PotCreateStore();
     const durationFareStore = DurationFareStore();
     const navigate = useNavigate();
-    const accessToken = localStorage.getItem('accessToken');
+    //   const accessToken = localStorage.getItem('accessToken');
 
     const chatRoomsRef = ref(db, 'chatRooms');
     const userData = JSON.parse(localStorage.getItem('myInfo') as string);
@@ -24,8 +25,10 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
         selectedTime,
     } = potCreateStore;
     const { estimatedDuration, estimatedFare } = durationFareStore;
-    const currentLat = localStorage.getItem('latitude');
-    const currentLng = localStorage.getItem('longitude');
+    const currentLat = sessionStorage.getItem('latitude');
+    const currentLng = sessionStorage.getItem('longitude');
+    const accessToken = localStorage.getItem('accessToken');
+
     const createPost = async () => {
         const key = push(chatRoomsRef).key;
         const newChatRoom = {
@@ -41,9 +44,8 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
             await update(child(chatRoomsRef, key as string), newChatRoom);
             // console.log('res:', res);
             const formattedDate = new Date();
-
             const numberOfRecruitment = totalPeople;
-            const departure = localStorage.getItem('address');
+            const departure = sessionStorage.getItem('address');
             const response = await instance.post(
                 '/posts',
                 // {
@@ -89,14 +91,18 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                     },
                 },
             );
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
                 navigate('/createComplete');
             } else {
                 alert('API 요청 실패');
             }
-        } catch (error) {
-            // console.log(error);
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    createPost();
+                }
+            }
         }
     };
 

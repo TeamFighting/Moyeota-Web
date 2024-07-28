@@ -28,11 +28,22 @@ import WaitPlease from './Pages/ReimbursementPage/Calculation/WaitPlease';
 import CurrentReimbursement from './Pages/ReimbursementPage/CurrentReimbursement';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import LoginPage from './Pages/LoginPage';
+import MyPage from './Pages/MyPage';
+import EditAccount from './Pages/MyPage/ListsPages/EditAccount';
+import ModifyProfile from './Pages/MyPage/ListsPages/ModifyNickName';
+// import ManageAccount from './Pages/MyPage/ListsPages/ManageAccount';
+import ManageProfile from './Pages/MyPage/ListsPages/ManageAccount';
+import Blog from './Pages/MainPage/Blog/Blog';
 
 const router = createBrowserRouter([
     {
         path: '/',
         element: <App />,
+    },
+    {
+        path: '/blog',
+        element: <Blog />,
     },
     {
         path: '/Mainpage',
@@ -130,12 +141,34 @@ const router = createBrowserRouter([
         path: '/waitPlease',
         element: <WaitPlease />,
     },
+    {
+        path: '/login',
+        element: <LoginPage />,
+    },
+
+    {
+        path: '/mypage/:userId',
+        element: <MyPage />,
+    },
+    {
+        // 닉네임 수정
+        path: '/mypage/modify/:userId',
+        element: <ModifyProfile />,
+    },
+    {
+        // 계좌 관리
+        path: '/mypage/editAccount/:userId',
+        element: <EditAccount />,
+    },
+    {
+        // 계정 관리
+        path: '/mypage/manageprofile/:userId',
+        element: <ManageProfile />,
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    // <React.StrictMode>
     <LocalizationProvider dateAdapter={AdapterDayjs}>
         <RouterProvider router={router} />
     </LocalizationProvider>,
-    // </React.StrictMode>
 );

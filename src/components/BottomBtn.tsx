@@ -2,11 +2,13 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { Chat, Home, User, ClickedChat, ClickedHome, ClickedUser } from '../assets/svg';
 import { ClickedBottomTab } from '../state/store/ClickedBottomTab';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 function BottomBtn() {
     const { clicked, setClicked } = ClickedBottomTab();
     const naviagte = useNavigate();
+    if (localStorage.getItem('myInfo') === null) return;
+    const userId = JSON.parse(localStorage.getItem('myInfo') as string).id;
     const handleHomeClick = () => {
         naviagte('/mainpage');
         setClicked('home');
@@ -16,7 +18,8 @@ function BottomBtn() {
         setClicked('chat');
     };
     const handleMyPageClick = () => {
-        toast.error('내정보는 모바일을 이용해주세요 😊', { duration: 800 });
+        naviagte(`/MyPage/${userId}`);
+        setClicked('mypage');
     };
     return (
         <Wrapper>

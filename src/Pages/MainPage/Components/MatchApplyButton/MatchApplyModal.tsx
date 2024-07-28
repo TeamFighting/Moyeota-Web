@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
 import ModalStore from '../../../../state/store/ModalStore';
 import { instance } from '../../../../axios';
+import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
 
 interface ModalProps {
     isFull: boolean;
@@ -32,18 +33,21 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                         },
                     },
                 )
-                .then((res) => {
-                    if (res.data.status === 'SUCCESS') {
-                        console.log('신청 완료');
+                .then(async (res) => {
+                    if (res.status === 200) {
                         setAppliedParty(postId);
-                        console.log(res.data.data);
                         setIsModalOpen(true, 'applySuccess');
                     } else {
                         console.log('이미 신청한 팟입니다.');
                     }
                 });
-        } catch (e: unknown) {
+        } catch (e: any) {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    applyParty(postId);
+                }
+            }
             if ((e as any)?.response?.data?.code === 422) {
                 console.log('이미 신청한 팟입니다.');
                 setAppliedParty(postId);
@@ -57,7 +61,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
         setIsModalOpen(true, 'cancel');
 
         try {
-            await instance.post(
+            const res = await instance.post(
                 `/participation-details/cancellation/posts/${postId}`,
                 {
                     postId: postId,
@@ -68,8 +72,18 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                     },
                 },
             );
-        } catch (e: unknown) {
+            if (res.status === 200) {
+                console.log('취소 성공');
+            } else {
+                console.error('취소 실패');
+            }
+        } catch (e: any) {
             //console.log(e);
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    cancelParty(postId);
+                }
+            }
         }
         closeModal();
     }

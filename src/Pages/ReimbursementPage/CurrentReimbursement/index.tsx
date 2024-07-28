@@ -30,12 +30,19 @@ function CurrentReimbursement() {
 
     const confirm = () => {
         setModalName('Finish');
+        setModalOpen(false);
     };
 
     const closeModal = () => {
         setModalOpen(false);
         setModalName('default');
     };
+
+    const goMainpage = () => {
+        setModalOpen(false);
+        window.location.href = '/mainpage';
+    };
+
     return (
         <div
             style={{
@@ -48,7 +55,7 @@ function CurrentReimbursement() {
             <Header />
             <Body setModalOpen={setModalOpen} data={data} />
             <Bottom reimburseData={data} />
-            <Buttons
+            {/* <Buttons
                 style={{
                     position: 'absolute',
                     bottom: 0,
@@ -64,7 +71,7 @@ function CurrentReimbursement() {
                 <StyledBtn onClick={() => closeModal()} style={{ width: '90%', backgroundColor: '#1EDD81' }}>
                     정산 완료
                 </StyledBtn>
-            </Buttons>
+            </Buttons> */}
             {modalOpen ? (
                 modalName == 'default' ? (
                     <ModalWrapper>
@@ -99,7 +106,7 @@ function CurrentReimbursement() {
                             </Text>
                             <Buttons>
                                 <StyledBtn
-                                    onClick={() => closeModal()}
+                                    onClick={() => goMainpage()}
                                     style={{ width: '100%', backgroundColor: '#1EDD81' }}
                                 >
                                     확인

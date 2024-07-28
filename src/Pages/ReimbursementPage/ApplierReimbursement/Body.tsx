@@ -1,11 +1,12 @@
 import { useLocation } from 'react-router';
 import * as S from '../styles';
 import { useMyInfoStore } from '../../../state/store/MyInfo';
-import { CheckCircle, CopyIcon, PotOwnerCrown } from '../../../assets/svg';
+import { CheckCircle, PotOwnerCrown } from '../../../assets/svg';
 import styled from 'styled-components';
 import { Toaster, toast } from 'react-hot-toast';
 import SvgDollar from '../../../assets/svg/Dollar';
 import { BottomSheetBTN } from '../OwnerReimbursement/Body';
+import SvgCopyIcon from '../../../assets/svg/CopyIcon';
 
 function Body() {
     const width = window.innerWidth - 40;
@@ -136,7 +137,7 @@ function Body() {
                                 marginLeft: '1px',
                             }}
                         >
-                            <CopyIcon width={10} height={10} />
+                            <SvgCopyIcon width={10} height={10} />
                             <CopyText>복사</CopyText>
                         </div>
                     </AccountNumber>

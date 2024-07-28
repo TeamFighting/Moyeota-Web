@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-import { CharacterCrown, ChatSeeU, CheckCircle, CopyIcon } from '../../assets/svg';
+import { CharacterCrown, ChatSeeU, CheckCircle } from '../../assets/svg';
 import { PotOwner } from '../ReimbursementPage/styles';
 import { Image } from 'react-bootstrap';
 import { Time } from './style';
 import toast from 'react-hot-toast';
+import SvgCopyIcon from '../../assets/svg/CopyIcon';
 
 interface JSONType {
     account: {
@@ -34,10 +35,11 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
     const isMe = user.id == Number(id);
     const jusify = isMe ? 'end' : 'start';
     const navigateToApplierReimbursement = () => {
+        // console.log('navigateToApplierReimbursement');
         navigate(`/reimbursement/${data.postId}/${id}`, { state: { data } });
     };
     const navigateToCurrentReimbursement = () => {
-        console.log('navigateToCurrentReimbursement');
+        // console.log('navigateToCurrentReimbursement');
         navigate(`/reimbursement/current/${data.postId}/${id}`, { state: { data } });
     };
     const handleCopyClipBoard = async (text: string) => {
@@ -183,7 +185,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                                                                 marginLeft: '1px',
                                                             }}
                                                         >
-                                                            <CopyIcon width={10} height={10} />
+                                                            <SvgCopyIcon width={10} height={10} />
                                                             <CopyText>복사</CopyText>
                                                         </div>
                                                     </AccountNumber>

@@ -5,7 +5,7 @@
 //     const [stompClient, setStompClient] = useState<Client | null>(null);
 //     useEffect(() => {
 //         const client = new Client({
-//             brokerURL: 'wss://moyeota.shop/wss-stomp',
+//             brokerURL: 'wss://moyeota.site/wss-stomp',
 //             reconnectDelay: 5000,
 //             heartbeatIncoming: 4000,
 //             heartbeatOutgoing: 4000,

@@ -3,7 +3,6 @@ import { ContentDetail, From, Icon, Route, StartPoint, StartPointLocation, Title
 import * as S from './style';
 import { ChevronRight, CurrentLocationIcon, LocationFrom, LocationMarker, ToTriangle } from '../../assets/svg';
 import { useLocation, useNavigate } from 'react-router';
-import CurrentLocationStore from '../../state/store/CurrentLocation';
 import NaverMap from '../MainPage/NaverMap/NaverMap';
 import styled, { keyframes } from 'styled-components';
 import { useQuickMathDestinationStore } from '../../state/store/QuickMathDestinationStore';
@@ -13,12 +12,9 @@ function QuickMatchFinding() {
 
     const { destination } = location.state;
 
-    const { currentLocation } = CurrentLocationStore();
     const { destination: quickDestination } = useQuickMathDestinationStore();
     const navigate = useNavigate();
-    const currentBuildingName = currentLocation?.building_name;
-    console.log(currentBuildingName);
-    const cur = localStorage.getItem('address');
+    const cur = sessionStorage.getItem('address');
 
     setTimeout(() => {
         navigate('/mainPage');

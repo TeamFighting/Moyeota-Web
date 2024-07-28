@@ -11,8 +11,8 @@ declare global {
 function MatchNaverMap() {
     const mapElement = useRef(null);
     const { naver } = window;
-    const latitude = Number(localStorage.getItem('latitude'));
-    const longitude = Number(localStorage.getItem('longitude'));
+    const latitude = Number(sessionStorage.getItem('latitude'));
+    const longitude = Number(sessionStorage.getItem('longitude'));
 
     useEffect(() => {
         if (!mapElement.current || !naver) return;

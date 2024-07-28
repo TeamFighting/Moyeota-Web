@@ -15,6 +15,7 @@ import styled from 'styled-components';
 import useBottomSheet from '../../../Hooks/useBottonSheet';
 import BottomSheetHandle from '../../AddAccount/BankListSheet/BankListSheetHandle';
 import { motion } from 'framer-motion';
+import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
 
 interface PartyOneProps {
     nickname: string;
@@ -41,7 +42,7 @@ function Body() {
     const [calcType, setCalcType] = useState('N');
     const windowHeight = window.innerHeight;
     const accountListsHeight = windowHeight - 111;
-    const token = localStorage.getItem('accessToken');
+    const accessToken = localStorage.getItem('accessToken');
     // 계좌 리스트 오픈 여부
     const [isOpenAccountLists, setIsOpenAccountLists] = useState(false);
     // 선택된 계좌 인덱스, border 스타일링을 위해 사용
@@ -90,31 +91,45 @@ function Body() {
                     null,
                     {
                         headers: {
-                            Authorization: `Bearer ${token}`,
+                            Authorization: `Bearer ${accessToken}`,
                         },
                     },
                 );
-            } catch (error) {
-                console.log(error);
+            } catch (e: any) {
+                console.log(e);
+                if (e.response.status === 401) {
+                    if (await UseGetNewAccessToken(accessToken!)) {
+                        sendFare();
+                    }
+                }
             }
         });
-        const rest = await instance.post(
-            `totalDetails/${postId}`,
-            {
-                totalDistance: 10,
-                totalPayment: max,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            },
-        );
-        console.log(rest);
 
-        setTimeout(() => {
-            setShowNextButton(true);
-        }, 2000);
+        try {
+            const res = await instance.post(
+                `totalDetails/${postId}`,
+                {
+                    totalDistance: 10,
+                    totalPayment: max,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                    },
+                },
+            );
+            if (res.status === 200) {
+                setTimeout(() => {
+                    setShowNextButton(true);
+                }, 2000);
+            }
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    sendFare();
+                }
+            }
+        }
     };
 
     interface EachMoneyProps {
@@ -139,7 +154,7 @@ function Body() {
                             `participation-details/payment/users/${each.userId}/posts/${postId}`,
                             {
                                 headers: {
-                                    Authorization: `Bearer ${token}`,
+                                    Authorization: `Bearer ${accessToken}`,
                                 },
                             },
                         );
@@ -157,8 +172,13 @@ function Body() {
                                 });
                             }
                         }
-                    } catch (error) {
-                        console.log(error);
+                    } catch (e: any) {
+                        console.log(e);
+                        if (e.response.status === 401) {
+                            if (await UseGetNewAccessToken(accessToken!)) {
+                                calculation();
+                            }
+                        }
                     }
                 });
             });
@@ -207,22 +227,30 @@ function Body() {
 
     // 파티원 정보 받아오고 내 정보를 맨 앞으로 보내주는 함수
     const getPartyOne = async () => {
-        const result = await instance.get(`posts/${postId}/members`);
-        if (result.status === 200) {
-            const arr = result.data.data;
-            const newArr = [];
-            for (let i = 0; i < arr.length; i++) {
-                if (arr[i].userId == Number(userId)) {
-                    newArr.push(arr[i]);
+        try {
+            const result = await instance.get(`posts/${postId}/members`);
+            if (result.status === 200) {
+                const arr = result.data.data;
+                const newArr = [];
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i].userId == Number(userId)) {
+                        newArr.push(arr[i]);
+                    }
+                }
+                for (let i = 0; i < arr.length; i++) {
+                    if (arr[i].userId !== Number(userId)) {
+                        newArr.push(arr[i]);
+                    }
+                }
+                setPartyOne(newArr);
+                setEachMoney(newArr.map((each) => ({ name: each.nickname, amount: 0, userId: each.userId })));
+            }
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    getPartyOne();
                 }
             }
-            for (let i = 0; i < arr.length; i++) {
-                if (arr[i].userId !== Number(userId)) {
-                    newArr.push(arr[i]);
-                }
-            }
-            setPartyOne(newArr);
-            setEachMoney(newArr.map((each) => ({ name: each.nickname, amount: 0, userId: each.userId })));
         }
     };
 

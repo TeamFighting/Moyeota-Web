@@ -45,7 +45,7 @@ export const YourTimeWrapper = styled.div`
     align-items: end;
     display: flex;
     flex-direction: row;
-    vertical-align: 'bottom';
+    vertical-align: bottom;
 `;
 export const Time = styled.div`
     font-size: 10px;
@@ -75,7 +75,7 @@ export const MyMessage = styled.div`
     margin-right: 16px;
     margin-left: 9px;
     padding: 10px 16px;
-    border-radius: 99px;
+    border-radius: 16px;
     height: fit-content;
     width: fit-content;
     color: #000;
@@ -85,6 +85,7 @@ export const MyMessage = styled.div`
     font-weight: 500;
     line-height: 157%; /* 21.98px */
     background: var(--Gray-Button, #f1f1f1);
+    max-width: 65%;
 `;
 export const YourMessageWrapper = styled.div`
     gap: 8px;
@@ -105,7 +106,7 @@ export const YourMessage = styled.div`
     gap: 10px;
     padding: 10px 16px;
     margin-left: 9px;
-    border-radius: 99px;
+    border-radius: 16px;
     background: #1edd81;
     height: fit-content;
     width: fit-content;
@@ -115,6 +116,7 @@ export const YourMessage = styled.div`
     font-style: normal;
     font-weight: 700;
     line-height: 157%; /* 21.98px */
+    max-width: 65%;
 `;
 export const Profile = styled.div`
     display: flex;

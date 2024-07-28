@@ -85,7 +85,7 @@ function FirebaseChat() {
         const messagesArray = [] as myMessageProps[];
         onChildAdded(child(messagesRef, roomId), (snapshot) => {
             messagesArray.push(snapshot.val());
-            console.log(messagesArray);
+            // console.log(messagesArray);
             const newmessagesArray = [...messagesArray];
             setMessages(newmessagesArray);
         });

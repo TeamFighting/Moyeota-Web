@@ -4,7 +4,6 @@ import SvgNotCheck from '../../../assets/svg/NotCheck';
 import { useEffect, useState } from 'react';
 import SvgCheck from '../../../assets/svg/Check';
 import { CurrentReimburseStore } from '../../../state/store/CurrentReimburseStore';
-import { set } from 'firebase/database';
 
 interface EachAmount {
     userId: number;
@@ -60,11 +59,11 @@ function Body({ data, setModalOpen }: BodyProps) {
         }
     }, [clickedUsers, userIds, data.totalPeople, setModalOpen]);
     const isUserClicked = (userId: number) => clickedUsers.includes(userId);
-    const handlePaymentStateChange = (userId: number) => {
-        const isPayed = !isUserClicked(userId);
-        updatePaymentStatusForUserId(data.postId, userId, isPayed);
-        setClickedUsers((prev) => (isPayed ? [...prev, userId] : prev.filter((id) => id !== userId)));
-    };
+    // const handlePaymentStateChange = (userId: number) => {
+    //     const isPayed = !isUserClicked(userId);
+    //     updatePaymentStatusForUserId(data.postId, userId, isPayed);
+    //     setClickedUsers((prev) => (isPayed ? [...prev, userId] : prev.filter((id) => id !== userId)));
+    // };
 
     const render = () =>
         data.EachAmount.map((each) => (
@@ -75,11 +74,11 @@ function Body({ data, setModalOpen }: BodyProps) {
                 </St.MoneyLeft>
                 <St.MoneyRight>
                     <St.MoneyRight style={{ textDecoration: 'underline' }}>{each.amount}원</St.MoneyRight>
-                    {isUserClicked(each.userId) ? (
+                    {/* {isUserClicked(each.userId) ? (
                         <SvgCheck onClick={() => handlePaymentStateChange(each.userId)} width={24} height={24} />
                     ) : (
                         <SvgNotCheck onClick={() => handlePaymentStateChange(each.userId)} width={24} height={24} />
-                    )}
+                    )} */}
                 </St.MoneyRight>
             </St.PartyOneRow>
         ));
