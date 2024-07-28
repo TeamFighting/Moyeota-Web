@@ -29,11 +29,11 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
     const isMe = user.id == Number(id);
     const jusify = isMe ? 'end' : 'start';
     const navigateToApplierReimbursement = () => {
-        console.log('navigateToApplierReimbursement');
+        // console.log('navigateToApplierReimbursement');
         navigate(`/reimbursement/${data.postId}/${id}`, { state: { data } });
     };
     const navigateToCurrentReimbursement = () => {
-        console.log('navigateToCurrentReimbursement');
+        // console.log('navigateToCurrentReimbursement');
         navigate(`/reimbursement/current/${data.postId}/${id}`, { state: { data } });
     };
     return (

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { instance } from '../../../../axios';
+import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
 
 interface DeleteModalProps {
     onClose: () => void;
@@ -31,8 +32,13 @@ function DeleteModal({ postId, onClose }: DeleteModalProps) {
             } else {
                 console.error('삭제 실패');
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error('삭제 요청 중 오류 발생', error);
+            if (error.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    handleDelete();
+                }
+            }
         }
     };
 

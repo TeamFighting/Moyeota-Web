@@ -3,6 +3,7 @@ import { WhiteCancelIcon } from '../../../../assets/svg';
 import { instance } from '../../../../axios';
 import * as S from './ModifyNickname_styles';
 import { useMyInfoStore } from '../../../../state/store/MyInfo';
+import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
 
 interface BodyProps {
     userInfo: string | null;
@@ -18,7 +19,7 @@ interface UserInfoData {
 function Body({ userInfo }: BodyProps) {
     const { nickName, setMyInfo, name, age, gender } = useMyInfoStore();
     const [nickNameState, setNickNameState] = useState<string>(nickName ?? '');
-    console.log('myInfo', nickName);
+    const accessToken = localStorage.getItem('accessToken');
     if (userInfo == null) {
         alert('로그인이 필요합니다.');
         window.location.href = '/login';
@@ -31,12 +32,19 @@ function Body({ userInfo }: BodyProps) {
         try {
             const res = await instance.get('/users', {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log('res', res);
-            setMyInfo(res.data.data);
-        } catch (e) {
+            if (res.status === 200) {
+                console.log('res', res);
+                setMyInfo(res.data.data);
+            }
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    usersInfo();
+                }
+            }
             //console.log(e);
         }
     }
@@ -54,15 +62,17 @@ function Body({ userInfo }: BodyProps) {
                 },
             );
             console.log(res);
-            if (res.status !== 200) {
-                alert('닉네임 수정에 실패했습니다.');
-                return;
-            } else {
+            if (res.status === 200) {
                 usersInfo();
                 alert('닉네임이 수정되었습니다.');
             }
-        } catch (e) {
+        } catch (e: any) {
             alert('닉네임 수정에 실패했습니다.');
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    sendModifiedNickName();
+                }
+            }
             return;
         }
     };

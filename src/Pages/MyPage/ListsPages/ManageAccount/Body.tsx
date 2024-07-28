@@ -3,9 +3,10 @@ import { WhiteCancelIcon } from '../../../../assets/svg';
 import { useMyInfoStore } from '../../../../state/store/MyInfo';
 import * as S from './style';
 import { instance } from '../../../../axios';
+import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
 function Body() {
     const { email, name } = useMyInfoStore();
-    
+
     const [newEmail, setNewEmail] = useState(email ?? '');
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewEmail(e.target.value);
@@ -27,8 +28,14 @@ function Body() {
             if (res.status === 200) {
                 alert('이메일이 변경되었습니다.');
             }
-        } catch (e) {
-            console.error(e);
+        } catch (e: any) {
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(localStorage.getItem('accessToken')!)) {
+                    modifyEmail();
+                } else {
+                    window.location.href = '/login';
+                }
+            }
         }
     };
 

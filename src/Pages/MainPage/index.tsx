@@ -1,23 +1,24 @@
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { HEADER_HEIGHT } from '../../Constants/constant';
 import useStore from '../../state/store/ContentStore';
 import LocationHeader from './LocationHeader';
 import BottomSheet from './Components/BottomSheet';
 import { Chevronleft } from '../../assets/svg';
 import { useNavigate } from 'react-router-dom';
-import SvgRefreshButton from '../../assets/svg/RefreshButton';
-import SvgBacktoCurrentButton from '../../assets/svg/BacktoCurrentButton';
-import { Icon } from '../DetailPage/style';
+// import SvgRefreshButton from '../../assets/svg/RefreshButton';
+// import SvgBacktoCurrentButton from '../../assets/svg/BacktoCurrentButton';
+// import { Icon } from '../DetailPage/style';
 import NaverMap from './NaverMap/NaverMap';
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
 import { useClickedMarker } from '../../state/store/ClickedMarker';
 import { instance } from '../../axios';
-import watchPositionHook from '../../Hooks/watchPositionHook';
-import { AuthStore } from '../../state/store/AuthStore';
+import watchPositionHook from '../../Hooks/useWatchPositionHook';
+// import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../state/store/MyInfo';
 import { useMyPotStore } from '../../state/store/MyPotStore';
 import BottomBtn from '../../components/BottomBtn';
+import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -27,21 +28,8 @@ function MainPage() {
     watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
 
-    const getNewAccessToken = async () => {
-        try {
-            const res = await instance.post('users/refresh-token', {
-                accessToken: accessToken,
-                refreshToken: accessToken,
-            });
-            console.log(res);
-        } catch (e) {
-            console.error(e);
-        }
-    };
-    const setAccessToken = AuthStore((state) => state.setAccessToken);
     const { setMyInfo, id, accountDtoList } = useMyInfoStore();
     const { setMyPot } = useMyPotStore();
-    const [useToken, setUseToken] = useState<string | undefined>(undefined);
     const getMyPost = async () => {
         try {
             const myPost = await instance.get(`/posts/users/${id}`, {
@@ -52,13 +40,20 @@ function MainPage() {
                     page: 0,
                 },
             });
-
-            const newArr: number[] = [];
+            if (myPost.status === 200) {
+                const newArr: number[] = [];
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
+                setMyPot(newArr);
+            }
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
-            setMyPot(newArr);
-        } catch (e) {
+        } catch (e: any) {
             console.log('getMyPost', e);
+            if (e.response.status === 401) {
+                if (await UseGetNewAccessToken(accessToken!)) {
+                    getMyPost();
+                }
+            }
         }
     };
     useEffect(() => {
@@ -68,30 +63,31 @@ function MainPage() {
             getMyPost();
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const handleMessage = (event: any) => {
-            try {
-                if (typeof event.data === 'string') {
-                    const data = JSON.parse(event.data);
-                    if (data.token !== undefined) {
-                        setAccessToken(data.token);
-                        setUseToken(data.token);
-                        alert('로그인 되었습니다');
-                        localStorage.setItem('accessToken', data.token.toString());
-                    }
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        };
+        // // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // ReactNative 연동시 사용
+        // const handleMessage = (event: any) => {
+        //   try {
+        //     if (typeof event.data === 'string') {
+        //       const data = JSON.parse(event.data);
+        //       if (data.token !== undefined) {
+        //         setAccessToken(data.token);
+        //         setUseToken(data.token);
+        //         alert('로그인 되었습니다');
+        //         localStorage.setItem('accessToken', data.token.toString());
+        //       }
+        //     }
+        //   } catch (error) {
+        //     console.error(error);
+        //   }
+        // };
 
-        window.addEventListener('message', handleMessage);
+        // window.addEventListener('message', handleMessage);
 
-        if (useToken !== undefined) {
-            return () => {
-                window.removeEventListener('message', handleMessage);
-            };
-        }
+        // if (useToken !== undefined) {
+        //   return () => {
+        //     window.removeEventListener('message', handleMessage);
+        //   };
+        // }
     }, []);
 
     async function usersInfo() {
@@ -101,18 +97,23 @@ function MainPage() {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            setMyInfo(res.data.data);
-            localStorage.setItem('myInfo', JSON.stringify(res.data.data));
-        } catch (e) {
-            //console.log(e);
+            if (res.status === 200) {
+                setMyInfo(res.data.data);
+                localStorage.setItem('myInfo', JSON.stringify(res.data.data));
+            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (e: any) {
+            alert(e + '에러');
+            if (e.response.status === 401) {
+                alert('로그인이 필요합니다.');
+                window.location.href = '/login';
+            }
         }
     }
 
     async function fetchData() {
         try {
-            console.log('fetchData');
             const res = await instance.get('/posts');
-            console.log('res', res.data.data);
             if (res.status === 200) {
                 updateTotalData(res.data.data);
             } else {
@@ -131,17 +132,6 @@ function MainPage() {
         }
     };
 
-    const refresh = () => {
-        console.log('refresh');
-        console.log('accessToken', accessToken);
-        // submit();
-        getNewAccessToken();
-    };
-
-    const goCurrent = () => {
-        console.log('goCurrent');
-    };
-
     return (
         <Container>
             <Header>
@@ -149,24 +139,24 @@ function MainPage() {
                 <LocationHeader />
             </Header>
             <Body>
-                <Icons>
-                    <Icon onClick={refresh}>
-                        <SvgRefreshButton
-                            style={{
-                                width: '48px',
-                                height: '48px',
-                            }}
-                        />
-                    </Icon>
-                    <Icon onClick={goCurrent}>
-                        <SvgBacktoCurrentButton
-                            style={{
-                                width: '48px',
-                                height: '48px',
-                            }}
-                        />
-                    </Icon>
-                </Icons>
+                {/* <Icons>
+          <Icon onClick={refresh}>
+            <SvgRefreshButton
+              style={{
+                width: '48px',
+                height: '48px',
+              }}
+            />
+          </Icon>
+          <Icon onClick={goCurrent}>
+            <SvgBacktoCurrentButton
+              style={{
+                width: '48px',
+                height: '48px',
+              }}
+            />
+          </Icon>
+        </Icons> */}
                 <NaverMap from={'mainpage'} />
                 {isClicked && <MarkerClickContent postId={clickedMarkerId} />}
                 <Bottom isClicked={isClicked}>
@@ -182,16 +172,16 @@ function MainPage() {
     );
 }
 
-const Icons = styled.div`
-    z-index: 10;
-    position: absolute;
-    top: 58%;
-    right: 1%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-`;
+// const Icons = styled.div`
+//   z-index: 10;
+//   position: absolute;
+//   top: 58%;
+//   right: 1%;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// `;
 const Container = styled.div`
     flex: 1;
     display: flex;
