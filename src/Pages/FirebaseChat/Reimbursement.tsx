@@ -1,10 +1,16 @@
 import styled from 'styled-components';
-import { CharacterCrown, ChatSeeU } from '../../assets/svg';
+import { CharacterCrown, ChatSeeU, CheckCircle } from '../../assets/svg';
 import { PotOwner } from '../ReimbursementPage/styles';
 import { Image } from 'react-bootstrap';
 import { Time } from './style';
+import toast from 'react-hot-toast';
+import SvgCopyIcon from '../../assets/svg/CopyIcon';
 
 interface JSONType {
+    account: {
+        bankName: string;
+        accountNumber: string;
+    };
     potName: string;
     postId: number;
     totalAmount: string;
@@ -24,7 +30,7 @@ interface ChatReimbursementProps {
     navigate: any;
 }
 function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate }: ChatReimbursementProps) {
-    const { id } = JSON.parse(sessionStorage.getItem('myInfo') as string);
+    const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const data: JSONType = JSON.parse(JSONMessage);
     const isMe = user.id == Number(id);
     const jusify = isMe ? 'end' : 'start';
@@ -36,6 +42,53 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
         // console.log('navigateToCurrentReimbursement');
         navigate(`/reimbursement/current/${data.postId}/${id}`, { state: { data } });
     };
+    const handleCopyClipBoard = async (text: string) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            toast(
+                () => (
+                    <div
+                        style={{
+                            textAlign: 'center',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: '9px',
+                        }}
+                    >
+                        <CheckCircle width={24} />
+                        <div
+                            style={{
+                                textAlign: 'center',
+                                gap: '9px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            계좌번호가 복사되었습니다
+                        </div>
+                    </div>
+                ),
+                {
+                    style: {
+                        background: '#73737E',
+                        color: 'white',
+                        borderRadius: '99px',
+                        textAlign: 'center',
+                        fontFamily: 'Pretendard',
+                        fontSize: '16px',
+                        fontStyle: 'normal',
+                        fontWeight: '700',
+                        lineHeight: 'normal',
+                        letterSpacing: '0.48px',
+                    },
+                },
+            );
+        } catch (e) {
+            alert('복사에 실패하였습니다');
+        }
+    };
+
     return (
         <div
             style={{
@@ -96,7 +149,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                                 {data.EachAmount.map((each) => {
                                     return (
                                         <Amount key={each.userId}>
-                                            {each.name} : {each.amount}
+                                            {each.name} : {each.amount}원
                                         </Amount>
                                     );
                                 })}
@@ -105,17 +158,38 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                                 {isMe ? (
                                     <MyAmount>
                                         <div style={{ textDecoration: 'underline' }}>{data.totalAmount}</div>
-                                        <div>을 송금해주세요!</div>
+                                        <div>을 송금해주세요</div>
                                     </MyAmount>
                                 ) : null}
                                 {!isMe &&
                                     data.EachAmount.map((each) => {
                                         return (
                                             each.userId == id && (
-                                                <MyAmount>
-                                                    <div style={{ textDecoration: 'underline' }}>{each.amount}</div>
-                                                    <div>을 송금해주세요!</div>
-                                                </MyAmount>
+                                                <div>
+                                                    <YourAmount>{each.amount}원을 송금해주세요</YourAmount>
+                                                    <AccountNumber
+                                                        onClick={() => {
+                                                            handleCopyClipBoard(
+                                                                data.account.bankName + data.account.accountNumber,
+                                                            );
+                                                        }}
+                                                    >
+                                                        <div style={{ textDecorationLine: 'underline' }}>
+                                                            {data.account.bankName} {data.account.accountNumber}
+                                                        </div>
+                                                        <div
+                                                            style={{
+                                                                display: 'flex',
+                                                                flexDirection: 'row',
+                                                                gap: '3px',
+                                                                marginLeft: '1px',
+                                                            }}
+                                                        >
+                                                            <SvgCopyIcon width={10} height={10} />
+                                                            <CopyText>복사</CopyText>
+                                                        </div>
+                                                    </AccountNumber>
+                                                </div>
                                             )
                                         );
                                     })}
@@ -133,36 +207,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                             ) : (
                                 <Participants>
                                     <ParticipantsBTN onClick={() => navigateToApplierReimbursement()}>
-                                        <div
-                                            style={{
-                                                color: '#5D5D5D',
-                                                textAlign: 'center',
-                                                fontFamily: 'Pretendard',
-                                                fontSize: '14px',
-                                                fontStyle: 'normal',
-                                                fontWeight: 500,
-                                                lineHeight: 'normal',
-                                            }}
-                                        >
-                                            송금하기
-                                        </div>
-                                    </ParticipantsBTN>
-                                    <ParticipantsBTN
-                                        onClick={navigateToCurrentReimbursement}
-                                        style={{ backgroundColor: '#1EDD81', color: '#fff' }}
-                                    >
-                                        <div
-                                            style={{
-                                                textAlign: 'center',
-                                                fontFamily: 'Pretendard',
-                                                fontSize: '14px',
-                                                fontStyle: 'normal',
-                                                fontWeight: 700,
-                                                lineHeight: 'normal',
-                                            }}
-                                        >
-                                            정산현황
-                                        </div>
+                                        <BTNText>정산목록</BTNText>
                                     </ParticipantsBTN>
                                 </Participants>
                             )}
@@ -174,6 +219,16 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
         </div>
     );
 }
+
+const CopyText = styled.div`
+    color: #606060;
+    font-family: Pretendard;
+    font-size: 8px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 157%; /* 12.56px */
+    text-decoration-line: none;
+`;
 const Participants = styled.div`
     display: flex;
     flex-direction: row;
@@ -246,16 +301,26 @@ const Amount = styled.div`
     line-height: 157%; /* 18.84px */
 `;
 
+const YourAmount = styled.div`
+    color: #000;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 157%; /* 25.12px */
+`;
+
 const MyAmount = styled.div`
+    display: flex;
+    flex-direction: row;
     color: var(--Gray-Text-3, #343434);
     font-family: Pretendard;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
-    line-height: 157%; /* 18.84px */
-    display: flex;
-    flex-direction: row;
+    line-height: 157%;
 `;
+
 const Warning = styled.div`
     color: var(--Gray-Text-2, #7e7e7e);
     font-family: Pretendard;
@@ -293,14 +358,35 @@ const Status = styled.div`
     line-height: normal;
 `;
 const ParticipantsBTN = styled.div`
-    width: 103px;
+    width: 217px;
     height: 34px;
     flex-shrink: 0;
     border-radius: 12px;
-    background: var(--Gray-Button, #f1f1f1);
+    color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: var(--Green-Button, #1edd81);
 `;
 
+const BTNText = styled.div`
+    color: #fff;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+`;
+
+const AccountNumber = styled.div`
+    color: #606060;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 157%; /* 21.98px */
+    display: flex;
+    flex-direction: row;
+`;
 export default ChatReimbursement;

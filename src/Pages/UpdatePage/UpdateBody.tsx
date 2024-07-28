@@ -9,7 +9,6 @@ import { instance } from '../../axios';
 import CurrentLocationStore from '../../state/store/CurrentLocation';
 import DetailMap from '../DetailPage/DetailMap';
 
-
 interface PostProps {
     category: string;
     content: string;

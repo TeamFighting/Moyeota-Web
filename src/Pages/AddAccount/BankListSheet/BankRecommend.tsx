@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import KMP from './KMP';
 function BankRecommend() {
     const [bank, setBank] = useState('');
     const NH = ['352', '302', '301', '312', '306', '305', '317'];
@@ -8,6 +8,13 @@ function BankRecommend() {
     const [bankList, setBankList] = useState<string[]>([]);
 
     useEffect(() => {
+        for (let i = 0; i < NH.length; i++) {
+            const idx = KMP(bank, KB[i]);
+            if (idx !== -1) {
+                console.log(idx);
+            }
+        }
+
         if (bank.length >= 10) {
             const check1 = bank.substring(3, 5);
             const check = bank.substring(0, 3);

@@ -2,13 +2,19 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
     width: 100%;
-    height: 20%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
 `;
-
+export const Title = styled.div`
+    color: #000;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 157%; /* 28.26px */
+`;
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
@@ -17,6 +23,7 @@ export const Content = styled.div`
     justify-content: center;
     background-color: #f5f6f8;
     padding: 20px;
+    border-radius: 12px;
 `;
 
 export const PotName = styled.div`
@@ -46,6 +53,12 @@ export const RequestDate = styled.div`
     line-height: 157%; /* 18.84px */
 `;
 
+export const Stroke = styled.div`
+    width: 100%;
+    height: 6px;
+    background-color: var(--Gray-Icon-Solid, #f5f6f8);
+    margin-top: 15px;
+`;
 export const Name = styled.div`
     color: var(--Gray-Text-3, #343434);
     font-family: Pretendard;
