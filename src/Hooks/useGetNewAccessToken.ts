@@ -2,7 +2,7 @@ import { instance } from '../axios';
 
 export const UseGetNewAccessToken = async (accessToken: string) => {
     try {
-        const res = await instance.post('/oauth/refresh', {
+        const res = await instance.post('/users/refresh-token', {
             accessToken: accessToken,
             refreshToken: localStorage.getItem('refreshToken'),
         });
@@ -14,7 +14,7 @@ export const UseGetNewAccessToken = async (accessToken: string) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
         console.log(e);
-        if (e.response.status === 401) {
+        if (e.response.status === 400) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
             alert('로그인이 필요합니다.');
