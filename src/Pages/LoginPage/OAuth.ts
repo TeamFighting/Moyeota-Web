@@ -7,7 +7,6 @@ interface OAuth2RedirectHandlerProps {
 
 export async function RequestToken(code: string, from: string) {
   const navigate = useNavigate();
-  console.log('code', code);
   if (from === 'KAKAO') {
     instance
       .post('/oauth/kakao', {
@@ -16,8 +15,8 @@ export async function RequestToken(code: string, from: string) {
       .then((response) => {
         console.log('kakao login res', response);
         if (response.data && response.data.data.accessToken) {
-          const token = response.data.data.accessToken;
-          localStorage.setItem('accessToken', token);
+          localStorage.setItem('accessToken', response.data.data.accessToken);
+          localStorage.setItem('refreshToken', response.data.data.refreshToken);
           navigate('/mainpage');
         } else {
           console.log('유효하지 않은 토큰');
