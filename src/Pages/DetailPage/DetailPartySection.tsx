@@ -23,7 +23,7 @@ interface PARTYINFO {
     potOwner: boolean;
 }
 
-function DetailPartySection({ profileImage, leaderName, content, gender, participants, postId }: Props) {
+function DetailPartySection({ profileImage, leaderName, content, gender, postId }: Props) {
     let gender2;
     if (gender == 'M') {
         gender2 = '남자';
