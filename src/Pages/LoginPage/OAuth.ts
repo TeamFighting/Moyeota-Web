@@ -10,23 +10,23 @@ export async function RequestToken(code: string, from: string) {
     if (from === 'KAKAO') {
         console.log('카카오로그인요청');
         console.log('code', code);
-        // instance
-        //   .post('/oauth/kakao', {
-        //     authorizationCode: code,
-        //   })
-        //   .then((response) => {
-        //     // console.log('kakao login res', response);
-        //     if (response.data && response.data.data.accessToken) {
-        //       localStorage.setItem('accessToken', response.data.data.accessToken);
-        //       localStorage.setItem('refreshToken', response.data.data.refreshToken);
-        //       navigate('/mainpage');
-        //     } else {
-        //       console.log('유효하지 않은 토큰');
-        //     }
-        //   })
-        //   .catch(function () {
-        //     alert('로그인에 실패했습니다.');
-        //   });
+        instance
+          .post('/oauth/kakao', {
+            authorizationCode: code,
+          })
+          .then((response) => {
+            // console.log('kakao login res', response);
+            if (response.data && response.data.data.accessToken) {
+              localStorage.setItem('accessToken', response.data.data.accessToken);
+              localStorage.setItem('refreshToken', response.data.data.refreshToken);
+              navigate('/mainpage');
+            } else {
+              console.log('유효하지 않은 토큰');
+            }
+          })
+          .catch(function () {
+            alert('로그인에 실패했습니다.');
+          });
 
         // 추후 리팩토링 예정
         // } else if (from === 'GOOGLE') {
