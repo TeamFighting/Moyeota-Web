@@ -90,7 +90,8 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
                         }}
                     />
                     <S.Description>
-                        {/* {DateTimeValue != null ? (
+                        {/* RN과 연결시 사용
+                         {DateTimeValue != null ? (
                             <S.SelectedInfo>
                                 <div>
                                     {selectedTime} <br />

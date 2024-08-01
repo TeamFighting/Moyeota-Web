@@ -5,24 +5,22 @@ export const ModalContent = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 80vh;
+    overflow-y: scroll;
+    height: 100%;
     font-family: Pretendard;
 `;
 
 export const ContentWrapper = styled.div`
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: right;
     align-items: center;
-    background-color: white;
     gap: 20px;
     padding-top: 20px;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 40px;
-    /* background-color: beige; */
 `;
 
 export const ContentHeader = styled.div`

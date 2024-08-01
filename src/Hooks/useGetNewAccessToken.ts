@@ -2,7 +2,7 @@ import { instance } from '../axios';
 
 export const UseGetNewAccessToken = async (accessToken: string) => {
     try {
-        const res = await instance.post('/oauth/refresh', {
+        const res = await instance.post('/users/refresh-token', {
             accessToken: accessToken,
             refreshToken: localStorage.getItem('refreshToken'),
         });
@@ -18,7 +18,7 @@ export const UseGetNewAccessToken = async (accessToken: string) => {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
             alert('로그인이 필요합니다.');
-            window.location.href = '/login';
+            // window.location.href = '/login';
         }
         return false;
     }

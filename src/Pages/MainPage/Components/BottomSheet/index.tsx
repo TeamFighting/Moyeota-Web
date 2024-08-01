@@ -3,13 +3,13 @@ import { motion } from 'framer-motion';
 import useBottomSheet from '../../../../Hooks/useBottonSheet';
 import BottomSheetContent from './BottomSheetContent';
 import BottomSheetHandle from './BottomSheetHandle';
-import ContentHeader from '../SingleContent/SingleContentHeader';
 import { List } from '../../../../assets/svg';
-import { WINDOWHEIGHT } from '../../../../Constants/constant';
+import { HEADERHEIGHT, WINDOWHEIGHT, BOTTOMBARHEIGHT } from '../../../../Constants/constant';
 
 function BottomSheet() {
     const { sheet, handleUp, content } = useBottomSheet('BottomSheet');
     // bottomBar 없어지면 marginTop 조정
+    const refHeight = WINDOWHEIGHT - (HEADERHEIGHT + BOTTOMBARHEIGHT);
     return (
         <Wrapper ref={sheet}>
             <OpenBotton onClick={handleUp}>
@@ -19,19 +19,16 @@ function BottomSheet() {
             <div
                 style={{
                     width: '100%',
-                    marginTop: '7px',
                     borderRadius: '26px 26px 0 0',
-                    backgroundColor: '#fff',
-                    paddingBottom: '100px',
+                    height: '120%',
+                    marginTop: '10px',
                 }}
             >
                 <BottomSheetHandle />
-                <ContentHeader />
-                <div ref={content} style={{ width: '100%', overflow: 'scroll' }}>
-                    <BottomSheetContentWrapper>
-                        <BottomSheetContent />
-                    </BottomSheetContentWrapper>
-                </div>
+                {/* <ContentHeader /> */}
+                <BottomSheetContentWrapper refHeight={refHeight}>
+                    <BottomSheetContent content={content} />
+                </BottomSheetContentWrapper>
             </div>
         </Wrapper>
     );
@@ -41,8 +38,9 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     display: flex;
     flex-direction: column;
     position: fixed;
-    z-index: 10000;
+    z-index: 10;
     width: 100%;
+    height: 100vh;
     transition: transform 400ms ease-out;
 `;
 const OpenBotton = styled.div`
@@ -66,8 +64,10 @@ const OpenBotton = styled.div`
     z-index: 1000001;
     gap: 5px;
 `;
-const BottomSheetContentWrapper = styled.div`
+const BottomSheetContentWrapper = styled.div<{ refHeight: number }>`
     width: 100%;
-    height: ${WINDOWHEIGHT + 64};
+    height: ${(props) => props.refHeight + 15}px;
+    overflow-y: scroll;
+    background-color: white;
 `;
 export default BottomSheet;

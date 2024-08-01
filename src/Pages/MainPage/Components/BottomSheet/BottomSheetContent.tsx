@@ -1,8 +1,14 @@
 import * as S from '../../style';
 import SingleContent from '../SingleContent';
 import useStore from '../../../../state/store/ContentStore';
-const BottomSheetContent = () => {
+
+interface BottomSheetContentProps {
+    content: React.RefObject<HTMLDivElement>;
+}
+
+const BottomSheetContent = ({ content }: BottomSheetContentProps) => {
     const { totalData } = useStore((state) => state);
+
     if (totalData === undefined || null) {
         return (
             <div
@@ -31,7 +37,7 @@ const BottomSheetContent = () => {
         );
     } else {
         return (
-            <S.ModalContent>
+            <S.ModalContent ref={content}>
                 <S.ContentWrapper>
                     <SingleContent from={'BottomSheet'} />
                 </S.ContentWrapper>

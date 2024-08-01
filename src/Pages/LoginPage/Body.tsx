@@ -27,6 +27,7 @@ function Body() {
             OAuth2RedirectHandler({ from: 'NAVER' });
         }
     };
+
     return (
         <S.Wrapper>
             <div>

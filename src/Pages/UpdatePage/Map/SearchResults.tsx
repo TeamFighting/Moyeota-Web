@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../../Constants/constant';
+import { HEADERHEIGHT } from '../../../Constants/constant';
 import { useNavigate } from 'react-router-dom';
 import CheveronLeft from '../../../assets/svg/Chevronleft';
 import My_location from '../../../assets/svg/My_location';
@@ -93,7 +93,7 @@ const Container = styled.div`
 const Header = styled.div`
     display: flex;
     flex-direction: row;
-    height: ${HEADER_HEIGHT}px;
+    height: ${HEADERHEIGHT}px;
     justify-content: space-between;
     padding: 0 4%;
 `;

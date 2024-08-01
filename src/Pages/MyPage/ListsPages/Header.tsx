@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-import { HEADER_HEIGHT } from '../../../Constants/constant';
+import { HEADERHEIGHT } from '../../../Constants/constant';
 import SvgCancelIcon from '../../../assets/svg/CancelIcon';
 import CheveronLeft from '../../../assets/svg/Chevronleft';
 interface HeaderProps {
@@ -37,7 +37,7 @@ const HeaderWrapper = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: ${HEADER_HEIGHT}px;
+    height: ${HEADERHEIGHT}px;
     width: 100vw;
     height: 84px;
     justify-content: center;

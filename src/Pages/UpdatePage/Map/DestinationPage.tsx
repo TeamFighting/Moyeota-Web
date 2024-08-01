@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import NaverMap from './NaverMap/NaverMap';
 import { Chevronleft } from '../../../assets/svg';
-import { HEADER_HEIGHT } from '../../../Constants/constant';
+import { HEADERHEIGHT } from '../../../Constants/constant';
 import { useNavigate, useLocation } from 'react-router-dom';
 import BottomSheet from './BottomSheet';
 import DestinationButton from '../Button/DestinationButtom';
@@ -67,7 +67,7 @@ const Header = styled.div`
     position: fixed;
     top: 19px;
     width: 100%;
-    height: ${HEADER_HEIGHT}px;
+    height: ${HEADERHEIGHT}px;
 `;
 
 const InputStyle = styled.input`

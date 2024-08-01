@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import { HEADER_HEIGHT } from '../../Constants/constant';
+import { HEADERHEIGHT } from '../../Constants/constant';
 import useStore from '../../state/store/ContentStore';
 import LocationHeader from './LocationHeader';
 import BottomSheet from './Components/BottomSheet';
@@ -192,7 +192,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-    height: ${HEADER_HEIGHT}px;
+    height: ${HEADERHEIGHT}px;
     position: sticky;
     background-color: #ffffff;
     display: flex;
@@ -229,7 +229,6 @@ const Buttons = styled.div`
     right: 7%;
     width: 114px;
     height: 100px;
-    background-color: black;
     gap: 10px;
 `;
 

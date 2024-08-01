@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../Constants/constant';
+import { HEADERHEIGHT } from '../../Constants/constant';
 
 export const Header = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: ${HEADER_HEIGHT}px;
+    height: ${HEADERHEIGHT}px;
     justify-content: space-between;
     padding: 0 4%;
     text-align: center;

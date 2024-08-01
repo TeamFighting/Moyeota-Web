@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { DRAWER_HEIGHT, HEADER_HEIGHT } from '../../Constants/constant';
+import { HEADERHEIGHT } from '../../Constants/constant';
 
 export const Header = styled.div`
     position: fixed;
@@ -7,7 +7,7 @@ export const Header = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: ${HEADER_HEIGHT}px;
+    height: ${HEADERHEIGHT}px;
     justify-content: space-between;
     text-align: center;
     background-color: white;
@@ -28,14 +28,14 @@ export const SlideWrapper = styled.div<{ isOpen: boolean }>`
     /* 맨위에 안보일때 */
     /* height: ${(props) => (props.isOpen ? 'calc(100vh - 100px)' : '100vh')}; */
     overflow-y: scroll;
-    transform: ${(props) => (props.isOpen ? 'translateY(0px)' : `translateY(${DRAWER_HEIGHT}px)`)};
+    transform: ${(props) => (props.isOpen ? 'translateY(0px)' : `translateY(${HEADERHEIGHT}px)`)};
     transition: all ease 0.3s;
     flex-direction: column;
 `;
 export const Body = styled.div`
     margin-bottom: 110px;
-    /* height: calc(100vh - ${HEADER_HEIGHT}px - 100); */
-    padding-top: ${HEADER_HEIGHT + 20}px;
+    /* height: calc(100vh - ${HEADERHEIGHT}px - 100); */
+    padding-top: ${HEADERHEIGHT + 20}px;
     width: 100vw;
     flex-direction: column;
     display: flex;
@@ -169,7 +169,7 @@ export const Description = styled.div`
 `;
 export const Bottom = styled.div<{ isOpen: boolean }>`
     position: fixed;
-    bottom: ${(props) => (props.isOpen ? `${DRAWER_HEIGHT}px` : '0px')};
+    bottom: ${(props) => (props.isOpen ? `${HEADERHEIGHT}px` : '0px')};
     transition: all ease 0.3s;
     display: flex;
     height: 100px;
@@ -214,9 +214,9 @@ export const StyledInput = styled.input`
 
 export const ChatBottomDrawer = styled.div<{ isOpen: boolean }>`
     position: fixed;
-    bottom: ${(props) => (props.isOpen ? '0' : `-${DRAWER_HEIGHT}px`)};
+    bottom: ${(props) => (props.isOpen ? '0' : `-${HEADERHEIGHT}px`)};
     transition: all ease 0.3s;
-    height: ${DRAWER_HEIGHT}px;
+    height: ${HEADERHEIGHT}px;
     width: 100vw;
     background-color: white;
 `;

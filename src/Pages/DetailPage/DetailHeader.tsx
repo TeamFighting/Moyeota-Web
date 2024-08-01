@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../Constants/constant';
+import { HEADERHEIGHT } from '../../Constants/constant';
 import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import CheveronLeft from '../../assets/svg/Chevronleft';
@@ -7,7 +7,7 @@ import CheveronLeft from '../../assets/svg/Chevronleft';
 function DetailHeader() {
     const navigate = useNavigate();
     const goBack = () => {
-        navigate(-1);
+        navigate('/mainpage');
     };
     return (
         <Header>
@@ -25,7 +25,7 @@ const Header = styled.div`
     display: flex;
     flex-direction: row;
     align-items: end;
-    height: ${HEADER_HEIGHT}px;
+    height: ${HEADERHEIGHT}px;
     justify-content: space-between;
     position: fixed;
     top: 0;
