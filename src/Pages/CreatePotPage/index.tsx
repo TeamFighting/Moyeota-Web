@@ -39,7 +39,7 @@ function CreatePotPage() {
             setDividerHeight(6);
         }
     }, [scroll]);
-  
+
     return (
         <>
             <S.Container>
