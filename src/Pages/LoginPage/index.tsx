@@ -7,15 +7,12 @@ import useIsMobile from '../../Hooks/useIsMobile';
 
 function LoginPage() {
     watchPositionHook();
-    const isMobile = useIsMobile();
 
     useEffect(() => {
         const haveToken = sessionStorage.getItem('accessToken');
         if (haveToken !== null) {
             window.location.href = '/mainpage';
         }
-        isMobile.any ? alert('Mobile') : alert('Desktop');
-        
     }, []);
 
     return (
