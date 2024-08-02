@@ -105,8 +105,13 @@ function MainPage() {
         } catch (e: any) {
             alert(e + '에러');
             if (e.response.status === 401) {
-                alert('로그인이 필요합니다.');
-                window.location.href = '/login';
+                const getNew = await UseGetNewAccessToken(accessToken!);
+                console.log(getNew);
+                // if (await UseGetNewAccessToken(accessToken!)) {
+                //     usersInfo();
+                // }
+                // alert('로그인이 필요합니다.');
+                // window.location.href = '/login';
             }
         }
     }
@@ -209,6 +214,7 @@ const Bottom = styled.div<{ isClicked: boolean }>`
     width: 100%;
     bottom: 0;
     height: 258px;
+    background-color: white;
     visibility: ${(props) => (props.isClicked ? 'hidden' : 'visible')};
 `;
 
@@ -218,6 +224,7 @@ const Body = styled.div`
     flex-direction: column;
     width: 100%;
     height: 100%;
+    background-color: black;
 `;
 
 const Buttons = styled.div`

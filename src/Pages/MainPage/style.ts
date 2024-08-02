@@ -8,6 +8,8 @@ export const ModalContent = styled.div`
     overflow-y: scroll;
     height: 100%;
     font-family: Pretendard;
+    z-index: 1;
+    background-color: white;
 `;
 
 export const ContentWrapper = styled.div`
@@ -171,7 +173,7 @@ export const ProfileImg = styled.div`
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background-color: black;
+    background-color: white;
 `;
 
 export const ProfileName = styled.span`

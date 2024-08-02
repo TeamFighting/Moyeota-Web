@@ -26,8 +26,8 @@ function BottomSheet() {
             >
                 <BottomSheetHandle />
                 {/* <ContentHeader /> */}
-                <BottomSheetContentWrapper refHeight={refHeight}>
-                    <BottomSheetContent content={content} />
+                <BottomSheetContentWrapper ref={content} refHeight={refHeight}>
+                    <BottomSheetContent />
                 </BottomSheetContentWrapper>
             </div>
         </Wrapper>
@@ -38,7 +38,7 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     display: flex;
     flex-direction: column;
     position: fixed;
-    z-index: 10;
+    z-index: 1;
     width: 100%;
     height: 100vh;
     transition: transform 400ms ease-out;
@@ -61,13 +61,14 @@ const OpenBotton = styled.div`
     align-self: center;
     align-items: center;
     display: flex;
-    z-index: 1000001;
+    z-index: 1;
     gap: 5px;
 `;
 const BottomSheetContentWrapper = styled.div<{ refHeight: number }>`
     width: 100%;
     height: ${(props) => props.refHeight + 15}px;
     overflow-y: scroll;
-    background-color: white;
+    background-color: blue;
+    z-index: 1;
 `;
 export default BottomSheet;
