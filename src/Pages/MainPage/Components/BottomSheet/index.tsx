@@ -26,8 +26,8 @@ function BottomSheet() {
             >
                 <BottomSheetHandle />
                 {/* <ContentHeader /> */}
-                <BottomSheetContentWrapper ref={content} refHeight={refHeight}>
-                    <BottomSheetContent />
+                <BottomSheetContentWrapper refHeight={refHeight}>
+                    <BottomSheetContent content={content}/>
                 </BottomSheetContentWrapper>
             </div>
         </Wrapper>

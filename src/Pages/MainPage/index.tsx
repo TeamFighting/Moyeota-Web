@@ -193,6 +193,7 @@ const Container = styled.div`
     flex-direction: column;
     width: 100%;
     height: calc(100vh - 64px);
+    /* height: 100%; */
     overflow: hidden;
 `;
 
@@ -204,7 +205,7 @@ const Header = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding-left: 4%;
-    z-index: 1000000;
+    z-index: 2;
 `;
 
 const Bottom = styled.div<{ isClicked: boolean }>`
@@ -224,7 +225,7 @@ const Body = styled.div`
     flex-direction: column;
     width: 100%;
     height: 100%;
-    background-color: black;
+    background-color: white;
 `;
 
 const Buttons = styled.div`
@@ -247,9 +248,8 @@ const CreatePotButton = styled.button`
     text-align: center;
     border: none;
     opacity: 0.8;
-
     cursor: pointer;
-    z-index: 1000001;
+    z-index: 2;
     font-family: pretendard;
     font-style: normal;
     font-weight: 800;
