@@ -27,7 +27,7 @@ function BottomSheet() {
                 <BottomSheetHandle />
                 {/* <ContentHeader /> */}
                 <BottomSheetContentWrapper refHeight={refHeight}>
-                    <BottomSheetContent content={content}/>
+                    <BottomSheetContent content={content} />
                 </BottomSheetContentWrapper>
             </div>
         </Wrapper>
@@ -40,7 +40,7 @@ const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
     position: fixed;
     z-index: 1;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     transition: transform 400ms ease-out;
 `;
 const OpenBotton = styled.div`

@@ -3,7 +3,7 @@ import Header from './Header';
 
 function OwnerReimbursement() {
     return (
-        <div style={{ width: '100vw', height: '100vh' }}>
+        <div style={{ width: '100vw', height: '100dvh' }}>
             <Header />
             <Body />
         </div>

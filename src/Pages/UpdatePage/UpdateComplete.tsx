@@ -14,7 +14,7 @@ function UpdateComplete() {
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        height: `calc(100vh - 252px)`,
+                        height: `calc(100dvh - 252px)`,
                     }}
                 >
                     <div style={{ marginBottom: 37 }}>
