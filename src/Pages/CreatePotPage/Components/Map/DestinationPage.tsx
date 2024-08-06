@@ -57,7 +57,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
 `;
 
 const Header = styled.div`
@@ -116,7 +116,7 @@ const Body = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
 `;
 
 export default DestinationPage;

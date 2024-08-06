@@ -3,9 +3,8 @@ import SingleContent from '../SingleContent';
 import useStore from '../../../../state/store/ContentStore';
 
 interface BottomSheetContentProps {
-    content: React.RefObject<HTMLDivElement>;
+    content: any;
 }
-
 const BottomSheetContent = ({ content }: BottomSheetContentProps) => {
     const { totalData } = useStore((state) => state);
 

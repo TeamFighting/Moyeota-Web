@@ -23,6 +23,6 @@ function LoginPage() {
 
 const Container = styled.div`
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
 `;
 export default LoginPage;

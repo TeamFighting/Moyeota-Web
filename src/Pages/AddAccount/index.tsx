@@ -184,7 +184,7 @@ function AddAccount() {
                 width: '100vw',
                 alignItems: 'center',
                 flexDirection: 'column',
-                height: '100vh',
+                height: '100dvh',
                 overflow: 'hidden',
             }}
         >
@@ -195,7 +195,7 @@ function AddAccount() {
                         position: 'absolute',
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
                         width: '100%',
-                        height: '100vh',
+                        height: '100dvh',
                         flexDirection: 'column',
                     }}
                     onClick={() => {

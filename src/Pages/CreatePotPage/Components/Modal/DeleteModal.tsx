@@ -76,7 +76,7 @@ function DeleteModal({ postId, onClose }: DeleteModalProps) {
 }
 const ModalWrapper = styled.div`
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     top: 0;
     left: 0;
     position: fixed;

@@ -9,7 +9,7 @@ export const UseGetNewAccessToken = async (accessToken: string) => {
         console.log(res);
         if (res.status === 200) {
             localStorage.setItem('accessToken', res.data.data.accessToken);
-            return res.data.data.accessToken;
+            return true;
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
@@ -17,7 +17,7 @@ export const UseGetNewAccessToken = async (accessToken: string) => {
         if (e.response.status === 401) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
-            alert('로그인이 필요합니다.');
+            alert('refreshtoken 만료');
             // window.location.href = '/login';
         }
         return false;

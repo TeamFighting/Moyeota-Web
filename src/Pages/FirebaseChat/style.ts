@@ -24,9 +24,9 @@ export const Icon = styled.div`
     justify-content: center;
 `;
 export const SlideWrapper = styled.div<{ isOpen: boolean }>`
-    height: 100vh;
+    height: 100dvh;
     /* 맨위에 안보일때 */
-    /* height: ${(props) => (props.isOpen ? 'calc(100vh - 100px)' : '100vh')}; */
+    /* height: ${(props) => (props.isOpen ? 'calc(100dvh - 100px)' : '100dvh')}; */
     overflow-y: scroll;
     transform: ${(props) => (props.isOpen ? 'translateY(0px)' : `translateY(${HEADERHEIGHT}px)`)};
     transition: all ease 0.3s;
@@ -34,7 +34,7 @@ export const SlideWrapper = styled.div<{ isOpen: boolean }>`
 `;
 export const Body = styled.div`
     margin-bottom: 110px;
-    /* height: calc(100vh - ${HEADERHEIGHT}px - 100); */
+    /* height: calc(100dvh - ${HEADERHEIGHT}px - 100); */
     padding-top: ${HEADERHEIGHT + 20}px;
     width: 100vw;
     flex-direction: column;
