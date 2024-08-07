@@ -35,7 +35,6 @@ import ModifyProfile from './Pages/MyPage/ListsPages/ModifyNickName';
 // import ManageAccount from './Pages/MyPage/ListsPages/ManageAccount';
 import ManageProfile from './Pages/MyPage/ListsPages/ManageAccount';
 import Blog from './Pages/MainPage/Blog/Blog';
-import { CookiesProvider } from 'react-cookie';
 
 const router = createBrowserRouter([
     {
@@ -169,9 +168,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <CookiesProvider defaultSetOptions={{ path: '/' }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <RouterProvider router={router} />
-        </LocalizationProvider>
-    </CookiesProvider>,
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <RouterProvider router={router} />
+    </LocalizationProvider>,
 );

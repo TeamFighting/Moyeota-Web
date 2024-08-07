@@ -12,10 +12,9 @@ import { serverTimestamp, ref as dbRef, set, push, child } from 'firebase/databa
 import 'moment/locale/ko';
 import { db } from '../../../firebase';
 import styled from 'styled-components';
-import useBottomSheet from '../../../Hooks/useBottonSheet';
+import useBottomSheet from '../../../Hooks/UI/useBottonSheet';
 import BottomSheetHandle from '../../AddAccount/BankListSheet/BankListSheetHandle';
 import { motion } from 'framer-motion';
-import { UseGetNewAccessToken } from '../../../Hooks/Auth/useGetNewAccessToken';
 
 interface PartyOneProps {
     nickname: string;
@@ -96,11 +95,12 @@ function Body() {
                     },
                 );
             } catch (e: any) {
-                console.log(e);
-                if (e.response.status === 401) {
-                    if (await UseGetNewAccessToken(accessToken!)) {
-                        sendFare();
-                    }
+                if (e.response && e.response.status === 401) {
+                    alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                    window.location.href = '/login';
+                } else {
+                    console.error(e);
+                    alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
                 }
             }
         });
@@ -124,10 +124,12 @@ function Body() {
                 }, 2000);
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    sendFare();
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
         }
     };
@@ -174,10 +176,12 @@ function Body() {
                         }
                     } catch (e: any) {
                         console.log(e);
-                        if (e.response.status === 401) {
-                            if (await UseGetNewAccessToken(accessToken!)) {
-                                calculation();
-                            }
+                        if (e.response && e.response.status === 401) {
+                            alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                            window.location.href = '/login';
+                        } else {
+                            console.error(e);
+                            alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
                         }
                     }
                 });
@@ -246,10 +250,12 @@ function Body() {
                 setEachMoney(newArr.map((each) => ({ name: each.nickname, amount: 0, userId: each.userId })));
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    getPartyOne();
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
         }
     };

@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import usePostDataStore from '../../../../state/store/PostDataStore';
 import { instance } from '../../../../axios';
 import { AuthStore } from '../../../../state/store/AuthStore';
-import { UseGetNewAccessToken } from '../../../../Hooks/Auth/useGetNewAccessToken';
 
 interface PARTYINFO {
     userName: string;
@@ -38,11 +37,12 @@ function DetailPartySection() {
                 });
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
-            alert(e);
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    getPartyOne(postId);
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
         }
     }

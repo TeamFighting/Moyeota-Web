@@ -4,7 +4,7 @@ import {
     BOTTOM_SHEET_MAX_Y,
     BANKLIST_SHEET_MIN_Y,
     BANKLIST_SHEET_MAX_Y,
-} from '../Constants/constant';
+} from '../../Constants/constant';
 
 interface BottomSheetMetrics {
     touchStart: {

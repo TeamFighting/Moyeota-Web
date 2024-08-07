@@ -4,7 +4,6 @@ import * as S from './style';
 import { useEffect, useState } from 'react';
 import { instance } from '../../axios';
 import { AuthStore } from '../../state/store/AuthStore';
-import { UseGetNewAccessToken } from '../../Hooks/Auth/useGetNewAccessToken';
 
 interface Props {
     leaderName: string;
@@ -51,14 +50,12 @@ function DetailPartySection({ profileImage, leaderName, content, gender, postId 
                     }
                 });
         } catch (e: any) {
-            // //console.log(e);
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    getPartyOne(postId);
-                } else {
-                    alert('로그인이 필요합니다.');
-                    window.location.href = '/login';
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
         }
     }

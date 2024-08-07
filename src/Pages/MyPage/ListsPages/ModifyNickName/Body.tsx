@@ -3,7 +3,6 @@ import { WhiteCancelIcon } from '../../../../assets/svg';
 import { instance } from '../../../../axios';
 import * as S from './ModifyNickname_styles';
 import { useMyInfoStore } from '../../../../state/store/MyInfo';
-import { UseGetNewAccessToken } from '../../../../Hooks/Auth/useGetNewAccessToken';
 
 interface BodyProps {
     userInfo: string | null;
@@ -40,12 +39,13 @@ function Body({ userInfo }: BodyProps) {
                 setMyInfo(res.data.data);
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    usersInfo();
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
-            //console.log(e);
         }
     }
     const sendModifiedNickName = async () => {
@@ -68,10 +68,12 @@ function Body({ userInfo }: BodyProps) {
             }
         } catch (e: any) {
             alert('닉네임 수정에 실패했습니다.');
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    sendModifiedNickName();
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
             return;
         }

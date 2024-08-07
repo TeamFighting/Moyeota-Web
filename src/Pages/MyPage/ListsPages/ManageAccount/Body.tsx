@@ -3,7 +3,6 @@ import { WhiteCancelIcon } from '../../../../assets/svg';
 import { useMyInfoStore } from '../../../../state/store/MyInfo';
 import * as S from './style';
 import { instance } from '../../../../axios';
-import { UseGetNewAccessToken } from '../../../../Hooks/Auth/useGetNewAccessToken';
 function Body() {
     const { email, name } = useMyInfoStore();
 
@@ -29,12 +28,12 @@ function Body() {
                 alert('이메일이 변경되었습니다.');
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(localStorage.getItem('accessToken')!)) {
-                    modifyEmail();
-                } else {
-                    window.location.href = '/login';
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
         }
     };

@@ -5,7 +5,6 @@ import { instance } from '../../../../axios';
 import { useNavigate } from 'react-router-dom';
 import { ref, push, update, child } from 'firebase/database';
 import { db } from '../../../../firebase';
-import { UseGetNewAccessToken } from '../../../../Hooks/Auth/useGetNewAccessToken';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const potCreateStore = PotCreateStore();
@@ -98,10 +97,12 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 alert('API 요청 실패');
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    createPost();
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
         }
     };

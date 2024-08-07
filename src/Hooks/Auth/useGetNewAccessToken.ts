@@ -1,13 +1,13 @@
 import { instance } from '../../axios';
-import { Cookies } from 'react-cookie';
+import { useGetRefreshToken as UseRefreshtoken } from './useGetRefreshToken';
 // 새로운 액세스 토큰을 받는 커스텀 훅
 export const UseGetNewAccessToken = () => {
     const getNewAccessToken = async (accessToken: string) => {
-        const getCookie = new Cookies();
+        const refreshTokenfromCookie = UseRefreshtoken();
         try {
             const res = await instance.post('/users/refresh-token', {
-                accessToken: accessToken,
-                refreshToken: getCookie.get('refreshToken'),
+                accessToken: 'Bearer ' + accessToken,
+                refreshToken: 'Bearer ' + refreshTokenfromCookie,
             });
             if (res.status === 200) {
                 const newAccessToken = res.data.data.accessToken;

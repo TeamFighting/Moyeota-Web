@@ -1,15 +1,11 @@
 import { instance } from '../../axios';
 import { useNavigate } from 'react-router';
-import { useCookies } from 'react-cookie';
-import { set } from 'firebase/database';
 
 interface OAuth2RedirectHandlerProps {
     from: string;
 }
 
 export async function RequestToken(code: string, from: string) {
-    const [, setCookie] = useCookies(['refreshToken']);
-
     const navigate = useNavigate();
     if (from === 'KAKAO') {
         console.log('카카오로그인요청');
@@ -21,9 +17,10 @@ export async function RequestToken(code: string, from: string) {
             .then((response) => {
                 console.log('kakao login res', response);
                 if (response.data && response.data.data.accessToken) {
-                    setCookie('refreshToken', response.data.data.refreshToken, {
-                        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 21),
-                    });
+                    document.cookie = `refreshToken=${response.data.data.refreshToken}; expires=${new Date(
+                        Date.now() + 1000 * 60 * 60 * 24 * 21,
+                    ).toUTCString()}`;
+
                     localStorage.setItem('accessToken', response.data.data.accessToken);
                     localStorage.setItem('refreshToken', response.data.data.refreshToken);
                     navigate('/mainpage');

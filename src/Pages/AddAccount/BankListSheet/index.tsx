@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import useBottomSheet from '../../../Hooks/useBottonSheet';
+import useBottomSheet from '../../../Hooks/UI/useBottonSheet';
 import { useEffect, useState } from 'react';
 import { useAccountStore } from '../../../state/store/AccountStore';
 import { BankLists } from '../../../assets/BankLists';

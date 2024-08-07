@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import useBottomSheet from '../../../../Hooks/useBottonSheet';
+import useBottomSheet from '../../../../Hooks/UI/useBottonSheet';
 import BottomSheetContent from './BottomSheetContent';
 import BottomSheetHandle from './BottomSheetHandle';
 import { List } from '../../../../assets/svg';

@@ -5,7 +5,6 @@ import { MoneyInput, StyledButton } from '../styles';
 import * as S from './styles';
 import { useState } from 'react';
 import { useMyInfoStore } from '../../../state/store/MyInfo';
-import { UseGetNewAccessToken } from '../../../Hooks/Auth/useGetNewAccessToken';
 
 function ApplierCalc() {
     const [money, setMoney] = useState('');
@@ -45,10 +44,12 @@ function ApplierCalc() {
             }
             console.log(res);
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    submitTotalMoney();
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
         }
     };

@@ -10,7 +10,6 @@ import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 import { ChatTime } from '../util/ChatTime';
 import BottomBtn from '../../components/BottomBtn';
-import { UseGetNewAccessToken } from '../../Hooks/Auth/useGetNewAccessToken';
 export interface myMessageProps {
     text: string;
     timestamp: number;
@@ -70,9 +69,12 @@ function ChatLists() {
                 setChatRooms(res.data.data);
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                await UseGetNewAccessToken(localStorage.getItem('accessToken')!);
-                totalChatRooms();
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
         }
     };

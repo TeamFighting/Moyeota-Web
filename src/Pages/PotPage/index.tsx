@@ -6,7 +6,7 @@ import * as S from '../MainPage/style';
 import styled from 'styled-components';
 import { Chevronleft } from '../../assets/svg';
 import { Icon } from '../DetailPage/style';
-import { UseGetNewAccessToken } from '../../Hooks/Auth/useGetNewAccessToken';
+
 function PotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { MyAppliedPotContent, MyPotContent, setMyPotContent, setMyAppliedPotContent, setTotalMyPotContent } =
@@ -42,12 +42,13 @@ function PotPage() {
                 setMyAppliedPotContent(res.data.data);
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    getAppliedPot();
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
-            //console.log(e);
         }
     };
     const navigateMypot = () => {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PotCreateStore from '../../../state/store/PotCreateStore';
 import DurationFareStore from '../../../state/store/DurationFareStore';
 import usePostDataStore from '../../../state/store/PostDataStore';
-import { UseGetNewAccessToken } from '../../../Hooks/Auth/useGetNewAccessToken';
+
 function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number; roomId: string; postId: number }) {
     const navigate = useNavigate();
     const { data } = usePostDataStore();
@@ -96,12 +96,13 @@ function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number;
                 alert(response);
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    updatePost();
-                }
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
-            console.error('팟 수정 중 오류 발생', e);
         }
     };
     return (

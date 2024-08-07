@@ -29,7 +29,6 @@ function MainPage() {
     const { setMyInfo, id, accountDtoList } = useMyInfoStore();
     const { setMyPot } = useMyPotStore();
     watchPositionHook();
-
     useEffect(() => {
         fetchData();
         usersInfo();
