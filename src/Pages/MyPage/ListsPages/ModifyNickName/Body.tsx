@@ -3,7 +3,7 @@ import { WhiteCancelIcon } from '../../../../assets/svg';
 import { instance } from '../../../../axios';
 import * as S from './ModifyNickname_styles';
 import { useMyInfoStore } from '../../../../state/store/MyInfo';
-import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../../../Hooks/Auth/useGetNewAccessToken';
 
 interface BodyProps {
     userInfo: string | null;

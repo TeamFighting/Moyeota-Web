@@ -6,7 +6,7 @@ import * as S from '../MainPage/style';
 import styled from 'styled-components';
 import { Chevronleft } from '../../assets/svg';
 import { Icon } from '../DetailPage/style';
-import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../Hooks/Auth/useGetNewAccessToken';
 function PotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { MyAppliedPotContent, MyPotContent, setMyPotContent, setMyAppliedPotContent, setTotalMyPotContent } =

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PotCreateStore from '../../../state/store/PotCreateStore';
 import DurationFareStore from '../../../state/store/DurationFareStore';
 import usePostDataStore from '../../../state/store/PostDataStore';
-import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../../Hooks/Auth/useGetNewAccessToken';
 function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number; roomId: string; postId: number }) {
     const navigate = useNavigate();
     const { data } = usePostDataStore();

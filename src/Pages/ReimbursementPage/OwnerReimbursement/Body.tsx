@@ -15,7 +15,7 @@ import styled from 'styled-components';
 import useBottomSheet from '../../../Hooks/useBottonSheet';
 import BottomSheetHandle from '../../AddAccount/BankListSheet/BankListSheetHandle';
 import { motion } from 'framer-motion';
-import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../../Hooks/Auth/useGetNewAccessToken';
 
 interface PartyOneProps {
     nickname: string;

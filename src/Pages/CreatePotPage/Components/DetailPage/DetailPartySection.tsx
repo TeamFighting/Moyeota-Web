@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import usePostDataStore from '../../../../state/store/PostDataStore';
 import { instance } from '../../../../axios';
 import { AuthStore } from '../../../../state/store/AuthStore';
-import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../../../Hooks/Auth/useGetNewAccessToken';
 
 interface PARTYINFO {
     userName: string;

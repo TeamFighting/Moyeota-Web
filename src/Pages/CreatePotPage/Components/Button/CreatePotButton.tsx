@@ -5,7 +5,7 @@ import { instance } from '../../../../axios';
 import { useNavigate } from 'react-router-dom';
 import { ref, push, update, child } from 'firebase/database';
 import { db } from '../../../../firebase';
-import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../../../Hooks/Auth/useGetNewAccessToken';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const potCreateStore = PotCreateStore();

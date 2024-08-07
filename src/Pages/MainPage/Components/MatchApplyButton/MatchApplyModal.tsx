@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
 import ModalStore from '../../../../state/store/ModalStore';
 import { instance } from '../../../../axios';
-import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
 
 interface ModalProps {
     isFull: boolean;
@@ -44,9 +43,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
         } catch (e: any) {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    applyParty(postId);
-                }
+                applyParty(postId);
             }
             if ((e as any)?.response?.data?.code === 422) {
                 console.log('이미 신청한 팟입니다.');
@@ -80,9 +77,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
         } catch (e: any) {
             //console.log(e);
             if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    cancelParty(postId);
-                }
+                cancelParty(postId);
             }
         }
         closeModal();

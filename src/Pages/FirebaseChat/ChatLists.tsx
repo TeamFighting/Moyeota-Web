@@ -10,7 +10,7 @@ import { NoneReadChatStore } from '../../state/store/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 import { ChatTime } from '../util/ChatTime';
 import BottomBtn from '../../components/BottomBtn';
-import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../Hooks/Auth/useGetNewAccessToken';
 export interface myMessageProps {
     text: string;
     timestamp: number;

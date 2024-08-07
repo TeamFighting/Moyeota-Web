@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { instance } from '../../../axios';
 import { useNavigate, useParams } from 'react-router';
 import * as S from './styles';
-import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../../Hooks/Auth/useGetNewAccessToken';
 
 function OwnerCalc() {
     const [money, setMoney] = useState('');

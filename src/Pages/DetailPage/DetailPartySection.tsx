@@ -4,7 +4,7 @@ import * as S from './style';
 import { useEffect, useState } from 'react';
 import { instance } from '../../axios';
 import { AuthStore } from '../../state/store/AuthStore';
-import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../Hooks/Auth/useGetNewAccessToken';
 
 interface Props {
     leaderName: string;

@@ -18,18 +18,26 @@ import watchPositionHook from '../../Hooks/useWatchPositionHook';
 import { useMyInfoStore } from '../../state/store/MyInfo';
 import { useMyPotStore } from '../../state/store/MyPotStore';
 import BottomBtn from '../../components/BottomBtn';
-import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../Hooks/Auth/useGetNewAccessToken';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
+    const { getNewAccessToken } = UseGetNewAccessToken();
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-
-    watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
-
     const { setMyInfo, id, accountDtoList } = useMyInfoStore();
     const { setMyPot } = useMyPotStore();
+    watchPositionHook();
+
+    useEffect(() => {
+        fetchData();
+        usersInfo();
+        if (id) {
+            getMyPost();
+        }
+    }, []);
+
     const getMyPost = async () => {
         try {
             const myPost = await instance.get(`/posts/users/${id}`, {
@@ -42,55 +50,28 @@ function MainPage() {
             });
             if (myPost.status === 200) {
                 const newArr: number[] = [];
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
                 setMyPot(newArr);
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
             console.log('getMyPost', e);
             if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
+                const newAccessToken = await getNewAccessToken(accessToken!);
+                if (newAccessToken) {
                     getMyPost();
                 }
             }
         }
     };
-    useEffect(() => {
-        fetchData();
-        usersInfo();
-        if (id !== undefined || id !== null || id !== 0) {
-            getMyPost();
-        }
-
-        // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        // ReactNative 연동시 사용
-        // const handleMessage = (event: any) => {
-        //   try {
-        //     if (typeof event.data === 'string') {
-        //       const data = JSON.parse(event.data);
-        //       if (data.token !== undefined) {
-        //         setAccessToken(data.token);
-        //         setUseToken(data.token);
-        //         alert('로그인 되었습니다');
-        //         localStorage.setItem('accessToken', data.token.toString());
-        //       }
-        //     }
-        //   } catch (error) {
-        //     console.error(error);
-        //   }
-        // };
-
-        // window.addEventListener('message', handleMessage);
-
-        // if (useToken !== undefined) {
-        //   return () => {
-        //     window.removeEventListener('message', handleMessage);
-        //   };
-        // }
-    }, []);
 
     async function usersInfo() {
+        const accessToken = localStorage.getItem('accessToken');
+
+        if (!accessToken) {
+            window.location.href = '/login';
+            return;
+        }
+
         try {
             const res = await instance.get('/users', {
                 headers: {
@@ -99,23 +80,19 @@ function MainPage() {
             });
             if (res.status === 200) {
                 setMyInfo(res.data.data);
+                console.log(res);
                 localStorage.setItem('myInfo', JSON.stringify(res.data.data));
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
-            alert(e + '에러');
-            if (e.response.status === 401) {
-                const getNew = await UseGetNewAccessToken(accessToken!);
-                console.log(getNew);
-                // if (await UseGetNewAccessToken(accessToken!)) {
-                //     usersInfo();
-                // }
-                // alert('로그인이 필요합니다.');
-                // window.location.href = '/login';
+            if (e.response && e.response.status === 401) {
+                alert('세션이 만료되었습니다. 다시 로그인해 주세요.');
+                window.location.href = '/login';
+            } else {
+                console.error(e);
+                alert('에러가 발생했습니다: ' + e.message + '관리자에게 문의해주세요');
             }
         }
     }
-
     async function fetchData() {
         try {
             const res = await instance.get('/posts');

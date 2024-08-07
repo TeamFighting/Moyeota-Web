@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { instance } from '../../../../axios';
-import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../../../Hooks/Auth/useGetNewAccessToken';
 
 interface DeleteModalProps {
     onClose: () => void;
