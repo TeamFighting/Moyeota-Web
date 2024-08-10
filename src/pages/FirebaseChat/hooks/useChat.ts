@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { ref as dbRef, child, onChildAdded } from 'firebase/database';
 import type { IPostInfo, IMessage } from '../constants';
 import { NoneReadChatStore } from '@stores/NoneReadChat';
 import instance from '@apis';
-import { ref as dbRef, child, onChildAdded } from 'firebase/database';
 import { db } from 'firebase';
 
 const useChat = () => {

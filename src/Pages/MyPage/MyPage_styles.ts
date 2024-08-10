@@ -1,3 +1,4 @@
+import { BOTTOM_NAV_HEIGHT, HEADER_HEIGHT, WINDOW_HEIGHT } from '@constants/index';
 import styled from 'styled-components';
 export const Header = styled.div`
     display: flex;
@@ -111,11 +112,11 @@ export const ListWrapper = styled.div`
     flex-direction: column;
     width: 100%;
     gap: 32px;
-    justify-content: center;
     align-items: center;
-    padding-top: 32px;
+    padding-top: 16px;
+    height: ${WINDOW_HEIGHT - HEADER_HEIGHT - BOTTOM_NAV_HEIGHT}px;
+    overflow-y: scroll;
 `;
-
 export const List = styled.div`
     display: flex;
     flex-direction: row;

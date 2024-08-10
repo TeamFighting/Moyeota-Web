@@ -1,13 +1,11 @@
 import styled from 'styled-components';
-import * as S from '../../style';
-import ArrowRight from '../../../../../public/svg/ArrowRight.svg';
-import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
-import ContentStore from '../../../../stores/ContentStore';
-import createAgo from '../../../../utils/createAgo';
-import { Clock } from '../../../../assets/svg';
-import getDays from '../../../../utils/getDays';
-import ISOto12 from '../../../../utils/ISOto12';
 import { useNavigate } from 'react-router';
+import { ArrowRight, LocationMarker, Clock } from '@assets/svg';
+import ContentStore from '@stores/ContentStore';
+import createAgo from '@utils/createAgo';
+import getDays from '@utils/getDays';
+import ISOto12 from '@utils/ISOto12';
+import * as S from '../../style';
 
 function MarkerClickContent({ postId: postId }: { postId: number }) {
     const navigate = useNavigate();

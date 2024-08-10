@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import Body from './Body';
 import Header from './Header';
-import watchPositionHook from '../../hooks/useWatchPositionHook';
+import watchPositionHook from '@hooks/useWatchPositionHook';
 
 function LoginPage() {
     watchPositionHook();

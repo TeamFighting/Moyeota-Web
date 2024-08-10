@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import { GoogleLogin, KakaoLogin, NaverLogin } from '../../assets/svg';
+import { GoogleLogin, KakaoLogin, NaverLogin } from '@assets/svg';
 import handleOAuth2Redirect from './OAuth';
 import { match } from 'ts-pattern';
 import { OAUTH_PROVIDER, OAUTH_REQUEST_URLS, type TOauthProvider } from './consts';

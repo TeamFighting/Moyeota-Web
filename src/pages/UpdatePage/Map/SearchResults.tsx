@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../../constants';
-import { useNavigate } from 'react-router-dom';
-import CheveronLeft from '../../../assets/svg/Chevronleft';
-import My_location from '../../../assets/svg/My_location';
-import MapIcon from '../../../assets/svg/MapIcon';
-import Star from '../../../assets/svg/Star';
 import { useState } from 'react';
+import styled from 'styled-components';
+import { HEADER_HEIGHT } from '@constants';
+import { useNavigate } from 'react-router-dom';
+import CheveronLeft from '@assets/svg/Chevronleft';
+import My_location from '@assets/svg/My_location';
+import MapIcon from '@assets/svg/MapIcon';
+import Star from '@assets/svg/Star';
 
 function UpdateSearchResults() {
     const navigate = useNavigate();

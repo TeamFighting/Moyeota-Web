@@ -1,4 +1,4 @@
-import BottomBtn from '../../../components/BottomBtn';
+import BottomNav from '@components/BottomNav';
 import Lists from './Lists';
 import BodyTop from './Top';
 
@@ -9,7 +9,7 @@ function Body() {
         <div>
             <BodyTop />
             <Lists userId={userInfo.id} />
-            <BottomBtn />
+            <BottomNav />
         </div>
     );
 }

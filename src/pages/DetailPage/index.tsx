@@ -1,21 +1,20 @@
-import * as S from './style';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import styled from 'styled-components';
 import DetailBody from './DetailBody';
+import DetailHeader from './DetailHeader';
 import DetailBottom from './DetailBottom';
 import DetailPartySection from './DetailPartySection';
-import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
-import { useParams } from 'react-router';
-import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
-import ModalStore from '../../stores/ModalStore';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import FixDetailHeader from '../CreatePotPage/Components/DetailPage/DetailHeader';
-import { useMyPotStore } from '../../stores/MyPotStore';
-import DetailHeader from './DetailHeader';
-import getDays from '../../utils/getDays';
-import ISOto12 from '../../utils/ISOto12';
-import { useMyPotContentStore } from '../../stores/MyPotPage';
+import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
+import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
 import instance from '@apis';
-
+import ModalStore from '@stores/ModalStore';
+import { useMyPotStore } from '@stores/MyPotStore';
+import { useMyPotContentStore } from '@stores/MyPotPage';
+import getDays from '@utils/getDays';
+import ISOto12 from '@utils/ISOto12';
+import * as S from './style';
 interface DetailPageProps {
     category: string;
     content: string;

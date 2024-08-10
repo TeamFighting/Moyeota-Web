@@ -4,12 +4,12 @@ import useBottomSheet from '../../../../hooks/useBottonSheet';
 import BottomSheetContent from './BottomSheetContent';
 import BottomSheetHandle from './BottomSheetHandle';
 import { List } from '../../../../assets/svg';
-import { HEADER_HEIGHT, WINDOW_HEIGHT, BOTTOMBARHEIGHT } from '../../../../constants';
+import { HEADER_HEIGHT, WINDOW_HEIGHT, BOTTOM_NAV_HEIGHT } from '../../../../constants';
 
 function BottomSheet() {
     const { sheet, handleUp, content } = useBottomSheet('BottomSheet');
     // bottomBar 없어지면 marginTop 조정
-    const refHeight = WINDOW_HEIGHT - (HEADER_HEIGHT + BOTTOMBARHEIGHT);
+    const refHeight = WINDOW_HEIGHT - (HEADER_HEIGHT + BOTTOM_NAV_HEIGHT);
     return (
         <Wrapper ref={sheet}>
             <OpenBotton onClick={handleUp}>

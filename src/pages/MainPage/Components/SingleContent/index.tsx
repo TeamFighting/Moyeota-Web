@@ -1,16 +1,14 @@
-import * as S from '../../style';
 import Profile from './SingleProfile';
-import ArrowRight from '../../../../../public/svg/ArrowRight.svg';
-import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
-import Clock from '../../../../../public/svg/Clock.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import ISOto12 from '../../../../utils/ISOto12';
-import getDays from '../../../../utils/getDays';
-import createAgo from '../../../../utils/createAgo';
-import { useQuickPotStore } from '../../../../stores/QuickPotStore';
-import useStore from '../../../../stores/ContentStore';
-import { useMyPotContentStore } from '../../../../stores/MyPotPage';
+import ISOto12 from '@utils/ISOto12';
+import getDays from '@utils/getDays';
+import createAgo from '@utils/createAgo';
+import { useQuickPotStore } from '@stores/QuickPotStore';
+import useStore from '@stores/ContentStore';
+import { useMyPotContentStore } from '@stores/MyPotPage';
+import { ArrowRight, LocationMarker, Clock } from '@assets/svg';
+import * as S from '../../style';
 
 function SingleContent({ from }: { from: string }) {
     const navigate = useNavigate();

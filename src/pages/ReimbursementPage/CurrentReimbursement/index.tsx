@@ -1,7 +1,7 @@
 import Header from './Header';
 import Body from './Body';
 import { useLocation } from 'react-router';
-import { CurrentReimburseStore } from '../../../stores/CurrentReimburseStore';
+import { CurrentReimburseStore } from '@stores/CurrentReimburseStore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Bottom from './Bottom';

@@ -1,13 +1,11 @@
- 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import ContentStore from '../../../stores/ContentStore';
-import { useQuickPotStore } from '../../../stores/QuickPotStore';
-import { useClickedMarker } from '../../../stores/ClickedMarker';
-import LatLngAddStore from '../../../stores/LatLngAddstore';
+import ContentStore from '../../stores/ContentStore';
+import { useQuickPotStore } from '../../stores/QuickPotStore';
+import { useClickedMarker } from '../../stores/ClickedMarker';
+import LatLngAddStore from '../../stores/LatLngAddstore';
 
 declare global {
     interface Window {
-         
         naver: any;
     }
 }
@@ -18,7 +16,6 @@ interface ArrayElement {
     postId: string;
 }
 
- 
 function NaverMap({ from }: { from: string }) {
     const mapElement = useRef(null);
 

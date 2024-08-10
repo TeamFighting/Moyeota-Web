@@ -29,10 +29,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import LoginPage from './pages/LoginPage';
 import MyPage from './pages/MyPage';
-import EditAccount from './pages/MyPage/ListsPages/EditAccount';
-import ModifyProfile from './pages/MyPage/ListsPages/ModifyNickName';
-// import ManageAccount from './Pages/MyPage/ListsPages/ManageAccount';
-import ManageProfile from './pages/MyPage/ListsPages/ManageAccount';
+import EditAccount from './pages/MyPage/MyPageLists/EditAccount';
+import ModifyProfile from './pages/MyPage/MyPageLists/ModifyNickName';
+import ManageProfile from './pages/MyPage/MyPageLists/ManageAccount';
 import Blog from './pages/MainPage/Blog/Blog';
 import { ROUTE } from '@constants/route';
 

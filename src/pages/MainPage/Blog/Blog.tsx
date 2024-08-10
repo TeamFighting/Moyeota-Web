@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../../constants';
+import { HEADER_HEIGHT } from '@constants';
 import BlogBottomSheet from './BlogBottonSheet';
-import NaverMap from '../NaverMap/NaverMap';
+import NaverMap from '../NaverMap';
 
 function Blog() {
     return (
