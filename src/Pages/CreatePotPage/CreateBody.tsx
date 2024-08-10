@@ -1,13 +1,14 @@
-import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg';
+import { ChevronRight, LocationFrom, LocationMarker } from '@assets/svg';
 import * as S from './style';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChangeEvent, useEffect } from 'react';
-import DurationFareStore from '../../state/store/DurationFareStore';
-import PotCreateStore from '../../state/store/PotCreateStore';
-import { instance } from '../../axios';
+import type { ChangeEvent } from 'react';
+import { useEffect } from 'react';
+import DurationFareStore from '@stores/DurationFareStore';
+import PotCreateStore from '@stores/PotCreateStore';
 import DetailMap from '../DetailPage/DetailMap';
-import CurrentLocationStore from '../../state/store/CurrentLocation';
-import DestinationStore from '../../state/store/DestinationResult';
+import CurrentLocationStore from '@stores/CurrentLocation';
+import DestinationStore from '@stores/DestinationResult';
+import instance from '@apis';
 
 function CreateBody() {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ function CreateBody() {
                     query: destination,
                 },
             })
-            .then((response) => {
+            .then((response: any) => {
                 const data = response.data;
                 const roadAddress = data.data.road_address_name;
                 return roadAddress;
@@ -39,7 +40,7 @@ function CreateBody() {
 
     //예상금액 및 예상시간 계산
     const getEstimatedDurationAndFare = (origin: string, destination: string) => {
-        convertDestinationToRoadAddress(destination).then((roadDestination) => {
+        convertDestinationToRoadAddress(destination).then((roadDestination: any) => {
             if (roadDestination) {
                 instance
                     .get('/distance/duration/fare', {
@@ -48,12 +49,12 @@ function CreateBody() {
                             destination: roadDestination,
                         },
                     })
-                    .then((response) => {
+                    .then((response: any) => {
                         const data = response.data;
                         setEstimatedDuration(data.data.duration);
                         setEstimatedFare(data.data.fare);
                     })
-                    .catch((error) => {
+                    .catch((error: any) => {
                         alert(error);
                     });
             }
@@ -63,7 +64,7 @@ function CreateBody() {
     //거리 계산
     useEffect(() => {
         if (curLocation && destination) {
-            convertDestinationToRoadAddress(destination).then((roadDestination) => {
+            convertDestinationToRoadAddress(destination).then((roadDestination: any) => {
                 if (roadDestination) {
                     instance
                         .get('/distance/compare', {
@@ -72,13 +73,13 @@ function CreateBody() {
                                 address2: roadDestination,
                             },
                         })
-                        .then((response) => {
+                        .then((response: any) => {
                             const data = response.data.data;
                             const distance = parseFloat(data);
                             // console.log('distance:', distance);
                             setDistance(distance);
                         })
-                        .catch((error) => {
+                        .catch((error: any) => {
                             console.error('API 호출 오류:', error);
                         });
                 }

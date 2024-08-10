@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import Body from './Body';
 import Header from './Header';
-import { instance } from '../../axios';
-import { useAccountStore } from '../../state/store/AccountStore';
+import { useAccountStore } from '@stores/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
-import { CheckCircle } from '../../assets/svg';
+import { CheckCircle } from '@assets/svg';
 import { useParams } from 'react-router';
-import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import instance from '@apis';
 
 function AddAccount() {
     const { accountNumber, accountName, clickedAccountList, setClickedAccountList } = useAccountStore();

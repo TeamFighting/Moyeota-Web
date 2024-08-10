@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-import LatLngAddStore from '../../../state/store/LatLngAddstore';
+import LatLngAddStore from '@stores/LatLngAddstore';
 
 declare global {
     interface Window {

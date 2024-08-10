@@ -33,7 +33,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                         },
                     },
                 )
-                .then(async (res) => {
+                .then(async (res: any) => {
                     if (res.status === 200) {
                         setAppliedParty(postId);
                         setIsModalOpen(true, 'applySuccess');
