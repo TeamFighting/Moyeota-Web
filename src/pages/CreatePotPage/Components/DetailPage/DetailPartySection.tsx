@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { LionProfile } from '../../../../assets/svg';
+import { LionProfile } from '@assets/svg';
 import * as S from './style';
 import { useEffect, useState } from 'react';
-import usePostDataStore from '../../../../state/store/PostDataStore';
-import { instance } from '../../../../axios';
-import { AuthStore } from '../../../../state/store/AuthStore';
-import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
+import usePostDataStore from '@stores/PostDataStore';
+import { AuthStore } from '@stores/AuthStore';
+import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import instance from '@apis';
 
 interface PARTYINFO {
     userName: string;
@@ -36,7 +36,6 @@ function DetailPartySection() {
                         setonlyParty(participants);
                     }
                 });
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
             alert(e);
             if (e.response.status === 401) {

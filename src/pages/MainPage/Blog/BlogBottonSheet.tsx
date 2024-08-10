@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import BlogBottomSheetHandle from './BottomSheetHandler';
 import { motion } from 'framer-motion';
 import BlogBottomSheetContent from './BlogBottomSheetContent';
-import useBottomSheet from '../../../Hooks/useBottonSheet';
+import useBottomSheet from '../../../hooks/useBottonSheet';
 
 function BlogBottomSheet() {
     // const { sheet, handleUp, content } = useBlogBottomSheet();

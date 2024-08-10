@@ -1,83 +1,40 @@
-import { instance } from '../../axios';
-import { useNavigate } from 'react-router';
+import instance from '@apis';
+import type { NavigateFunction } from 'react-router';
+import { OAUTH_PROVIDER, type TOauthProvider } from './consts';
 
-interface OAuth2RedirectHandlerProps {
-    from: string;
-}
+async function requestToken(code: string, from: TOauthProvider) {
+    try {
+        const { data } = await instance.post(`/oauth/${from}`, {
+            authorizationCode: code,
+        });
 
-export async function RequestToken(code: string, from: string) {
-    const navigate = useNavigate();
-    if (from === 'KAKAO') {
-        console.log('카카오로그인요청');
-        console.log('code', code);
-        instance
-            .post('/oauth/kakao', {
-                authorizationCode: code,
-            })
-            .then((response) => {
-                // console.log('kakao login res', response);
-                if (response.data && response.data.data.accessToken) {
-                    localStorage.setItem('accessToken', response.data.data.accessToken);
-                    localStorage.setItem('refreshToken', response.data.data.refreshToken);
-                    navigate('/mainpage');
-                } else {
-                    console.log('유효하지 않은 토큰');
-                }
-            })
-            .catch(function () {
-                alert('로그인에 실패했습니다.');
-            });
-
-        // 추후 리팩토링 예정
-        // } else if (from === 'GOOGLE') {
-        //   instance
-        //     .post('/oauth/google', {
-        //       authorizationCode: code,
-        //     })
-        //     .then((response) => {
-        //       // console.log('토큰이다 이것들아', response.data.data);
-
-        //       if (response.data && response.data.data.accessToken) {
-        //         const token = response.data.data.accessToken;
-        //         localStorage.setItem('accessToken', token);
-        //         navigate('/mainpage');
-        //       } else {
-        //         console.log('유효하지 않은 토큰');
-        //       }
-        //     })
-        //     .catch(function () {
-        //       alert('로그인에 실패했습니다.');
-        //     });
-        // } else if (from === 'NAVER') {
-        //   instance
-        //     .post('oauth/naver', {
-        //       authorizationCode: code,
-        //     })
-        //     .then((response) => {
-        //       // console.log('토큰이다 이것들아', response.data.data);
-        //       if (response.data && response.data.data.accessToken) {
-        //         const token = response.data.data.accessToken;
-        //         localStorage.setItem('accessToken', token);
-        //         navigate('/mainpage');
-        //       } else {
-        //         alert('로그인에 실패했습니다.');
-        //       }
-        //     })
-        //     .catch(function () {
-        //       alert('로그인에 실패했습니다.');
-        //     });
+        if (data.data?.accessToken) {
+            localStorage.setItem('accessToken', data.data.accessToken);
+            localStorage.setItem('refreshToken', data.data.refreshToken);
+        } else {
+            throw new Error('토큰이 없습니다.');
+        }
+    } catch {
+        alert('로그인에 실패했습니다.');
     }
 }
-export function OAuth2RedirectHandler({ from }: OAuth2RedirectHandlerProps) {
+
+interface OAuth2RedirectHandlerProps {
+    from: TOauthProvider;
+    navigate: NavigateFunction;
+}
+
+export async function handleOAuth2Redirect({ from, navigate }: OAuth2RedirectHandlerProps) {
     const url = new URL(window.location.href);
     const code = url.searchParams.get('code')?.toString();
     let AuthToken = code;
     if (!code || !AuthToken) return;
-    if (from == 'GOOGLE') {
+    if (from == OAUTH_PROVIDER.GOOGLE) {
         AuthToken = code.substring(3, code.length);
     }
     console.log('AuthToken', AuthToken);
-    RequestToken(AuthToken, from);
+    await requestToken(AuthToken, from);
+    navigate('/mainpage');
 }
 
-export default OAuth2RedirectHandler;
+export default handleOAuth2Redirect;

@@ -1,4 +1,4 @@
-import { instance } from '../axios';
+import instance from '@apis';
 
 export const UseGetNewAccessToken = async (accessToken: string) => {
     try {
@@ -11,7 +11,6 @@ export const UseGetNewAccessToken = async (accessToken: string) => {
             localStorage.setItem('accessToken', res.data.data.accessToken);
             return true;
         }
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
         console.log(e);
         if (e.response.status === 401) {

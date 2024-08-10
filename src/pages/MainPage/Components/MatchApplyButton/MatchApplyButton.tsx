@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import ModalStore from '../../../../state/store/ModalStore';
+import ModalStore from '../../../../stores/ModalStore';
 import { useNavigate } from 'react-router';
-import { useMyPotContentStore } from '../../../../state/store/MyPotPage';
-import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
+import { useMyPotContentStore } from '../../../../stores/MyPotPage';
+import { useAppliedPartyStore } from '../../../../stores/AppliedPartyStore';
 interface ApplyButtonProps {
     postId: number;
     title: string;

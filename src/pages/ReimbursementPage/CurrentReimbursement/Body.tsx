@@ -30,7 +30,7 @@ function Body({ data, setModalOpen }: BodyProps) {
     const [clickedUsers, setClickedUsers] = useState<number[]>([]);
     const [userIds, setUserIds] = useState<number[]>([]);
     useEffect(() => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         CurrentReimbursement.forEach((element: any) => {
             if (!userIds.includes(element.isPayed.userId)) setUserIds((prev) => [...prev, element.isPayed.userId]);
             userIds.sort((a, b) => a - b);

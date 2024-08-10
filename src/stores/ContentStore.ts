@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { create } from 'zustand';
 
 interface ContentStore {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     totalData: any[];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     updateTotalData: (data: any[]) => void;
 }
 

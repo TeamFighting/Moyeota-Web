@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import LocationMarkerGreen from '../../../assets/svg/LocationMarkerGreen';
-import { BOTTOM_SHEET_HEIGHT, WINDOWHEIGHT } from '../../../Constants/constant';
+import { BOTTOM_SHEET_HEIGHT, WINDOW_HEIGHT } from '../../../constants';
 
 interface BottomSheetProps {
     destination?: string;
@@ -33,7 +33,7 @@ const Wrapper = styled.div`
     position: fixed;
     z-index: 1;
     width: 100%;
-    height: ${WINDOWHEIGHT}px;
+    height: ${WINDOW_HEIGHT}px;
     border-radius: 26px 26px 0 0;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
     height: ${BOTTOM_SHEET_HEIGHT}px;

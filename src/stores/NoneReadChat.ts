@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { LastMessageProps } from '../../Pages/FirebaseChat/ChatLists';
+import type { LastMessageProps } from '@pages/FirebaseChat/views/ChatLists';
 
 interface NoneReadChatProps {
     noneReadChat: { [roomId: string]: number };

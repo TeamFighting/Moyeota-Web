@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from 'styled-components';
 import * as S from './style';
 import { useEffect, useState } from 'react';
-import { instance } from '../../axios';
-import { AuthStore } from '../../state/store/AuthStore';
-import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
+import instance from '@apis';
+import { AuthStore } from '../../stores/AuthStore';
+import { UseGetNewAccessToken } from '../../hooks/useGetNewAccessToken';
 
 interface Props {
     leaderName: string;

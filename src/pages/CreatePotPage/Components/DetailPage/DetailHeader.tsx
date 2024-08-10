@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { HEADERHEIGHT } from '../../../../Constants/constant';
+import { HEADER_HEIGHT } from '@constants';
 import { useNavigate } from 'react-router-dom';
-import SvgCancelIcon from '../../../../assets/svg/CancelIcon';
-import CheveronLeft from '../../../../assets/svg/Chevronleft';
-import ThreeDots from '../../../../assets/svg/ThreeDots';
-import UploadIcon from '../../../../assets/svg/UploadIcon';
+import SvgCancelIcon from '@assets/svg/CancelIcon';
+import CheveronLeft from '@assets/svg/Chevronleft';
+import ThreeDots from '@assets/svg/ThreeDots';
+import UploadIcon from '@assets/svg/UploadIcon';
 import EditDeleteModal from './EditDeleteModal';
-import useUpdateModalStore from '../../../../state/store/UpdateModalStore';
+import useUpdateModalStore from '@stores/UpdateModalStore';
 
 function FixDetailHeader({ postId }: { postId: number }) {
     const navigate = useNavigate();
@@ -37,7 +37,7 @@ const Header = styled.div`
     display: flex;
     flex-direction: row;
     align-items: end;
-    height: ${HEADERHEIGHT}px;
+    height: ${HEADER_HEIGHT}px;
     justify-content: space-between;
     position: fixed;
     top: 0;

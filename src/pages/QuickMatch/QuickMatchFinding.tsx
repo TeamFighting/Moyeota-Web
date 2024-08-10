@@ -5,7 +5,7 @@ import { ChevronRight, CurrentLocationIcon, LocationFrom, LocationMarker, ToTria
 import { useLocation, useNavigate } from 'react-router';
 import NaverMap from '../MainPage/NaverMap/NaverMap';
 import styled, { keyframes } from 'styled-components';
-import { useQuickMathDestinationStore } from '../../state/store/QuickMathDestinationStore';
+import { useQuickMathDestinationStore } from '../../stores/QuickMathDestinationStore';
 
 function QuickMatchFinding() {
     const location = useLocation();

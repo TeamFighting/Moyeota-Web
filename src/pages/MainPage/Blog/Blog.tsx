@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HEADERHEIGHT } from '../../../Constants/constant';
+import { HEADER_HEIGHT } from '../../../constants';
 import BlogBottomSheet from './BlogBottonSheet';
 import NaverMap from '../NaverMap/NaverMap';
 
@@ -30,7 +30,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-    height: ${HEADERHEIGHT}px;
+    height: ${HEADER_HEIGHT}px;
     position: sticky;
     border: 1px solid black;
     display: flex;

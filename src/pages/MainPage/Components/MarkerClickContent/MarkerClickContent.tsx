@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import * as S from '../../style';
 import ArrowRight from '../../../../../public/svg/ArrowRight.svg';
 import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
-import ContentStore from '../../../../state/store/ContentStore';
-import createAgo from '../../../util/createAgo';
+import ContentStore from '../../../../stores/ContentStore';
+import createAgo from '../../../../utils/createAgo';
 import { Clock } from '../../../../assets/svg';
-import getDays from '../../../util/getDays';
-import ISOto12 from '../../../util/ISOto12';
+import getDays from '../../../../utils/getDays';
+import ISOto12 from '../../../../utils/ISOto12';
 import { useNavigate } from 'react-router';
 
 function MarkerClickContent({ postId: postId }: { postId: number }) {

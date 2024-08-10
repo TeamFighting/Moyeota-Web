@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from 'react-router';
-import { instance } from '../../../axios';
 import Header from '../OwnerReimbursement/Header';
 import { MoneyInput, StyledButton } from '../styles';
 import * as S from './styles';
 import { useState } from 'react';
-import { useMyInfoStore } from '../../../state/store/MyInfo';
-import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
+import { useMyInfoStore } from '../../../stores/MyInfo';
+import { UseGetNewAccessToken } from '../../../hooks/useGetNewAccessToken';
+import instance from '@apis';
 
 function ApplierCalc() {
     const [money, setMoney] = useState('');

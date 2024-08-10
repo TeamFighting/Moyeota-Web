@@ -1,4 +1,4 @@
-import useStore from '../../state/store/DurationFareStore';
+import useStore from '@stores/DurationFareStore';
 import * as S from './style';
 
 function CreatePrice({ totalPeople }: { totalPeople: number }) {

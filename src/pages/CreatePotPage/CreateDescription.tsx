@@ -1,5 +1,5 @@
-import { ChangeEvent } from 'react';
-import PotCreateStore from '../../state/store/PotCreateStore';
+import type { ChangeEvent } from 'react';
+import PotCreateStore from '@stores/PotCreateStore';
 import * as S from './style';
 
 function CreateDescription() {

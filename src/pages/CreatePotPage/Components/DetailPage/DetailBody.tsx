@@ -1,7 +1,7 @@
-import { ChevronRight, LocationFrom, LocationMarker } from '../../../../assets/svg';
+import { ChevronRight, LocationFrom, LocationMarker } from '@assets/svg';
 import * as S from './style';
-import createAgo from '../../../util/createAgo';
-import usePostDataStore from '../../../../state/store/PostDataStore';
+import createAgo from '@utils/createAgo';
+import usePostDataStore from '@stores/PostDataStore';
 
 function DetailBody() {
     const { data } = usePostDataStore();

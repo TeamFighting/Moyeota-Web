@@ -1,13 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import ContentStore from '../../../state/store/ContentStore';
-import { useQuickPotStore } from '../../../state/store/QuickPotStore';
-import { useClickedMarker } from '../../../state/store/ClickedMarker';
-import LatLngAddStore from '../../../state/store/LatLngAddstore';
+import ContentStore from '../../../stores/ContentStore';
+import { useQuickPotStore } from '../../../stores/QuickPotStore';
+import { useClickedMarker } from '../../../stores/ClickedMarker';
+import LatLngAddStore from '../../../stores/LatLngAddstore';
 
 declare global {
     interface Window {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         naver: any;
     }
 }
@@ -18,7 +18,7 @@ interface ArrayElement {
     postId: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+ 
 function NaverMap({ from }: { from: string }) {
     const mapElement = useRef(null);
 

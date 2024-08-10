@@ -1,9 +1,9 @@
 import useOnclickOutside from 'react-cool-onclickoutside';
 import styled from 'styled-components';
-import { useAppliedPartyStore } from '../../../../state/store/AppliedPartyStore';
-import ModalStore from '../../../../state/store/ModalStore';
-import { instance } from '../../../../axios';
-import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
+import { useAppliedPartyStore } from '../../../../stores/AppliedPartyStore';
+import ModalStore from '../../../../stores/ModalStore';
+import instance from '@apis';
+import { UseGetNewAccessToken } from '../../../../hooks/useGetNewAccessToken';
 
 interface ModalProps {
     isFull: boolean;
@@ -42,7 +42,6 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                     }
                 });
         } catch (e: any) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             if (e.response.status === 401) {
                 if (await UseGetNewAccessToken(accessToken!)) {
                     applyParty(postId);

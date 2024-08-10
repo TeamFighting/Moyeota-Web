@@ -1,12 +1,13 @@
 import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg';
 import * as S from '../CreatePotPage/style';
 import { useNavigate } from 'react-router-dom';
-import { ChangeEvent, useEffect } from 'react';
-import usePostDataStore from '../../state/store/PostDataStore';
-import DurationFareStore from '../../state/store/DurationFareStore';
-import PotCreateStore from '../../state/store/PotCreateStore';
-import { instance } from '../../axios';
-import CurrentLocationStore from '../../state/store/CurrentLocation';
+import type { ChangeEvent } from 'react';
+import { useEffect } from 'react';
+import usePostDataStore from '../../stores/PostDataStore';
+import DurationFareStore from '../../stores/DurationFareStore';
+import PotCreateStore from '../../stores/PotCreateStore';
+import instance from '@apis';
+import CurrentLocationStore from '../../stores/CurrentLocation';
 import DetailMap from '../DetailPage/DetailMap';
 
 interface PostProps {

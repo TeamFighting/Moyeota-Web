@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HEADERHEIGHT } from '../../Constants/constant';
+import { HEADER_HEIGHT } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import CheveronLeft from '../../assets/svg/Chevronleft';
@@ -25,7 +25,7 @@ const Header = styled.div`
     display: flex;
     flex-direction: row;
     align-items: end;
-    height: ${HEADERHEIGHT}px;
+    height: ${HEADER_HEIGHT}px;
     justify-content: space-between;
     position: fixed;
     top: 0;

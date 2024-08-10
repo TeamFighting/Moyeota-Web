@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { HEADERHEIGHT } from '../../../../Constants/constant';
+import { HEADER_HEIGHT } from '@constants';
 import { useNavigate, useParams } from 'react-router-dom';
-import CheveronLeft from '../../../../assets/svg/Chevronleft';
-import My_location from '../../../../assets/svg/My_location';
-import Star from '../../../../assets/svg/Star';
+import CheveronLeft from '@assets/svg/Chevronleft';
+import My_location from '@assets/svg/My_location';
+import Star from '@assets/svg/Star';
 import { useState } from 'react';
 
 function SearchResults() {
@@ -92,7 +92,7 @@ const Container = styled.div`
 const Header = styled.div`
     display: flex;
     flex-direction: row;
-    height: ${HEADERHEIGHT}px;
+    height: ${HEADER_HEIGHT}px;
     justify-content: space-between;
     padding: 0 4%;
 `;

@@ -6,12 +6,13 @@ import UpdatePrice from './UpdatePrice';
 import UpdateDescription from './UpdateDescription';
 import UpdatePotButton from './Button/UpdatePotButton';
 import UpdateNote from './UpdateNote';
-import { useState, useEffect, SetStateAction } from 'react';
+import type { SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router';
-import { instance } from '../../axios';
+import instance from '@apis';
 // import { useLocation } from 'react-router-dom';
-// import { instance } from '../../axios';
+// import instance from '@apis';
 
 interface PostProps {
     category: string;
