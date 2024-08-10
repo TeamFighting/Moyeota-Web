@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import React, { useState } from 'react';
 import DeleteModal from '../Modal/DeleteModal';
 import { useNavigate } from 'react-router-dom';
-import { PencilIcon, TrashIcon } from '../../../../assets/svg';
+import { PencilIcon, TrashIcon } from '@assets/svg';
 import BottomSheetHandle from '../../../MainPage/Components/BottomSheet/BottomSheetHandle';
 import useOnclickOutside from 'react-cool-onclickoutside';
-import useUpdateModalStore from '../../../../stores/UpdateModalStore';
+import useUpdateModalStore from '@stores/UpdateModalStore';
 
 interface EditDeleteModalProps {
     isOpen: boolean;

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../../../constants';
+import { HEADER_HEIGHT } from '@constants';
 import { useNavigate } from 'react-router-dom';
-import SvgCancelIcon from '../../../../assets/svg/CancelIcon';
-import CheveronLeft from '../../../../assets/svg/Chevronleft';
-import ThreeDots from '../../../../assets/svg/ThreeDots';
-import UploadIcon from '../../../../assets/svg/UploadIcon';
+import SvgCancelIcon from '@assets/svg/CancelIcon';
+import CheveronLeft from '@assets/svg/Chevronleft';
+import ThreeDots from '@assets/svg/ThreeDots';
+import UploadIcon from '@assets/svg/UploadIcon';
 import EditDeleteModal from './EditDeleteModal';
-import useUpdateModalStore from '../../../../stores/UpdateModalStore';
+import useUpdateModalStore from '@stores/UpdateModalStore';
 
 function FixDetailHeader({ postId }: { postId: number }) {
     const navigate = useNavigate();

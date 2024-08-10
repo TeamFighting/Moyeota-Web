@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import LocationMarkerGreen from '../../../../assets/svg/LocationMarkerGreen';
-import { BOTTOM_SHEET_HEIGHT, WINDOW_HEIGHT } from '../../../../constants';
-import DestinationStore from '../../../../stores/DestinationResult';
+import LocationMarkerGreen from '@assets/svg/LocationMarkerGreen';
+import { BOTTOM_SHEET_HEIGHT, WINDOW_HEIGHT } from '@constants';
+import DestinationStore from '@stores/DestinationResult';
 import { useEffect, useState } from 'react';
-import { DestinationMarkerClickStore } from '../../../../stores/DestinationMarkerClickStore';
+import { DestinationMarkerClickStore } from '@stores/DestinationMarkerClickStore';
 
 function BottomSheet() {
     const { destinationResult } = DestinationStore((state) => state);

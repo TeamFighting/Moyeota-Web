@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { LionProfile } from '../../../../assets/svg';
+import { LionProfile } from '@assets/svg';
 import * as S from './style';
 import { useEffect, useState } from 'react';
-import usePostDataStore from '../../../../stores/PostDataStore';
-import { AuthStore } from '../../../../stores/AuthStore';
-import { UseGetNewAccessToken } from '../../../../hooks/useGetNewAccessToken';
+import usePostDataStore from '@stores/PostDataStore';
+import { AuthStore } from '@stores/AuthStore';
+import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
 import instance from '@apis';
 
 interface PARTYINFO {
