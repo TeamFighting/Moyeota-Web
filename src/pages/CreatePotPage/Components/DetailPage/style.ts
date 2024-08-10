@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../../../constants';
+import { HEADER_HEIGHT } from '@constants';
 
 export const PartyoneText = styled.div`
     color: var(--Gray-Text-1, #9a9a9a);

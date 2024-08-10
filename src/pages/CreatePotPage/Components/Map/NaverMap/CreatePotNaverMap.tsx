@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import LatLngAddStore from '../../../../../stores/LatLngAddstore';
-import DestinationStore from '../../../../../stores/DestinationResult';
-import { DestinationMarkerClickStore } from '../../../../../stores/DestinationMarkerClickStore';
+import LatLngAddStore from '@stores/LatLngAddstore';
+import DestinationStore from '@stores/DestinationResult';
+import { DestinationMarkerClickStore } from '@stores/DestinationMarkerClickStore';
 
 declare global {
     interface Window {
-         
         naver: any;
     }
 }
@@ -20,7 +19,7 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
     const { setDestinationResult } = DestinationStore((state) => state);
     const { setClickedDestinationMarker, clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
     const [changeCenter, setChangeCenter] = useState({ lat: currentLat, lng: currentLng, title: '' });
-     
+
     const [bounds, setBounds] = useState<any>(null);
     const mapOptions = {
         zoomControl: false,
@@ -29,7 +28,6 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
         center: new naver.maps.LatLng(changeCenter.lat, changeCenter.lng),
     };
 
-     
     let map: any = null;
 
     const placeSearch = (destination: string) => {
@@ -40,7 +38,7 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
         }
         ps.keywordSearch(destination, placesSearchCB);
     };
-     
+
     const placesSearchCB = (data: any, status: any) => {
         if (status === kakao.maps.services.Status.OK) {
             const boundsArr = [];
@@ -54,7 +52,7 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
             }
 
             displayPlaces(data);
-             
+
             const getClickHandler = (seq: any) => {
                 return function () {
                     setClickedDestinationMarker(seq.icon);
@@ -65,10 +63,9 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
             }
         }
     };
-     
+
     const markers: any = [];
 
-     
     const displayPlaces = (places: any) => {
         for (let key = 0; key < places.length; key++) {
             const position = new naver.maps.LatLng(places[key].y, places[key].x);

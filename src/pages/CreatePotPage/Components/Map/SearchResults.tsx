@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../../../constants';
+import { HEADER_HEIGHT } from '@constants';
 import { useNavigate, useParams } from 'react-router-dom';
-import CheveronLeft from '../../../../assets/svg/Chevronleft';
-import My_location from '../../../../assets/svg/My_location';
-import Star from '../../../../assets/svg/Star';
+import CheveronLeft from '@assets/svg/Chevronleft';
+import My_location from '@assets/svg/My_location';
+import Star from '@assets/svg/Star';
 import { useState } from 'react';
 
 function SearchResults() {

@@ -1,5 +1,4 @@
-import LatLngAddstore from '../stores/LatLngAddstore';
-// import { distance } from '../Pages/util/calc';
+import LatLngAddstore from '@stores/LatLngAddstore';
 
 interface PositionOptions {
     coords: {
@@ -15,14 +14,7 @@ interface Options {
 }
 
 function watchPositionHook() {
-    // const { currentLat, currentLng } = LatLngAddstore((state) => state);
-
     async function success(pos: PositionOptions) {
-        // let d = 0;
-        // if (currentLat !== 37.6294657 && currentLng !== 127.0807685) {
-        //     d = distance(currentLat, currentLng, pos.coords.latitude, pos.coords.longitude);
-        // }
-
         sessionStorage.setItem('latitude', pos.coords.latitude.toString());
         sessionStorage.setItem('longitude', pos.coords.longitude.toString());
         LatLngAddstore.setState({
