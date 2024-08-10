@@ -3,7 +3,7 @@ import { ContentDetail, From, Icon, Route, StartPoint, StartPointLocation, Title
 import * as S from './style';
 import { ChevronRight, CurrentLocationIcon, LocationFrom, LocationMarker, ToTriangle } from '../../assets/svg';
 import { useLocation, useNavigate } from 'react-router';
-import NaverMap from '../MainPage/NaverMap/NaverMap';
+import NaverMap from '../MainPage/NaverMap';
 import styled, { keyframes } from 'styled-components';
 import { useQuickMathDestinationStore } from '../../stores/QuickMathDestinationStore';
 

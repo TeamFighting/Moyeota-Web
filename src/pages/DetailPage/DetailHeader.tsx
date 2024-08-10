@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { HEADER_HEIGHT } from '../../constants';
+import { HEADER_HEIGHT } from '@constants';
 import { useNavigate } from 'react-router-dom';
-import SvgCancelIcon from '../../assets/svg/CancelIcon';
-import CheveronLeft from '../../assets/svg/Chevronleft';
+import SvgCancelIcon from '@assets/svg/CancelIcon';
+import CheveronLeft from '@assets/svg/Chevronleft';
 
 function DetailHeader() {
     const navigate = useNavigate();

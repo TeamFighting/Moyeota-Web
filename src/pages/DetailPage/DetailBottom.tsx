@@ -1,11 +1,11 @@
 import * as S from './style';
-import { Calendar, Clock, Dollar } from '../../assets/svg';
+import { Calendar, Clock, Dollar } from '@assets/svg';
 interface DetailBottomProps {
     fare: number;
     duration: number;
     splitedTime: string[];
     timePart: string;
-     
+
     data: any;
     participants: number;
     recruitment: number;

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import LocationHeader from './LocationHeader';
 import BottomSheet from './Components/BottomSheet';
 import { useNavigate } from 'react-router-dom';
-import NaverMap from './NaverMap/NaverMap';
+import NaverMap from './NaverMap';
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
 import instance from '@apis';
 import { HEADER_HEIGHT } from '@constants';
