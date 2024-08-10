@@ -261,7 +261,6 @@ function Body() {
     useEffect(() => {
         calcEachMoney();
     }, [money]);
-
     const handleChange = (e: React.KeyboardEvent) => {
         e.preventDefault();
 

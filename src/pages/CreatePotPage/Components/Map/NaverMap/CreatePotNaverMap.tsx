@@ -19,7 +19,6 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
     const { setDestinationResult } = DestinationStore((state) => state);
     const { setClickedDestinationMarker, clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
     const [changeCenter, setChangeCenter] = useState({ lat: currentLat, lng: currentLng, title: '' });
-
     const [bounds, setBounds] = useState<any>(null);
     const mapOptions = {
         zoomControl: false,
@@ -38,7 +37,6 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
         }
         ps.keywordSearch(destination, placesSearchCB);
     };
-
     const placesSearchCB = (data: any, status: any) => {
         if (status === kakao.maps.services.Status.OK) {
             const boundsArr = [];
@@ -52,7 +50,6 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
             }
 
             displayPlaces(data);
-
             const getClickHandler = (seq: any) => {
                 return function () {
                     setClickedDestinationMarker(seq.icon);
