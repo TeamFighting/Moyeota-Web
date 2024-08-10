@@ -8,7 +8,7 @@ import PotCreateStore from '@stores/PotCreateStore';
 import DetailMap from '../DetailPage/DetailMap';
 import CurrentLocationStore from '@stores/CurrentLocation';
 import DestinationStore from '@stores/DestinationResult';
-import instance from '@apis/index';
+import instance from '@apis';
 
 function CreateBody() {
     const navigate = useNavigate();

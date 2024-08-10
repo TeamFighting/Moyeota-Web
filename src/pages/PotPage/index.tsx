@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import instance from '@apis/index';
+import instance from '@apis';
 import SingleContent from '../MainPage/Components/SingleContent';
 import { useMyPotContentStore } from '../../stores/MyPotPage';
 import * as S from '../MainPage/style';

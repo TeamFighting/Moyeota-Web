@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import instance from '@apis/index';
+import instance from '@apis';
 
 declare global {
     interface Window {

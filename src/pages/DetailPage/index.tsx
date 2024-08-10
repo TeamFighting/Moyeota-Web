@@ -14,7 +14,7 @@ import DetailHeader from './DetailHeader';
 import getDays from '../../utils/getDays';
 import ISOto12 from '../../utils/ISOto12';
 import { useMyPotContentStore } from '../../stores/MyPotPage';
-import instance from '@apis/index';
+import instance from '@apis';
 
 interface DetailPageProps {
     category: string;

@@ -1,4 +1,4 @@
-import instance from '@apis/index';
+import instance from '@apis';
 
 export const UseGetNewAccessToken = async (accessToken: string) => {
     try {

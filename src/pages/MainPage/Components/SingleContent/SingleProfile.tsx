@@ -1,5 +1,5 @@
 // import { useEffect, useState } from 'react';
-// import instance from '@apis/index';
+// import instance from '@apis';
 import * as S from '../../style';
 
 interface ProfileProps {

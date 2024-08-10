@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import instance from '@apis/index';
+import instance from '@apis';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { ref as dbRef, query, onValue } from 'firebase/database';

@@ -5,7 +5,7 @@ import * as S from './styles';
 import { useState } from 'react';
 import { useMyInfoStore } from '../../../stores/MyInfo';
 import { UseGetNewAccessToken } from '../../../hooks/useGetNewAccessToken';
-import instance from '@apis/index';
+import instance from '@apis';
 
 function ApplierCalc() {
     const [money, setMoney] = useState('');

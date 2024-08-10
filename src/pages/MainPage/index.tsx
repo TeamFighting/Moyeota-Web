@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import NaverMap from './NaverMap/NaverMap';
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
 import { useClickedMarker } from '../../stores/ClickedMarker';
-import instance from '@apis/index';
+import instance from '@apis';
 import watchPositionHook from '../../hooks/useWatchPositionHook';
 // import { AuthStore } from '../../state/store/AuthStore';
 import { useMyInfoStore } from '../../stores/MyInfo';

@@ -3,7 +3,7 @@ import { ChevronRight, WhiteCancelIcon } from '../../../assets/svg';
 import ANIM from '../../../assets/ANIM.gif';
 import { BankLists } from '../../../assets/BankLists';
 import * as S from '../styles';
-import instance from '@apis/index';
+import instance from '@apis';
 import { useNavigate, useParams } from 'react-router';
 import { useMyInfoStore } from '../../../stores/MyInfo';
 import { useReimbursementMessageStore } from '../../../stores/ReimbursementMessage';

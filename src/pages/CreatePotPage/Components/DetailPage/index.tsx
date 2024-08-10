@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import UpdateButton from '../Button/UpdateButton';
 import useModalStore from '../../../../stores/UpdateModalStore';
-import instance from '@apis/index';
+import instance from '@apis';
 
 function DetailPage() {
     const [scroll, setScroll] = useState(0);
