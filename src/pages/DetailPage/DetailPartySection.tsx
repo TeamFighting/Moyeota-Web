@@ -40,7 +40,7 @@ function DetailPartySection({ profileImage, leaderName, content, gender, postId 
                         Authorization: `Bearer ${accessToken}`,
                     },
                 })
-                .then(async (res) => {
+                .then(async (res: any) => {
                     if (res.status == 200) {
                         const partyInfo: PARTYINFO[] = res.data.data;
                         const participants = partyInfo.filter((value) => {
