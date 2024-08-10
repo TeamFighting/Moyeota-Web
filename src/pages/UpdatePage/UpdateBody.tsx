@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import usePostDataStore from '../../stores/PostDataStore';
 import DurationFareStore from '../../stores/DurationFareStore';
 import PotCreateStore from '../../stores/PotCreateStore';
-import instance from '@apis/index';
+import instance from '@apis';
 import CurrentLocationStore from '../../stores/CurrentLocation';
 import DetailMap from '../DetailPage/DetailMap';
 

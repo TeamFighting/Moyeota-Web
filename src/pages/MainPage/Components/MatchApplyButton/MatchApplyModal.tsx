@@ -2,7 +2,7 @@ import useOnclickOutside from 'react-cool-onclickoutside';
 import styled from 'styled-components';
 import { useAppliedPartyStore } from '../../../../stores/AppliedPartyStore';
 import ModalStore from '../../../../stores/ModalStore';
-import instance from '@apis/index';
+import instance from '@apis';
 import { UseGetNewAccessToken } from '../../../../hooks/useGetNewAccessToken';
 
 interface ModalProps {

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router';
-import instance from '@apis/index';
+import instance from '@apis';
 import * as S from '../../DetailPage/style';
 import * as ST from './style';
 import { useEffect, useState } from 'react';

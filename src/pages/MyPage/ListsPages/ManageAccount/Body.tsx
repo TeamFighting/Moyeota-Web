@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { WhiteCancelIcon } from '../../../../assets/svg';
 import { useMyInfoStore } from '../../../../stores/MyInfo';
 import * as S from './style';
-import instance from '@apis/index';
+import instance from '@apis';
 import { UseGetNewAccessToken } from '../../../../hooks/useGetNewAccessToken';
 function Body() {
     const { email, name } = useMyInfoStore();

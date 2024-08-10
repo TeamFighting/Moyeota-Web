@@ -1,4 +1,4 @@
-import instance from '@apis/index';
+import instance from '@apis';
 import type { NavigateFunction } from 'react-router';
 import { OAUTH_PROVIDER, type TOauthProvider } from './consts';
 
