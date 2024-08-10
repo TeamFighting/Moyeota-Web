@@ -1,5 +1,5 @@
 import Header from './MyInfoHeader';
-import Body from './BodyComponents';
+import Body from './BodyComponents/index';
 
 function MyPage() {
     return (
