@@ -1,98 +1,37 @@
-import { Album, Camera, Chevronleft, Reimbursement, VerticalMenu } from '../../assets/svg';
-import SvgCancelIcon from '../../assets/svg/CancelIcon';
-import { useNavigate, useParams } from 'react-router';
-import { useEffect, useRef, useState } from 'react';
-import { instance } from '../../axios';
+import { Album, Camera, Chevronleft, Reimbursement, VerticalMenu } from '@assets/svg';
+import SvgCancelIcon from '@assets/svg/CancelIcon';
 import * as S from './style';
-import { db } from '../../firebase';
-import { ref as dbRef, child, onChildAdded } from 'firebase/database';
 import Messages from './Messages';
 import moment from 'moment';
 import 'moment/locale/ko';
-import Skeleton from '../../components/Skeleton';
-import { showProfileTime } from '../util/showProfileTime';
-import { NoneReadChatStore } from '../../state/store/NoneReadChat';
+import Skeleton from '@components/Skeleton';
+import { showProfileTime } from '@utils/showProfileTime';
 import ChatBottom from './ChatBottom';
 import toast, { Toaster } from 'react-hot-toast';
 import ChatReimbursement from './Reimbursement';
-
-interface ChatPageProps {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    postId: string;
-    title: string;
-    departure: string;
-    destination: string;
-    createAt: string;
-    view: number;
-    userName: string;
-    userGender: string;
-    profileImage: string;
-    departureTime: string;
-}
-
-interface myMessageProps {
-    JSONMessage: string;
-    text: string;
-    timestamp: number;
-    user: {
-        id: number;
-        name: string;
-        profileImage: string;
-    };
-}
+import useChat from '../hooks/useChat';
+import { useNavigate } from 'react-router';
+import { ROUTE } from '@constants/route';
+import { useEffect, useRef, useState } from 'react';
+import type { IMessage } from '../constants';
 
 function FirebaseChat() {
-    const { postId, roomId } = useParams();
-    const [postInfo, setPostInfo] = useState<ChatPageProps>({} as ChatPageProps);
-    const [messages, setMessages] = useState<myMessageProps[]>([]);
-    const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
-    const { id, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
-    const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
-    const navigate = useNavigate();
+    const {
+        state: { userId, postInfo, postId, roomId, messages, messagesLoading, profileImage },
+        action: { leaveChatRoom },
+    } = useChat();
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
     const messageEndRef = useRef<HTMLDivElement>(null);
-    const messagesRef = dbRef(db, 'messages');
 
     const handleBack = () => {
         if (roomId !== undefined) {
             leaveChatRoom(roomId);
         }
-        navigate('/ChatLists');
+        navigate(ROUTE.CHATLISTS);
     };
 
-    useEffect(() => {
-        async function getChatRoom() {
-            const response = await instance.get(`/posts/${postId}`);
-            setPostInfo(response.data.data);
-        }
-        getChatRoom();
-    }, []);
-
-    useEffect(() => {
-        messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [messages]);
-
-    useEffect(() => {
-        if (roomId !== undefined) addMessagesListener(roomId);
-    }, [roomId]);
-
-    function leaveChatRoom(roomId: string) {
-        setLastReadTime(roomId, Date.now());
-        setNoneReadChat(roomId, 0);
-    }
-
-    const addMessagesListener = (roomId: string) => {
-        const messagesArray = [] as myMessageProps[];
-        onChildAdded(child(messagesRef, roomId), (snapshot) => {
-            messagesArray.push(snapshot.val());
-            // console.log(messagesArray);
-            const newmessagesArray = [...messagesArray];
-            setMessages(newmessagesArray);
-        });
-        setMessagesLoading(false);
-    };
-
-    const renderMessages = (messages: myMessageProps[]) => {
+    const renderMessages = (messages: IMessage[]) => {
         return (
             messages.length > 0 &&
             messages.map((items, index) => {
@@ -144,8 +83,13 @@ function FirebaseChat() {
     };
 
     const navigateReimbursement = () => {
-        navigate('/reimbursement/potowner/' + postId + '/' + id);
+        navigate('/reimbursement/potowner/' + postId + '/' + userId);
     };
+
+    useEffect(() => {
+        messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+
     if (postId === undefined || roomId == undefined) return;
     return (
         <>
@@ -173,10 +117,10 @@ function FirebaseChat() {
                 </S.Body>
             </S.SlideWrapper>
             <ChatBottom
+                userId={userId}
                 isOpen={open}
                 toggleOpen={() => setOpen(!open)}
                 roomId={roomId}
-                id={id}
                 profileImage={profileImage}
             />
             <S.ChatBottomDrawer isOpen={open}>

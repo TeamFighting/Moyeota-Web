@@ -14,7 +14,7 @@ interface MyInfo {
     nickName: string | null;
     phoneNumber: string | null;
     profileImage: string;
-    id: number;
+    userId: number;
     school: string | null;
     status: string;
     gender: string;
@@ -34,7 +34,7 @@ export const useMyInfoStore = create(
             nickName: null,
             phoneNumber: null,
             profileImage: '',
-            id: 0,
+            userId: 0,
             gender: '',
             school: null,
             status: '',

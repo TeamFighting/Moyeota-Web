@@ -1,10 +1,11 @@
 import { ChevronRight } from '../../assets/svg';
 import * as S from './style';
 import TimeModal from './Components/Modal/TimeModal';
-import { SetStateAction, useState } from 'react';
-import PotCreateStore from '../../state/store/PotCreateStore';
+import type { SetStateAction} from 'react';
+import { useState } from 'react';
+import PotCreateStore from '../../stores/PotCreateStore';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { Dayjs } from 'dayjs';
+import type { Dayjs } from 'dayjs';
 
 declare global {
     interface Window {

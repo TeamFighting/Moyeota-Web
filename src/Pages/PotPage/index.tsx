@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { instance } from '../../axios';
+import instance from '@apis/index';
 import SingleContent from '../MainPage/Components/SingleContent';
-import { useMyPotContentStore } from '../../state/store/MyPotPage';
+import { useMyPotContentStore } from '../../stores/MyPotPage';
 import * as S from '../MainPage/style';
 import styled from 'styled-components';
 import { Chevronleft } from '../../assets/svg';
 import { Icon } from '../DetailPage/style';
-import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../hooks/useGetNewAccessToken';
 function PotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { MyAppliedPotContent, MyPotContent, setMyPotContent, setMyAppliedPotContent, setTotalMyPotContent } =

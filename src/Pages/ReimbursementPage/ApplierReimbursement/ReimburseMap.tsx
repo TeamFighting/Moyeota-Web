@@ -1,18 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 
 import { useEffect, useRef } from 'react';
 
-import LatLngAddStore from '../../../state/store/LatLngAddstore';
+import LatLngAddStore from '../../../stores/LatLngAddstore';
 
 declare global {
     interface Window {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
 
         naver: any;
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+ 
 
 function ReimburseMap() {
     const mapElement = useRef(null);

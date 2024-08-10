@@ -5,7 +5,7 @@ interface DetailBottomProps {
     duration: number;
     splitedTime: string[];
     timePart: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     data: any;
     participants: number;
     recruitment: number;

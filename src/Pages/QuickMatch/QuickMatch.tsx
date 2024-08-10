@@ -5,9 +5,9 @@ import { Icon } from '../CreatePotPage/style';
 import { useNavigate } from 'react-router';
 import * as S from './style';
 import { useState } from 'react';
-import ContentStore from '../../state/store/ContentStore';
-import { useQuickPotStore } from '../../state/store/QuickPotStore';
-import { useQuickMathDestinationStore } from '../../state/store/QuickMathDestinationStore';
+import ContentStore from '../../stores/ContentStore';
+import { useQuickPotStore } from '../../stores/QuickPotStore';
+import { useQuickMathDestinationStore } from '../../stores/QuickMathDestinationStore';
 
 function QuickMatch() {
     const navigate = useNavigate();

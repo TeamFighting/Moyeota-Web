@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HEADERHEIGHT } from '../../Constants/constant';
+import { HEADER_HEIGHT } from '../../constants';
 
 export const PartyoneText = styled.div`
     color: var(--Gray-Text-1, #9a9a9a);
@@ -228,7 +228,7 @@ export const Body = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding-top: ${HEADERHEIGHT}px;
+    padding-top: ${HEADER_HEIGHT}px;
     margin: 0 25px;
     height: 603px;
 `;

@@ -1,19 +1,19 @@
-import { GreenSendBtn } from '../../assets/svg';
+import { GreenSendBtn } from '@assets/svg';
 import * as S from './style';
 import { useRef, useState } from 'react';
-import { Plus } from '../../assets/svg';
-import { db } from '../../firebase';
+import { Plus } from '@assets/svg';
+import { db } from 'firebase';
 import { serverTimestamp, set, ref as dbRef, push, child } from 'firebase/database';
 import 'moment/locale/ko';
 
 interface ChatBottomProps {
     isOpen: boolean;
     roomId: string;
-    id: string;
+    userId: string;
     profileImage: string;
     toggleOpen: () => void;
 }
-function ChatBottom({ isOpen, roomId, id, profileImage, toggleOpen }: ChatBottomProps) {
+function ChatBottom({ isOpen, roomId, userId, profileImage, toggleOpen }: ChatBottomProps) {
     const messagesRef = dbRef(db, 'messages');
     const inputRef = useRef<HTMLInputElement>(null);
     const [newMessage, setNewMessage] = useState<string>('');
@@ -23,7 +23,7 @@ function ChatBottom({ isOpen, roomId, id, profileImage, toggleOpen }: ChatBottom
             key: roomId,
             text: newMessage,
             user: {
-                id: id,
+                id: userId,
                 name: name,
                 profileImage: profileImage,
             },

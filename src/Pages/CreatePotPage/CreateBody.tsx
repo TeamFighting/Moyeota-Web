@@ -1,13 +1,14 @@
-import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg';
+import { ChevronRight, LocationFrom, LocationMarker } from '@assets/svg';
 import * as S from './style';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChangeEvent, useEffect } from 'react';
-import DurationFareStore from '../../state/store/DurationFareStore';
-import PotCreateStore from '../../state/store/PotCreateStore';
-import { instance } from '../../axios';
+import type { ChangeEvent } from 'react';
+import { useEffect } from 'react';
+import DurationFareStore from '@stores/DurationFareStore';
+import PotCreateStore from '@stores/PotCreateStore';
 import DetailMap from '../DetailPage/DetailMap';
-import CurrentLocationStore from '../../state/store/CurrentLocation';
-import DestinationStore from '../../state/store/DestinationResult';
+import CurrentLocationStore from '@stores/CurrentLocation';
+import DestinationStore from '@stores/DestinationResult';
+import instance from '@apis/index';
 
 function CreateBody() {
     const navigate = useNavigate();

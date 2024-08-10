@@ -19,7 +19,20 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
-        "types": ["kakao.maps.d.ts", "prop-types"]
+        "types": ["kakao.maps.d.ts", "prop-types"],
+
+        "baseUrl": "src",
+        "paths": {
+            "@apis/*": ["apis/*"],
+            "@assets/*": ["assets/*"],
+            "@components/*": ["components/*"],
+            "@constants/*": ["constants/*"],
+            "@hooks/*": ["hooks/*"],
+            "@pages/*": ["pages/*"],
+            "@stores/*": ["stores/*"],
+            "@utils/*": ["utils/*"],
+            "@types/*": ["types/*"],
+        }
     },
     "include": ["src", "custom.d.ts", "global.d.ts"],
     "references": [{ "path": "./tsconfig.node.json" }]

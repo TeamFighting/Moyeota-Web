@@ -3,13 +3,13 @@ import DetailHeader from './DetailHeader';
 import DetailBody from './DetailBody';
 import DetailBottom from './DetailBottom';
 import DetailPartySection from './DetailPartySection';
-import usePostDataStore from '../../../../state/store/PostDataStore';
-import PotCreateStore from '../../../../state/store/PotCreateStore';
+import usePostDataStore from '../../../../stores/PostDataStore';
+import PotCreateStore from '../../../../stores/PotCreateStore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import UpdateButton from '../Button/UpdateButton';
-import useModalStore from '../../../../state/store/UpdateModalStore';
-import { instance } from '../../../../axios';
+import useModalStore from '../../../../stores/UpdateModalStore';
+import instance from '@apis/index';
 
 function DetailPage() {
     const [scroll, setScroll] = useState(0);

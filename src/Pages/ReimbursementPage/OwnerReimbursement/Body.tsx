@@ -3,19 +3,19 @@ import { ChevronRight, WhiteCancelIcon } from '../../../assets/svg';
 import ANIM from '../../../assets/ANIM.gif';
 import { BankLists } from '../../../assets/BankLists';
 import * as S from '../styles';
-import { instance } from '../../../axios';
+import instance from '@apis/index';
 import { useNavigate, useParams } from 'react-router';
-import { useMyInfoStore } from '../../../state/store/MyInfo';
-import { useReimbursementMessageStore } from '../../../state/store/ReimbursementMessage';
+import { useMyInfoStore } from '../../../stores/MyInfo';
+import { useReimbursementMessageStore } from '../../../stores/ReimbursementMessage';
 import { useRef } from 'react';
 import { serverTimestamp, ref as dbRef, set, push, child } from 'firebase/database';
 import 'moment/locale/ko';
 import { db } from '../../../firebase';
 import styled from 'styled-components';
-import useBottomSheet from '../../../Hooks/useBottonSheet';
+import useBottomSheet from '../../../hooks/useBottonSheet';
 import BottomSheetHandle from '../../AddAccount/BankListSheet/BankListSheetHandle';
 import { motion } from 'framer-motion';
-import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../../hooks/useGetNewAccessToken';
 
 interface PartyOneProps {
     nickname: string;
@@ -261,7 +261,7 @@ function Body() {
     useEffect(() => {
         calcEachMoney();
     }, [money]);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const handleChange = (e: React.KeyboardEvent) => {
         e.preventDefault();
 

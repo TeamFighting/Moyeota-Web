@@ -1,18 +1,17 @@
 import { useParams } from 'react-router';
-import { instance } from '../../../axios';
+import instance from '@apis/index';
 import * as S from '../../DetailPage/style';
 import * as ST from './style';
 import { useEffect, useState } from 'react';
 import SvgDollar from '../../../assets/svg/Dollar';
 import SvgClock from '../../../assets/svg/Clock';
 import SvgCalendar from '../../../assets/svg/Calendar';
-import getDays from '../../util/getDays';
-import ISOto12 from '../../util/ISOto12';
+import getDays from '../../../utils/getDays';
+import ISOto12 from '../../../utils/ISOto12';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function Bottom({ reimburseData }: any) {
     const { postId } = useParams();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const [data, setData] = useState({} as any);
     const [splitedTime, setSplitedTime] = useState(['', '', '', '']);
     const [timePart, setTimePart] = useState('');

@@ -5,16 +5,16 @@ import DetailPartySection from './DetailPartySection';
 import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
 import { useParams } from 'react-router';
 import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
-import ModalStore from '../../state/store/ModalStore';
+import ModalStore from '../../stores/ModalStore';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import FixDetailHeader from '../CreatePotPage/Components/DetailPage/DetailHeader';
-import { useMyPotStore } from '../../state/store/MyPotStore';
+import { useMyPotStore } from '../../stores/MyPotStore';
 import DetailHeader from './DetailHeader';
-import { instance } from '../../axios';
-import getDays from '../util/getDays';
-import ISOto12 from '../util/ISOto12';
-import { useMyPotContentStore } from '../../state/store/MyPotPage';
+import getDays from '../../utils/getDays';
+import ISOto12 from '../../utils/ISOto12';
+import { useMyPotContentStore } from '../../stores/MyPotPage';
+import instance from '@apis/index';
 
 interface DetailPageProps {
     category: string;

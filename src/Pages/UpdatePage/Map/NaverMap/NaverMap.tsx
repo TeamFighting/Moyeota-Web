@@ -1,9 +1,8 @@
 import { useEffect, useRef } from 'react';
-import { instance } from '../../../../axios';
+import instance from '@apis/index';
 
 declare global {
     interface Window {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         naver: any;
     }
 }

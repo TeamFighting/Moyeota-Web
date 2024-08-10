@@ -26,12 +26,12 @@ interface MyPotType {
     // };
 }
 interface MyPotStore {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     MyPotContent: MyPotType[];
     MyAppliedPotContent: MyPotType[];
     TotalMyPotContent: MyPotType[];
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     setMyPotContent: (MyPotContent: MyPotType[]) => void;
     setTotalMyPotContent: (TotalMyPotContent: MyPotType[]) => void;
     setMyAppliedPotContent: (MyAppliedPotContent: MyPotType[]) => void;

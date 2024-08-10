@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useStore from '../../../state/store/LatLngAddstore';
+import useStore from '../../../stores/LatLngAddstore';
 
 function CurrentLocation() {
     const [location, setLocation] = useState<{ latitude: number; longitude: number } | string>({

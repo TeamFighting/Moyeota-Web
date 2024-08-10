@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import { PencilIcon } from '../../../assets/svg';
 import SvgHeart from '../../../assets/svg/Heart';
 import * as S from '../MyPage_styles';
-import { useMyInfoStore } from '../../../state/store/MyInfo';
+import { useMyInfoStore } from '../../../stores/MyInfo';
 
 function BodyTop() {
     const userInfo = useMyInfoStore();
@@ -13,7 +13,7 @@ function BodyTop() {
     const age = userInfo.age;
 
     const navigateToEdit = () => {
-        const userId = userInfo.id;
+        const userId = userInfo.userId;
         navigate(`/mypage/modify/${userId}`);
     };
     return (

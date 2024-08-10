@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import PotCreateStore from '../../../../state/store/PotCreateStore';
-import DurationFareStore from '../../../../state/store/DurationFareStore';
-import { instance } from '../../../../axios';
 import { useNavigate } from 'react-router-dom';
 import { ref, push, update, child } from 'firebase/database';
-import { db } from '../../../../firebase';
-import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
+import { db } from 'firebase';
+import PotCreateStore from '@stores/PotCreateStore';
+import DurationFareStore from '@stores/DurationFareStore';
+import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import instance from '@apis/index';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const potCreateStore = PotCreateStore();

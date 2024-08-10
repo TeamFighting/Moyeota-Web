@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HEADERHEIGHT } from '../../Constants/constant';
+import { HEADER_HEIGHT } from '../../constants';
 
 export const Wrapper = styled.div`
     display: flex;
@@ -46,7 +46,7 @@ export const Container = styled.div`
     flex-direction: column;
     width: 100%;
     height: 100%;
-    margin-top: ${HEADERHEIGHT + 9}px;
+    margin-top: ${HEADER_HEIGHT + 9}px;
     gap: 57px;
 `;
 

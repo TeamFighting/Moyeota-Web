@@ -1,16 +1,17 @@
 /* global kakao */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { MutableRefObject, useEffect, useState } from 'react';
+ 
+import type { MutableRefObject} from 'react';
+import { useEffect, useState } from 'react';
 import CurrentLocation from './CurrentLocation';
 // import SlideModal from '../SlideModal/SlideModal';
 declare global {
     interface Window {
         kakao: {
             maps: {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                 
                 LatLng: any;
                 services: {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                     
                     Geocoder: any;
                 };
             };

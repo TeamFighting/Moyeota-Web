@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
-import { instance } from '../../axios';
+import instance from '@apis/index';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { ref as dbRef, query, onValue } from 'firebase/database';
-import { db } from '../../firebase';
-import { Chevronleft, Plus } from '../../assets/svg';
+import { db } from 'firebase';
+import { Chevronleft, Plus } from '@assets/svg';
 import moment from 'moment';
-import { NoneReadChatStore } from '../../state/store/NoneReadChat';
+import { NoneReadChatStore } from '@stores/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
-import { ChatTime } from '../util/ChatTime';
-import BottomBtn from '../../components/BottomBtn';
-import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
+import { ChatTime } from '@utils/ChatTime';
+import BottomBtn from '@components/BottomBtn';
+import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+
 export interface myMessageProps {
     text: string;
     timestamp: number;

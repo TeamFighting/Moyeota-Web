@@ -2,12 +2,12 @@ import { useEffect, useRef } from 'react';
 
 declare global {
     interface Window {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         naver: any;
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+ 
 function MatchNaverMap() {
     const mapElement = useRef(null);
     const { naver } = window;

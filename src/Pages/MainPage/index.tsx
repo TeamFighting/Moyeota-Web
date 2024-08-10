@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import { HEADERHEIGHT } from '../../Constants/constant';
-import useStore from '../../state/store/ContentStore';
+import { HEADER_HEIGHT } from '../../constants';
+import useStore from '../../stores/ContentStore';
 import LocationHeader from './LocationHeader';
 import BottomSheet from './Components/BottomSheet';
 import { Chevronleft } from '../../assets/svg';
@@ -11,14 +11,14 @@ import { useNavigate } from 'react-router-dom';
 // import { Icon } from '../DetailPage/style';
 import NaverMap from './NaverMap/NaverMap';
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
-import { useClickedMarker } from '../../state/store/ClickedMarker';
-import { instance } from '../../axios';
-import watchPositionHook from '../../Hooks/useWatchPositionHook';
+import { useClickedMarker } from '../../stores/ClickedMarker';
+import instance from '@apis/index';
+import watchPositionHook from '../../hooks/useWatchPositionHook';
 // import { AuthStore } from '../../state/store/AuthStore';
-import { useMyInfoStore } from '../../state/store/MyInfo';
-import { useMyPotStore } from '../../state/store/MyPotStore';
+import { useMyInfoStore } from '../../stores/MyInfo';
+import { useMyPotStore } from '../../stores/MyPotStore';
 import BottomBtn from '../../components/BottomBtn';
-import { UseGetNewAccessToken } from '../../Hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../hooks/useGetNewAccessToken';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -28,11 +28,11 @@ function MainPage() {
     watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
 
-    const { setMyInfo, id, accountDtoList } = useMyInfoStore();
+    const { setMyInfo, userId, accountDtoList } = useMyInfoStore();
     const { setMyPot } = useMyPotStore();
     const getMyPost = async () => {
         try {
-            const myPost = await instance.get(`/posts/users/${id}`, {
+            const myPost = await instance.get(`/posts/users/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
@@ -42,11 +42,10 @@ function MainPage() {
             });
             if (myPost.status === 200) {
                 const newArr: number[] = [];
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
                 myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
                 setMyPot(newArr);
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
             console.log('getMyPost', e);
             if (e.response.status === 401) {
@@ -59,7 +58,7 @@ function MainPage() {
     useEffect(() => {
         fetchData();
         usersInfo();
-        if (id !== undefined || id !== null || id !== 0) {
+        if (userId !== undefined || userId !== null || userId !== 0) {
             getMyPost();
         }
 
@@ -101,7 +100,6 @@ function MainPage() {
                 setMyInfo(res.data.data);
                 localStorage.setItem('myInfo', JSON.stringify(res.data.data));
             }
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (e: any) {
             alert(e + '에러');
             if (e.response.status === 401) {
@@ -131,7 +129,7 @@ function MainPage() {
 
     const navigateToCreatePot = () => {
         if (accountDtoList.length === 0) {
-            navigate(`/createPot/addAccount/${id}`);
+            navigate(`/createPot/addAccount/${userId}`);
         } else {
             navigate('/createPotPage');
         }
@@ -197,7 +195,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-    height: ${HEADERHEIGHT}px;
+    height: ${HEADER_HEIGHT}px;
     position: sticky;
     background-color: #ffffff;
     display: flex;

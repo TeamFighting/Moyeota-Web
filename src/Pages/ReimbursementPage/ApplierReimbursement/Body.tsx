@@ -1,16 +1,15 @@
 import { useLocation } from 'react-router';
 import * as S from '../styles';
-import { useMyInfoStore } from '../../../state/store/MyInfo';
+import { useMyInfoStore } from '../../../stores/MyInfo';
 import { CheckCircle, PotOwnerCrown } from '../../../assets/svg';
 import styled from 'styled-components';
 import { Toaster, toast } from 'react-hot-toast';
 import SvgDollar from '../../../assets/svg/Dollar';
 import { BottomSheetBTN } from '../OwnerReimbursement/Body';
 import SvgCopyIcon from '../../../assets/svg/CopyIcon';
-
 function Body() {
     const width = window.innerWidth - 40;
-    const { id } = useMyInfoStore();
+    const { userId } = useMyInfoStore();
     const location = useLocation();
     const { data } = location.state;
 
@@ -63,7 +62,7 @@ function Body() {
 
     const render = data.EachAmount.map(
         (each: { userId: number; amount: number; name: string; profileImage: string; isPartyOwner: boolean }) => {
-            const isMyPayment = each.userId === id;
+            const isMyPayment = each.userId === userId;
             return (
                 <S.PartyOneRow>
                     <Toaster position="bottom-center" />

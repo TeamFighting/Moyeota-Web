@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import CurrentLocationStore from '../../state/store/CurrentLocation';
+import CurrentLocationStore from '../../stores/CurrentLocation';
 declare global {
     interface Window {
         kakao: {
             maps: {
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                 
                 LatLng: any;
                 services: {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                     
                     Geocoder: any;
                 };
             };

@@ -1,4 +1,4 @@
-import useStore from '../../state/store/DurationFareStore';
+import useStore from '../../stores/DurationFareStore';
 import * as S from '../CreatePotPage/style';
 
 function UpdatePrice({ totalPeople }: { totalPeople: number }) {
@@ -7,7 +7,7 @@ function UpdatePrice({ totalPeople }: { totalPeople: number }) {
     const totalAmount = estimatedFare !== null ? estimatedFare : 0;
 
     const farePerPerson = totalPeople > 0 && estimatedFare !== null ? estimatedFare / totalPeople : totalAmount;
-    
+
     return (
         <S.Bottom>
             <S.PayBox>

@@ -1,6 +1,6 @@
 import { Calendar, Clock, Dollar } from '../../../../assets/svg';
 import * as S from './style';
-import usePostDataStore from '../../../../state/store/PostDataStore';
+import usePostDataStore from '../../../../stores/PostDataStore';
 
 function DetailBottom() {
     const { data } = usePostDataStore();

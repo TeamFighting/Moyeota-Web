@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import useBottomSheet from '../../../Hooks/useBottonSheet';
+import useBottomSheet from '../../../hooks/useBottonSheet';
 import { useEffect, useState } from 'react';
-import { useAccountStore } from '../../../state/store/AccountStore';
+import { useAccountStore } from '../../../stores/AccountStore';
 import { BankLists } from '../../../assets/BankLists';
 
 function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { CharacterCrown, ChatSeeU, CheckCircle } from '../../assets/svg';
-import { PotOwner } from '../ReimbursementPage/styles';
+import { CharacterCrown, ChatSeeU, CheckCircle } from '@assets/svg';
 import { Image } from 'react-bootstrap';
 import { Time } from './style';
 import toast from 'react-hot-toast';
-import SvgCopyIcon from '../../assets/svg/CopyIcon';
+import { PotOwner } from '@pages/ReimbursementPage/styles';
+import SvgCopyIcon from '@assets/svg/CopyIcon';
 
 interface JSONType {
     account: {
@@ -26,7 +26,7 @@ interface ChatReimbursementProps {
     };
     displayTime: boolean;
     timeValue: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     navigate: any;
 }
 function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate }: ChatReimbursementProps) {

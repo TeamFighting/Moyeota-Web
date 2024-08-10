@@ -6,7 +6,8 @@ import CreatePrice from './CreatePrice';
 import CreateDescription from './CreateDescription';
 import CreatePotButton from './Components/Button/CreatePotButton';
 import CreateNote from './CreateNote';
-import { useState, useEffect, SetStateAction } from 'react';
+import type { SetStateAction } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 

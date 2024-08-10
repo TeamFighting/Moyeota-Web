@@ -1,5 +1,6 @@
 import { Image } from 'react-bootstrap';
 import * as S from './style';
+
 interface MessagesProps {
     timeStamp: string;
     message: string;

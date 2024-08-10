@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
-import { Chevronleft } from '../../assets/svg';
-import { ChatHeader } from '../FirebaseChat/ChatLists';
+import { Chevronleft } from '@assets/svg';
+import { ChatHeader } from '@pages/FirebaseChat/views/ChatLists';
 
 function Header() {
     const navigate = useNavigate();

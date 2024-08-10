@@ -1,31 +1,16 @@
+import { useNavigate } from 'react-router';
 import { GoogleLogin, KakaoLogin, NaverLogin } from '../../assets/svg';
-import OAuth2RedirectHandler from './OAuth';
+import handleOAuth2Redirect from './OAuth';
+import { match } from 'ts-pattern';
+import { OAUTH_PROVIDER, OAUTH_REQUEST_URLS, type TOauthProvider } from './consts';
 import * as S from './style';
 
 function Body() {
-    const KAKAOLOGIN = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${
-        import.meta.env.VITE_KAKAO_REST_API_KEY
-    }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}`;
-    const NAVERLOGIN = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${
-        import.meta.env.VITE_NAVERLOGIN_CLIENT_ID
-    }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&state=nid/me`;
-    const GOOGLELOGIN = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${
-        import.meta.env.VITE_GOOGLELOGIN_CLIENT_ID
-    }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&response_type=code&scope=email%20profile`;
+    const navigate = useNavigate();
 
-    const NavToLogin = (from: string) => {
-        if (from === 'KAKAO') {
-            window.location.href = KAKAOLOGIN;
-            OAuth2RedirectHandler({ from: 'KAKAO' });
-        }
-        if (from === 'GOOGLE') {
-            window.location.href = GOOGLELOGIN;
-            OAuth2RedirectHandler({ from: 'GOOGLE' });
-        }
-        if (from === 'NAVER') {
-            window.location.href = NAVERLOGIN;
-            OAuth2RedirectHandler({ from: 'NAVER' });
-        }
+    const navToLogin = (from: TOauthProvider) => {
+        window.location.href = OAUTH_REQUEST_URLS[from];
+        handleOAuth2Redirect({ from, navigate });
     };
 
     return (
@@ -38,15 +23,15 @@ function Body() {
             </div>
             <S.LoginSection>
                 <S.LoginButtons>
-                    <S.Icon onClick={() => NavToLogin('KAKAO')}>
-                        <KakaoLogin />
-                    </S.Icon>
-                    <S.Icon onClick={() => NavToLogin('GOOGLE')}>
-                        <GoogleLogin />
-                    </S.Icon>
-                    <S.Icon onClick={() => NavToLogin('NAVER')}>
-                        <NaverLogin />
-                    </S.Icon>
+                    {Object.values(OAUTH_PROVIDER).map((provider) => (
+                        <S.Icon key={provider} onClick={() => navToLogin(provider)}>
+                            {match(provider)
+                                .with(OAUTH_PROVIDER.KAKAO, () => <KakaoLogin />)
+                                .with(OAUTH_PROVIDER.GOOGLE, () => <GoogleLogin />)
+                                .with(OAUTH_PROVIDER.NAVER, () => <NaverLogin />)
+                                .exhaustive()}
+                        </S.Icon>
+                    ))}
                 </S.LoginButtons>
                 <S.LoginExplanation>SNS계정으로 시작하기</S.LoginExplanation>
             </S.LoginSection>

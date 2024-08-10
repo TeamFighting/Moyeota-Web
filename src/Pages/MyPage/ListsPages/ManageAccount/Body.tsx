@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { WhiteCancelIcon } from '../../../../assets/svg';
-import { useMyInfoStore } from '../../../../state/store/MyInfo';
+import { useMyInfoStore } from '../../../../stores/MyInfo';
 import * as S from './style';
-import { instance } from '../../../../axios';
-import { UseGetNewAccessToken } from '../../../../Hooks/useGetNewAccessToken';
+import instance from '@apis/index';
+import { UseGetNewAccessToken } from '../../../../hooks/useGetNewAccessToken';
 function Body() {
     const { email, name } = useMyInfoStore();
 

@@ -1,6 +1,6 @@
 import { ChevronRight, LionProfile, LocationFrom, LocationMarker } from '../../assets/svg';
 import * as S from './style';
-import createAgo from '../util/createAgo';
+import createAgo from '../../utils/createAgo';
 import DetailMap from './DetailMap';
 
 interface DetailPageProps {

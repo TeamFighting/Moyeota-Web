@@ -1,8 +1,9 @@
 import { ChevronRight } from '../../assets/svg';
-import { SetStateAction, useEffect, useState } from 'react';
-import PotCreateStore from '../../state/store/PotCreateStore';
+import type { SetStateAction} from 'react';
+import { useEffect, useState } from 'react';
+import PotCreateStore from '../../stores/PotCreateStore';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { Dayjs } from 'dayjs';
+import type { Dayjs } from 'dayjs';
 import * as S from '../CreatePotPage/style';
 import TimeModal from '../CreatePotPage/Components/Modal/TimeModal';
 declare global {

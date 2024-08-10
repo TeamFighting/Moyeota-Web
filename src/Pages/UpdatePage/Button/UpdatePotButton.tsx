@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import PotCreateStore from '../../../state/store/PotCreateStore';
-import DurationFareStore from '../../../state/store/DurationFareStore';
-import usePostDataStore from '../../../state/store/PostDataStore';
-import { UseGetNewAccessToken } from '../../../Hooks/useGetNewAccessToken';
+import PotCreateStore from '../../../stores/PotCreateStore';
+import DurationFareStore from '../../../stores/DurationFareStore';
+import usePostDataStore from '../../../stores/PostDataStore';
+import { UseGetNewAccessToken } from '../../../hooks/useGetNewAccessToken';
 function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number; roomId: string; postId: number }) {
     const navigate = useNavigate();
     const { data } = usePostDataStore();

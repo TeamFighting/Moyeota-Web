@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { PencilIcon, TrashIcon } from '../../../../assets/svg';
 import BottomSheetHandle from '../../../MainPage/Components/BottomSheet/BottomSheetHandle';
 import useOnclickOutside from 'react-cool-onclickoutside';
-import useUpdateModalStore from '../../../../state/store/UpdateModalStore';
+import useUpdateModalStore from '../../../../stores/UpdateModalStore';
 
 interface EditDeleteModalProps {
     isOpen: boolean;

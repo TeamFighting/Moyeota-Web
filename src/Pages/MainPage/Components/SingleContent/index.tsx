@@ -5,12 +5,12 @@ import LocationMarker from '../../../../../public/svg/LocationMarker.svg';
 import Clock from '../../../../../public/svg/Clock.svg';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import ISOto12 from '../../../util/ISOto12';
-import getDays from '../../../util/getDays';
-import createAgo from '../../../util/createAgo';
-import { useQuickPotStore } from '../../../../state/store/QuickPotStore';
-import useStore from '../../../../state/store/ContentStore';
-import { useMyPotContentStore } from '../../../../state/store/MyPotPage';
+import ISOto12 from '../../../../utils/ISOto12';
+import getDays from '../../../../utils/getDays';
+import createAgo from '../../../../utils/createAgo';
+import { useQuickPotStore } from '../../../../stores/QuickPotStore';
+import useStore from '../../../../stores/ContentStore';
+import { useMyPotContentStore } from '../../../../stores/MyPotPage';
 
 function SingleContent({ from }: { from: string }) {
     const navigate = useNavigate();

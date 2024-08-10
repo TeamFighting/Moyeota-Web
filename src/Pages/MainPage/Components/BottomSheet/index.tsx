@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import useBottomSheet from '../../../../Hooks/useBottonSheet';
+import useBottomSheet from '../../../../hooks/useBottonSheet';
 import BottomSheetContent from './BottomSheetContent';
 import BottomSheetHandle from './BottomSheetHandle';
 import { List } from '../../../../assets/svg';
-import { HEADERHEIGHT, WINDOWHEIGHT, BOTTOMBARHEIGHT } from '../../../../Constants/constant';
+import { HEADER_HEIGHT, WINDOW_HEIGHT, BOTTOMBARHEIGHT } from '../../../../constants';
 
 function BottomSheet() {
     const { sheet, handleUp, content } = useBottomSheet('BottomSheet');
     // bottomBar 없어지면 marginTop 조정
-    const refHeight = WINDOWHEIGHT - (HEADERHEIGHT + BOTTOMBARHEIGHT);
+    const refHeight = WINDOW_HEIGHT - (HEADER_HEIGHT + BOTTOMBARHEIGHT);
     return (
         <Wrapper ref={sheet}>
             <OpenBotton onClick={handleUp}>
