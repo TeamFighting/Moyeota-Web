@@ -1,24 +1,20 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import { HEADER_HEIGHT } from '../../constants';
-import useStore from '../../stores/ContentStore';
 import LocationHeader from './LocationHeader';
 import BottomSheet from './Components/BottomSheet';
-import { Chevronleft } from '../../assets/svg';
 import { useNavigate } from 'react-router-dom';
-// import SvgRefreshButton from '../../assets/svg/RefreshButton';
-// import SvgBacktoCurrentButton from '../../assets/svg/BacktoCurrentButton';
-// import { Icon } from '../DetailPage/style';
 import NaverMap from './NaverMap/NaverMap';
 import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
-import { useClickedMarker } from '../../stores/ClickedMarker';
 import instance from '@apis';
-import watchPositionHook from '../../hooks/useWatchPositionHook';
-// import { AuthStore } from '../../state/store/AuthStore';
-import { useMyInfoStore } from '../../stores/MyInfo';
-import { useMyPotStore } from '../../stores/MyPotStore';
-import BottomBtn from '../../components/BottomBtn';
-import { UseGetNewAccessToken } from '../../hooks/useGetNewAccessToken';
+import { HEADER_HEIGHT } from '@constants';
+import watchPositionHook from '@hooks/useWatchPositionHook';
+import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import { useMyInfoStore } from '@stores/MyInfo';
+import { useMyPotStore } from '@stores/MyPotStore';
+import { useClickedMarker } from '@stores/ClickedMarker';
+import useStore from '@stores/ContentStore';
+import BottomNav from '@components/BottomNav';
+import { Chevronleft } from '@assets/svg';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -170,7 +166,7 @@ function MainPage() {
                     </Buttons>
                 </Bottom>
             </Body>
-            <BottomBtn />
+            <BottomNav />
         </Container>
     );
 }

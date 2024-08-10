@@ -9,7 +9,7 @@ import moment from 'moment';
 import { NoneReadChatStore } from '@stores/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 import { ChatTime } from '@utils/ChatTime';
-import BottomBtn from '@components/BottomBtn';
+import BottomNav from '@components/BottomNav';
 import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
 
 export interface myMessageProps {
@@ -409,7 +409,7 @@ function ChatLists() {
                 <Plus width={18} height={18} />
             </ChatHeader>
             <Body>{renderChatRooms()}</Body>
-            <BottomBtn />
+            <BottomNav />
         </div>
     );
 }

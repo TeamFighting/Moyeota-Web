@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import * as S from './style';
 import { useEffect, useState } from 'react';
 import instance from '@apis';
-import { AuthStore } from '../../stores/AuthStore';
-import { UseGetNewAccessToken } from '../../hooks/useGetNewAccessToken';
+import { AuthStore } from '@stores/AuthStore';
+import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
 
 interface Props {
     leaderName: string;

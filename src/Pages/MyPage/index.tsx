@@ -1,9 +1,9 @@
 import Header from './MyInfoHeader';
-import Body from './BodyComponents/index';
+import Body from './Body/index';
 
 function MyPage() {
     return (
-        <div>
+        <div style={{ height: '100vh' }}>
             <Header />
             <Body />
         </div>

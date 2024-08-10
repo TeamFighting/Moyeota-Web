@@ -1,4 +1,4 @@
-import useStore from '../../stores/DurationFareStore';
+import useStore from '@stores/DurationFareStore';
 import * as S from '../CreatePotPage/style';
 
 function UpdatePrice({ totalPeople }: { totalPeople: number }) {

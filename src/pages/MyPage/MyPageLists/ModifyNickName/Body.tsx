@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { WhiteCancelIcon } from '../../../../assets/svg';
+import { WhiteCancelIcon } from '@assets/svg';
 import instance from '@apis';
 import * as S from './ModifyNickname_styles';
-import { useMyInfoStore } from '../../../../stores/MyInfo';
-import { UseGetNewAccessToken } from '../../../../hooks/useGetNewAccessToken';
+import { useMyInfoStore } from '@stores/MyInfo';
+import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
 
 interface BodyProps {
     userInfo: string | null;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Chevronleft } from '../../assets/svg';
+import { Chevronleft } from '@assets/svg';
 
 function Header() {
     return (

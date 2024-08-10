@@ -1,21 +1,20 @@
-import { useEffect, useState } from 'react';
-import { ChevronRight, WhiteCancelIcon } from '../../../assets/svg';
-import ANIM from '../../../assets/ANIM.gif';
-import { BankLists } from '../../../assets/BankLists';
-import * as S from '../styles';
-import instance from '@apis';
-import { useNavigate, useParams } from 'react-router';
-import { useMyInfoStore } from '../../../stores/MyInfo';
-import { useReimbursementMessageStore } from '../../../stores/ReimbursementMessage';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { db } from 'firebase';
 import { serverTimestamp, ref as dbRef, set, push, child } from 'firebase/database';
-import 'moment/locale/ko';
-import { db } from '../../../firebase';
-import styled from 'styled-components';
-import useBottomSheet from '../../../hooks/useBottonSheet';
-import BottomSheetHandle from '../../AddAccount/BankListSheet/BankListSheetHandle';
+import { useNavigate, useParams } from 'react-router';
 import { motion } from 'framer-motion';
-import { UseGetNewAccessToken } from '../../../hooks/useGetNewAccessToken';
+import styled from 'styled-components';
+import BottomSheetHandle from '../../AddAccount/BankListSheet/BankListSheetHandle';
+import { ChevronRight, WhiteCancelIcon } from '@assets/svg';
+import ANIM from '@assets/ANIM.gif';
+import { BankLists } from '@assets/BankLists';
+import instance from '@apis';
+import { useMyInfoStore } from '@stores/MyInfo';
+import { useReimbursementMessageStore } from '@stores/ReimbursementMessage';
+import useBottomSheet from '@hooks/useBottonSheet';
+import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import 'moment/locale/ko';
+import * as S from '../styles';
 
 interface PartyOneProps {
     nickname: string;

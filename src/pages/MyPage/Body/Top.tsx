@@ -1,12 +1,10 @@
 import { useNavigate } from 'react-router';
-import { PencilIcon } from '../../../assets/svg';
-import SvgHeart from '../../../assets/svg/Heart';
+import { PencilIcon } from '@assets/svg';
 import * as S from '../MyPage_styles';
-import { useMyInfoStore } from '../../../stores/MyInfo';
+import { useMyInfoStore } from '@stores/MyInfo';
 
 function BodyTop() {
     const userInfo = useMyInfoStore();
-    // console.log(userInfo);
     const navigate = useNavigate();
     let gender = '남자';
     if (userInfo.gender == 'F') gender = '여자';
@@ -30,12 +28,6 @@ function BodyTop() {
                     </S.Tags>
                 </S.ProfileInfo>
             </S.ProfileWrapper>
-            <S.FavoritePotWrapper>
-                <S.FavoritePot>
-                    <SvgHeart width={20} height={20} />
-                    찜한 팟
-                </S.FavoritePot>
-            </S.FavoritePotWrapper>
         </div>
     );
 }

@@ -4,7 +4,7 @@ import { Chat, Home, User, ClickedChat, ClickedHome, ClickedUser } from '../asse
 import { ClickedBottomTab } from '../stores/ClickedBottomTab';
 import { Toaster } from 'react-hot-toast';
 
-function BottomBtn() {
+function BottomNav() {
     const { clicked, setClicked } = ClickedBottomTab();
     const naviagte = useNavigate();
     if (localStorage.getItem('myInfo') === null) return;
@@ -62,7 +62,7 @@ const Wrapper = styled.div`
     height: 74px;
     position: absolute;
     bottom: 0;
-    z-index: 10000000000000;
+    z-index: 3;
     background-color: white;
     display: flex;
     justify-content: space-around;
@@ -80,4 +80,4 @@ const Icon = styled.div`
     margin-top: 12px;
     cursor: pointer;
 `;
-export default BottomBtn;
+export default BottomNav;
