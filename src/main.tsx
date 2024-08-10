@@ -2,170 +2,164 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import MainPage from './Pages/MainPage';
-import DetailPage from './Pages/DetailPage';
-import CreateDetailPage from './Pages/CreatePotPage/Components/DetailPage/index';
-import CreatePotPage from './Pages/CreatePotPage';
-import CreateComplete from './Pages/CreatePotPage/CreateComplete';
-import DestinationPage from './Pages/CreatePotPage/Components/Map/DestinationPage';
-import SearchResults from './Pages/CreatePotPage/Components/Map/SearchResults';
-import QuickMatch from './Pages/QuickMatch/QuickMatch';
-import QuickMatchFinding from './Pages/QuickMatch/QuickMatchFinding';
-import UpdateDestinationPage from './Pages/UpdatePage/Map/DestinationPage';
-import UpdateSearchResults from './Pages/UpdatePage/Map/SearchResults';
-import FirebaseChat from './Pages/FirebaseChat';
-import ChatLists from './Pages/FirebaseChat/ChatLists';
-import UpdatePotPage from './Pages/UpdatePage';
-import PotPage from './Pages/PotPage';
-import OwnerReimbursement from './Pages/ReimbursementPage/OwnerReimbursement';
-import ApplierReimbusement from './Pages/ReimbursementPage/ApplierReimbursement';
-import AddAccount from './Pages/AddAccount';
-import ChatPage from './Pages/(deprecated)ChatPage';
-import OwnerCalc from './Pages/ReimbursementPage/Calculation/OwnerCalc';
-import ApplierCalc from './Pages/ReimbursementPage/Calculation/ApplierCalc';
-import BankRecommend from './Pages/AddAccount/BankListSheet/BankRecommend';
-import WaitPlease from './Pages/ReimbursementPage/Calculation/WaitPlease';
-import CurrentReimbursement from './Pages/ReimbursementPage/CurrentReimbursement';
+import MainPage from './pages/MainPage';
+import DetailPage from './pages/DetailPage';
+import CreateDetailPage from './pages/CreatePotPage/Components/DetailPage/index';
+import CreatePotPage from './pages/CreatePotPage';
+import CreateComplete from './pages/CreatePotPage/CreateComplete';
+import DestinationPage from './pages/CreatePotPage/Components/Map/DestinationPage';
+import SearchResults from './pages/CreatePotPage/Components/Map/SearchResults';
+import QuickMatch from './pages/QuickMatch/QuickMatch';
+import QuickMatchFinding from './pages/QuickMatch/QuickMatchFinding';
+import UpdateDestinationPage from './pages/UpdatePage/Map/DestinationPage';
+import UpdateSearchResults from './pages/UpdatePage/Map/SearchResults';
+import FirebaseChat from './pages/FirebaseChat/views';
+import ChatLists from './pages/FirebaseChat/views/ChatLists';
+import UpdatePotPage from './pages/UpdatePage';
+import PotPage from './pages/PotPage';
+import OwnerReimbursement from './pages/ReimbursementPage/OwnerReimbursement';
+import ApplierReimbusement from './pages/ReimbursementPage/ApplierReimbursement';
+import AddAccount from './pages/AddAccount';
+import OwnerCalc from './pages/ReimbursementPage/Calculation/OwnerCalc';
+import ApplierCalc from './pages/ReimbursementPage/Calculation/ApplierCalc';
+import BankRecommend from './pages/AddAccount/BankListSheet/BankRecommend';
+import WaitPlease from './pages/ReimbursementPage/Calculation/WaitPlease';
+import CurrentReimbursement from './pages/ReimbursementPage/CurrentReimbursement';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import LoginPage from './Pages/LoginPage';
-import MyPage from './Pages/MyPage';
-import EditAccount from './Pages/MyPage/ListsPages/EditAccount';
-import ModifyProfile from './Pages/MyPage/ListsPages/ModifyNickName';
+import LoginPage from './pages/LoginPage';
+import MyPage from './pages/MyPage';
+import EditAccount from './pages/MyPage/ListsPages/EditAccount';
+import ModifyProfile from './pages/MyPage/ListsPages/ModifyNickName';
 // import ManageAccount from './Pages/MyPage/ListsPages/ManageAccount';
-import ManageProfile from './Pages/MyPage/ListsPages/ManageAccount';
-import Blog from './Pages/MainPage/Blog/Blog';
+import ManageProfile from './pages/MyPage/ListsPages/ManageAccount';
+import Blog from './pages/MainPage/Blog/Blog';
+import { ROUTE } from '@constants/route';
 
-const router = createBrowserRouter([
+const routes = [
     {
-        path: '/',
+        path: ROUTE.ROOT,
         element: <App />,
     },
     {
-        path: '/blog',
+        path: ROUTE.BLOG,
         element: <Blog />,
     },
     {
-        path: '/Mainpage',
+        path: ROUTE.MAIN_PAGE,
         element: <MainPage />,
     },
     {
-        path: '/DetailPage/:postId',
+        path: ROUTE.DETAIL_PAGE + '/:postId',
         element: <DetailPage />,
     },
     {
-        path: '/CreatePotPage',
+        path: ROUTE.CREATE_POT_PAGE,
         element: <CreatePotPage />,
     },
     {
-        path: '/CreateComplete',
+        path: ROUTE.CREATE_COMPLETE,
         element: <CreateComplete />,
     },
     {
-        path: '/DestinationPage/:from/:postId',
+        path: ROUTE.DESTINATION_PAGE + '/:from/:postId',
         element: <DestinationPage />,
     },
     {
-        path: '/UpdateDestinationPage',
+        path: ROUTE.UPDATE_DESTINATION_PAGE,
         element: <UpdateDestinationPage />,
     },
     {
-        path: '/searchresults/:from/:postId',
+        path: ROUTE.SEARCH_RESULTS + '/:from/:postId',
         element: <SearchResults />,
     },
     {
-        path: '/updatesearchresults',
+        path: ROUTE.UPDATE_SEARCH_RESULTS,
         element: <UpdateSearchResults />,
     },
     {
-        path: '/quickmatch',
+        path: ROUTE.QUICK_MATCH,
         element: <QuickMatch />,
     },
     {
-        path: '/quickmatchfinding',
+        path: ROUTE.QUICK_MATC_HFINDING,
         element: <QuickMatchFinding />,
     },
     {
-        path: '/createdetail',
+        path: ROUTE.CREATEDETAIL,
         element: <CreateDetailPage />,
     },
     {
-        path: '/updatepot/:postId',
+        path: ROUTE.UPDATEPOT,
         element: <UpdatePotPage />,
     },
     {
-        path: '/chat/:postId/:roomId',
+        path: ROUTE.CHAT,
         element: <FirebaseChat />,
     },
     {
-        path: '/chats',
-        element: <ChatPage />,
-    },
-    {
-        path: '/chatlists',
+        path: ROUTE.CHATLISTS,
         element: <ChatLists />,
     },
     {
-        path: '/potpage',
+        path: ROUTE.POTPAGE,
         element: <PotPage />,
     },
     {
-        path: '/reimbursement/potOwner/:postId/:userId',
+        path: ROUTE.REIMBURSEMENT_POTOWNER,
         element: <OwnerReimbursement />,
     },
     {
-        path: '/reimbursement/:postId/:userId',
+        path: ROUTE.REIMBURSEMENT,
         element: <ApplierReimbusement />,
     },
     {
-        path: '/reimbursement/current/:postId/:userId',
+        path: ROUTE.REIMBURSEMENT_CURRENT,
         element: <CurrentReimbursement />,
     },
     {
-        path: '/:from/addaccount/:userId',
+        path: ROUTE.ADD_ACCOUNT,
         element: <AddAccount />,
     },
     {
-        path: '/OwnerCalc/:postId/:userId',
+        path: ROUTE.OWNERCALC,
         element: <OwnerCalc />,
     },
     {
-        path: '/ApplierCalc/:postId/:userId',
+        path: ROUTE.APPLIERCALC,
         element: <ApplierCalc />,
     },
     {
-        path: '/bankRecommend',
+        path: ROUTE.BANK_RECOMMEND,
         element: <BankRecommend />,
     },
     {
-        path: '/waitPlease',
+        path: ROUTE.WAIT_PLEASE,
         element: <WaitPlease />,
     },
     {
-        path: '/login',
+        path: ROUTE.LOGIN,
         element: <LoginPage />,
     },
-
     {
-        path: '/mypage/:userId',
+        path: ROUTE.MYPAGE,
         element: <MyPage />,
     },
     {
-        // 닉네임 수정
-        path: '/mypage/modify/:userId',
+        path: ROUTE.MYPAGE_MODIFY,
         element: <ModifyProfile />,
     },
     {
-        // 계좌 관리
-        path: '/mypage/editAccount/:userId',
+        path: ROUTE.MYPAGE_EDIT_ACCOUNT,
         element: <EditAccount />,
     },
     {
-        // 계정 관리
-        path: '/mypage/manageprofile/:userId',
+        path: ROUTE.MYPAGE_MANAGE_PROFILE,
         element: <ManageProfile />,
     },
-]);
+];
+
+const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <LocalizationProvider dateAdapter={AdapterDayjs}>

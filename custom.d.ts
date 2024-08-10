@@ -6,7 +6,7 @@ declare module "*.svg" {
 }
 
 declare module "ios-style-picker" {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   
   export function DatePicker(props: any): JSX.Element;
 }
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
 import { Chat, Home, User, ClickedChat, ClickedHome, ClickedUser } from '../assets/svg';
-import { ClickedBottomTab } from '../state/store/ClickedBottomTab';
+import { ClickedBottomTab } from '../stores/ClickedBottomTab';
 import { Toaster } from 'react-hot-toast';
 
 function BottomBtn() {

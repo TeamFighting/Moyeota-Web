@@ -53,6 +53,7 @@
         "sockjs-client": "1.5.1",
         "stompjs": "^2.3.3",
         "styled-components": "^6.0.8",
+        "ts-pattern": "^5.2.0",
         "ws": "^8.16.0"
     },
     "devDependencies": {
@@ -68,6 +69,7 @@
         "typescript": "^5.0.2",
         "vite": "^4.4.5",
         "vite-plugin-svgr": "^3.2.0",
+        "vite-tsconfig-paths": "^5.0.1",
         "zustand": "^4.4.1"
     }
 }
