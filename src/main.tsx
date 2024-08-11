@@ -49,7 +49,7 @@ const routes = [
         element: <MainPage />,
     },
     {
-        path: ROUTE.DETAIL_PAGE + '/:postId',
+        path: ROUTE.DETAIL_PAGE,
         element: <DetailPage />,
     },
     {
@@ -61,7 +61,7 @@ const routes = [
         element: <CreateComplete />,
     },
     {
-        path: ROUTE.DESTINATION_PAGE + '/:from/:postId',
+        path: ROUTE.DESTINATION_PAGE,
         element: <DestinationPage />,
     },
     {
@@ -69,7 +69,7 @@ const routes = [
         element: <UpdateDestinationPage />,
     },
     {
-        path: ROUTE.SEARCH_RESULTS + '/:from/:postId',
+        path: ROUTE.SEARCH_RESULTS,
         element: <SearchResults />,
     },
     {
