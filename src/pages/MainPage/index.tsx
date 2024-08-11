@@ -23,7 +23,6 @@ function MainPage() {
 
     watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
-
     const { setMyInfo, userId, accountDtoList } = useMyInfoStore();
     const { setMyPot } = useMyPotStore();
     const getMyPost = async () => {
@@ -57,32 +56,6 @@ function MainPage() {
         if (userId !== undefined || userId !== null || userId !== 0) {
             getMyPost();
         }
-
-        // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        // ReactNative 연동시 사용
-        // const handleMessage = (event: any) => {
-        //   try {
-        //     if (typeof event.data === 'string') {
-        //       const data = JSON.parse(event.data);
-        //       if (data.token !== undefined) {
-        //         setAccessToken(data.token);
-        //         setUseToken(data.token);
-        //         alert('로그인 되었습니다');
-        //         localStorage.setItem('accessToken', data.token.toString());
-        //       }
-        //     }
-        //   } catch (error) {
-        //     console.error(error);
-        //   }
-        // };
-
-        // window.addEventListener('message', handleMessage);
-
-        // if (useToken !== undefined) {
-        //   return () => {
-        //     window.removeEventListener('message', handleMessage);
-        //   };
-        // }
     }, []);
 
     async function usersInfo() {
@@ -138,24 +111,6 @@ function MainPage() {
                 <LocationHeader />
             </Header>
             <Body>
-                {/* <Icons>
-          <Icon onClick={refresh}>
-            <SvgRefreshButton
-              style={{
-                width: '48px',
-                height: '48px',
-              }}
-            />
-          </Icon>
-          <Icon onClick={goCurrent}>
-            <SvgBacktoCurrentButton
-              style={{
-                width: '48px',
-                height: '48px',
-              }}
-            />
-          </Icon>
-        </Icons> */}
                 <NaverMap from={'mainpage'} />
                 {isClicked && <MarkerClickContent postId={clickedMarkerId} />}
                 <Bottom isClicked={isClicked}>
@@ -171,16 +126,6 @@ function MainPage() {
     );
 }
 
-// const Icons = styled.div`
-//   z-index: 10;
-//   position: absolute;
-//   top: 58%;
-//   right: 1%;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-// `;
 const Container = styled.div`
     flex: 1;
     display: flex;

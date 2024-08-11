@@ -7,7 +7,7 @@ import getDays from '@utils/getDays';
 import ISOto12 from '@utils/ISOto12';
 import * as S from '../../style';
 
-function MarkerClickContent({ postId: postId }: { postId: number }) {
+function MarkerClickContent({ postId }: { postId: number }) {
     const navigate = useNavigate();
     const { totalData } = ContentStore((state) => state);
     const data = totalData.find((data) => data.postId === postId);
@@ -54,19 +54,19 @@ function MarkerClickContent({ postId: postId }: { postId: number }) {
                 <div style={{ fontSize: '14px' }}>
                     <S.Info>
                         <S.Route>
-                            <LocationMarker />
+                            <LocationMarker width={16} height={16} />
                             <S.From style={{ overflow: 'visible', whiteSpace: 'nowrap', fontSize: '14px' }}>
                                 {' '}
                                 {data.departure}{' '}
                             </S.From>
-                            <ArrowRight />
+                            <ArrowRight width={16} height={16} />
                             <S.To style={{ overflow: 'visible', whiteSpace: 'nowrap', fontSize: '14px' }}>
                                 {' '}
                                 {data.destination}{' '}
                             </S.To>
                         </S.Route>
                         <S.Time style={{ overflow: 'visible', whiteSpace: 'nowrap' }}>
-                            <Clock width="14" />
+                            <Clock width={16} height={16} />
                             <S.StartTime style={{ fontSize: '14px' }}>
                                 {splitedTime[1]}월{splitedTime[2]}일 ({splitedTime[3]}) {timePart} 출발
                             </S.StartTime>

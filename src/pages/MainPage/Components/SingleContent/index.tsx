@@ -63,13 +63,13 @@ function SingleContent({ from }: { from: string }) {
                 <div key={index}>
                     <S.Info>
                         <S.Route>
-                            <LocationMarker />
+                            <LocationMarker width={16} height={16} />
                             <S.From> {data.departure} </S.From>
-                            <ArrowRight />
+                            <ArrowRight width={16} height={16} />
                             <S.To> {data.destination} </S.To>
                         </S.Route>
                         <S.Time>
-                            <Clock />
+                            <Clock width={16} height={16} />
                             <S.StartTime>
                                 {splitedTime[1]}월{splitedTime[2]}일 ({splitedTime[3]}) {timePart} 출발
                             </S.StartTime>

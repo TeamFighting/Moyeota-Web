@@ -4,7 +4,7 @@ export const ROUTE = {
     ROOT: '/',
     BLOG: '/blog',
     MAIN_PAGE: '/Mainpage',
-    DETAIL_PAGE: '/DetailPage/:postId',
+    DETAIL_PAGE: '/detailpage/:postId',
     CREATE_POT_PAGE: '/CreatePotPage',
     CREATE_COMPLETE: '/CreateComplete',
     DESTINATION_PAGE: '/DestinationPage/:from/:postId',
