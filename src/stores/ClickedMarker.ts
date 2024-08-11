@@ -1,13 +1,15 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 type ClickedMarkerState = {
-  clickedMarkerId: number;
-  isClicked: boolean;
-  setClickedMarker: (id: number) => void;
+    clickedMarkerId: number;
+    isClicked: boolean;
+    setClickedMarker: (id: number) => void;
+    clearClickedMarker: () => void;
 };
 
 export const useClickedMarker = create<ClickedMarkerState>((set) => ({
-  clickedMarkerId: -1,
-  isClicked: false,
-  setClickedMarker: (id) => set({ clickedMarkerId: id, isClicked: true }),
+    clickedMarkerId: -1,
+    isClicked: false,
+    setClickedMarker: (id) => set({ clickedMarkerId: id, isClicked: true }),
+    clearClickedMarker: () => set({ clickedMarkerId: -1, isClicked: false }),
 }));

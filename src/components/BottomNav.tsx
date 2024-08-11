@@ -3,15 +3,19 @@ import { useNavigate } from 'react-router';
 import { Chat, Home, User, ClickedChat, ClickedHome, ClickedUser } from '@assets/svg';
 import { ClickedBottomTab } from '@stores/ClickedBottomTab';
 import { Toaster } from 'react-hot-toast';
+import { useClickedMarker } from '@stores/ClickedMarker';
 
 function BottomNav() {
     const { clicked, setClicked } = ClickedBottomTab();
     const naviagte = useNavigate();
+    const { clearClickedMarker } = useClickedMarker();
+
     if (localStorage.getItem('myInfo') === null) return;
     const userId = JSON.parse(localStorage.getItem('myInfo') as string).id;
     const handleHomeClick = () => {
         naviagte('/mainpage');
         setClicked('home');
+        clearClickedMarker();
     };
     const handleChatClick = () => {
         naviagte('/chatlists');
@@ -33,7 +37,7 @@ function BottomNav() {
                 <Text>채팅</Text>
             </Section>
             <Section onClick={handleMyPageClick}>
-                <Icon>{clicked === 'mypage' ? <ClickedUser width={26} height={26} /> : <User />}</Icon>
+                <Icon>{clicked === 'mypage' ? <ClickedUser width={21} height={21} /> : <User />}</Icon>
                 <Text>내정보</Text>
             </Section>
         </Wrapper>
@@ -79,5 +83,8 @@ const Icon = styled.div`
     margin: 0 auto;
     margin-top: 12px;
     cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 `;
 export default BottomNav;

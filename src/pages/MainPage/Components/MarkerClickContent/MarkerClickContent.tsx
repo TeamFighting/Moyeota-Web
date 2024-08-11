@@ -7,7 +7,7 @@ import getDays from '@utils/getDays';
 import ISOto12 from '@utils/ISOto12';
 import * as S from '../../style';
 
-function MarkerClickContent({ postId: postId }: { postId: number }) {
+function MarkerClickContent({ postId }: { postId: number }) {
     const navigate = useNavigate();
     const { totalData } = ContentStore((state) => state);
     const data = totalData.find((data) => data.postId === postId);
