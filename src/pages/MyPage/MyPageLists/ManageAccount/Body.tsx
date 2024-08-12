@@ -3,7 +3,6 @@ import { WhiteCancelIcon } from '../../../../assets/svg';
 import { useMyInfoStore } from '../../../../stores/MyInfo';
 import * as S from './style';
 import instance from '@apis';
-import { UseGetNewAccessToken } from '../../../../hooks/Auth/useGetNewAccessToken';
 function Body() {
     const { email, name } = useMyInfoStore();
 
@@ -29,13 +28,7 @@ function Body() {
                 alert('이메일이 변경되었습니다.');
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(localStorage.getItem('accessToken')!)) {
-                    modifyEmail();
-                } else {
-                    window.location.href = '/login';
-                }
-            }
+            console.log(e);
         }
     };
 

@@ -8,7 +8,6 @@ import MarkerClickContent from './Components/MarkerClickContent/MarkerClickConte
 import instance from '@apis';
 import { HEADER_HEIGHT } from '@constants';
 import watchPositionHook from '@hooks/useWatchPositionHook';
-import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 import { useMyInfoStore } from '@stores/MyInfo';
 import { useMyPotStore } from '@stores/MyPotStore';
 import { useClickedMarker } from '@stores/ClickedMarker';
@@ -43,11 +42,6 @@ function MainPage() {
             }
         } catch (e: any) {
             console.log('getMyPost', e);
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    getMyPost();
-                }
-            }
         }
     };
     useEffect(() => {
@@ -71,15 +65,6 @@ function MainPage() {
             }
         } catch (e: any) {
             alert(e + '에러');
-            if (e.response.status === 401) {
-                const getNew = await UseGetNewAccessToken(accessToken!);
-                console.log(getNew);
-                // if (await UseGetNewAccessToken(accessToken!)) {
-                //     usersInfo();
-                // }
-                // alert('로그인이 필요합니다.');
-                // window.location.href = '/login';
-            }
         }
     }
 

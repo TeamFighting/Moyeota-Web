@@ -4,7 +4,6 @@ import { useState } from 'react';
 import instance from '@apis';
 import { useNavigate, useParams } from 'react-router';
 import * as S from './styles';
-import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 
 function OwnerCalc() {
     const [money, setMoney] = useState('');
@@ -44,11 +43,7 @@ function OwnerCalc() {
                 navigate('/waitPlease');
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    submitTotalMoney();
-                }
-            }
+            console.log(e);
         }
     };
 

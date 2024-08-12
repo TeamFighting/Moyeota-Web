@@ -4,7 +4,6 @@ import { ref, push, update, child } from 'firebase/database';
 import { db } from 'firebase';
 import PotCreateStore from '@stores/PotCreateStore';
 import DurationFareStore from '@stores/DurationFareStore';
-import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 import instance from '@apis';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {

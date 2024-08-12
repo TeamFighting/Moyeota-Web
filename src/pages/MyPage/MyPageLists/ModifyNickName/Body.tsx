@@ -3,7 +3,6 @@ import { WhiteCancelIcon } from '@assets/svg';
 import instance from '@apis';
 import * as S from './ModifyNickname_styles';
 import { useMyInfoStore } from '@stores/MyInfo';
-import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 
 interface BodyProps {
     userInfo: string | null;
@@ -40,12 +39,7 @@ function Body({ userInfo }: BodyProps) {
                 setMyInfo(res.data.data);
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    usersInfo();
-                }
-            }
-            //console.log(e);
+            console.log(e);
         }
     }
     const sendModifiedNickName = async () => {
@@ -68,12 +62,6 @@ function Body({ userInfo }: BodyProps) {
             }
         } catch (e: any) {
             alert('닉네임 수정에 실패했습니다.');
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    sendModifiedNickName();
-                }
-            }
-            return;
         }
     };
 

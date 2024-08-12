@@ -4,7 +4,6 @@ import { MoneyInput, StyledButton } from '../styles';
 import * as S from './styles';
 import { useState } from 'react';
 import { useMyInfoStore } from '@stores/MyInfo';
-import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 import instance from '@apis';
 
 function ApplierCalc() {
@@ -45,11 +44,7 @@ function ApplierCalc() {
             }
             console.log(res);
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    submitTotalMoney();
-                }
-            }
+            console.log(e);
         }
     };
 

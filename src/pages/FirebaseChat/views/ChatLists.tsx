@@ -10,7 +10,6 @@ import { NoneReadChatStore } from '@stores/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 import { ChatTime } from '@utils/ChatTime';
 import BottomNav from '@components/BottomNav';
-import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 
 export interface myMessageProps {
     text: string;
@@ -71,10 +70,7 @@ function ChatLists() {
                 setChatRooms(res.data.data);
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                await UseGetNewAccessToken(localStorage.getItem('accessToken')!);
-                totalChatRooms();
-            }
+            console.log(e);
         }
     };
     // 채팅방에 메시지가 도착할 때 호출
