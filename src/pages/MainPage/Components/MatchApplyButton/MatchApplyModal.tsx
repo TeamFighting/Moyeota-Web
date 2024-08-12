@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useAppliedPartyStore } from '../../../../stores/AppliedPartyStore';
 import ModalStore from '../../../../stores/ModalStore';
 import instance from '@apis';
-import { UseGetNewAccessToken } from '../../../../hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../../../hooks/Auth/useGetNewAccessToken';
 
 interface ModalProps {
     isFull: boolean;

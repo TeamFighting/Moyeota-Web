@@ -4,7 +4,7 @@ import { MoneyInput, StyledButton } from '../styles';
 import * as S from './styles';
 import { useState } from 'react';
 import { useMyInfoStore } from '@stores/MyInfo';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 import instance from '@apis';
 
 function ApplierCalc() {

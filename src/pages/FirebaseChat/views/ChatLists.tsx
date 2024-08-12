@@ -10,7 +10,7 @@ import { NoneReadChatStore } from '@stores/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 import { ChatTime } from '@utils/ChatTime';
 import BottomNav from '@components/BottomNav';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 
 export interface myMessageProps {
     text: string;

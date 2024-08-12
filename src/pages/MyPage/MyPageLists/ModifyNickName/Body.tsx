@@ -3,7 +3,7 @@ import { WhiteCancelIcon } from '@assets/svg';
 import instance from '@apis';
 import * as S from './ModifyNickname_styles';
 import { useMyInfoStore } from '@stores/MyInfo';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 
 interface BodyProps {
     userInfo: string | null;

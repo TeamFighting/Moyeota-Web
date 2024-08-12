@@ -12,7 +12,7 @@ import instance from '@apis';
 import { useMyInfoStore } from '@stores/MyInfo';
 import { useReimbursementMessageStore } from '@stores/ReimbursementMessage';
 import useBottomSheet from '@hooks/useBottonSheet';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 import 'moment/locale/ko';
 import * as S from '../styles';
 

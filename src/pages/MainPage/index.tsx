@@ -8,7 +8,7 @@ import MarkerClickContent from './Components/MarkerClickContent/MarkerClickConte
 import instance from '@apis';
 import { HEADER_HEIGHT } from '@constants';
 import watchPositionHook from '@hooks/useWatchPositionHook';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 import { useMyInfoStore } from '@stores/MyInfo';
 import { useMyPotStore } from '@stores/MyPotStore';
 import { useClickedMarker } from '@stores/ClickedMarker';

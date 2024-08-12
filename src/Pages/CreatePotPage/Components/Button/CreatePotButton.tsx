@@ -4,7 +4,7 @@ import { ref, push, update, child } from 'firebase/database';
 import { db } from 'firebase';
 import PotCreateStore from '@stores/PotCreateStore';
 import DurationFareStore from '@stores/DurationFareStore';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 import instance from '@apis';
 
 function CreatePotButton({ totalPeople }: { totalPeople: number }) {
@@ -79,11 +79,7 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
                 alert('API 요청 실패');
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    createPost();
-                }
-            }
+            console.log(e);
         }
     };
 

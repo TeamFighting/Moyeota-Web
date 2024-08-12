@@ -5,7 +5,7 @@ import { useAccountStore } from '@stores/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
 import { CheckCircle } from '@assets/svg';
 import { useParams } from 'react-router';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 import instance from '@apis';
 
 function AddAccount() {

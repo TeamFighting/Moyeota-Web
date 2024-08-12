@@ -3,7 +3,7 @@ import { WhiteCancelIcon } from '../../../../assets/svg';
 import { useMyInfoStore } from '../../../../stores/MyInfo';
 import * as S from './style';
 import instance from '@apis';
-import { UseGetNewAccessToken } from '../../../../hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '../../../../hooks/Auth/useGetNewAccessToken';
 function Body() {
     const { email, name } = useMyInfoStore();
 

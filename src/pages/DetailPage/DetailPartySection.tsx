@@ -3,7 +3,7 @@ import * as S from './style';
 import { useEffect, useState } from 'react';
 import instance from '@apis';
 import { AuthStore } from '@stores/AuthStore';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 
 interface Props {
     leaderName: string;

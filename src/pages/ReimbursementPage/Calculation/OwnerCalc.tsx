@@ -4,7 +4,7 @@ import { useState } from 'react';
 import instance from '@apis';
 import { useNavigate, useParams } from 'react-router';
 import * as S from './styles';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
+import { UseGetNewAccessToken } from '@hooks/Auth/useGetNewAccessToken';
 
 function OwnerCalc() {
     const [money, setMoney] = useState('');
