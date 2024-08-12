@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PotCreateStore from '../../../stores/PotCreateStore';
 import DurationFareStore from '../../../stores/DurationFareStore';
 import usePostDataStore from '../../../stores/PostDataStore';
-import { UseGetNewAccessToken } from '../../../hooks/useGetNewAccessToken';
+
 function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number; roomId: string; postId: number }) {
     const navigate = useNavigate();
     const { data } = usePostDataStore();
@@ -96,11 +96,7 @@ function CreatePotButton({ totalPeople, roomId, postId }: { totalPeople: number;
                 alert(response);
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    updatePost();
-                }
-            }
+           
             console.error('팟 수정 중 오류 발생', e);
         }
     };

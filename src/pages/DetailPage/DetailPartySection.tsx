@@ -3,7 +3,6 @@ import * as S from './style';
 import { useEffect, useState } from 'react';
 import instance from '@apis';
 import { AuthStore } from '@stores/AuthStore';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
 
 interface Props {
     leaderName: string;
@@ -50,15 +49,7 @@ function DetailPartySection({ profileImage, leaderName, content, gender, postId 
                     }
                 });
         } catch (e: any) {
-            // //console.log(e);
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    getPartyOne(postId);
-                } else {
-                    alert('로그인이 필요합니다.');
-                    window.location.href = '/login';
-                }
-            }
+            console.log(e);
         }
     }
     useEffect(() => {

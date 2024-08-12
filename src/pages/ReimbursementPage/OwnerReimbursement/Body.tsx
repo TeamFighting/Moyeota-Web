@@ -12,7 +12,6 @@ import instance from '@apis';
 import { useMyInfoStore } from '@stores/MyInfo';
 import { useReimbursementMessageStore } from '@stores/ReimbursementMessage';
 import useBottomSheet from '@hooks/useBottonSheet';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
 import 'moment/locale/ko';
 import * as S from '../styles';
 
@@ -96,11 +95,7 @@ function Body() {
                 );
             } catch (e: any) {
                 console.log(e);
-                if (e.response.status === 401) {
-                    if (await UseGetNewAccessToken(accessToken!)) {
-                        sendFare();
-                    }
-                }
+                
             }
         });
 
@@ -123,11 +118,8 @@ function Body() {
                 }, 2000);
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    sendFare();
-                }
-            }
+            console.log(e);
+           
         }
     };
 
@@ -173,11 +165,7 @@ function Body() {
                         }
                     } catch (e: any) {
                         console.log(e);
-                        if (e.response.status === 401) {
-                            if (await UseGetNewAccessToken(accessToken!)) {
-                                calculation();
-                            }
-                        }
+                       
                     }
                 });
             });
@@ -245,11 +233,7 @@ function Body() {
                 setEachMoney(newArr.map((each) => ({ name: each.nickname, amount: 0, userId: each.userId })));
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    getPartyOne();
-                }
-            }
+            console.log(e);
         }
     };
 

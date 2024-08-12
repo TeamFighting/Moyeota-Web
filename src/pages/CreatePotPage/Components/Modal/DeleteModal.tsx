@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
 import instance from '@apis';
 
 interface DeleteModalProps {
@@ -34,11 +33,6 @@ function DeleteModal({ postId, onClose }: DeleteModalProps) {
             }
         } catch (error: any) {
             console.error('삭제 요청 중 오류 발생', error);
-            if (error.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    handleDelete();
-                }
-            }
         }
     };
 

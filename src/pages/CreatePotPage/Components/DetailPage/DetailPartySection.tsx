@@ -4,7 +4,6 @@ import * as S from './style';
 import { useEffect, useState } from 'react';
 import usePostDataStore from '@stores/PostDataStore';
 import { AuthStore } from '@stores/AuthStore';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
 import instance from '@apis';
 
 interface PARTYINFO {
@@ -37,14 +36,10 @@ function DetailPartySection() {
                     }
                 });
         } catch (e: any) {
-            alert(e);
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    getPartyOne(postId);
-                }
-            }
+            console.log(e);
         }
     }
+
     useEffect(() => {
         getPartyOne(postId);
     }, []);

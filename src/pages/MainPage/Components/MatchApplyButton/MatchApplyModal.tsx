@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useAppliedPartyStore } from '../../../../stores/AppliedPartyStore';
 import ModalStore from '../../../../stores/ModalStore';
 import instance from '@apis';
-import { UseGetNewAccessToken } from '../../../../hooks/useGetNewAccessToken';
 
 interface ModalProps {
     isFull: boolean;
@@ -42,11 +41,6 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                     }
                 });
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    applyParty(postId);
-                }
-            }
             if ((e as any)?.response?.data?.code === 422) {
                 console.log('이미 신청한 팟입니다.');
                 setAppliedParty(postId);
@@ -77,12 +71,7 @@ function MatchApplyModal({ postId, isFull }: ModalProps) {
                 console.error('취소 실패');
             }
         } catch (e: any) {
-            //console.log(e);
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    cancelParty(postId);
-                }
-            }
+            console.log(e);
         }
         closeModal();
     }

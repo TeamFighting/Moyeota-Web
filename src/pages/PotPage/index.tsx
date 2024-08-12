@@ -6,7 +6,6 @@ import * as S from '../MainPage/style';
 import styled from 'styled-components';
 import { Chevronleft } from '@assets/svg';
 import { Icon } from '../DetailPage/style';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
 function PotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { MyAppliedPotContent, MyPotContent, setMyPotContent, setMyAppliedPotContent, setTotalMyPotContent } =
@@ -42,12 +41,7 @@ function PotPage() {
                 setMyAppliedPotContent(res.data.data);
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    getAppliedPot();
-                }
-            }
-            //console.log(e);
+            console.log(e);
         }
     };
     const navigateMypot = () => {

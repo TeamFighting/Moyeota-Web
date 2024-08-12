@@ -5,7 +5,6 @@ import { useAccountStore } from '@stores/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
 import { CheckCircle } from '@assets/svg';
 import { useParams } from 'react-router';
-import { UseGetNewAccessToken } from '@hooks/useGetNewAccessToken';
 import instance from '@apis';
 
 function AddAccount() {
@@ -166,14 +165,7 @@ function AddAccount() {
                 );
             }
         } catch (e: any) {
-            if (e.response.status === 401) {
-                if (await UseGetNewAccessToken(accessToken!)) {
-                    postBankName();
-                }
-            } else {
-                alert('로그인이 필요합니다.');
-                window.location.href = '/login';
-            }
+            console.log(e);
         }
     };
     return (
