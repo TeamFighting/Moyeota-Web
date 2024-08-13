@@ -11,7 +11,7 @@ import { BankLists } from '@assets/BankLists';
 import instance from '@apis';
 import { useMyInfoStore } from '@stores/MyInfo';
 import { useReimbursementMessageStore } from '@stores/ReimbursementMessage';
-import useBottomSheet from '@hooks/useBottonSheet';
+import useBottomSheet from '@hooks/UI/useBottonSheet';
 import 'moment/locale/ko';
 import * as S from '../styles';
 
@@ -95,7 +95,6 @@ function Body() {
                 );
             } catch (e: any) {
                 console.log(e);
-                
             }
         });
 
@@ -119,7 +118,6 @@ function Body() {
             }
         } catch (e: any) {
             console.log(e);
-           
         }
     };
 
@@ -131,7 +129,7 @@ function Body() {
         isPartyOwner: boolean;
     }
 
-    const { sheet, handleUp, content } = useBottomSheet('BottomSheet');
+    const { sheet, handleUp, content } = useBottomSheet({ from: 'OwnerReimbursement' });
     const [showNextButton, setShowNextButton] = useState(false);
     const [, setCalcResult] = useState<EachMoneyProps[]>([]);
     const calculation = async () => {
@@ -165,7 +163,6 @@ function Body() {
                         }
                     } catch (e: any) {
                         console.log(e);
-                       
                     }
                 });
             });

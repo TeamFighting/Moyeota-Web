@@ -14,7 +14,7 @@ interface BottomSheetMetrics {
     isContentAreaTouched: boolean;
 }
 
-type BottomSheetFrom = 'Mainpage' | 'BankListSheet';
+type BottomSheetFrom = 'Mainpage' | 'BankListSheet' | 'OwnerReimbursement';
 
 interface BottomSheetProps {
     from: BottomSheetFrom;
@@ -31,7 +31,10 @@ export default function useBottomSheet({ from, setIsBottomSheetOpen }: BottomShe
             MIN_Y = BANKLIST_SHEET_MIN_Y;
             MAX_Y = BANKLIST_SHEET_MAX_Y;
         })
-        .exhaustive();
+        .otherwise(() => {
+            MIN_Y = BOTTOM_SHEET_MIN_Y;
+            MAX_Y = BOTTOM_SHEET_MAX_Y;
+        });
     const sheet = useRef<HTMLDivElement>(null);
     const content = useRef<HTMLDivElement>(null);
     const metrics = useRef<BottomSheetMetrics>({

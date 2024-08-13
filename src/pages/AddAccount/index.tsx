@@ -9,7 +9,6 @@ import instance from '@apis';
 import { ADD_ACCOUNT_FROM } from './constants';
 import type { TAddAccountFrom } from './constants';
 import { match } from 'ts-pattern';
-import { useEffect } from 'react';
 
 function AddAccount() {
     const { accountNumber, accountName, isOpenedAccountList, setIsOpenedAccountList } = useAccountStore();
