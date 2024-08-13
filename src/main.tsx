@@ -32,7 +32,6 @@ import MyPage from './pages/MyPage';
 import EditAccount from './pages/MyPage/MyPageLists/EditAccount';
 import ModifyProfile from './pages/MyPage/MyPageLists/ModifyNickName';
 import ManageProfile from './pages/MyPage/MyPageLists/ManageAccount';
-import Blog from './pages/MainPage/Blog/Blog';
 import { ROUTE } from '@constants/route';
 
 const routes = [
@@ -40,10 +39,7 @@ const routes = [
         path: ROUTE.ROOT,
         element: <App />,
     },
-    {
-        path: ROUTE.BLOG,
-        element: <Blog />,
-    },
+
     {
         path: ROUTE.MAIN_PAGE,
         element: <MainPage />,

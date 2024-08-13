@@ -2,7 +2,6 @@ import type { TValues } from '@utils/type';
 
 export const ROUTE = {
     ROOT: '/',
-    BLOG: '/blog',
     MAIN_PAGE: '/Mainpage',
     DETAIL_PAGE: '/detailpage/:postId',
     CREATE_POT_PAGE: '/CreatePotPage',
