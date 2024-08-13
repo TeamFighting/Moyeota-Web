@@ -1,26 +1,31 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import useBottomSheet from '@hooks/useBottonSheet';
+import useBottomSheet from '@hooks/UI/useBottonSheet';
 import { useEffect, useState } from 'react';
 import { useAccountStore } from '@stores/AccountStore';
 import { BankLists } from '../../../assets/BankLists';
 
 function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
-    const { sheet, handleUp, content, handleDown } = useBottomSheet('BankListSheet');
-    const { setAccountName, clickedAccountList, setClickedAccountList } = useAccountStore();
-    const [handleClick, setHandleClick] = useState(handleClickUp);
+    const { setAccountName, isOpenedAccountList, setIsOpenedAccountList } = useAccountStore();
+    const { sheet, handleUp, content, handleDown } = useBottomSheet({
+        from: 'BankListSheet',
+        setIsBottomSheetOpen: setIsOpenedAccountList,
+    });
+    const [handleClick, setHandleClick] = useState(true);
     useEffect(() => {
+        if (isOpenedAccountList == false) {
+            handleDown();
+            setHandleClick(false);
+        }
         if (handleClick) {
             handleUp();
             setHandleClick(false);
         }
-        if (clickedAccountList == false) {
-            handleDown();
-        }
+
         return () => {
             handleUp();
         };
-    }, [handleClickUp, clickedAccountList]);
+    }, [handleClickUp, isOpenedAccountList]);
 
     const selectBankName = (selectedBankName: string) => {
         setAccountName(selectedBankName);
@@ -63,7 +68,7 @@ function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
                                     <BankNames
                                         onClick={() => {
                                             selectBankName(item.name);
-                                            setClickedAccountList(false);
+                                            setIsOpenedAccountList(false);
                                         }}
                                     >
                                         <img src={item.url} style={{ width: '24px', height: '24px' }} />

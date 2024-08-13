@@ -6,11 +6,16 @@ import toast, { Toaster } from 'react-hot-toast';
 import { CheckCircle } from '@assets/svg';
 import { useParams } from 'react-router';
 import instance from '@apis';
+import { ADD_ACCOUNT_FROM } from './constants';
+import type { TAddAccountFrom } from './constants';
+import { match } from 'ts-pattern';
+import { useEffect } from 'react';
 
 function AddAccount() {
-    const { accountNumber, accountName, clickedAccountList, setClickedAccountList } = useAccountStore();
+    const { accountNumber, accountName, isOpenedAccountList, setIsOpenedAccountList } = useAccountStore();
     const { from } = useParams();
     const accessToken = localStorage.getItem('accessToken');
+
     const handleAccountClick = () => {
         if (accountNumber === '') {
             toast(
@@ -114,56 +119,58 @@ function AddAccount() {
                 },
             );
             if (res.status === 200) {
-                if (from === 'createPot') {
-                    setTimeout(() => {
-                        window.location.href = '/mainpage';
-                    }, 500);
-                    return;
-                } else {
-                    setTimeout(() => {
-                        window.location.href = '/mainpage';
-                    }, 500);
-                }
-                toast(
-                    () => (
+                match(from as TAddAccountFrom)
+                    .with(ADD_ACCOUNT_FROM.CREATE_POT, () => {
+                        setTimeout(() => {
+                            window.location.href = '/mainpage';
+                        }, 500);
+                    })
+                    .with(ADD_ACCOUNT_FROM.MY_PAGE, () => {
+                        setTimeout(() => {
+                            window.location.href = '/mainpage';
+                        }, 500);
+                    })
+                    .exhaustive();
+            }
+            toast(
+                () => (
+                    <div
+                        style={{
+                            textAlign: 'center',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: '9px',
+                        }}
+                    >
+                        <CheckCircle width={24} />
                         <div
                             style={{
                                 textAlign: 'center',
-                                display: 'flex',
-                                flexDirection: 'row',
                                 gap: '9px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                             }}
                         >
-                            <CheckCircle width={24} />
-                            <div
-                                style={{
-                                    textAlign: 'center',
-                                    gap: '9px',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                계좌번호가 추가되었습니다
-                            </div>
+                            계좌번호가 추가되었습니다
                         </div>
-                    ),
-                    {
-                        style: {
-                            background: '#73737E',
-                            color: 'white',
-                            borderRadius: '99px',
-                            textAlign: 'center',
-                            fontFamily: 'Pretendard',
-                            fontSize: '16px',
-                            fontStyle: 'normal',
-                            fontWeight: '700',
-                            lineHeight: 'normal',
-                            letterSpacing: '0.48px',
-                        },
+                    </div>
+                ),
+                {
+                    style: {
+                        background: '#73737E',
+                        color: 'white',
+                        borderRadius: '99px',
+                        textAlign: 'center',
+                        fontFamily: 'Pretendard',
+                        fontSize: '16px',
+                        fontStyle: 'normal',
+                        fontWeight: '700',
+                        lineHeight: 'normal',
+                        letterSpacing: '0.48px',
                     },
-                );
-            }
+                },
+            );
         } catch (e: any) {
             console.log(e);
         }
@@ -180,18 +187,18 @@ function AddAccount() {
                 overflow: 'hidden',
             }}
         >
-            {clickedAccountList && (
+            {isOpenedAccountList && (
                 <div
                     style={{
                         zIndex: 200,
                         position: 'absolute',
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                        backgroundColor: 'rgba(206, 29, 29, 0.5)',
                         width: '100%',
                         height: '100dvh',
                         flexDirection: 'column',
                     }}
                     onClick={() => {
-                        setClickedAccountList(false);
+                        setIsOpenedAccountList(false);
                     }}
                 />
             )}

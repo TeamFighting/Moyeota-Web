@@ -8,7 +8,7 @@ function Body() {
     const inputRef = useRef(null);
     const [isFocused, setIsFocused] = useState(false);
     const [bankNameListClicked, setBankNameListClicked] = useState(false);
-    const { setAccountNumber, accountName, setClickedAccountList } = useAccountStore();
+    const { setAccountNumber, accountName, setIsOpenedAccountList: setClickedAccountList } = useAccountStore();
 
     const handleBankNameList = () => {
         setBankNameListClicked(!bankNameListClicked);

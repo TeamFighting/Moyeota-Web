@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react';
 import { BOTTOM_SHEET_MIN_Y, BOTTOM_SHEET_MAX_Y, BANKLIST_SHEET_MIN_Y, BANKLIST_SHEET_MAX_Y } from '@constants';
+import { match } from 'ts-pattern';
 
 interface BottomSheetMetrics {
     touchStart: {
@@ -13,16 +14,26 @@ interface BottomSheetMetrics {
     isContentAreaTouched: boolean;
 }
 
-export default function useBottomSheet(str: string) {
-    let MIN_Y = BOTTOM_SHEET_MIN_Y;
-    let MAX_Y = BOTTOM_SHEET_MAX_Y;
-    if (str === 'BankListSheet') {
-        MIN_Y = BANKLIST_SHEET_MIN_Y;
-        MAX_Y = BANKLIST_SHEET_MAX_Y;
-    }
+type BottomSheetFrom = 'Mainpage' | 'BankListSheet';
+
+interface BottomSheetProps {
+    from: BottomSheetFrom;
+    setIsBottomSheetOpen?: (clickedAccountList: boolean) => void;
+}
+export default function useBottomSheet({ from, setIsBottomSheetOpen }: BottomSheetProps) {
+    let MIN_Y: number, MAX_Y: number;
+    match(from)
+        .with('Mainpage', () => {
+            MIN_Y = BOTTOM_SHEET_MIN_Y;
+            MAX_Y = BOTTOM_SHEET_MAX_Y;
+        })
+        .with('BankListSheet', () => {
+            MIN_Y = BANKLIST_SHEET_MIN_Y;
+            MAX_Y = BANKLIST_SHEET_MAX_Y;
+        })
+        .exhaustive();
     const sheet = useRef<HTMLDivElement>(null);
     const content = useRef<HTMLDivElement>(null);
-
     const metrics = useRef<BottomSheetMetrics>({
         touchStart: {
             sheetY: 0,
@@ -40,7 +51,6 @@ export default function useBottomSheet(str: string) {
         const canUserMoveBottomSheet = () => {
             const { touchMove, isContentAreaTouched } = metrics.current;
             const scrollTop = content.current!.scrollTop;
-            console.log('scrollTop', scrollTop);
             if (isContentAreaTouched && scrollTop > 0) {
                 return false;
             }
@@ -62,10 +72,8 @@ export default function useBottomSheet(str: string) {
         };
 
         const handleTouchMove = (e: TouchEvent) => {
-            //   console.log('handleTouchMove', e.touches[0]);
             const { touchStart, touchMove } = metrics.current;
             const currentTouch = e.touches[0];
-            // console.log(touchStart.touchY, currentTouch.clientY);
             if (touchMove.prevTouchY === undefined) {
                 touchMove.prevTouchY = touchStart.touchY;
             }
@@ -84,8 +92,8 @@ export default function useBottomSheet(str: string) {
                 touchMove.movingDirection = 'up';
             }
 
+            // 위로 스크롤 중 컨텐츠 영역이 스크롤 되지 않을 때만 바텀시트가 올라가도록
             if (canUserMoveBottomSheet()) {
-                // e.preventDefault();
                 const touchOffset = currentTouch.clientY - touchStart.touchY;
                 let nextSheetY = touchStart.sheetY + touchOffset;
 
@@ -96,7 +104,6 @@ export default function useBottomSheet(str: string) {
                 if (nextSheetY >= MAX_Y) {
                     nextSheetY = MAX_Y;
                 }
-
                 sheet.current!.style.setProperty('transform', `translateY(${nextSheetY - MAX_Y}px)`); //바닥 만큼은 빼줘야함.
             } else {
                 document.body.style.overflowY = 'scroll';
@@ -112,6 +119,8 @@ export default function useBottomSheet(str: string) {
 
             if (currentSheetY !== MIN_Y) {
                 if (touchMove.movingDirection === 'down' && content.current!.scrollTop <= 0) {
+                    if (setIsBottomSheetOpen) setIsBottomSheetOpen(false);
+                    console.log('snap down');
                     sheet.current!.style.setProperty('transform', 'translateY(0)');
                 }
 
@@ -133,6 +142,7 @@ export default function useBottomSheet(str: string) {
                 isContentAreaTouched: false,
             };
         };
+
         if (sheet.current) {
             sheet.current.addEventListener('touchstart', handleTouchStart);
             sheet.current.addEventListener('touchmove', handleTouchMove);
@@ -168,6 +178,7 @@ export default function useBottomSheet(str: string) {
 
     const handleDown = () => {
         sheet.current!.style.setProperty('transform', `translateY(${MAX_Y}px)`);
+        if (setIsBottomSheetOpen) setIsBottomSheetOpen(false);
         // metrics 초기화.
         metrics.current = {
             touchStart: {
