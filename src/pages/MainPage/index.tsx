@@ -47,7 +47,7 @@ function MainPage() {
     useEffect(() => {
         fetchData();
         usersInfo();
-        if (userId !== undefined || userId !== null || userId !== 0) {
+        if (userId) {
             getMyPost();
         }
     }, []);
