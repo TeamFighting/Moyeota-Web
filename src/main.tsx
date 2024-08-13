@@ -33,7 +33,7 @@ import EditAccount from './pages/MyPage/MyPageLists/EditAccount';
 import ModifyProfile from './pages/MyPage/MyPageLists/ModifyNickName';
 import ManageProfile from './pages/MyPage/MyPageLists/ManageAccount';
 import { ROUTE } from '@constants/route';
-
+import { worker } from '../mocks/browser';
 const routes = [
     {
         path: ROUTE.ROOT,
@@ -153,7 +153,7 @@ const routes = [
         element: <ManageProfile />,
     },
 ];
-
+worker.start();
 const router = createBrowserRouter(routes);
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <LocalizationProvider dateAdapter={AdapterDayjs}>
