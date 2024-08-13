@@ -43,6 +43,6 @@
             "@types": ["types"],
         }
     },
-    "include": ["src", "custom.d.ts", "global.d.ts"],
+    "include": ["src", "custom.d.ts", "global.d.ts", "mocks"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -155,7 +155,6 @@ const routes = [
 ];
 
 const router = createBrowserRouter(routes);
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <LocalizationProvider dateAdapter={AdapterDayjs}>
         <RouterProvider router={router} />

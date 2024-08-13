@@ -3,7 +3,6 @@ import handleOAuth2Redirect from './pages/LoginPage/OAuth';
 import { useNavigate } from 'react-router';
 function App() {
     const navigate = useNavigate();
-
     const url = new URL(window.location.href);
     const isNaver = url.searchParams.get('state')?.toString();
     const isGoogle = url.toString().search('google');
