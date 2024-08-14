@@ -19,3 +19,16 @@ export const ErrorToastStyle = {
     lineHeight: 'normal',
     letterSpacing: '0.48px',
 } as React.CSSProperties;
+
+export const SuccessToastStyle = {
+    background: '#73737E',
+    color: 'white',
+    borderRadius: '99px',
+    textAlign: 'center',
+    fontFamily: 'Pretendard',
+    fontSize: '16px',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 'normal',
+    letterSpacing: '0.48px',
+} as React.CSSProperties;

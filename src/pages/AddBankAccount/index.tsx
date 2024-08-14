@@ -5,7 +5,7 @@ import { useAccountStore } from '@stores/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router';
 import instance from '@apis';
-import { ADD_ACCOUNT_FROM } from './constants';
+import { ADD_ACCOUNT_FROM, SuccessToastStyle } from './constants';
 import type { TAddAccountFrom } from './constants';
 import { match } from 'ts-pattern';
 import { ErrorToast, SuccessToast } from '@components/ToastMessages';
@@ -37,7 +37,11 @@ function AddBankAccount() {
             });
             return;
         } else if (accountName === null) {
-            toast(<ErrorToast message="은행을 선택해주세요" />, { icon: '❕', style: ErrorToastStyle, duration: 500 });
+            toast(<ErrorToast message="은행을 선택해주세요" />, {
+                icon: '❕',
+                style: ErrorToastStyle,
+                duration: 500,
+            });
             return;
         }
         postBankName();
@@ -59,7 +63,11 @@ function AddBankAccount() {
 
             if (res.status === 200) {
                 clearAccount();
-                toast(<SuccessToast message="계좌가 등록되었습니다." />);
+                console.log(accountNumber, accountName);
+                toast(<SuccessToast message="계좌가 등록되었습니다." />, {
+                    style: SuccessToastStyle,
+                    duration: 500,
+                });
 
                 match(from as TAddAccountFrom)
                     .with(ADD_ACCOUNT_FROM.CREATE_POT, () => {
@@ -73,7 +81,6 @@ function AddBankAccount() {
                         }, 500);
                     })
                     .exhaustive();
-                console.log(accountNumber, accountName);
             }
         } catch (e: any) {
             console.log(e);
