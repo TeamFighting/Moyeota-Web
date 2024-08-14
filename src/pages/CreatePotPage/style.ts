@@ -46,8 +46,9 @@ export const MapSample = styled.div`
     display: flex;
     flex-direction: column;
     gap: 8px;
-    height: 118px;
+    height: 130px;
     width: 100%;
+    border-radius: 50px;
 `;
 export const Route = styled.div`
     display: flex;
