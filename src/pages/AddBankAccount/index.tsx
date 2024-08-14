@@ -3,103 +3,41 @@ import Body from './Body';
 import Header from './Header';
 import { useAccountStore } from '@stores/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
-import { CheckCircle } from '@assets/svg';
 import { useNavigate, useParams } from 'react-router';
 import instance from '@apis';
 import { ADD_ACCOUNT_FROM } from './constants';
 import type { TAddAccountFrom } from './constants';
 import { match } from 'ts-pattern';
+import { ErrorToast, SuccessToast } from '@components/ToastMessages';
+
+const ErrorToastStyle = {
+    background: 'red',
+    color: 'white',
+    borderRadius: '99px',
+    textAlign: 'center',
+    fontFamily: 'Pretendard',
+    fontSize: '16px',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 'normal',
+    letterSpacing: '0.48px',
+} as React.CSSProperties;
 
 function AddBankAccount() {
     const { accountNumber, accountName, isOpenedAccountList, setIsOpenedAccountList, clearAccount } = useAccountStore();
-    console.log(accountNumber, accountName);
     const { from, userId } = useParams();
     const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
     const handleAccountClick = () => {
-        if (accountNumber === '') {
-            toast(
-                () => (
-                    <div
-                        style={{
-                            textAlign: 'center',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: '9px',
-                        }}
-                    >
-                        <div
-                            style={{
-                                textAlign: 'center',
-                                gap: '9px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            계좌번호를 입력해주세요
-                        </div>
-                    </div>
-                ),
-                {
-                    icon: '❕',
-
-                    style: {
-                        background: 'red',
-                        color: 'white',
-                        borderRadius: '99px',
-                        textAlign: 'center',
-                        fontFamily: 'Pretendard',
-                        fontSize: '16px',
-                        fontStyle: 'normal',
-                        fontWeight: '700',
-                        lineHeight: 'normal',
-                        letterSpacing: '0.48px',
-                    },
-                },
-            );
+        if (accountNumber == null) {
+            toast(() => <ErrorToast message="계좌번호를 입력해주세요" />, {
+                icon: '❕',
+                style: ErrorToastStyle,
+                duration: 500,
+            });
             return;
-        }
-        if (accountName === '') {
-            toast(
-                () => (
-                    <div
-                        style={{
-                            textAlign: 'center',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: '9px',
-                        }}
-                    >
-                        <div
-                            style={{
-                                textAlign: 'center',
-                                gap: '9px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            은행을 선택해주세요
-                        </div>
-                    </div>
-                ),
-                {
-                    icon: '❕',
-                    style: {
-                        background: 'red',
-                        color: 'white',
-                        borderRadius: '99px',
-                        textAlign: 'center',
-                        fontFamily: 'Pretendard',
-                        fontSize: '16px',
-                        fontStyle: 'normal',
-                        fontWeight: '700',
-                        lineHeight: 'normal',
-                        letterSpacing: '0.48px',
-                    },
-                },
-            );
+        } else if (accountName === null) {
+            toast(<ErrorToast message="은행을 선택해주세요" />, { icon: '❕', style: ErrorToastStyle, duration: 500 });
             return;
         }
         postBankName();
@@ -118,50 +56,10 @@ function AddBankAccount() {
                     },
                 },
             );
-            console.log(res);
-            if (res.status === 200) {
-                console.log('success');
-                clearAccount();
 
-                toast(
-                    () => (
-                        <div
-                            style={{
-                                textAlign: 'center',
-                                display: 'flex',
-                                flexDirection: 'row',
-                                gap: '9px',
-                            }}
-                        >
-                            <CheckCircle width={24} />
-                            <div
-                                style={{
-                                    textAlign: 'center',
-                                    gap: '9px',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                계좌번호가 추가되었습니다
-                            </div>
-                        </div>
-                    ),
-                    {
-                        style: {
-                            background: '#73737E',
-                            color: 'white',
-                            borderRadius: '99px',
-                            textAlign: 'center',
-                            fontFamily: 'Pretendard',
-                            fontSize: '16px',
-                            fontStyle: 'normal',
-                            fontWeight: '700',
-                            lineHeight: 'normal',
-                            letterSpacing: '0.48px',
-                        },
-                    },
-                );
+            if (res.status === 200) {
+                clearAccount();
+                toast(<SuccessToast message="계좌가 등록되었습니다." />);
 
                 match(from as TAddAccountFrom)
                     .with(ADD_ACCOUNT_FROM.CREATE_POT, () => {
@@ -175,6 +73,7 @@ function AddBankAccount() {
                         }, 500);
                     })
                     .exhaustive();
+                console.log(accountNumber, accountName);
             }
         } catch (e: any) {
             console.log(e);
