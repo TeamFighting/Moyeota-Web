@@ -153,7 +153,16 @@ const routes = [
         element: <ManageProfile />,
     },
 ];
-await worker.start().then(() => {
+
+async function enableMock() {
+    if (import.meta.env.VITE_DEVELOPMENT !== 'devMode') {
+        return;
+    }
+
+    return worker.start();
+}
+
+enableMock().then(() => {
     const router = createBrowserRouter(routes);
     ReactDOM.createRoot(document.getElementById('root')!).render(
         <LocalizationProvider dateAdapter={AdapterDayjs}>
