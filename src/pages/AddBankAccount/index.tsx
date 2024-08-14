@@ -12,6 +12,7 @@ import { match } from 'ts-pattern';
 
 function AddBankAccount() {
     const { accountNumber, accountName, isOpenedAccountList, setIsOpenedAccountList, clearAccount } = useAccountStore();
+    console.log(accountNumber, accountName);
     const { from, userId } = useParams();
     const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
