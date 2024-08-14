@@ -4,7 +4,7 @@ import { serverTimestamp, ref as dbRef, set, push, child } from 'firebase/databa
 import { useNavigate, useParams } from 'react-router';
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
-import BottomSheetHandle from '../../AddAccount/BankListSheet/BankListSheetHandle';
+import BottomSheetHandle from '../../AddBankAccount/BankListSheet/BankListSheetHandle';
 import { ChevronRight, WhiteCancelIcon } from '@assets/svg';
 import ANIM from '@assets/ANIM.gif';
 import { BankLists } from '@assets/BankLists';

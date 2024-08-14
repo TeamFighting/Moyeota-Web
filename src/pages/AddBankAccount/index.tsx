@@ -10,7 +10,7 @@ import { ADD_ACCOUNT_FROM } from './constants';
 import type { TAddAccountFrom } from './constants';
 import { match } from 'ts-pattern';
 
-function AddAccount() {
+function AddBankAccount() {
     const { accountNumber, accountName, isOpenedAccountList, setIsOpenedAccountList, clearAccount } = useAccountStore();
     const { from, userId } = useParams();
     const accessToken = localStorage.getItem('accessToken');
@@ -235,4 +235,4 @@ const NextBtn = styled.div`
     letter-spacing: 0.54px;
     margin-bottom: 20px;
 `;
-export default AddAccount;
+export default AddBankAccount;
