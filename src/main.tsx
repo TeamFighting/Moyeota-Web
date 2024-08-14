@@ -29,7 +29,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import LoginPage from './pages/LoginPage';
 import MyPage from './pages/MyPage';
-import EditAccount from './pages/MyPage/MyPageLists/EditAccount';
+import EditAccount from './pages/MyPage/MyPageLists/EditBankAccount';
 import ModifyProfile from './pages/MyPage/MyPageLists/ModifyNickName';
 import ManageProfile from './pages/MyPage/MyPageLists/ManageAccount';
 import { ROUTE } from '@constants/route';
@@ -153,10 +153,11 @@ const routes = [
         element: <ManageProfile />,
     },
 ];
-worker.start();
-const router = createBrowserRouter(routes);
-ReactDOM.createRoot(document.getElementById('root')!).render(
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <RouterProvider router={router} />
-    </LocalizationProvider>,
-);
+await worker.start().then(() => {
+    const router = createBrowserRouter(routes);
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <RouterProvider router={router} />
+        </LocalizationProvider>,
+    );
+});
