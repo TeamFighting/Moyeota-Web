@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-import { HEADER_HEIGHT } from '../../../constants';
 import SvgCancelIcon from '../../../assets/svg/CancelIcon';
 import CheveronLeft from '../../../assets/svg/Chevronleft';
 interface HeaderProps {

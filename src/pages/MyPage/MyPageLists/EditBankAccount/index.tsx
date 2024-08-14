@@ -38,11 +38,7 @@ function EditBankAccount() {
             <Header title={'계좌 관리'} />
             <BankListWrapper style={{ width: '100%', height: '100%', overflowY: 'scroll' }}>
                 {bankAccount.map((account, index) => (
-                    <BankAccountInfo
-                        onClick={() => setSelectedIndex(index)}
-                        isSelected={index === selectedIndex}
-                        key={index}
-                    >
+                    <BankAccountInfo key={index}>
                         <BankInfoTop>
                             <BankLogo>log</BankLogo>
                             <BankName>{account.bankName}</BankName>

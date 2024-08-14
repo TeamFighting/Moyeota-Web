@@ -17,7 +17,7 @@ export const BankListWrapper = styled.div`
     padding-top: 16px;
     padding-bottom: 120px;
 `;
-export const BankAccountInfo = styled.div<{ isSelected: boolean }>`
+export const BankAccountInfo = styled.div`
     width: 90%;
     height: 75px;
     display: flex;
@@ -27,8 +27,8 @@ export const BankAccountInfo = styled.div<{ isSelected: boolean }>`
     flex-direction: column;
     padding-left: 16px;
     border: 1px solid var(--Green-Button, #f5f6f8);
-    border-color: ${(props) => (props.isSelected ? '#1EDD81' : '#f5f6f8')};
-    background-color: ${(props) => (props.isSelected ? '#fff' : '#F5F6F8')};
+    border-color: #f5f6f8;
+    background-color: #f5f6f8;
 `;
 export const BankLogo = styled.image`
     width: 24px;
