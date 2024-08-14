@@ -1,9 +1,10 @@
 import Header from '../Header';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { BankAccountInfo, BankAccountNumber, BankInfoTop, BankLogo, BankName, Wrapper } from './style';
-import BottomButton from '@components/BottomButton';
+import { BankAccountInfo, BankAccountNumber, BankInfoTop, BankListWrapper, BankLogo, BankName, Wrapper } from './style';
 import { useNavigate, useParams } from 'react-router';
+import BottomNav from '@components/BottomNav';
+import { FloatingBottomButton } from '@components/Buttons/FloatingBottomButton';
 
 type BankAccount = {
     bankName: string;
@@ -35,20 +36,23 @@ function EditBankAccount() {
     return (
         <Wrapper>
             <Header title={'계좌 관리'} />
-            {bankAccount.map((account, index) => (
-                <BankAccountInfo
-                    onClick={() => setSelectedIndex(index)}
-                    isSelected={index === selectedIndex}
-                    key={index}
-                >
-                    <BankInfoTop>
-                        <BankLogo>log</BankLogo>
-                        <BankName>{account.bankName}</BankName>
-                    </BankInfoTop>
-                    <BankAccountNumber>{account.accountNumber}</BankAccountNumber>
-                </BankAccountInfo>
-            ))}
-            <BottomButton onClick={navToAddAccount} text="계좌 추가하기" />
+            <BankListWrapper style={{ width: '100%', height: '100%', overflowY: 'scroll' }}>
+                {bankAccount.map((account, index) => (
+                    <BankAccountInfo
+                        onClick={() => setSelectedIndex(index)}
+                        isSelected={index === selectedIndex}
+                        key={index}
+                    >
+                        <BankInfoTop>
+                            <BankLogo>log</BankLogo>
+                            <BankName>{account.bankName}</BankName>
+                        </BankInfoTop>
+                        <BankAccountNumber>{account.accountNumber}</BankAccountNumber>
+                    </BankAccountInfo>
+                ))}
+            </BankListWrapper>
+            <FloatingBottomButton message="계좌번호 추가하기" onClickFunction={navToAddAccount} />
+            <BottomNav />
         </Wrapper>
     );
 }
