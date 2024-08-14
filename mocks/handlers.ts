@@ -14,6 +14,26 @@ export const handlers = [
                     bankName: '하나은행',
                     accountNumber: '1002-123-456789',
                 },
+                { bankName: '우리은행', accountNumber: '1002-123-456789' },
+                { bankName: '신한은행', accountNumber: '1002-123-456789' },
+                {
+                    bankName: '국민은행',
+                    accountNumber: '1002-123-456789',
+                },
+                {
+                    bankName: '하나은행',
+                    accountNumber: '1002-123-456789',
+                },
+                { bankName: '우리은행', accountNumber: '1002-123-456789' },
+                { bankName: '신한은행', accountNumber: '1002-123-456789' },
+                {
+                    bankName: '국민은행',
+                    accountNumber: '1002-123-456789',
+                },
+                {
+                    bankName: '하나은행',
+                    accountNumber: '1002-123-456789',
+                },
             ],
             {
                 headers: {
