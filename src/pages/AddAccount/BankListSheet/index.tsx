@@ -11,7 +11,7 @@ function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
         from: 'BankListSheet',
         setIsBottomSheetOpen: setIsOpenedAccountList,
     });
-    const [handleClick, setHandleClick] = useState(true);
+    const [handleClick, setHandleClick] = useState(false);
     useEffect(() => {
         if (isOpenedAccountList == false) {
             handleDown();

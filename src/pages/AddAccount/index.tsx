@@ -4,17 +4,17 @@ import Header from './Header';
 import { useAccountStore } from '@stores/AccountStore';
 import toast, { Toaster } from 'react-hot-toast';
 import { CheckCircle } from '@assets/svg';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import instance from '@apis';
 import { ADD_ACCOUNT_FROM } from './constants';
 import type { TAddAccountFrom } from './constants';
 import { match } from 'ts-pattern';
 
 function AddAccount() {
-    const { accountNumber, accountName, isOpenedAccountList, setIsOpenedAccountList } = useAccountStore();
-    const { from } = useParams();
+    const { accountNumber, accountName, isOpenedAccountList, setIsOpenedAccountList, clearAccount } = useAccountStore();
+    const { from, userId } = useParams();
     const accessToken = localStorage.getItem('accessToken');
-
+    const navigate = useNavigate();
     const handleAccountClick = () => {
         if (accountNumber === '') {
             toast(
@@ -117,7 +117,51 @@ function AddAccount() {
                     },
                 },
             );
+            console.log(res);
             if (res.status === 200) {
+                console.log('success');
+                clearAccount();
+
+                toast(
+                    () => (
+                        <div
+                            style={{
+                                textAlign: 'center',
+                                display: 'flex',
+                                flexDirection: 'row',
+                                gap: '9px',
+                            }}
+                        >
+                            <CheckCircle width={24} />
+                            <div
+                                style={{
+                                    textAlign: 'center',
+                                    gap: '9px',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                계좌번호가 추가되었습니다
+                            </div>
+                        </div>
+                    ),
+                    {
+                        style: {
+                            background: '#73737E',
+                            color: 'white',
+                            borderRadius: '99px',
+                            textAlign: 'center',
+                            fontFamily: 'Pretendard',
+                            fontSize: '16px',
+                            fontStyle: 'normal',
+                            fontWeight: '700',
+                            lineHeight: 'normal',
+                            letterSpacing: '0.48px',
+                        },
+                    },
+                );
+
                 match(from as TAddAccountFrom)
                     .with(ADD_ACCOUNT_FROM.CREATE_POT, () => {
                         setTimeout(() => {
@@ -126,50 +170,11 @@ function AddAccount() {
                     })
                     .with(ADD_ACCOUNT_FROM.MY_PAGE, () => {
                         setTimeout(() => {
-                            window.location.href = '/mainpage';
+                            navigate(`/mypage/editAccount/${userId}`);
                         }, 500);
                     })
                     .exhaustive();
             }
-            toast(
-                () => (
-                    <div
-                        style={{
-                            textAlign: 'center',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            gap: '9px',
-                        }}
-                    >
-                        <CheckCircle width={24} />
-                        <div
-                            style={{
-                                textAlign: 'center',
-                                gap: '9px',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            계좌번호가 추가되었습니다
-                        </div>
-                    </div>
-                ),
-                {
-                    style: {
-                        background: '#73737E',
-                        color: 'white',
-                        borderRadius: '99px',
-                        textAlign: 'center',
-                        fontFamily: 'Pretendard',
-                        fontSize: '16px',
-                        fontStyle: 'normal',
-                        fontWeight: '700',
-                        lineHeight: 'normal',
-                        letterSpacing: '0.48px',
-                    },
-                },
-            );
         } catch (e: any) {
             console.log(e);
         }
@@ -191,7 +196,7 @@ function AddAccount() {
                     style={{
                         zIndex: 200,
                         position: 'absolute',
-                        backgroundColor: 'rgba(206, 29, 29, 0.5)',
+                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
                         width: '100%',
                         height: '100dvh',
                         flexDirection: 'column',

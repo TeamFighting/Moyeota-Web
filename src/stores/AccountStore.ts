@@ -7,6 +7,7 @@ type State = {
     setAccountName: (accountName: string) => void;
     setAccountNumber: (accountNumber: string) => void;
     setIsOpenedAccountList: (clickedAccountList: boolean) => void;
+    clearAccount: () => void;
 };
 
 export const useAccountStore = create<State>((set) => ({
@@ -16,4 +17,5 @@ export const useAccountStore = create<State>((set) => ({
     setIsOpenedAccountList: (clickedAccountList: boolean) => set({ isOpenedAccountList: clickedAccountList }),
     setAccountName: (accountName: string) => set({ accountName }),
     setAccountNumber: (accountNumber: string) => set({ accountNumber }),
+    clearAccount: () => set({ accountName: '', accountNumber: '' }),
 }));
