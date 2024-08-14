@@ -14,34 +14,27 @@ function Header({ title }: HeaderProps) {
     };
     return (
         <HeaderWrapper>
-            <DIV>
-                <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
-                    <CheveronLeft width="24" height="24" />
-                </Icon>
-                <Title>{title}</Title>
-                <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
-                    <SvgCancelIcon width="24" height="24" />
-                </Icon>
-            </DIV>
+            <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
+                <CheveronLeft width="24" height="24" />
+            </Icon>
+            <Title>{title}</Title>
+            <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
+                <SvgCancelIcon width="24" height="24" />
+            </Icon>
         </HeaderWrapper>
     );
 }
-const DIV = styled.div`
-    width: 90%;
+const HeaderWrapper = styled.div`
+    width: 100%;
+    height: 84px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #fff;
+    padding: 0 14px;
+    box-sizing: border-box;
 `;
 
-const HeaderWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: ${HEADER_HEIGHT}px;
-    width: 100vw;
-    height: 84px;
-    justify-content: center;
-`;
 const Icon = styled.div`
     cursor: pointer;
     align-items: center;

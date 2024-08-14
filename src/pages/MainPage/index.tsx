@@ -13,7 +13,6 @@ import { useMyPotStore } from '@stores/MyPotStore';
 import { useClickedMarker } from '@stores/ClickedMarker';
 import useStore from '@stores/ContentStore';
 import BottomNav from '@components/BottomNav';
-import { Chevronleft } from '@assets/svg';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
