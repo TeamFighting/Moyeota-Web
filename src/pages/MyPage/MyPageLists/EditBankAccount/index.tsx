@@ -40,7 +40,7 @@ function EditBankAccount() {
                 {bankAccount.map((account, index) => (
                     <BankAccountInfo key={index}>
                         <BankInfoTop>
-                            <BankLogo>log</BankLogo>
+                            <BankLogo></BankLogo>
                             <BankName>{account.bankName}</BankName>
                         </BankInfoTop>
                         <BankAccountNumber>{account.accountNumber}</BankAccountNumber>

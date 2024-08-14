@@ -22,20 +22,20 @@ export const BankAccountInfo = styled.div`
     height: 75px;
     display: flex;
     border-radius: 12px;
-    background: #f5f6f8;
-    margin-bottom: 16px;
     flex-direction: column;
+    margin-bottom: 16px;
     padding-left: 16px;
-    border: 1px solid var(--Green-Button, #f5f6f8);
-    border-color: #f5f6f8;
+    padding: 12px 0 8px 16px;
     background-color: #f5f6f8;
+    justify-content: center;
+    box-sizing: border-box;
 `;
 export const BankLogo = styled.image`
     width: 24px;
     height: 24px;
     border-radius: 50%;
     background: #f5f6f8;
-    background-color: red;
+    background-color: #fff;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -65,6 +65,6 @@ export const BankInfoTop = styled.div`
     align-items: center;
     text-align: cetner;
     width: 100%;
-    margin-top: 12px;
     margin-bottom: 6px;
+    box-sizing: border-box;
 `;
