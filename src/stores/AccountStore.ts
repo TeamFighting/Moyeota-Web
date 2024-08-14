@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 type State = {
-    accountName: string;
-    accountNumber: string;
+    accountName: string | null;
+    accountNumber: string | null;
     isOpenedAccountList: boolean;
     setAccountName: (accountName: string) => void;
     setAccountNumber: (accountNumber: string) => void;
@@ -11,11 +11,11 @@ type State = {
 };
 
 export const useAccountStore = create<State>((set) => ({
-    accountName: '',
-    accountNumber: '',
+    accountName: null,
+    accountNumber: null,
     isOpenedAccountList: false,
     setIsOpenedAccountList: (clickedAccountList: boolean) => set({ isOpenedAccountList: clickedAccountList }),
     setAccountName: (accountName: string) => set({ accountName }),
     setAccountNumber: (accountNumber: string) => set({ accountNumber }),
-    clearAccount: () => set({ accountName: '', accountNumber: '' }),
+    clearAccount: () => set({ accountName: null, accountNumber: null }),
 }));
