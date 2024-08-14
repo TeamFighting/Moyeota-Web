@@ -92,7 +92,6 @@ function MainPage() {
     return (
         <Container>
             <Header>
-                <Chevronleft width={24} height={24} />
                 <LocationHeader />
             </Header>
             <Body>
