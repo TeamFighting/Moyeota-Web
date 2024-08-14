@@ -184,8 +184,7 @@ export const Explanation = styled.div`
 export const MapSample = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    height: 118px;
+    height: 130px;
     width: 100%;
 `;
 

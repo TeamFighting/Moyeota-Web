@@ -19,31 +19,27 @@ import UpdatePotPage from './pages/UpdatePage';
 import PotPage from './pages/PotPage';
 import OwnerReimbursement from './pages/ReimbursementPage/OwnerReimbursement';
 import ApplierReimbusement from './pages/ReimbursementPage/ApplierReimbursement';
-import AddAccount from './pages/AddAccount';
+import AddAccount from './pages/AddBankAccount';
 import OwnerCalc from './pages/ReimbursementPage/Calculation/OwnerCalc';
 import ApplierCalc from './pages/ReimbursementPage/Calculation/ApplierCalc';
-import BankRecommend from './pages/AddAccount/BankListSheet/BankRecommend';
+import BankRecommend from './pages/AddBankAccount/BankListSheet/BankRecommend';
 import WaitPlease from './pages/ReimbursementPage/Calculation/WaitPlease';
 import CurrentReimbursement from './pages/ReimbursementPage/CurrentReimbursement';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import LoginPage from './pages/LoginPage';
 import MyPage from './pages/MyPage';
-import EditAccount from './pages/MyPage/MyPageLists/EditAccount';
+import EditAccount from './pages/MyPage/MyPageLists/EditBankAccount';
 import ModifyProfile from './pages/MyPage/MyPageLists/ModifyNickName';
 import ManageProfile from './pages/MyPage/MyPageLists/ManageAccount';
-import Blog from './pages/MainPage/Blog/Blog';
 import { ROUTE } from '@constants/route';
-
+import { worker } from '../mocks/browser';
 const routes = [
     {
         path: ROUTE.ROOT,
         element: <App />,
     },
-    {
-        path: ROUTE.BLOG,
-        element: <Blog />,
-    },
+
     {
         path: ROUTE.MAIN_PAGE,
         element: <MainPage />,
@@ -158,10 +154,19 @@ const routes = [
     },
 ];
 
-const router = createBrowserRouter(routes);
+async function enableMock() {
+    if (import.meta.env.VITE_DEVELOPMENT !== 'devMode') {
+        return;
+    }
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <RouterProvider router={router} />
-    </LocalizationProvider>,
-);
+    return worker.start();
+}
+
+enableMock().then(() => {
+    const router = createBrowserRouter(routes);
+    ReactDOM.createRoot(document.getElementById('root')!).render(
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <RouterProvider router={router} />
+        </LocalizationProvider>,
+    );
+});

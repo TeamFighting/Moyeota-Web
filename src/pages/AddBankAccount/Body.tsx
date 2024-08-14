@@ -8,7 +8,7 @@ function Body() {
     const inputRef = useRef(null);
     const [isFocused, setIsFocused] = useState(false);
     const [bankNameListClicked, setBankNameListClicked] = useState(false);
-    const { setAccountNumber, accountName, setClickedAccountList } = useAccountStore();
+    const { setAccountNumber, accountName, setIsOpenedAccountList: setClickedAccountList } = useAccountStore();
 
     const handleBankNameList = () => {
         setBankNameListClicked(!bankNameListClicked);
@@ -28,6 +28,7 @@ function Body() {
                 display: 'flex',
                 flexDirection: 'column',
                 overflow: 'hidden',
+                marginTop: '20px',
             }}
         >
             <div style={{ width: '90%', margin: '0 20px' }}>
@@ -43,33 +44,19 @@ function Body() {
                     onChange={handleBankName}
                 />
                 <SelectBankNameBtn onClick={handleBankNameList}>
-                    {accountName == '' ? (
-                        <div
+                    {accountName == null ? (
+                        <SelectBankNameText
                             style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                width: '100%',
                                 color: '#9a9a9a',
                             }}
                         >
                             <div>은행 선택</div> <ChevronDown width={24} />
-                        </div>
+                        </SelectBankNameText>
                     ) : (
-                        <div
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                alignItems: 'flex-end',
-                                justifyContent: 'space-between',
-                                width: '100%',
-                                color: 'black',
-                            }}
-                        >
+                        <SelectBankNameText style={{ justifyContent: 'space-between' }}>
                             <div>{accountName}</div>
                             <ChevronDown width={24} />
-                        </div>
+                        </SelectBankNameText>
                     )}
                 </SelectBankNameBtn>
             </div>
@@ -79,6 +66,15 @@ function Body() {
         </div>
     );
 }
+
+const SelectBankNameText = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    width: 100%;
+    color: #000;
+    justify-content: space-between;
+`;
 const Bottom = styled.div`
     display: flex;
     position: absolute;

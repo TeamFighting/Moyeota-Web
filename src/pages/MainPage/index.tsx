@@ -13,7 +13,6 @@ import { useMyPotStore } from '@stores/MyPotStore';
 import { useClickedMarker } from '@stores/ClickedMarker';
 import useStore from '@stores/ContentStore';
 import BottomNav from '@components/BottomNav';
-import { Chevronleft } from '@assets/svg';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -47,7 +46,7 @@ function MainPage() {
     useEffect(() => {
         fetchData();
         usersInfo();
-        if (userId !== undefined || userId !== null || userId !== 0) {
+        if (userId) {
             getMyPost();
         }
     }, []);
@@ -92,7 +91,6 @@ function MainPage() {
     return (
         <Container>
             <Header>
-                <Chevronleft width={24} height={24} />
                 <LocationHeader />
             </Header>
             <Body>

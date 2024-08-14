@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import useBottomSheet from '../../../../hooks/useBottonSheet';
+import useBottomSheet from '@hooks/UI/useBottonSheet';
 import BottomSheetContent from './BottomSheetContent';
 import BottomSheetHandle from './BottomSheetHandle';
-import { List } from '../../../../assets/svg';
-import { HEADER_HEIGHT, WINDOW_HEIGHT, BOTTOM_NAV_HEIGHT } from '../../../../constants';
+import { List } from '@assets/svg';
+import { HEADER_HEIGHT, WINDOW_HEIGHT, BOTTOM_NAV_HEIGHT } from '@constants';
 
 function BottomSheet() {
-    const { sheet, handleUp, content } = useBottomSheet('BottomSheet');
+    const { sheet, handleUp, content } = useBottomSheet({ from: 'Mainpage', setIsBottomSheetOpen: () => {} });
     // bottomBar 없어지면 marginTop 조정
     const refHeight = WINDOW_HEIGHT - (HEADER_HEIGHT + BOTTOM_NAV_HEIGHT);
     return (
