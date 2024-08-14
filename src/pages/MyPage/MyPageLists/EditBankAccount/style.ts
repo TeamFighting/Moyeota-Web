@@ -7,7 +7,16 @@ export const Wrapper = styled.div`
     height: 100dvh;
     align-items: center;
 `;
-
+export const BankListWrapper = styled.div`
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 16px;
+    padding-bottom: 120px;
+`;
 export const BankAccountInfo = styled.div<{ isSelected: boolean }>`
     width: 90%;
     height: 75px;
