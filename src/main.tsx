@@ -34,6 +34,7 @@ import ModifyProfile from './pages/MyPage/MyPageLists/ModifyNickName';
 import ManageProfile from './pages/MyPage/MyPageLists/ManageAccount';
 import { ROUTE } from '@constants/route';
 import { worker } from '../mocks/browser';
+import ToastProvider from 'ToastProvider';
 const routes = [
     {
         path: ROUTE.ROOT,
@@ -167,6 +168,7 @@ enableMock().then(() => {
     ReactDOM.createRoot(document.getElementById('root')!).render(
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <RouterProvider router={router} />
+            <ToastProvider />
         </LocalizationProvider>,
     );
 });

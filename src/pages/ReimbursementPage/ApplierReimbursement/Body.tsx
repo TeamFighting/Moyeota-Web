@@ -65,7 +65,6 @@ function Body() {
             const isMyPayment = each.userId === userId;
             return (
                 <S.PartyOneRow>
-                    <Toaster position="bottom-center" />
                     <S.MoneyLeft>
                         {each.isPartyOwner && (
                             <Icon

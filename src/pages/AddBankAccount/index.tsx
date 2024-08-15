@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Body from './Body';
 import Header from './Header';
 import { useAccountStore } from '@stores/AccountStore';
-import toast, { Toaster } from 'react-hot-toast';
+import toast, { Toaster, useToasterStore } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router';
 import instance from '@apis';
 import { ADD_ACCOUNT_FROM, SuccessToastStyle } from './constants';
@@ -26,9 +26,12 @@ const ErrorToastStyle = {
 function AddBankAccount() {
     const { accountNumber, accountName, isOpenedAccountList, setIsOpenedAccountList, clearAccount } = useAccountStore();
     const { from, userId } = useParams();
+    const { toasts } = useToasterStore();
     const accessToken = localStorage.getItem('accessToken');
     const navigate = useNavigate();
     const handleAccountClick = () => {
+        if (toasts.length > 0) return;
+
         if (accountNumber == null) {
             toast(() => <ErrorToast message="계좌번호를 입력해주세요" />, {
                 icon: '❕',
@@ -40,7 +43,7 @@ function AddBankAccount() {
             toast(<ErrorToast message="은행을 선택해주세요" />, {
                 icon: '❕',
                 style: ErrorToastStyle,
-                duration: 500,
+                duration: 1000,
             });
             return;
         }
@@ -66,7 +69,7 @@ function AddBankAccount() {
                 console.log(accountNumber, accountName);
                 toast(<SuccessToast message="계좌가 등록되었습니다." />, {
                     style: SuccessToastStyle,
-                    duration: 500,
+                    duration: 1000,
                 });
 
                 match(from as TAddAccountFrom)
@@ -115,7 +118,6 @@ function AddBankAccount() {
             )}
             <Header />
             <Body />
-            <Toaster position="bottom-center" />
             <NextBtn onClick={() => handleAccountClick()}>다음</NextBtn>
         </div>
     );

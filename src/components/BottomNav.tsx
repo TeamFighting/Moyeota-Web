@@ -27,7 +27,6 @@ function BottomNav() {
     };
     return (
         <Wrapper>
-            <Toaster position="bottom-center" reverseOrder={false} />
             <Section onClick={handleHomeClick}>
                 <Icon>{clicked == 'home' ? <ClickedHome /> : <Home />}</Icon>
                 <Text>홈</Text>

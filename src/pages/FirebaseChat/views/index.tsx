@@ -93,7 +93,6 @@ function FirebaseChat() {
     if (postId === undefined || roomId == undefined) return;
     return (
         <>
-            <Toaster position="bottom-center" reverseOrder={false} />
             <S.Header>
                 <S.Icon style={{ alignSelf: 'center' }} onClick={handleBack}>
                     <Chevronleft width="24" height="24" />
