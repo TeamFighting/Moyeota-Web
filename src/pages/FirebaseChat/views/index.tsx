@@ -7,7 +7,7 @@ import 'moment/locale/ko';
 import Skeleton from '@components/Skeleton';
 import { showProfileTime } from '@utils/showProfileTime';
 import ChatBottom from './ChatBottom';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import ChatReimbursement from './Reimbursement';
 import useChat from '../hooks/useChat';
 import { useNavigate } from 'react-router';

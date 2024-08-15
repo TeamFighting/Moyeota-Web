@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Body from './Body';
 import Header from './Header';
 import { useAccountStore } from '@stores/AccountStore';
-import toast, { Toaster, useToasterStore } from 'react-hot-toast';
+import toast, { useToasterStore } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router';
 import instance from '@apis';
 import { ADD_ACCOUNT_FROM, SuccessToastStyle } from './constants';
