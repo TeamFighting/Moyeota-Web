@@ -7,7 +7,7 @@ import 'moment/locale/ko';
 import Skeleton from '@components/Skeleton';
 import { showProfileTime } from '@utils/showProfileTime';
 import ChatBottom from './ChatBottom';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import ChatReimbursement from './Reimbursement';
 import useChat from '../hooks/useChat';
 import { useNavigate } from 'react-router';
@@ -93,7 +93,6 @@ function FirebaseChat() {
     if (postId === undefined || roomId == undefined) return;
     return (
         <>
-            <Toaster position="bottom-center" reverseOrder={false} />
             <S.Header>
                 <S.Icon style={{ alignSelf: 'center' }} onClick={handleBack}>
                     <Chevronleft width="24" height="24" />

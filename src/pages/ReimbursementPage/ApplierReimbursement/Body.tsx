@@ -3,7 +3,7 @@ import * as S from '../styles';
 import { useMyInfoStore } from '../../../stores/MyInfo';
 import { CheckCircle, PotOwnerCrown } from '../../../assets/svg';
 import styled from 'styled-components';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import SvgDollar from '../../../assets/svg/Dollar';
 import { BottomSheetBTN } from '../OwnerReimbursement/Body';
 import SvgCopyIcon from '../../../assets/svg/CopyIcon';
@@ -65,7 +65,6 @@ function Body() {
             const isMyPayment = each.userId === userId;
             return (
                 <S.PartyOneRow>
-                    <Toaster position="bottom-center" />
                     <S.MoneyLeft>
                         {each.isPartyOwner && (
                             <Icon

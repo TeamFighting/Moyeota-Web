@@ -13,7 +13,6 @@ type BankAccount = {
 
 function EditBankAccount() {
     const [bankAccount, setBankAccount] = useState<BankAccount[]>([{ bankName: '', accountNumber: '' }]);
-    const [selectedIndex, setSelectedIndex] = useState<number>(0);
     const userId = useParams().userId;
     const navigate = useNavigate();
 
