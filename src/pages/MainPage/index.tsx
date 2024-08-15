@@ -63,7 +63,7 @@ function MainPage() {
                 localStorage.setItem('myInfo', JSON.stringify(res.data.data));
             }
         } catch (e: any) {
-            alert(e + '에러');
+            // alert(e + '에러');
         }
     }
 
@@ -76,7 +76,7 @@ function MainPage() {
                 alert(res.status + '에러');
             }
         } catch (e) {
-            alert(e);
+            // alert(e);
         }
     }
 
