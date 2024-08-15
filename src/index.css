@@ -18,6 +18,11 @@ body {
     overscroll-behavior-y: contain;
 }
 
+html {
+    overflow: hidden;
+    overscroll-behavior-y: contain;
+}
+
 /*
 Copyright (c) 2021 Kil Hyung-jin, with Reserved Font Name Pretendard.
 https://github.com/orioncactus/pretendard
