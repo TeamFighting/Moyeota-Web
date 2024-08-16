@@ -5,11 +5,11 @@ import SvgCancelIcon from '@assets/svg/CancelIcon';
 import CheveronLeft from '@assets/svg/Chevronleft';
 import ThreeDots from '@assets/svg/ThreeDots';
 import EditDeleteModal from './EditDeleteBottomSheet';
-import useUpdateModalStore from '@stores/UpdateModalStore';
+import useEditDeleteBottomSheetStore from '@stores/useEditDeleteBottomSheetStore';
 
 function FixDetailHeader({ postId }: { postId: number }) {
     const navigate = useNavigate();
-    const { isEditDeleteBottomSheetOpen, openEditDeleteBottomSheet } = useUpdateModalStore();
+    const { openEditDeleteBottomSheet } = useEditDeleteBottomSheetStore();
 
     const goBack = () => {
         navigate(-1);
@@ -17,7 +17,7 @@ function FixDetailHeader({ postId }: { postId: number }) {
 
     return (
         <Header>
-            <EditDeleteModal postId={postId} isOpen={openEditDeleteBottomSheet}>
+            <EditDeleteModal postId={postId}>
                 <div></div>
             </EditDeleteModal>
             <Icon style={{ alignSelf: 'center' }} onClick={goBack}>

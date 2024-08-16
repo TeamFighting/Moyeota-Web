@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import instance from '@apis';
 import { useMyPotContentStore } from '@stores/MyPotContentStore';
-import * as S from '../MainPage/style';
+import * as S from '../../MainPage/style';
 import styled from 'styled-components';
 import { Chevronleft } from '@assets/svg';
-import { Icon } from '../DetailPage/style';
+import { Icon } from '../../DetailPage/style';
 import SingleContent from '@pages/MainPage/Components/SingleContent';
 function PotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);

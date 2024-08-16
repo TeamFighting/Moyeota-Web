@@ -6,21 +6,17 @@ import DeleteModal from './DeleteModal';
 import { useNavigate } from 'react-router-dom';
 import { PencilIcon, TrashIcon } from '@assets/svg';
 import BottomSheetHandle from '../../MainPage/Components/BottomSheet/BottomSheetHandle';
-import useUpdateModalStore from '@stores/UpdateModalStore';
+import useEditDeleteBottomSheetStore from '@stores/useEditDeleteBottomSheetStore';
 import { UpdateBottomSheetMenuWrapper, UpdateIcon } from '@pages/CreatePotPage/style';
 
 interface EditDeleteModalProps {
-    isOpen: boolean;
     children: React.ReactNode;
     postId: number;
 }
 
-const EditDeleteBottomSheet = ({ postId, isOpen }: EditDeleteModalProps) => {
-    const [sheetHeight] = React.useState<number>(() => {
-        return window.innerHeight * (2.5 / 8);
-    });
+const EditDeleteBottomSheet = ({ postId }: EditDeleteModalProps) => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const { closeEditDeleteBottomSheet } = useUpdateModalStore();
+    const { closeEditDeleteBottomSheet, isEditDeleteBottomSheetOpen } = useEditDeleteBottomSheetStore();
 
     const navigate = useNavigate();
     const goToUpdate = () => {
@@ -30,7 +26,7 @@ const EditDeleteBottomSheet = ({ postId, isOpen }: EditDeleteModalProps) => {
 
     const OpenDeleteModal = () => {
         setIsDeleteModalOpen(true);
-        console.log(isDeleteModalOpen);
+        closeEditDeleteBottomSheet();
     };
 
     const CloseDeleteModal = () => {
@@ -43,24 +39,26 @@ const EditDeleteBottomSheet = ({ postId, isOpen }: EditDeleteModalProps) => {
             onClick={() => {
                 closeEditDeleteBottomSheet();
             }}
-            style={{ display: isOpen ? 'flex' : 'none' }}
+            style={{ display: isEditDeleteBottomSheetOpen || isDeleteModalOpen ? 'flex' : 'none' }}
         >
-            <BottomSheetContent>
-                <BottomSheetHandle />
-                <UpdateBottomSheetMenuWrapper>
-                    <UpdateIcon>
-                        <PencilIcon width="24" height="24" />
-                    </UpdateIcon>
-                    <UpdateText onClick={goToUpdate}>수정하기</UpdateText>
-                </UpdateBottomSheetMenuWrapper>
-                <UpdateBottomSheetMenuWrapper>
-                    <UpdateIcon>
-                        <TrashIcon width="24" height="24" />
-                    </UpdateIcon>
-                    <DeleteText onClick={OpenDeleteModal}>삭제하기</DeleteText>
-                </UpdateBottomSheetMenuWrapper>
-                <CancleText onClick={closeEditDeleteBottomSheet}>취소</CancleText>
-            </BottomSheetContent>
+            {isEditDeleteBottomSheetOpen && (
+                <BottomSheetContent>
+                    <BottomSheetHandle />
+                    <UpdateBottomSheetMenuWrapper>
+                        <UpdateIcon>
+                            <PencilIcon width="24" height="24" />
+                        </UpdateIcon>
+                        <UpdateText onClick={goToUpdate}>수정하기</UpdateText>
+                    </UpdateBottomSheetMenuWrapper>
+                    <UpdateBottomSheetMenuWrapper>
+                        <UpdateIcon>
+                            <TrashIcon width="24" height="24" />
+                        </UpdateIcon>
+                        <DeleteText onClick={OpenDeleteModal}>삭제하기</DeleteText>
+                    </UpdateBottomSheetMenuWrapper>
+                    <CancleText onClick={closeEditDeleteBottomSheet}>취소</CancleText>
+                </BottomSheetContent>
+            )}
             {isDeleteModalOpen && <DeleteModal postId={postId} onClose={CloseDeleteModal}></DeleteModal>}
         </BottomSheetContainer>
     );

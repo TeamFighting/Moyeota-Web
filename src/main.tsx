@@ -16,7 +16,7 @@ import UpdateSearchResults from './pages/UpdatePage/Map/SearchResults';
 import FirebaseChat from './pages/FirebaseChat/views';
 import ChatLists from './pages/FirebaseChat/views/ChatLists';
 import UpdatePotPage from './pages/UpdatePage';
-import PotPage from './pages/PotPage';
+import PotPage from './pages/MyPage/MyPot';
 import OwnerReimbursement from './pages/ReimbursementPage/OwnerReimbursement';
 import ApplierReimbusement from './pages/ReimbursementPage/ApplierReimbursement';
 import AddAccount from './pages/AddBankAccount';

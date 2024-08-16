@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
 import DetailBody from './views/DetailBody';
-import DetailHeader from './views/DetailHeader';
+import DetailHeader from './components/DetailHeader';
 import DetailBottom from './views/DetailBottom';
 import DetailPartySection from './views/DetailPartySection';
 import FixDetailHeader from './components/FixDetailHeader';

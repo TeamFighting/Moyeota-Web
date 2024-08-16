@@ -6,10 +6,10 @@ interface EditDeleteBottomSheetStore {
     closeEditDeleteBottomSheet: () => void;
 }
 
-const useModalStore = create<EditDeleteBottomSheetStore>((set) => ({
+const useEditDeleteBottomSheetStore = create<EditDeleteBottomSheetStore>((set) => ({
     isEditDeleteBottomSheetOpen: false,
     openEditDeleteBottomSheet: () => set({ isEditDeleteBottomSheetOpen: true }),
     closeEditDeleteBottomSheet: () => set({ isEditDeleteBottomSheetOpen: false }),
 }));
 
-export default useModalStore;
+export default useEditDeleteBottomSheetStore;
