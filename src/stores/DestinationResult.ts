@@ -18,6 +18,7 @@ interface DestinationResultProps {
     setDestinationResult: (destinationResult: DestinationInfo | null) => void;
     finalDestination: string | null;
     setFinalDestination: (finalDestination: string | null) => void;
+    clearDestinationStore: () => void;
 }
 
 const DestinationStore = create<DestinationResultProps>((set) => ({
@@ -25,6 +26,7 @@ const DestinationStore = create<DestinationResultProps>((set) => ({
     setDestinationResult: (destinationResult: DestinationInfo | null) => set({ destinationResult }),
     finalDestination: null,
     setFinalDestination: (finalDestination: string | null) => set({ finalDestination }),
+    clearDestinationStore: () => set({ destinationResult: null, finalDestination: null }),
 }));
 
 export default DestinationStore;

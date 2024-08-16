@@ -12,7 +12,7 @@ function FixDetailHeader({ postId }: { postId: number }) {
     const { openEditDeleteBottomSheet } = useEditDeleteBottomSheetStore();
 
     const goBack = () => {
-        navigate(-1);
+        navigate('/mainpage');
     };
 
     return (

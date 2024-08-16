@@ -189,10 +189,14 @@ export const Subtitle = styled.div`
 
 export const InputDescriptionWrapper = styled.div`
     position: relative;
+    background: #f5f6f8;
+    width: 100%;
+    justify-content: center;
+    border-radius: 12px;
 `;
 
 export const InputDescription = styled.textarea`
-    width: ${window.innerWidth - 140}px;
+    width: 100%;
     height: 100px;
     align-self: center;
     flex-shrink: 0;
@@ -205,16 +209,16 @@ export const InputDescription = styled.textarea`
     word-wrap: break-word;
     white-space: pre-wrap;
     outline: none;
-    margin: 0 auto;
     padding: 22px 61px 30px 28px;
     display: flex;
     justify-content: center;
+    box-sizing: border-box;
+    align-self: center;
     &::placeholder {
         color: #9a9a9a;
         font-family: Pretendard;
         font-size: 14px;
         white-space: pre-line;
-        line-height: 1.8;
         font-weight: 500;
     }
 `;

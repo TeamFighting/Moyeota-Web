@@ -3,10 +3,19 @@ import { HEADER_HEIGHT } from '@constants';
 import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '@assets/svg/CancelIcon';
 import CheveronLeft from '@assets/svg/Chevronleft';
+import PotCreateStore from '@stores/PotCreateStore';
+import DestinationStore from '@stores/DestinationResult';
+import DurationFareStore from '@stores/DurationFareStore';
 
 function CreateHeader() {
     const navigate = useNavigate();
+    const { clearPotCreateStore } = PotCreateStore();
+    const { clearDestinationStore } = DestinationStore();
+    const { clearDurationFareStore } = DurationFareStore();
     const goBack = () => {
+        clearPotCreateStore();
+        clearDestinationStore();
+        clearDurationFareStore();
         navigate('/mainpage');
     };
     return (
