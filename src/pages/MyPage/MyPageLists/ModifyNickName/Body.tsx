@@ -86,7 +86,7 @@ function Body({ userInfo }: BodyProps) {
                     />
                 </S.Icon>
                 <S.Tags>
-                    <S.Tag>{gen}</S.Tag>
+                    <S.Tag>{gender+'자'}</S.Tag>
                     <S.Tag>{age}</S.Tag>
                 </S.Tags>
             </S.UserInfo>

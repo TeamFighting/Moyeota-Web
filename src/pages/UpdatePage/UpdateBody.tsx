@@ -8,7 +8,7 @@ import DurationFareStore from '../../stores/DurationFareStore';
 import PotCreateStore from '../../stores/PotCreateStore';
 import instance from '@apis';
 import CurrentLocationStore from '../../stores/CurrentLocation';
-import DetailMap from '../DetailPage/DetailMap';
+import DetailMap from '../DetailPage/views/DetailMap';
 
 interface PostProps {
     category: string;

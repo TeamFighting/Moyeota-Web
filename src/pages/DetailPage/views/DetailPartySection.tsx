@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as S from './style';
+import * as S from '../style';
 import { useEffect, useState } from 'react';
 import instance from '@apis';
 import { AuthStore } from '@stores/AuthStore';
@@ -22,12 +22,6 @@ interface PARTYINFO {
 }
 
 function DetailPartySection({ profileImage, leaderName, content, gender, postId }: Props) {
-    let gender2;
-    if (gender == 'M') {
-        gender2 = '남자';
-    } else {
-        gender2 = '여자';
-    }
     const { accessToken } = AuthStore();
     const [onlyParty, setonlyParty] = useState<PARTYINFO[]>([]);
     async function getPartyOne(postId: number) {
@@ -65,7 +59,7 @@ function DetailPartySection({ profileImage, leaderName, content, gender, postId 
                 </S.Icon>
                 <S.Name>{leaderName}</S.Name>
                 <S.Tags>
-                    <S.Tag style={{ marginRight: '7px' }}>{gender2}</S.Tag>
+                    <S.Tag style={{ marginRight: '7px' }}>{gender + '자'}</S.Tag>
                     <S.Tag>20대</S.Tag>
                 </S.Tags>
             </Wrapper>
@@ -96,7 +90,7 @@ function DetailPartySection({ profileImage, leaderName, content, gender, postId 
                                 <S.Name>{value.nickname}</S.Name>
                                 <S.Tags style={{}}>
                                     <S.Tag style={{ marginRight: '7px' }}>
-                                        {value.userGender == 'M' ? '남자' : '여자'}
+                                        {value.userGender == '남' ? '남자' : '여자'}
                                     </S.Tag>
                                     <S.Tag>20대</S.Tag>
                                 </S.Tags>

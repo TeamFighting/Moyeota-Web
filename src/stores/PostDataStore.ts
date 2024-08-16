@@ -18,7 +18,7 @@ interface PostDataStoreState {
         sameGenderStatus: string;
         status: string;
         title: string;
-        userGender: boolean;
+        userGender: string;
         userName: string;
         vehicle: string;
         view: number;

@@ -9,7 +9,7 @@ import instance from '@apis';
 interface PARTYINFO {
     userName: string;
     profileImage: string;
-    userGender: boolean;
+    userGender: string;
 }
 
 function DetailPartySection() {
@@ -44,7 +44,7 @@ function DetailPartySection() {
         getPartyOne(postId);
     }, []);
     let gender;
-    if (!data.userGender) {
+    if (data.userGender === '여') {
         gender = '여자';
     } else {
         gender = '남자';
@@ -84,7 +84,9 @@ function DetailPartySection() {
                                 </S.Icon>
                                 <S.Name>{value.userName}</S.Name>
                                 <S.Tags style={{}}>
-                                    <S.Tag style={{ marginRight: '7px' }}>{value.userGender ? '남자' : '여자'}</S.Tag>
+                                    <S.Tag style={{ marginRight: '7px' }}>
+                                        {value.userGender == '남' ? '남자' : '여자'}
+                                    </S.Tag>
                                     {/* 나잇대 수정필요 */}
                                     <S.Tag>20대</S.Tag>
                                 </S.Tags>

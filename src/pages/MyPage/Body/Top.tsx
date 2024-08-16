@@ -7,7 +7,7 @@ function BodyTop() {
     const userInfo = useMyInfoStore();
     const navigate = useNavigate();
     let gender = '남자';
-    if (userInfo.gender == 'F') gender = '여자';
+    if (userInfo.gender == '여') gender = '여자';
     const age = userInfo.age;
 
     const navigateToEdit = () => {

@@ -20,13 +20,6 @@ function MarkerClickContent({ postId }: { postId: number }) {
         });
     };
 
-    let gender = '';
-    if (data.userGender == 'F') {
-        gender = '여';
-    } else {
-        gender = '남';
-    }
-
     return (
         <div
             style={{
@@ -44,7 +37,7 @@ function MarkerClickContent({ postId }: { postId: number }) {
                     <S.ProfileLeft>
                         <img src={data.profileImage} width="24px" height="24px" style={{ borderRadius: '100%' }} />
                         <S.ProfileName style={{ fontSize: '14px', color: 'black' }}>{data.userName}</S.ProfileName>
-                        <S.ProfileSex>{gender}</S.ProfileSex>
+                        <S.ProfileSex>{data.userGender}</S.ProfileSex>
                         <S.Dot />
                         <S.ProfileTime>{ago}</S.ProfileTime>
                     </S.ProfileLeft>

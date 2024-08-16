@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
-import DetailBody from './DetailBody';
-import DetailHeader from './DetailHeader';
-import DetailBottom from './DetailBottom';
-import DetailPartySection from './DetailPartySection';
+import DetailBody from './views/DetailBody';
+import DetailHeader from './views/DetailHeader';
+import DetailBottom from './views/DetailBottom';
+import DetailPartySection from './views/DetailPartySection';
 import FixDetailHeader from '../CreatePotPage/Components/DetailPage/DetailHeader';
 import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
 import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
@@ -62,6 +62,7 @@ function DetailPage() {
                     page: 0,
                 },
             });
+            console.log(res.data.data.content);
             setMyPotContent(res.data.data.content);
         } catch (e) {
             // //console.log(e);
@@ -82,7 +83,6 @@ function DetailPage() {
     const getDetailData = async () => {
         const res = await instance.get(`/posts/${postId}`);
         setData(res.data.data);
-        // console.log('RES', res.data.data);
         if (res.data.data.numberOfParticipants == res.data.data.numberOfRecruitment) {
             setIsFull(true);
         }
@@ -90,9 +90,9 @@ function DetailPage() {
             setSplitedTime(getDays(res.data.data.departureTime));
             setTimePart(ISOto12(res.data.data.departureTime));
         }
+        console.log('mypot', MyPot);
         MyPot.forEach((element) => {
-            // console.log(element);
-            if (element === res.data.data.postId) {
+            if (element === postId) {
                 setIsFixDetailHeader(true);
             }
         });

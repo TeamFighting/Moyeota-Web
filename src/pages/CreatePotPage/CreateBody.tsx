@@ -5,7 +5,7 @@ import type { ChangeEvent } from 'react';
 import { useEffect } from 'react';
 import DurationFareStore from '@stores/DurationFareStore';
 import PotCreateStore from '@stores/PotCreateStore';
-import DetailMap from '../DetailPage/DetailMap';
+import DetailMap from '../DetailPage/views/DetailMap';
 import CurrentLocationStore from '@stores/CurrentLocation';
 import DestinationStore from '@stores/DestinationResult';
 import instance from '@apis';

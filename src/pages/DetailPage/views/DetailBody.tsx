@@ -1,5 +1,5 @@
 import { ChevronRight, LionProfile, LocationFrom, LocationMarker } from '@assets/svg';
-import * as S from './style';
+import * as S from '../style';
 import createAgo from '@utils/createAgo';
 import DetailMap from './DetailMap';
 
@@ -31,7 +31,7 @@ interface DetailPageProps {
 function DetailBody(data: DetailPageProps) {
     const ago = createAgo(data.createAt);
     let gender;
-    if (data.userGender == 'F') {
+    if (data.userGender == '여') {
         gender = '여';
     } else {
         gender = '남';

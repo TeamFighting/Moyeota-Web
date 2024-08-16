@@ -26,7 +26,6 @@ function FixDetailHeader({ postId }: { postId: number }) {
             </Icon>
             <Icon style={{ alignSelf: 'center' }}>
                 <ThreeDots onClick={openModal} style={{ paddingRight: '16px' }} />
-                <UploadIcon style={{ paddingRight: '16px' }} />
                 <SvgCancelIcon onClick={goBack} width="24" height="24" />
             </Icon>
         </Header>
