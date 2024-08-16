@@ -4,7 +4,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding-left: 20px;
-    height: 100dvh;
+    height: 100%;
     overflow-y: scroll;
 `;
 export const Title = styled.div`
