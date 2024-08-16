@@ -35,6 +35,7 @@ import ManageProfile from './pages/MyPage/MyPageLists/ManageAccount';
 import { ROUTE } from '@constants/route';
 import { worker } from '../mocks/browser';
 import ToastProvider from 'ToastProvider';
+import SelectGenderAge from '@pages/SelectGenderAge';
 const routes = [
     {
         path: ROUTE.ROOT,
@@ -152,6 +153,14 @@ const routes = [
     {
         path: ROUTE.MYPAGE_MANAGE_PROFILE,
         element: <ManageProfile />,
+    },
+    {
+        path: ROUTE.MYPAGE_MANAGE_PROFILE,
+        element: <ManageProfile />,
+    },
+    {
+        path: ROUTE.SELECT_GENDER_AGE,
+        element: <SelectGenderAge />,
     },
 ];
 

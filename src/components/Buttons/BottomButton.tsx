@@ -1,14 +1,29 @@
 import styled from 'styled-components';
 
 interface BottomButtonProps {
+    isDisabled?: boolean;
     text: string;
-    onClick?: () => void;
+    onClick: () => void;
 }
 
-const BottomButton: React.FC<BottomButtonProps> = ({ text, onClick }) => {
+const BottomButton: React.FC<BottomButtonProps> = ({ isDisabled, text, onClick: clickFun }) => {
+    const handleClickAbliity = () => {
+        if (isDisabled) {
+            clickFun();
+        } else {
+            alert('모든 항목을 입력해주세요');
+            return;
+        }
+    };
     return (
         <Wrapper>
-            <Button type="button" onClick={onClick}>
+            <Button
+                isDisabled={isDisabled}
+                type="button"
+                onClick={() => {
+                    handleClickAbliity();
+                }}
+            >
                 {text}
             </Button>
         </Wrapper>
@@ -29,12 +44,12 @@ const Wrapper = styled.div`
     z-index: 2;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ isDisabled?: boolean }>`
     width: 335px;
     height: 48px;
     flex-shrink: 0;
     border-radius: 12px;
-    background: var(--Green-Button, #1edd81);
+    background-color: ${(props) => (props.isDisabled ? 'var(--Gray-Button, #1edd81)' : 'var(--Green-Button, #9e9d9d)')};
     border: none;
     font-size: 16px;
     color: white;
