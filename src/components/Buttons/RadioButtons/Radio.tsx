@@ -1,7 +1,3 @@
-import RadioContext from '@pages/SelectGenderAge/RadioContext';
-import { useContext } from 'react';
-import styled from 'styled-components';
-
 interface RadioProps {
     children: React.ReactNode;
     value: string;
@@ -18,8 +14,3 @@ export function Radio({ children, value, name, defaultChecked, disabled }: Radio
         </>
     );
 }
-
-const StyledRadio = styled.input`
-    display: none;
-    background-color: aliceblue;
-`;
