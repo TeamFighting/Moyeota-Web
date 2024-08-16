@@ -676,7 +676,7 @@ const Bottom = styled.div`
     height: auto; /* 아래에 있는 내용만큼 높이를 가지도록 */
 `;
 
-const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
+const Wrapper = styled(motion.div)`
     display: flex;
     flex-direction: column;
     position: fixed;

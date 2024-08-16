@@ -34,7 +34,7 @@ function BottomSheet() {
     );
 }
 
-const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
+const Wrapper = styled(motion.div)`
     display: flex;
     flex-direction: column;
     position: fixed;

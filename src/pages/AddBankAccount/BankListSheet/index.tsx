@@ -84,7 +84,7 @@ function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
     );
 }
 
-const Wrapper = styled(motion.div)<{ isMaxHeight: boolean }>`
+const Wrapper = styled(motion.div)`
     transition: transform 200ms ease-out;
     width: 100%;
     position: absolute;
