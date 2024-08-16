@@ -265,3 +265,18 @@ export const SelectedInfo = styled.div`
     line-height: 157%; /* 25.12px */
     height: 25px;
 `;
+
+export const UpdateIcon = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+export const UpdateBottomSheetMenuWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    height: 80px;
+`;

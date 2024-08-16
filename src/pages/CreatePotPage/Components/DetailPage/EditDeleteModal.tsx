@@ -7,83 +7,62 @@ import DeleteModal from '../Modal/DeleteModal';
 import { useNavigate } from 'react-router-dom';
 import { PencilIcon, TrashIcon } from '@assets/svg';
 import BottomSheetHandle from '../../../MainPage/Components/BottomSheet/BottomSheetHandle';
-import useOnclickOutside from 'react-cool-onclickoutside';
 import useUpdateModalStore from '@stores/UpdateModalStore';
+import { UpdateBottomSheetMenuWrapper, UpdateIcon } from '@pages/CreatePotPage/style';
 
 interface EditDeleteModalProps {
     isOpen: boolean;
-    onClose: () => void;
     children: React.ReactNode;
     postId: number;
 }
 
-const EditDeleteModal = ({ postId, isOpen, onClose }: EditDeleteModalProps) => {
+const EditDeleteModal = ({ postId, isOpen }: EditDeleteModalProps) => {
     const [sheetHeight] = React.useState<number>(() => {
         return window.innerHeight * (2.5 / 8);
     });
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const { closeModal } = useUpdateModalStore();
 
-    const ref = useOnclickOutside(() => {
-        setIsDeleteModalOpen(false);
-    });
     const navigate = useNavigate();
     const goToUpdate = () => {
+        closeModal();
         navigate(`/updatepot/${postId}`);
     };
 
-    const handleOpenDeleteModal = () => {
+    const OpenDeleteModal = () => {
         setIsDeleteModalOpen(true);
+        console.log(isDeleteModalOpen);
     };
 
-    const handleCloseDeleteModal = () => {
+    const CloseDeleteModal = () => {
         closeModal();
         setIsDeleteModalOpen(false);
     };
 
     return (
-        <BottomSheetContainer ref={ref} style={{ display: isOpen ? 'flex' : 'none' }}>
+        <BottomSheetContainer
+            onClick={() => {
+                closeModal();
+            }}
+            style={{ display: isOpen ? 'flex' : 'none' }}
+        >
             <BottomSheetContent style={{ height: `${sheetHeight}px` }}>
                 <BottomSheetHandle />
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '7px',
-                        height: '80px',
-                    }}
-                >
-                    <div
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}
-                    >
+                <UpdateBottomSheetMenuWrapper>
+                    <UpdateIcon>
                         <PencilIcon width="24" height="24" />
-                    </div>
+                    </UpdateIcon>
                     <UpdateText onClick={goToUpdate}>수정하기</UpdateText>
-                </div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '7px',
-                        height: '80px',
-                    }}
-                >
-                    <div style={{ display: 'flex' }}>
+                </UpdateBottomSheetMenuWrapper>
+                <UpdateBottomSheetMenuWrapper>
+                    <UpdateIcon>
                         <TrashIcon width="24" height="24" />
-                    </div>
-                    <DeleteText onClick={handleOpenDeleteModal}>삭제하기</DeleteText>
-                </div>
-                <CancleText onClick={onClose}>취소</CancleText>
+                    </UpdateIcon>
+                    <DeleteText onClick={OpenDeleteModal}>삭제하기</DeleteText>
+                </UpdateBottomSheetMenuWrapper>
+                <CancleText onClick={closeModal}>취소</CancleText>
             </BottomSheetContent>
-            {isDeleteModalOpen && <DeleteModal postId={postId} onClose={handleCloseDeleteModal}></DeleteModal>}
+            {isDeleteModalOpen && <DeleteModal postId={postId} onClose={CloseDeleteModal}></DeleteModal>}
         </BottomSheetContainer>
     );
 };

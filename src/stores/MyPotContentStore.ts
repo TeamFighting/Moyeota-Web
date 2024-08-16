@@ -2,7 +2,6 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 interface MyPotType {
-    // data: {
     category: string;
     content: string;
     createAt: string;
@@ -23,15 +22,12 @@ interface MyPotType {
     userName: string;
     vehicle: string;
     view: number;
-    // };
 }
 interface MyPotStore {
-     
     MyPotContent: MyPotType[];
     MyAppliedPotContent: MyPotType[];
     TotalMyPotContent: MyPotType[];
 
-     
     setMyPotContent: (MyPotContent: MyPotType[]) => void;
     setTotalMyPotContent: (TotalMyPotContent: MyPotType[]) => void;
     setMyAppliedPotContent: (MyAppliedPotContent: MyPotType[]) => void;

@@ -4,13 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '@assets/svg/CancelIcon';
 import CheveronLeft from '@assets/svg/Chevronleft';
 import ThreeDots from '@assets/svg/ThreeDots';
-import UploadIcon from '@assets/svg/UploadIcon';
 import EditDeleteModal from './EditDeleteModal';
 import useUpdateModalStore from '@stores/UpdateModalStore';
 
 function FixDetailHeader({ postId }: { postId: number }) {
     const navigate = useNavigate();
-    const { isModalOpen, openModal, closeModal } = useUpdateModalStore();
+    const { isModalOpen, openModal } = useUpdateModalStore();
 
     const goBack = () => {
         navigate(-1);
@@ -18,7 +17,7 @@ function FixDetailHeader({ postId }: { postId: number }) {
 
     return (
         <Header>
-            <EditDeleteModal postId={postId} isOpen={isModalOpen} onClose={closeModal}>
+            <EditDeleteModal postId={postId} isOpen={isModalOpen}>
                 <div></div>
             </EditDeleteModal>
             <Icon style={{ alignSelf: 'center' }} onClick={goBack}>

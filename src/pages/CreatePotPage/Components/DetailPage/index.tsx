@@ -1,5 +1,5 @@
 import * as S from './style';
-import DetailHeader from './DetailHeader';
+import FixDetailHeader from './FixDetailHeader';
 import DetailBody from './DetailBody';
 import DetailBottom from './DetailBottom';
 import DetailPartySection from './DetailPartySection';
@@ -55,7 +55,7 @@ function DetailPage() {
 
     return (
         <S.Container>
-            <DetailHeader postId={postId} />
+            <FixDetailHeader postId={postId} />
             <DetailBody />
             <Divider style={{ height: '10px' }} />
             <DetailBottom />
