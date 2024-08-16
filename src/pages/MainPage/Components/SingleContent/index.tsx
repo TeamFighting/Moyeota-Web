@@ -6,7 +6,7 @@ import getDays from '@utils/getDays';
 import createAgo from '@utils/createAgo';
 import { useQuickPotStore } from '@stores/QuickPotStore';
 import useStore from '@stores/ContentStore';
-import { useMyPotContentStore } from '@stores/MyPotPage';
+import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import { ArrowRight, LocationMarker, Clock } from '@assets/svg';
 import * as S from '../../style';
 

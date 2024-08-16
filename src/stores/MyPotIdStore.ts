@@ -1,16 +1,16 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export interface MyPot {
-    MyPot: number[];
+export interface MyPotId {
+    MyPotId: number[];
     setMyPot: (data: number[]) => void;
 }
 
-export const useMyPotStore = create(
-    persist<MyPot>(
+export const useMyPotIdStore = create(
+    persist<MyPotId>(
         (set) => ({
-            MyPot: [0],
-            setMyPot: (data: number[]) => set({ MyPot: data }),
+            MyPotId: [0],
+            setMyPot: (data: number[]) => set({ MyPotId: data }),
         }),
         {
             name: 'myPot-storage',

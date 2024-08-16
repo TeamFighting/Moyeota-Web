@@ -9,10 +9,11 @@ import instance from '@apis';
 import { HEADER_HEIGHT } from '@constants';
 import watchPositionHook from '@hooks/useWatchPositionHook';
 import { useMyInfoStore } from '@stores/MyInfo';
-import { useMyPotStore } from '@stores/MyPotStore';
+import { useMyPotIdStore } from '@stores/MyPotIdStore';
 import { useClickedMarker } from '@stores/ClickedMarker';
 import useStore from '@stores/ContentStore';
 import BottomNav from '@components/BottomNav';
+import { useMyPotContentStore } from '@stores/MyPotContentStore';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -22,7 +23,8 @@ function MainPage() {
     watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
     const { setMyInfo, userId, accountDtoList } = useMyInfoStore();
-    const { setMyPot } = useMyPotStore();
+    const { setMyPot } = useMyPotIdStore();
+    const { setMyPotContent } = useMyPotContentStore();
     const getMyPost = async () => {
         try {
             const myPost = await instance.get(`/posts/users/${userId}`, {
@@ -35,7 +37,7 @@ function MainPage() {
             });
             if (myPost.status === 200) {
                 const newArr: number[] = [];
-
+                setMyPotContent(myPost.data.data.content);
                 myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
                 setMyPot(newArr);
             }

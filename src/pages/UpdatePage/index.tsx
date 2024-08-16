@@ -11,8 +11,6 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router';
 import instance from '@apis';
-// import { useLocation } from 'react-router-dom';
-// import instance from '@apis';
 
 interface PostProps {
     category: string;
@@ -61,7 +59,6 @@ function UpdatePotPage() {
     };
     const newD = (new URLSearchParams(location.search).get('destination') || undefined) as string;
 
-    useEffect(() => {}, []);
     useEffect(() => {
         setNewDestination(newD);
         const handleScroll = () => {

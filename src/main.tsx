@@ -33,7 +33,6 @@ import EditAccount from './pages/MyPage/MyPageLists/EditBankAccount';
 import ModifyProfile from './pages/MyPage/MyPageLists/ModifyNickName';
 import ManageProfile from './pages/MyPage/MyPageLists/ManageAccount';
 import { ROUTE } from '@constants/route';
-import { worker } from '../mocks/browser';
 import ToastProvider from 'ToastProvider';
 import SelectGenderAge from '@pages/SelectGenderAge';
 const routes = [
@@ -164,20 +163,20 @@ const routes = [
     },
 ];
 
-async function enableMock() {
-    if (import.meta.env.VITE_DEVELOPMENT !== 'devMode') {
-        return;
-    }
+// async function enableMock() {
+//     if (import.meta.env.VITE_DEVELOPMENT !== 'devMode') {
+//         return;
+//     }
 
-    return worker.start();
-}
+//     return worker.start();
+// }
 
-enableMock().then(() => {
-    const router = createBrowserRouter(routes);
-    ReactDOM.createRoot(document.getElementById('root')!).render(
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <RouterProvider router={router} />
-            <ToastProvider />
-        </LocalizationProvider>,
-    );
-});
+// enableMock().then(() => {
+const router = createBrowserRouter(routes);
+ReactDOM.createRoot(document.getElementById('root')!).render(
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <RouterProvider router={router} />
+        <ToastProvider />
+    </LocalizationProvider>,
+);
+// });

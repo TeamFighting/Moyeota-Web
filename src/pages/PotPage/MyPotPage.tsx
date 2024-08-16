@@ -1,5 +1,5 @@
-function MyPotPage() {
+function MyPotContentStore() {
     return <div></div>;
 }
 
-export default MyPotPage;
+export default MyPotContentStore;

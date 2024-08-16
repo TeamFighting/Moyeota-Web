@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import instance from '@apis';
 import SingleContent from '../MainPage/Components/SingleContent';
-import { useMyPotContentStore } from '@stores/MyPotPage';
+import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import * as S from '../MainPage/style';
 import styled from 'styled-components';
 import { Chevronleft } from '@assets/svg';

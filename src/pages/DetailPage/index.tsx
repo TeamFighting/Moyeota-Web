@@ -10,8 +10,8 @@ import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyM
 import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
 import instance from '@apis';
 import ModalStore from '@stores/ModalStore';
-import { useMyPotStore } from '@stores/MyPotStore';
-import { useMyPotContentStore } from '@stores/MyPotPage';
+import { useMyPotIdStore } from '@stores/MyPotIdStore';
+import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import getDays from '@utils/getDays';
 import ISOto12 from '@utils/ISOto12';
 import * as S from './style';
@@ -46,63 +46,41 @@ function DetailPage() {
     const [scroll, setScroll] = useState(0);
     const [dividerHeight, setDividerHeight] = useState(6);
     const { modalOpen } = ModalStore();
-    const { MyPot } = useMyPotStore();
+    const { MyPotId } = useMyPotIdStore();
     const [data, setData] = useState<DetailPageProps>({} as DetailPageProps);
     const [isFixDetailHeader, setIsFixDetailHeader] = useState(false);
     const [splitedTime, setSplitedTime] = useState(['', '', '', '']);
     const [timePart, setTimePart] = useState('');
     const { postId } = useParams();
-    const { setMyPotContent } = useMyPotContentStore();
-    const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
+    const { MyPotContent } = useMyPotContentStore();
 
-    const getMyPot = async () => {
-        try {
-            const res = await instance.get(`/posts/users/${id}`, {
-                params: {
-                    page: 0,
-                },
-            });
-            console.log(res.data.data.content);
-            setMyPotContent(res.data.data.content);
-        } catch (e) {
-            // //console.log(e);
-        }
-    };
-    const getAppliedPot = async () => {
-        try {
-            const res = await instance.get(`/posts/users/${id}`, {
-                params: {
-                    page: 0,
-                },
-            });
-            setMyPotContent(res.data.data.content);
-        } catch (e) {
-            //console.log(e);
-        }
-    };
     const getDetailData = async () => {
-        const res = await instance.get(`/posts/${postId}`);
-        setData(res.data.data);
-        if (res.data.data.numberOfParticipants == res.data.data.numberOfRecruitment) {
-            setIsFull(true);
-        }
-        if (res.data.data.departureTime !== undefined) {
-            setSplitedTime(getDays(res.data.data.departureTime));
-            setTimePart(ISOto12(res.data.data.departureTime));
-        }
-        console.log('mypot', MyPot);
-        MyPot.forEach((element) => {
-            if (element === postId) {
-                setIsFixDetailHeader(true);
+        try {
+            const res = await instance.get(`/posts/${postId}`);
+            setData(res.data.data);
+            if (res.data.data.numberOfParticipants == res.data.data.numberOfRecruitment) {
+                setIsFull(true);
             }
-        });
-        // console.log(res);
+            if (res.data.data.departureTime !== undefined) {
+                setSplitedTime(getDays(res.data.data.departureTime));
+                setTimePart(ISOto12(res.data.data.departureTime));
+            }
+            MyPotContent.forEach((element:DetailPageProps ) => {
+                if (element.postId == parseInt(postId!)) {
+                    setIsFixDetailHeader(true);
+                }
+            });
+            console.log('detail', res);
+        } catch (e) {
+            console.log(e);
+        }
     };
+    // console.log(res);
 
     useEffect(() => {
         getDetailData();
-        getAppliedPot();
-        getMyPot();
+        // getAppliedPot();
+        // getMyPot();
     }, []);
 
     useEffect(() => {
