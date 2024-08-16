@@ -54,24 +54,6 @@ function CreateBottom({ totalPeople, onTotalPeopleChange }: CreateBottomProps) {
 
     const isSelectionComplete = totalPeople > 1;
     const [DateTimeValue, setDateTimeValue] = useState<Dayjs | null>(null);
-    console.log(new Date());
-    // console.log('DateTimeValue:', DateTimeValue.getMilliseconds());
-
-    // const connectToRN = () => {
-    //     window.ReactNativeWebView.postMessage('please open time modal');
-    // };
-    // useEffect(() => {
-    //     window.addEventListener('message', (event) => {
-    //         try {
-    //             const data = JSON.parse(event.data);
-    //             if (data.selectedTime !== undefined) {
-    //                 setSelectedTime(data.selectedTime);
-    //             }
-    //         } catch (error) {
-    //             console.error('error:', error);
-    //         }
-    //     });
-    // }, []);
 
     return (
         <S.Bottom>
