@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import LocationHeader from './LocationHeader';
+import LocationHeader from './Components/LocationHeader';
 import BottomSheet from './Components/BottomSheet';
 import { useNavigate } from 'react-router-dom';
 import NaverMap from './NaverMap';
-import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
 import instance from '@apis';
 import { HEADER_HEIGHT } from '@constants';
 import watchPositionHook from '@hooks/useWatchPositionHook';
@@ -14,6 +13,7 @@ import { useClickedMarker } from '@stores/ClickedMarker';
 import useStore from '@stores/ContentStore';
 import BottomNav from '@components/BottomNav';
 import { useMyPotContentStore } from '@stores/MyPotContentStore';
+import MarkerClickContent from './MarkerClickContent';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);

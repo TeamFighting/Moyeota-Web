@@ -5,7 +5,7 @@ import ContentStore from '@stores/ContentStore';
 import createAgo from '@utils/createAgo';
 import getDays from '@utils/getDays';
 import ISOto12 from '@utils/ISOto12';
-import * as S from '../../style';
+import * as S from './style';
 
 function MarkerClickContent({ postId }: { postId: number }) {
     const navigate = useNavigate();

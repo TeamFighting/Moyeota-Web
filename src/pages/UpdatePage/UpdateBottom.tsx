@@ -1,11 +1,11 @@
 import { ChevronRight } from '../../assets/svg';
-import type { SetStateAction} from 'react';
+import type { SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
 import PotCreateStore from '../../stores/PotCreateStore';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import type { Dayjs } from 'dayjs';
 import * as S from '../CreatePotPage/style';
-import TimeModal from '../CreatePotPage/Components/Modal/TimeModal';
+import TimeModal from '../CreatePotPage/Components/Modal/TaxiTypePersonnelModal';
 declare global {
     interface Window {
         ReactNativeWebView: {

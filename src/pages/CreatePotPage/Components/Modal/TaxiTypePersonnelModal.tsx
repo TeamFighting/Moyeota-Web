@@ -15,7 +15,7 @@ interface TimeModalProps {
     onSameGenderRideToggle: () => void;
 }
 
-function TimeModal({
+function TaxiTypePersonnelModal({
     closeModal,
     totalPeople,
     isSameGenderRide,
@@ -270,4 +270,4 @@ const Modal = styled.div`
     transition: all 400ms ease-in-out 2s;
 `;
 
-export default TimeModal;
+export default TaxiTypePersonnelModal;

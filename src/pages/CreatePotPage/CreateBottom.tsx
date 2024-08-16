@@ -1,6 +1,6 @@
 import { ChevronRight } from '@assets/svg';
 import * as S from './style';
-import TimeModal from './Components/Modal/TimeModal';
+import TimeModal from './Components/Modal/TaxiTypePersonnelModal';
 import type { SetStateAction } from 'react';
 import { useState } from 'react';
 import PotCreateStore from '@stores/PotCreateStore';

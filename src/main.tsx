@@ -4,7 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import MainPage from './pages/MainPage';
 import DetailPage from './pages/DetailPage';
-import CreateDetailPage from './pages/CreatePotPage/Components/DetailPage/index';
+// import CreateDetailPage from './pages/CreatePotPage/Components/DetailPage/index';
 import CreatePotPage from './pages/CreatePotPage';
 import CreateComplete from './pages/CreatePotPage/CreateComplete';
 import DestinationPage from './pages/CreatePotPage/Components/Map/DestinationPage';
@@ -81,10 +81,7 @@ const routes = [
         path: ROUTE.QUICK_MATC_HFINDING,
         element: <QuickMatchFinding />,
     },
-    {
-        path: ROUTE.CREATEDETAIL,
-        element: <CreateDetailPage />,
-    },
+
     {
         path: ROUTE.UPDATEPOT,
         element: <UpdatePotPage />,

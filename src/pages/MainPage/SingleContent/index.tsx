@@ -8,7 +8,7 @@ import { useQuickPotStore } from '@stores/QuickPotStore';
 import useStore from '@stores/ContentStore';
 import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import { ArrowRight, LocationMarker, Clock } from '@assets/svg';
-import * as S from '../../style';
+import * as S from '../style';
 
 function SingleContent({ from }: { from: string }) {
     const navigate = useNavigate();

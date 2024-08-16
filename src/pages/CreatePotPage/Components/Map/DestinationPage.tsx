@@ -4,7 +4,7 @@ import { HEADER_HEIGHT } from '@constants';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import BottomSheet from './BottomSheet';
 import DestinationButton from '../Button/DestinationButtom';
-import CreatePotNaverMap from './NaverMap/CreatePotNaverMap';
+import CreatePotNaverMap from './CreatePotNaverMap';
 
 function DestinationPage() {
     const navigate = useNavigate();

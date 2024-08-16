@@ -1,12 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import DeleteModal from '../Modal/DeleteModal';
+import DeleteModal from './modal/DeleteModal';
 import { useNavigate } from 'react-router-dom';
 import { PencilIcon, TrashIcon } from '@assets/svg';
-import BottomSheetHandle from '../../../MainPage/Components/BottomSheet/BottomSheetHandle';
+import BottomSheetHandle from '../../MainPage/Components/BottomSheet/BottomSheetHandle';
 import useUpdateModalStore from '@stores/UpdateModalStore';
 import { UpdateBottomSheetMenuWrapper, UpdateIcon } from '@pages/CreatePotPage/style';
 
@@ -16,7 +15,7 @@ interface EditDeleteModalProps {
     postId: number;
 }
 
-const EditDeleteModal = ({ postId, isOpen }: EditDeleteModalProps) => {
+const EditDeleteBottomSheet = ({ postId, isOpen }: EditDeleteModalProps) => {
     const [sheetHeight] = React.useState<number>(() => {
         return window.innerHeight * (2.5 / 8);
     });
@@ -67,7 +66,7 @@ const EditDeleteModal = ({ postId, isOpen }: EditDeleteModalProps) => {
     );
 };
 
-export default EditDeleteModal;
+export default EditDeleteBottomSheet;
 
 const BottomSheetContainer = styled.div`
     position: fixed;

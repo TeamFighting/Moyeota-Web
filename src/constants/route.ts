@@ -12,7 +12,7 @@ export const ROUTE = {
     UPDATE_SEARCH_RESULTS: '/updatesearchresults',
     QUICK_MATCH: '/quickmatch',
     QUICK_MATC_HFINDING: '/quickmatchfinding',
-    CREATEDETAIL: '/createdetail',
+    // CREATEDETAIL: '/createdetail',
     UPDATEPOT: '/updatepot/:postId',
     CHAT: '/chat/:postId/:roomId',
     CHATS: '/chats',

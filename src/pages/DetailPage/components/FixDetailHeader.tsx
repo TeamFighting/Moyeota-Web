@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '@assets/svg/CancelIcon';
 import CheveronLeft from '@assets/svg/Chevronleft';
 import ThreeDots from '@assets/svg/ThreeDots';
-import EditDeleteModal from './EditDeleteModal';
+import EditDeleteModal from './EditDeleteBottomSheet';
 import useUpdateModalStore from '@stores/UpdateModalStore';
 
 function FixDetailHeader({ postId }: { postId: number }) {

@@ -5,9 +5,9 @@ import DetailBody from './views/DetailBody';
 import DetailHeader from './views/DetailHeader';
 import DetailBottom from './views/DetailBottom';
 import DetailPartySection from './views/DetailPartySection';
-import FixDetailHeader from '../CreatePotPage/Components/DetailPage/FixDetailHeader';
-import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
-import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
+import FixDetailHeader from './components/FixDetailHeader';
+import MatchApplyModal from '../MainPage/Components/MatchApply/MatchApplyModal';
+import MatchApplyButton from '../MainPage/Components/MatchApply/MatchApplyButton';
 import instance from '@apis';
 import ModalStore from '@stores/ModalStore';
 import { useMyPotIdStore } from '@stores/MyPotIdStore';
@@ -65,7 +65,7 @@ function DetailPage() {
                 setSplitedTime(getDays(res.data.data.departureTime));
                 setTimePart(ISOto12(res.data.data.departureTime));
             }
-            MyPotContent.forEach((element: DetailPageProps) => {
+            MyPotContent.forEach((element: any) => {
                 if (element.postId == parseInt(postId!)) {
                     setIsFixDetailHeader(true);
                 }
@@ -79,8 +79,6 @@ function DetailPage() {
 
     useEffect(() => {
         getDetailData();
-        // getAppliedPot();
-        // getMyPot();
     }, []);
 
     useEffect(() => {
