@@ -1,15 +1,15 @@
-import { create } from 'zustand'
+import { create } from 'zustand';
 
-interface ModalStore {
-    isModalOpen: boolean
-    openModal: () => void
-    closeModal: () => void
+interface EditDeleteBottomSheetStore {
+    isEditDeleteBottomSheetOpen: boolean;
+    openEditDeleteBottomSheet: () => void;
+    closeEditDeleteBottomSheet: () => void;
 }
 
-const useModalStore = create<ModalStore>((set) => ({
-    isModalOpen: false,
-    openModal: () => set({ isModalOpen: true }),
-    closeModal: () => set({ isModalOpen: false }),
-}))
+const useModalStore = create<EditDeleteBottomSheetStore>((set) => ({
+    isEditDeleteBottomSheetOpen: false,
+    openEditDeleteBottomSheet: () => set({ isEditDeleteBottomSheetOpen: true }),
+    closeEditDeleteBottomSheet: () => set({ isEditDeleteBottomSheetOpen: false }),
+}));
 
-export default useModalStore
+export default useModalStore;

@@ -9,7 +9,7 @@ import useUpdateModalStore from '@stores/UpdateModalStore';
 
 function FixDetailHeader({ postId }: { postId: number }) {
     const navigate = useNavigate();
-    const { isModalOpen, openModal } = useUpdateModalStore();
+    const { isEditDeleteBottomSheetOpen, openEditDeleteBottomSheet } = useUpdateModalStore();
 
     const goBack = () => {
         navigate(-1);
@@ -17,14 +17,14 @@ function FixDetailHeader({ postId }: { postId: number }) {
 
     return (
         <Header>
-            <EditDeleteModal postId={postId} isOpen={isModalOpen}>
+            <EditDeleteModal postId={postId} isOpen={openEditDeleteBottomSheet}>
                 <div></div>
             </EditDeleteModal>
             <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
                 <CheveronLeft width="24" height="24" />
             </Icon>
             <Icon style={{ alignSelf: 'center' }}>
-                <ThreeDots onClick={openModal} style={{ paddingRight: '16px' }} />
+                <ThreeDots onClick={openEditDeleteBottomSheet} style={{ paddingRight: '16px' }} />
                 <SvgCancelIcon onClick={goBack} width="24" height="24" />
             </Icon>
         </Header>

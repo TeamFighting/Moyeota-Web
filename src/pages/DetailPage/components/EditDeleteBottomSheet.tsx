@@ -20,11 +20,11 @@ const EditDeleteBottomSheet = ({ postId, isOpen }: EditDeleteModalProps) => {
         return window.innerHeight * (2.5 / 8);
     });
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const { closeModal } = useUpdateModalStore();
+    const { closeEditDeleteBottomSheet } = useUpdateModalStore();
 
     const navigate = useNavigate();
     const goToUpdate = () => {
-        closeModal();
+        closeEditDeleteBottomSheet();
         navigate(`/updatepot/${postId}`);
     };
 
@@ -34,18 +34,18 @@ const EditDeleteBottomSheet = ({ postId, isOpen }: EditDeleteModalProps) => {
     };
 
     const CloseDeleteModal = () => {
-        closeModal();
+        closeEditDeleteBottomSheet();
         setIsDeleteModalOpen(false);
     };
 
     return (
         <BottomSheetContainer
             onClick={() => {
-                closeModal();
+                closeEditDeleteBottomSheet();
             }}
             style={{ display: isOpen ? 'flex' : 'none' }}
         >
-            <BottomSheetContent style={{ height: `${sheetHeight}px` }}>
+            <BottomSheetContent>
                 <BottomSheetHandle />
                 <UpdateBottomSheetMenuWrapper>
                     <UpdateIcon>
@@ -59,7 +59,7 @@ const EditDeleteBottomSheet = ({ postId, isOpen }: EditDeleteModalProps) => {
                     </UpdateIcon>
                     <DeleteText onClick={OpenDeleteModal}>삭제하기</DeleteText>
                 </UpdateBottomSheetMenuWrapper>
-                <CancleText onClick={closeModal}>취소</CancleText>
+                <CancleText onClick={closeEditDeleteBottomSheet}>취소</CancleText>
             </BottomSheetContent>
             {isDeleteModalOpen && <DeleteModal postId={postId} onClose={CloseDeleteModal}></DeleteModal>}
         </BottomSheetContainer>
@@ -83,12 +83,12 @@ const BottomSheetContainer = styled.div`
 
 const BottomSheetContent = styled.div`
     position: absolute;
-    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     background-color: white;
     border-radius: 26px 26px 0px 0px;
+    height: 300px;
 `;
 
 const UpdateText = styled.span`
