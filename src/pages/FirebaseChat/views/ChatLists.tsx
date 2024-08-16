@@ -8,7 +8,7 @@ import { Chevronleft, Plus } from '@assets/svg';
 import moment from 'moment';
 import { NoneReadChatStore } from '@stores/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
-import { ChatTime } from '@utils/ChatTime';
+import { ChatTime } from '@utils/chatTime';
 import BottomNav from '@components/BottomNav';
 
 export interface myMessageProps {

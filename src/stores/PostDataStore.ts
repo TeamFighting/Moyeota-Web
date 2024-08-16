@@ -42,7 +42,7 @@ interface PostDataStoreState {
         sameGenderStatus?: string;
         status?: string;
         title?: string;
-        userGender?: boolean;
+        userGender?: string;
         userName?: string;
         vehicle?: string;
         view?: number;
@@ -69,7 +69,7 @@ const usePostDataStore = create<PostDataStoreState>((set) => ({
         sameGenderStatus: '',
         status: '',
         title: '',
-        userGender: false,
+        userGender: '',
         userName: '',
         vehicle: '',
         view: 0,

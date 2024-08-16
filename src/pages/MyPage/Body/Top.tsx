@@ -24,7 +24,7 @@ function BodyTop() {
                         <PencilIcon width={20} height={20} />
                     </S.ProfileNameRow>
                     <S.Tags>
-                        <S.Tag>{gender}</S.Tag> <S.Tag>{age}</S.Tag>
+                        <S.Tag>{gender}</S.Tag> <S.Tag>{}</S.Tag>
                     </S.Tags>
                 </S.ProfileInfo>
             </S.ProfileWrapper>
