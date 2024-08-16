@@ -45,7 +45,8 @@ const Wrapper = styled.div`
 `;
 
 const Button = styled.button<{ isDisabled?: boolean }>`
-    width: 335px;
+    width: 90%;
+    max-width: 335px;
     height: 48px;
     flex-shrink: 0;
     border-radius: 12px;

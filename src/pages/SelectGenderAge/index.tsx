@@ -84,7 +84,7 @@ function SelectGenderAge() {
     };
 
     return (
-        <div style={{ height: '100dvh', overflowY: 'scroll' }}>
+        <div style={{ width: '100vw', height: '100dvh' }}>
             <Header />
             <Container>
                 <Title>
