@@ -5,7 +5,7 @@ import * as S from '../MainPage/style';
 import styled from 'styled-components';
 import { Chevronleft } from '@assets/svg';
 import { Icon } from '../DetailPage/style';
-import SingleContent from '@pages/MainPage/SingleContent';
+import SingleContent from '@pages/MainPage/Components/SingleContent';
 function PotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { MyAppliedPotContent, MyPotContent, setMyPotContent, setMyAppliedPotContent, setTotalMyPotContent } =

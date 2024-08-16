@@ -2,7 +2,7 @@
 // @ts-ignore
 import styled from 'styled-components';
 import React, { useState } from 'react';
-import DeleteModal from './modal/DeleteModal';
+import DeleteModal from './DeleteModal';
 import { useNavigate } from 'react-router-dom';
 import { PencilIcon, TrashIcon } from '@assets/svg';
 import BottomSheetHandle from '../../MainPage/Components/BottomSheet/BottomSheetHandle';
