@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { RadioButtonNotSelected, RadioButtonSelected } from '@assets/svg';
 import BottomButton from '@components/Buttons/BottomButton';
 import instance from '@apis/index';
+import { useNavigate } from 'react-router';
 
 function SelectGenderAge() {
     const [gender, setGender] = useState('남');
@@ -13,7 +14,7 @@ function SelectGenderAge() {
         day: '',
     });
     const [isDateFull, setIsDateFull] = useState(false);
-
+    const navigate = useNavigate();
     const YearRef = useRef<HTMLInputElement>(null);
     const MonthRef = useRef<HTMLInputElement>(null);
     const DayRef = useRef<HTMLInputElement>(null);
@@ -77,7 +78,9 @@ function SelectGenderAge() {
                     },
                 },
             );
-            console.log(res);
+            if (res.status === 200) {
+                navigate('/mainpage');
+            }
         } catch (e) {
             console.log(e);
         }
@@ -101,7 +104,7 @@ function SelectGenderAge() {
                     </Icon>
                 </RadioButtonWrap>
                 <SubTitle>나이(출생연도)</SubTitle>
-                <BirthInputWrapper>
+                <BirthInputWrapper onClick={() => YearRef.current?.focus()}>
                     <Input
                         style={{ width: '48px' }}
                         ref={YearRef}
