@@ -48,7 +48,6 @@ function UpdatePotPage() {
     const getPostInfo = async () => {
         try {
             const res = await instance.get(`/posts/${postId}`);
-            console.log('UPDATE POST INFO', res.data.data);
             setPostInfo(res.data.data);
         } catch (e) {
             console.log(e);

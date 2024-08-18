@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import BottomSheet from './BottomSheet';
 import DestinationButton from '../Button/DestinationButtom';
 import CreatePotNaverMap from './CreatePotNaverMap';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SvgMy_location from '@assets/svg/My_location';
 
 function DestinationPage() {
@@ -19,6 +19,14 @@ function DestinationPage() {
         if (from == 'update') navigate(`/updatepot/${postId}`);
         else navigate(`/createPotPage`);
     };
+
+    useEffect(() => {
+        if (inputRef.current) inputRef.current.focus();
+        inputRef.current?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') goToSearchResults();
+        });
+    });
+
     if (from == undefined) return;
     return (
         <Container>
@@ -89,6 +97,7 @@ const InputStyle = styled.input`
     font-weight: 500;
     line-height: 21.98px;
     width: 100%;
+    margin-left: 4px;
     &::placeholder {
         color: var(--Gray-Text-1, #9a9a9a);
         font-family: Pretendard;
