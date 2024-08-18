@@ -19,8 +19,6 @@ function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isClicked } = useClickedMarker();
-
-    watchPositionHook();
     const accessToken = localStorage.getItem('accessToken');
     const { setMyInfo, userId, accountDtoList } = useMyInfoStore();
     const { setMyPot } = useMyPotIdStore();
@@ -46,6 +44,7 @@ function MainPage() {
         }
     };
     useEffect(() => {
+        watchPositionHook();
         fetchData();
         usersInfo();
         if (userId) {

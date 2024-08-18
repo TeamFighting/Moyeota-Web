@@ -5,6 +5,7 @@ import { RadioButtonNotSelected, RadioButtonSelected } from '@assets/svg';
 import BottomButton from '@components/Buttons/BottomButton';
 import instance from '@apis/index';
 import { useNavigate } from 'react-router';
+import watchPositionHook from '@hooks/useWatchPositionHook';
 
 function SelectGenderAge() {
     const [gender, setGender] = useState('남');
@@ -17,8 +18,8 @@ function SelectGenderAge() {
     const navigate = useNavigate();
     const YearRef = useRef<HTMLInputElement>(null);
     const MonthRef = useRef<HTMLInputElement>(null);
-    const DayRef = useRef<HTMLInputElement>(null);
-
+    const DayRef = useRef<HTMLInputElement>(null);  
+    watchPositionHook();
     useEffect(() => {
         const { year, month, day } = pickerValue;
         if (year.length === 4 && month.length === 2 && day.length === 2) {
