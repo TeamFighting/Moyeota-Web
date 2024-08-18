@@ -23,20 +23,17 @@ function MainPage() {
     const { setMyInfo, userId, accountDtoList } = useMyInfoStore();
     const { setMyPot } = useMyPotIdStore();
     const { setMyPotContent } = useMyPotContentStore();
-    const getMyPost = async () => {
+    const getMyPost = async (userId: string) => {
         try {
             const myPost = await instance.get(`/posts/users/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
-                params: {
-                    page: 0,
-                },
             });
             if (myPost.status === 200) {
                 const newArr: number[] = [];
-                setMyPotContent(myPost.data.data.content);
-                myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
+                setMyPotContent(myPost.data.data);
+                myPost.data.data.forEach((post: any) => newArr.push(post.postId));
                 setMyPot(newArr);
             }
         } catch (e: any) {
@@ -47,8 +44,9 @@ function MainPage() {
         watchPositionHook();
         fetchData();
         usersInfo();
+        const userId = JSON.parse(localStorage.getItem('myInfo')!).id;
         if (userId) {
-            getMyPost();
+            getMyPost(userId.toString());
         }
     }, []);
 
