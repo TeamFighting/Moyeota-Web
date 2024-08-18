@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Chevronleft } from '@assets/svg';
-import { HEADER_HEIGHT } from '@constants';
 import { useNavigate, useParams } from 'react-router-dom';
 import BottomSheet from './BottomSheet';
 import DestinationButton from '../Button/DestinationButtom';

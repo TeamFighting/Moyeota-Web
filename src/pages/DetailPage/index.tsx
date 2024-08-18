@@ -10,7 +10,6 @@ import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyM
 import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
 import instance from '@apis';
 import ModalStore from '@stores/ModalStore';
-import { useMyPotIdStore } from '@stores/MyPotIdStore';
 import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import getDays from '@utils/getDays';
 import ISOto12 from '@utils/ISOto12';
@@ -46,7 +45,6 @@ function DetailPage() {
     const [scroll, setScroll] = useState(0);
     const [dividerHeight, setDividerHeight] = useState(6);
     const { modalOpen } = ModalStore();
-    const { MyPotId } = useMyPotIdStore();
     const [data, setData] = useState<DetailPageProps>({} as DetailPageProps);
     const [isFixDetailHeader, setIsFixDetailHeader] = useState(false);
     const [splitedTime, setSplitedTime] = useState(['', '', '', '']);

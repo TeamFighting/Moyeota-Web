@@ -25,8 +25,7 @@ function Body({ userInfo }: BodyProps) {
         return;
     }
     const userInfoData: UserInfoData = JSON.parse(userInfo);
-    let gen: string = '남자';
-    if (gender == 'F') gen = '여자';
+
     async function usersInfo() {
         try {
             const res = await instance.get('/users', {
@@ -86,7 +85,7 @@ function Body({ userInfo }: BodyProps) {
                     />
                 </S.Icon>
                 <S.Tags>
-                    <S.Tag>{gender+'자'}</S.Tag>
+                    <S.Tag>{gender + '자'}</S.Tag>
                     <S.Tag>{age}</S.Tag>
                 </S.Tags>
             </S.UserInfo>
