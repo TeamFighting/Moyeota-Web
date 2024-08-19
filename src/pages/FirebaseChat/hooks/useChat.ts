@@ -11,7 +11,7 @@ const useChat = () => {
     const [postInfo, setPostInfo] = useState<IPostInfo>({} as IPostInfo);
     const [messages, setMessages] = useState<IMessage[]>([]);
     const [messagesLoading, setMessagesLoading] = useState<boolean>(true);
-    const { userId, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
+    const { id, profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { setLastReadTime, setNoneReadChat } = NoneReadChatStore.getState();
     const messagesRef = dbRef(db, 'messages');
 
@@ -47,7 +47,7 @@ const useChat = () => {
     return {
         state: {
             postInfo,
-            userId,
+            id,
             postId,
             roomId,
             messages,
