@@ -1,17 +1,17 @@
 import { create } from 'zustand';
 
 interface DestinationInfo {
-    address_name: string | null;
-    category_group_code: string | null;
-    category_name: string | null;
-    distance: string | null;
-    id: string | null;
-    phone: string | null;
-    place_name: string | null;
-    place_url: string | null;
-    road_address_name: string | null;
-    x: string | null;
-    y: string | null;
+    address_name: string;
+    category_group_code: string;
+    category_name: string;
+    distance: string;
+    id: string;
+    phone: string;
+    place_name: string;
+    place_url: string;
+    road_address_name: string;
+    x: string;
+    y: string;
 }
 interface DestinationResultProps {
     destinationResult: DestinationInfo | null;
