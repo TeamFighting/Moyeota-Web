@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface MyPotType {
     category: string;
@@ -44,7 +44,7 @@ export const useMyPotContentStore = create(
         }),
         {
             name: 'myPotContent-storage',
-            getStorage: () => sessionStorage,
+            storage: createJSONStorage(() => sessionStorage),
         },
     ),
 );

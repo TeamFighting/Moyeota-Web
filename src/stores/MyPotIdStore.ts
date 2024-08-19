@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 export interface MyPotId {
     MyPotId: number[];
@@ -14,7 +14,7 @@ export const useMyPotIdStore = create(
         }),
         {
             name: 'myPot-storage',
-            getStorage: () => localStorage,
+            storage: createJSONStorage(() => localStorage),
         },
     ),
 );

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 type State = {
     appliedParty: Array<{ postId: number; isApplied: boolean }>;
@@ -22,7 +22,7 @@ export const useAppliedPartyStore = create(
         }),
         {
             name: 'applied-party',
-            getStorage: () => localStorage,
+            storage: createJSONStorage(() => localStorage),
         },
     ),
 );

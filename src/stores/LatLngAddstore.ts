@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface LatLngAddStore {
     currentLat: number;
@@ -21,8 +21,7 @@ const LatLngAddStore = create(
         }),
         {
             name: 'LatLngAddStore',
-            getStorage: () => sessionStorage,
-        },
+            storage: createJSONStorage(() => sessionStorage)        },
     ),
 );
 
