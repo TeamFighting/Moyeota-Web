@@ -6,22 +6,13 @@ import CreatePrice from './CreatePrice';
 import CreateDescription from './CreateDescription';
 import CreatePotButton from './Components/Button/CreatePotButton';
 import CreateNote from './CreateNote';
-import type { SetStateAction } from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
 
 function CreatePotPage() {
     const [dividerHeight, setDividerHeight] = useState(6);
     const [scroll, setScroll] = useState(0);
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.get('destination') || undefined;
-    const [totalPeople, setTotalPeople] = useState(1);
 
-    const handleTotalPeopleChange = (count: SetStateAction<number>) => {
-        setTotalPeople(count);
-    };
     useEffect(() => {
         const handleScroll = () => {
             const position = window.pageYOffset;
@@ -47,11 +38,11 @@ function CreatePotPage() {
                 <CreateHeader />
                 <CreateBody />
                 <Divider style={{ height: '10px' }} />
-                <CreateBottom totalPeople={totalPeople} onTotalPeopleChange={handleTotalPeopleChange} />
+                <CreateBottom />
                 <Divider style={{ height: `${dividerHeight}px` }} />
-                <CreatePrice totalPeople={totalPeople} />
+                <CreatePrice />
                 <Divider style={{ height: '6px' }} />
-                <CreatePotButton totalPeople={totalPeople} />
+                <CreatePotButton />
                 <CreateDescription />
                 <Divider style={{ height: '6px' }} />
                 <CreateNote />

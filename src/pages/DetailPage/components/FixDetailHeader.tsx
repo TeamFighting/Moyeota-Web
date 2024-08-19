@@ -4,29 +4,27 @@ import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '@assets/svg/CancelIcon';
 import CheveronLeft from '@assets/svg/Chevronleft';
 import ThreeDots from '@assets/svg/ThreeDots';
-import UploadIcon from '@assets/svg/UploadIcon';
-import EditDeleteModal from './EditDeleteModal';
-import useUpdateModalStore from '@stores/UpdateModalStore';
+import EditDeleteModal from './EditDeleteBottomSheet';
+import useEditDeleteBottomSheetStore from '@stores/useEditDeleteBottomSheetStore';
 
 function FixDetailHeader({ postId }: { postId: number }) {
     const navigate = useNavigate();
-    const { isModalOpen, openModal, closeModal } = useUpdateModalStore();
+    const { openEditDeleteBottomSheet } = useEditDeleteBottomSheetStore();
 
     const goBack = () => {
-        navigate(-1);
+        navigate('/mainpage');
     };
 
     return (
         <Header>
-            <EditDeleteModal postId={postId} isOpen={isModalOpen} onClose={closeModal}>
+            <EditDeleteModal postId={postId}>
                 <div></div>
             </EditDeleteModal>
             <Icon style={{ alignSelf: 'center' }} onClick={goBack}>
                 <CheveronLeft width="24" height="24" />
             </Icon>
             <Icon style={{ alignSelf: 'center' }}>
-                <ThreeDots onClick={openModal} style={{ paddingRight: '16px' }} />
-                <UploadIcon style={{ paddingRight: '16px' }} />
+                <ThreeDots onClick={openEditDeleteBottomSheet} style={{ paddingRight: '16px' }} />
                 <SvgCancelIcon onClick={goBack} width="24" height="24" />
             </Icon>
         </Header>

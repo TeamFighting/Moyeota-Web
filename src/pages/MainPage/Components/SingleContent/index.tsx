@@ -6,7 +6,7 @@ import getDays from '@utils/getDays';
 import createAgo from '@utils/createAgo';
 import { useQuickPotStore } from '@stores/QuickPotStore';
 import useStore from '@stores/ContentStore';
-import { useMyPotContentStore } from '@stores/MyPotPage';
+import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import { ArrowRight, LocationMarker, Clock } from '@assets/svg';
 import * as S from '../../style';
 
@@ -38,12 +38,7 @@ function SingleContent({ from }: { from: string }) {
         const timePart = ISOto12(data.departureTime);
         const ago = createAgo(data.createAt);
         const postId = data.postId;
-        let gender;
-        if (data.userGender == 'F') {
-            gender = '여';
-        } else {
-            gender = '남';
-        }
+
         return (
             <S.SingleContent
                 key={index}
@@ -56,7 +51,7 @@ function SingleContent({ from }: { from: string }) {
                     ago={ago}
                     index={index}
                     userName={data.userName}
-                    gender={gender}
+                    gender={data.userGender}
                     distance={data.distance}
                 />
                 <S.ContentTitle>{data.title}</S.ContentTitle>
@@ -80,8 +75,8 @@ function SingleContent({ from }: { from: string }) {
                         <Tags>
                             <Tag>{data.vehicle}</Tag>
                             {!data.sameGenderStatus && <Tag>성별무관</Tag>}
-                            {data.sameGenderStatus && data.userGender == 'M' && <Tag>남자만</Tag>}
-                            {data.sameGenderStatus && data.userGender == 'F' && <Tag>여자만</Tag>}
+                            {data.sameGenderStatus && data.userGender == '남' && <Tag>남자만</Tag>}
+                            {data.sameGenderStatus && data.userGender == '여' && <Tag>여자만</Tag>}
                             <Tag>{data.category}</Tag>
                         </Tags>
                         <Status>

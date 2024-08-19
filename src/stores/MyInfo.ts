@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface accountDtoList {
     accountNumber: string;
@@ -42,7 +42,6 @@ export const useMyInfoStore = create(
         }),
         {
             name: 'my-info',
-            getStorage: () => localStorage,
-        },
+            storage: createJSONStorage(() => localStorage)        },
     ),
 );

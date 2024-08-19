@@ -5,7 +5,6 @@ import instance from '@apis';
 
 interface DeleteModalProps {
     onClose: () => void;
-    // children?: React.ReactNode;
     postId: number;
 }
 

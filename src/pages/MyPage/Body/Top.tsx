@@ -7,9 +7,7 @@ function BodyTop() {
     const userInfo = useMyInfoStore();
     const navigate = useNavigate();
     let gender = '남자';
-    if (userInfo.gender == 'F') gender = '여자';
-    const age = userInfo.age;
-
+    if (userInfo.gender == '여') gender = '여자';
     const navigateToEdit = () => {
         const userId = userInfo.userId;
         navigate(`/mypage/modify/${userId}`);
@@ -24,7 +22,7 @@ function BodyTop() {
                         <PencilIcon width={20} height={20} />
                     </S.ProfileNameRow>
                     <S.Tags>
-                        <S.Tag>{gender}</S.Tag> <S.Tag>{age}</S.Tag>
+                        <S.Tag>{gender}</S.Tag> <S.Tag>{userInfo.age}</S.Tag>
                     </S.Tags>
                 </S.ProfileInfo>
             </S.ProfileWrapper>

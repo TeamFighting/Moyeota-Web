@@ -1,42 +1,39 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import LocationHeader from './LocationHeader';
+import LocationHeader from './Components/LocationHeader';
 import BottomSheet from './Components/BottomSheet';
 import { useNavigate } from 'react-router-dom';
 import NaverMap from './NaverMap';
-import MarkerClickContent from './Components/MarkerClickContent/MarkerClickContent';
 import instance from '@apis';
 import { HEADER_HEIGHT } from '@constants';
 import watchPositionHook from '@hooks/useWatchPositionHook';
 import { useMyInfoStore } from '@stores/MyInfo';
-import { useMyPotStore } from '@stores/MyPotStore';
+import { useMyPotIdStore } from '@stores/MyPotIdStore';
 import { useClickedMarker } from '@stores/ClickedMarker';
 import useStore from '@stores/ContentStore';
 import BottomNav from '@components/BottomNav';
+import { useMyPotContentStore } from '@stores/MyPotContentStore';
+import MarkerClickContent from './MarkerClickContent';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
-    const { clickedMarkerId, isClicked } = useClickedMarker();
-
-    watchPositionHook();
+    const { clickedMarkerId, isMarkerClicked } = useClickedMarker();
     const accessToken = localStorage.getItem('accessToken');
     const { setMyInfo, userId, accountDtoList } = useMyInfoStore();
-    const { setMyPot } = useMyPotStore();
-    const getMyPost = async () => {
+    const { setMyPot } = useMyPotIdStore();
+    const { setMyPotContent } = useMyPotContentStore();
+    const getMyPost = async (userId: string) => {
         try {
             const myPost = await instance.get(`/posts/users/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
-                params: {
-                    page: 0,
-                },
             });
             if (myPost.status === 200) {
                 const newArr: number[] = [];
-
-                myPost.data.data.content.forEach((post: any) => newArr.push(post.postId));
+                setMyPotContent(myPost.data.data);
+                myPost.data.data.forEach((post: any) => newArr.push(post.postId));
                 setMyPot(newArr);
             }
         } catch (e: any) {
@@ -44,10 +41,12 @@ function MainPage() {
         }
     };
     useEffect(() => {
+        watchPositionHook();
         fetchData();
         usersInfo();
+        const userId = JSON.parse(localStorage.getItem('myInfo')!).id;
         if (userId) {
-            getMyPost();
+            getMyPost(userId.toString());
         }
     }, []);
 
@@ -95,8 +94,8 @@ function MainPage() {
             </Header>
             <Body>
                 <NaverMap from={'mainpage'} />
-                {isClicked && <MarkerClickContent postId={clickedMarkerId} />}
-                <Bottom isClicked={isClicked}>
+                {isMarkerClicked && <MarkerClickContent postId={clickedMarkerId} />}
+                <Bottom isMarkerClicked={isMarkerClicked}>
                     <BottomSheet />
                     <Buttons>
                         <CreatePotButton onClick={() => navigate('/quickMatch')}>빠른매칭</CreatePotButton>
@@ -129,7 +128,9 @@ const Header = styled.div`
     z-index: 2;
 `;
 
-const Bottom = styled.div<{ isClicked: boolean }>`
+const Bottom = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isMarkerClicked',
+})<{ isMarkerClicked: boolean }>`
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -137,7 +138,7 @@ const Bottom = styled.div<{ isClicked: boolean }>`
     bottom: 0;
     height: 258px;
     background-color: white;
-    visibility: ${(props) => (props.isClicked ? 'hidden' : 'visible')};
+    visibility: ${({ isMarkerClicked }) => (isMarkerClicked ? 'hidden' : 'visible')};
 `;
 
 const Body = styled.div`

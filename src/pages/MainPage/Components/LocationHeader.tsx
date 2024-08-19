@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import CurrentLocationStore from '../../stores/CurrentLocation';
+import CurrentLocationStore from '../../../stores/CurrentLocation';
 declare global {
     interface Window {
         kakao: {
             maps: {
-                 
                 LatLng: any;
                 services: {
-                     
                     Geocoder: any;
                 };
             };

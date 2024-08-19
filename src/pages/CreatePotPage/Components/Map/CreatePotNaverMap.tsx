@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import LatLngAddStore from '@stores/LatLngAddstore';
 import DestinationStore from '@stores/DestinationResult';
 import { DestinationMarkerClickStore } from '@stores/DestinationMarkerClickStore';
+import PotCreateStore from '@stores/PotCreateStore';
 
 declare global {
     interface Window {
@@ -16,7 +17,8 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
     const mapElement = useRef(null);
     const { naver } = window;
     const { currentLat, currentLng } = LatLngAddStore((state) => state);
-    const { setDestinationResult } = DestinationStore((state) => state);
+    const { setDestination } = PotCreateStore();
+    const { destinationResult, setDestinationResult } = DestinationStore((state) => state);
     const { setClickedDestinationMarker, clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
     const [changeCenter, setChangeCenter] = useState({ lat: currentLat, lng: currentLng, title: '' });
     const [bounds, setBounds] = useState<any>(null);
@@ -45,7 +47,6 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
             }
             setDestinationResult(data[0]);
             if (bounds == null) {
-                setChangeCenter({ lat: data[0].y, lng: data[0].x, title: data[0].place_name });
                 setBounds(new naver.maps.LatLngBounds(boundsArr));
             }
 
@@ -113,6 +114,17 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
         }
     }, [destination, bounds, clickedDestinationMarker]);
 
+    useEffect(() => {
+        if (!destinationResult) return;
+        setDestination(destinationResult.place_name);
+
+        console.log('destinationResult:', destinationResult);
+        setChangeCenter({
+            lat: parseFloat(destinationResult.y),
+            lng: parseFloat(destinationResult.x),
+            title: destinationResult.place_name,
+        });
+    }, [destinationResult]);
     return (
         <>
             <div ref={mapElement} style={{ height: '100%' }} />

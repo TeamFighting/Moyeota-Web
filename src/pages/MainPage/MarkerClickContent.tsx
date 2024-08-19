@@ -5,7 +5,7 @@ import ContentStore from '@stores/ContentStore';
 import createAgo from '@utils/createAgo';
 import getDays from '@utils/getDays';
 import ISOto12 from '@utils/ISOto12';
-import * as S from '../../style';
+import * as S from './style';
 
 function MarkerClickContent({ postId }: { postId: number }) {
     const navigate = useNavigate();
@@ -19,13 +19,6 @@ function MarkerClickContent({ postId }: { postId: number }) {
             state: { data, splitedTime, timePart },
         });
     };
-
-    let gender = '';
-    if (data.userGender == 'F') {
-        gender = '여';
-    } else {
-        gender = '남';
-    }
 
     return (
         <div
@@ -44,7 +37,7 @@ function MarkerClickContent({ postId }: { postId: number }) {
                     <S.ProfileLeft>
                         <img src={data.profileImage} width="24px" height="24px" style={{ borderRadius: '100%' }} />
                         <S.ProfileName style={{ fontSize: '14px', color: 'black' }}>{data.userName}</S.ProfileName>
-                        <S.ProfileSex>{gender}</S.ProfileSex>
+                        <S.ProfileSex>{data.userGender}</S.ProfileSex>
                         <S.Dot />
                         <S.ProfileTime>{ago}</S.ProfileTime>
                     </S.ProfileLeft>

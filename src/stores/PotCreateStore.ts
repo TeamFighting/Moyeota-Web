@@ -1,45 +1,89 @@
 import { create } from 'zustand';
 
+interface PotInfo {
+    title: string;
+    content: string;
+    distance: number;
+    destination: string;
+    totalPeople: number;
+    VehicleType: string;
+    sameGenderStatus: string;
+    selectedTime: string;
+    postId: number;
+    departure: string;
+}
 interface StoreState {
-    description: string;
-    setDescription: (value: string) => void;
+    content: string;
+    setContent: (value: string) => void;
     title: string;
     setTitle: (value: string) => void;
+    departure: string;
+    setDeparture: (value: string) => void;
     distance: number;
     setDistance: (value: number) => void;
-    destination: string | null;
-    setDestination: (value: string | null) => void;
+    destination: string;
+    setDestination: (value: string) => void;
     totalPeople: number;
     setTotalPeople: (value: number) => void;
-    VehicleType: string | null;
-    setVehicleType: (value: string | null) => void;
-    sameGenderRide: string | null;
-    setSameGenderRide: (value: string | null) => void;
+    VehicleType: string;
+    setVehicleType: (value: string) => void;
+    sameGenderStatus: string;
+    setSameGenderStatus: (value: string) => void;
     selectedTime: string;
     setSelectedTime: (value: string) => void;
     postId: number;
     setPostId: (value: number) => void;
+    clearPotCreateStore: () => void;
+    setPotCreateStore: (value: PotInfo) => void;
 }
 
 const PotCreateStore = create<StoreState>((set) => ({
-    description: '',
     title: '',
+    content: '',
     distance: 0,
-    destination: null,
+    destination: '',
     totalPeople: 1,
     VehicleType: '일반',
-    sameGenderRide: 'NO',
+    sameGenderStatus: 'NO',
     selectedTime: '',
     postId: 0,
-    setDescription: (value) => set({ description: value }),
+    departure: '',
+    departureTime: '',
+    setPotCreateStore: (value: PotInfo) =>
+        set({
+            title: value.title,
+            content: value.content,
+            distance: value.distance,
+            destination: value.destination,
+            totalPeople: value.totalPeople,
+            VehicleType: value.VehicleType,
+            sameGenderStatus: value.sameGenderStatus,
+            selectedTime: value.selectedTime,
+            postId: value.postId,
+            departure: value.departure,
+        }),
     setTitle: (value) => set({ title: value }),
+    setContent: (value) => set({ content: value }),
     setDistance: (value) => set({ distance: value }),
     setDestination: (value) => set({ destination: value }),
     setTotalPeople: (value: number) => set({ totalPeople: value }),
     setVehicleType: (value) => set({ VehicleType: value }),
-    setSameGenderRide: (value) => set({ sameGenderRide: value }),
+    setSameGenderStatus: (value) => set({ sameGenderStatus: value }),
     setSelectedTime: (value) => set({ selectedTime: value }),
     setPostId: (value: number) => set({ postId: value }),
+    setDeparture: (value: string) => set({ departure: value }),
+    clearPotCreateStore: () =>
+        set({
+            title: '',
+            distance: 0,
+            destination: '',
+            totalPeople: 1,
+            VehicleType: '일반',
+            sameGenderStatus: 'NO',
+            selectedTime: '',
+            postId: 0,
+            departure: '',
+        }),
 }));
 
 export default PotCreateStore;

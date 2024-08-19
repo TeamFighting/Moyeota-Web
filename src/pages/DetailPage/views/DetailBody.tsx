@@ -1,22 +1,55 @@
-import { ChevronRight, LocationFrom, LocationMarker } from '@assets/svg';
-import * as S from './style';
+import { ChevronRight, LionProfile, LocationFrom, LocationMarker } from '@assets/svg';
+import * as S from '../style';
 import createAgo from '@utils/createAgo';
-import usePostDataStore from '@stores/PostDataStore';
+import DetailMap from './DetailMap';
 
-function DetailBody() {
-    const { data } = usePostDataStore();
+interface DetailPageProps {
+    category: string;
+    content: string;
+    createAt: string;
+    departure: string;
+    departureTime: string;
+    destination: string;
+    distance: number;
+    duration: number;
+    fare: number;
+    numberOfParticipants: number;
+    numberOfRecruitment: number;
+    postId: number;
+    profileImage: string;
+    sameGenderStatus: string;
+    status: string;
+    title: string;
+    userGender: string;
+    userName: string;
+    vehicle: string;
+    view: number;
+    roomId: string;
+    latitude: string;
+    longitude: string;
+}
+function DetailBody(data: DetailPageProps) {
     const ago = createAgo(data.createAt);
-
     let gender;
-    if (!data.userGender) {
+    if (data.userGender == '여') {
         gender = '여';
     } else {
         gender = '남';
     }
+    let latitude = data.latitude;
+    let longitude = data.longitude;
+    if (latitude == null || longitude == null) {
+        longitude = '127.0276';
+        latitude = '37.4979';
+    }
     return (
         <S.Body>
             <S.Profile>
-                <img src={data.profileImage} width="86px" height="86px" style={{ borderRadius: '100%' }} />
+                {data.profileImage ? (
+                    <img src={data.profileImage} style={{ borderRadius: '100%' }} width="86px" height="86px" />
+                ) : (
+                    <LionProfile width="86px" height="86px" />
+                )}
             </S.Profile>
             <S.Content>
                 <S.Explanation>
@@ -28,7 +61,9 @@ function DetailBody() {
                         {gender}/{ago}/{data.view}명 조회
                     </S.ContentDetail>
                 </S.Explanation>
-                <S.MapSample src="../../../public/png/MapSample.png" width="100%" height="100%" />
+                <S.MapSample>
+                    <DetailMap curLat={latitude} curLng={longitude} />
+                </S.MapSample>
                 <S.Route>
                     <S.From>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>

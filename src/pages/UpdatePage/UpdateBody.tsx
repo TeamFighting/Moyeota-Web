@@ -8,7 +8,8 @@ import DurationFareStore from '../../stores/DurationFareStore';
 import PotCreateStore from '../../stores/PotCreateStore';
 import instance from '@apis';
 import CurrentLocationStore from '../../stores/CurrentLocation';
-import DetailMap from '../DetailPage/DetailMap';
+import DetailMap from '../DetailPage/views/DetailMap';
+import DestinationStore from '@stores/DestinationResult';
 
 interface PostProps {
     category: string;
@@ -38,36 +39,15 @@ interface PostProps {
 function UpdateBody(data: PostProps) {
     const navigate = useNavigate();
     const NavigateToDestination = () => {
-        navigate(`/DestinationPage/Update/${data.postId}`);
+        navigate(`/DestinationPage/Update?postId=${data.postId}&longitude=${data.longitude}&latitude=${data.latitude}`);
     };
     const { currentLocation } = CurrentLocationStore();
+    const { finalDestination } = DestinationStore();
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
-    const { setDistance, setDestination } = PotCreateStore();
-    let curLat = data.latitude;
-    let curLng = data.longitude;
-    if (curLat == null || curLng == null || curLat == '' || curLng == '' || curLat == 'string' || curLng == 'string') {
-        curLat = '37.5662952';
-        curLng = '126.9779451';
-    }
-    const newD = (new URLSearchParams(location.search).get('destination') || undefined) as string;
-
-    const destination = data.destination;
-    const currentlocation = data.departure;
-
-    useEffect(() => {
-        if (data.title) {
-            usePostDataStore.getState().setPostData({
-                title: data.title,
-            });
-        }
-    }, []);
-    useEffect(() => {
-        if (destination) {
-            usePostDataStore.getState().setPostData({
-                destination,
-            });
-        }
-    }, [destination]);
+    const { setDistance, destination: newDestination, setTitle } = PotCreateStore();
+    const curLat = data.latitude;
+    const curLng = data.longitude;
+    console.log('nd', newDestination);
 
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {
@@ -80,6 +60,7 @@ function UpdateBody(data: PostProps) {
             .then((response) => {
                 const data = response.data;
                 const roadAddress = data.data.road_address_name;
+
                 return roadAddress;
             });
     };
@@ -97,7 +78,7 @@ function UpdateBody(data: PostProps) {
                     })
                     .then((response) => {
                         const data = response.data;
-                        // console.log('UPDATE BODY DURATION', data.data.duration);
+                        console.log(data);
                         setEstimatedDuration(data.data.duration);
                         setEstimatedFare(data.data.fare);
                     })
@@ -110,9 +91,10 @@ function UpdateBody(data: PostProps) {
 
     //거리 계산
     useEffect(() => {
+        console.log('new', newDestination);
         // console.log('UPDATE BODY', data.departure, destination, newD);
-        if (data.departure && newD) {
-            convertDestinationToRoadAddress(newD).then((roadDestination) => {
+        if (data.departure && newDestination) {
+            convertDestinationToRoadAddress(newDestination).then((roadDestination) => {
                 if (roadDestination) {
                     instance
                         .get('/distance/compare', {
@@ -124,7 +106,6 @@ function UpdateBody(data: PostProps) {
                         .then((response) => {
                             const data = response.data.data;
                             const distance = parseFloat(data);
-                            // console.log('UPDATE BODY DISTANCE', distance);
                             setDistance(distance);
                         })
                         .catch((error) => {
@@ -132,12 +113,12 @@ function UpdateBody(data: PostProps) {
                         });
                 }
             });
-            setDestination(destination);
         }
-    }, [currentLocation, destination, newD]);
+    }, [currentLocation, newDestination]);
 
     const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
+        setTitle(inputValue);
         usePostDataStore.getState().setPostData({
             title: inputValue,
             longitude: '',
@@ -146,10 +127,10 @@ function UpdateBody(data: PostProps) {
     };
 
     useEffect(() => {
-        if (data.departure && newD) {
-            getEstimatedDurationAndFare(data.departure, newD);
+        if (data.departure && newDestination) {
+            getEstimatedDurationAndFare(data.departure, newDestination);
         }
-    }, [currentLocation, newD]);
+    }, [currentLocation, newDestination]);
 
     return (
         <S.Body>
@@ -167,15 +148,13 @@ function UpdateBody(data: PostProps) {
                 />
                 <S.MapSample>
                     <DetailMap curLat={curLat} curLng={curLng} />
-                </S.MapSample>{' '}
+                </S.MapSample>
                 <S.Route>
                     <S.From>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <LocationFrom width="24" height="64" />
                             <S.Text>
-                                <S.StartPointLocation>
-                                    {currentLocation?.address_name ? currentLocation.address_name : currentlocation}
-                                </S.StartPointLocation>
+                                <S.StartPointLocation>{data.departure}</S.StartPointLocation>
                                 <S.StartPoint>출발지</S.StartPoint>
                             </S.Text>
                         </div>
@@ -196,7 +175,7 @@ function UpdateBody(data: PostProps) {
                             </S.Icon>
                             <S.Text>
                                 <S.StartPointLocation>
-                                    {newD === undefined ? data.destination : newD}
+                                    {finalDestination ? finalDestination : data.destination}
                                 </S.StartPointLocation>
                                 <S.StartPoint>도착지</S.StartPoint>
                             </S.Text>

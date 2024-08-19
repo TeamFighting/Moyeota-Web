@@ -9,7 +9,7 @@ import { HEADER_HEIGHT, WINDOW_HEIGHT, BOTTOM_NAV_HEIGHT } from '@constants';
 function BottomSheet() {
     const { sheet, handleUp, content } = useBottomSheet({ from: 'Mainpage', setIsBottomSheetOpen: () => {} });
     // bottomBar 없어지면 marginTop 조정
-    const refHeight = WINDOW_HEIGHT - (HEADER_HEIGHT + BOTTOM_NAV_HEIGHT);
+    const refheight = WINDOW_HEIGHT - (HEADER_HEIGHT + BOTTOM_NAV_HEIGHT);
     return (
         <Wrapper ref={sheet}>
             <OpenBotton onClick={handleUp}>
@@ -26,7 +26,7 @@ function BottomSheet() {
             >
                 <BottomSheetHandle />
                 {/* <ContentHeader /> */}
-                <BottomSheetContentWrapper refHeight={refHeight}>
+                <BottomSheetContentWrapper refheight={refheight}>
                     <BottomSheetContent content={content} />
                 </BottomSheetContentWrapper>
             </div>
@@ -64,9 +64,9 @@ const OpenBotton = styled.div`
     z-index: 1;
     gap: 5px;
 `;
-const BottomSheetContentWrapper = styled.div<{ refHeight: number }>`
+const BottomSheetContentWrapper = styled.div<{ refheight: number }>`
     width: 100%;
-    height: ${(props) => props.refHeight + 15}px;
+    height: ${(props) => props.refheight + 15}px;
     overflow-y: scroll;
     background-color: blue;
     z-index: 1;

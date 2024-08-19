@@ -1,24 +1,31 @@
 import styled from 'styled-components';
-import { LionProfile } from '@assets/svg';
-import * as S from './style';
+import * as S from '../style';
 import { useEffect, useState } from 'react';
-import usePostDataStore from '@stores/PostDataStore';
-import { AuthStore } from '@stores/AuthStore';
 import instance from '@apis';
+import { AuthStore } from '@stores/AuthStore';
+
+interface Props {
+    leaderName: string;
+    content: string;
+    gender: string;
+    profileImage: string;
+    participants: number;
+    postId: number;
+}
 
 interface PARTYINFO {
     userName: string;
     profileImage: string;
-    userGender: boolean;
+    userGender: string;
+    nickname: string;
+    potOwner: boolean;
 }
 
-function DetailPartySection() {
-    const { data } = usePostDataStore();
+function DetailPartySection({ profileImage, leaderName, content, gender, postId }: Props) {
     const { accessToken } = AuthStore();
     const [onlyParty, setonlyParty] = useState<PARTYINFO[]>([]);
-    const postId = data.postId;
-    const leaderName = data.userName;
     async function getPartyOne(postId: number) {
+        if (postId == undefined) return;
         try {
             await instance
                 .get(`/posts/${postId}/members`, {
@@ -26,7 +33,7 @@ function DetailPartySection() {
                         Authorization: `Bearer ${accessToken}`,
                     },
                 })
-                .then(async (res) => {
+                .then(async (res: any) => {
                     if (res.status == 200) {
                         const partyInfo: PARTYINFO[] = res.data.data;
                         const participants = partyInfo.filter((value) => {
@@ -39,53 +46,52 @@ function DetailPartySection() {
             console.log(e);
         }
     }
-
     useEffect(() => {
         getPartyOne(postId);
-    }, []);
-    let gender;
-    if (!data.userGender) {
-        gender = '여자';
-    } else {
-        gender = '남자';
-    }
+    }, [postId]);
 
     return (
         <S.Party>
             <S.Leader>팟장</S.Leader>
             <Wrapper>
                 <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
-                    <img src={data.profileImage} width="86px" height="86px" style={{ borderRadius: '100%' }} />
+                    <img style={{ borderRadius: '100%' }} src={profileImage} width="55px" height="55px" />
                 </S.Icon>
                 <S.Name>{leaderName}</S.Name>
                 <S.Tags>
-                    <S.Tag style={{ marginRight: '7px' }}>{gender}</S.Tag>
-                    {/* 나잇대 수정필요 */}
+                    <S.Tag style={{ marginRight: '7px' }}>{gender + '자'}</S.Tag>
                     <S.Tag>20대</S.Tag>
                 </S.Tags>
             </Wrapper>
-            <S.Description>{data.content}</S.Description>
+            <S.Description>{content}</S.Description>
             <S.PartyOne>
                 <div style={{ flexDirection: 'row', display: 'flex' }}>
                     <S.Leader>파티원</S.Leader>
                     <TagsWrapper>
                         <S.Tags style={{}}>
-                            <S.Tag style={{ marginRight: '7px' }}>{data.numberOfParticipants - 1}명</S.Tag>
+                            <S.Tag style={{ marginRight: '7px' }}>{onlyParty.length - 1}명</S.Tag>
                         </S.Tags>
                     </TagsWrapper>
                 </div>
                 {/* 나잇대 수정필요 */}
-                {onlyParty.length > 0 ? (
+                {onlyParty.length - 1 > 0 ? (
                     onlyParty.map((value, index) => {
+                        if (value.potOwner) return null;
                         return (
                             <Wrapper key={index} style={{ paddingBottom: '16px' }}>
                                 <S.Icon style={{ marginLeft: '24px', marginRight: '13px' }}>
-                                    <LionProfile width="55px" height="55px" />
+                                    <img
+                                        src={value.profileImage}
+                                        style={{ borderRadius: '100%' }}
+                                        width="55px"
+                                        height="55px"
+                                    />
                                 </S.Icon>
-                                <S.Name>{value.userName}</S.Name>
+                                <S.Name>{value.nickname}</S.Name>
                                 <S.Tags style={{}}>
-                                    <S.Tag style={{ marginRight: '7px' }}>{value.userGender ? '남자' : '여자'}</S.Tag>
-                                    {/* 나잇대 수정필요 */}
+                                    <S.Tag style={{ marginRight: '7px' }}>
+                                        {value.userGender == '남' ? '남자' : '여자'}
+                                    </S.Tag>
                                     <S.Tag>20대</S.Tag>
                                 </S.Tags>
                             </Wrapper>

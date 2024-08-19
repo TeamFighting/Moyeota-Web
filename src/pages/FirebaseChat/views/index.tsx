@@ -17,7 +17,7 @@ import type { IMessage } from '../constants';
 
 function FirebaseChat() {
     const {
-        state: { userId, postInfo, postId, roomId, messages, messagesLoading, profileImage },
+        state: { id: userId, postInfo, postId, roomId, messages, messagesLoading, profileImage },
         action: { leaveChatRoom },
     } = useChat();
     const [open, setOpen] = useState(false);

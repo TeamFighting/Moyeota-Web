@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
-import { DestinationMarkerClickStore } from '@stores/DestinationMarkerClickStore';
+import { useNavigate } from 'react-router-dom';
+import PotCreateStore from '@stores/PotCreateStore';
 
 function DestinationButton({ from }: { from: string }) {
     const navigate = useNavigate();
-    const { clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
-    const { postId } = useParams();
+    const { setDestination } = PotCreateStore();
     const navigateToCreateComplete = () => {
         if (from === 'create') {
-            navigate(`/createPotPage?destination=${clickedDestinationMarker?.title}`);
+            navigate(`/createPotPage`);
         } else {
-            navigate(`/updatePot/${postId}?destination=${clickedDestinationMarker?.title}`);
+            setDestination('');
+            navigate(`/updatePot/${new URLSearchParams(location.search).get('postId')}`);
         }
     };
     return (

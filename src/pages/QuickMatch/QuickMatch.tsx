@@ -1,4 +1,4 @@
-import DetailHeader from '../DetailPage/DetailHeader';
+import DetailHeader from '../DetailPage/components/DetailHeader';
 import { ContentDetail, Title } from '../DetailPage/style';
 import { DeleteButton } from '../../assets/svg';
 import { Icon } from '../CreatePotPage/style';

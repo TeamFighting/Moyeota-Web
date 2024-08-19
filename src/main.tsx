@@ -4,19 +4,15 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import MainPage from './pages/MainPage';
 import DetailPage from './pages/DetailPage';
-import CreateDetailPage from './pages/CreatePotPage/Components/DetailPage/index';
 import CreatePotPage from './pages/CreatePotPage';
 import CreateComplete from './pages/CreatePotPage/CreateComplete';
-import DestinationPage from './pages/CreatePotPage/Components/Map/DestinationPage';
-import SearchResults from './pages/CreatePotPage/Components/Map/SearchResults';
+import DestinationPage from './pages/CreatePotPage/Components/Map/CreateDestinationMapPage';
 import QuickMatch from './pages/QuickMatch/QuickMatch';
 import QuickMatchFinding from './pages/QuickMatch/QuickMatchFinding';
-import UpdateDestinationPage from './pages/UpdatePage/Map/DestinationPage';
-import UpdateSearchResults from './pages/UpdatePage/Map/SearchResults';
 import FirebaseChat from './pages/FirebaseChat/views';
 import ChatLists from './pages/FirebaseChat/views/ChatLists';
 import UpdatePotPage from './pages/UpdatePage';
-import PotPage from './pages/PotPage';
+import PotPage from './pages/MyPage/MyPot';
 import OwnerReimbursement from './pages/ReimbursementPage/OwnerReimbursement';
 import ApplierReimbusement from './pages/ReimbursementPage/ApplierReimbursement';
 import AddAccount from './pages/AddBankAccount';
@@ -33,9 +29,11 @@ import EditAccount from './pages/MyPage/MyPageLists/EditBankAccount';
 import ModifyProfile from './pages/MyPage/MyPageLists/ModifyNickName';
 import ManageProfile from './pages/MyPage/MyPageLists/ManageAccount';
 import { ROUTE } from '@constants/route';
-import { worker } from '../mocks/browser';
 import ToastProvider from 'ToastProvider';
 import SelectGenderAge from '@pages/SelectGenderAge';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 const routes = [
     {
         path: ROUTE.ROOT,
@@ -62,18 +60,7 @@ const routes = [
         path: ROUTE.DESTINATION_PAGE,
         element: <DestinationPage />,
     },
-    {
-        path: ROUTE.UPDATE_DESTINATION_PAGE,
-        element: <UpdateDestinationPage />,
-    },
-    {
-        path: ROUTE.SEARCH_RESULTS,
-        element: <SearchResults />,
-    },
-    {
-        path: ROUTE.UPDATE_SEARCH_RESULTS,
-        element: <UpdateSearchResults />,
-    },
+
     {
         path: ROUTE.QUICK_MATCH,
         element: <QuickMatch />,
@@ -82,10 +69,7 @@ const routes = [
         path: ROUTE.QUICK_MATC_HFINDING,
         element: <QuickMatchFinding />,
     },
-    {
-        path: ROUTE.CREATEDETAIL,
-        element: <CreateDetailPage />,
-    },
+
     {
         path: ROUTE.UPDATEPOT,
         element: <UpdatePotPage />,
@@ -164,20 +148,23 @@ const routes = [
     },
 ];
 
-async function enableMock() {
-    if (import.meta.env.VITE_DEVELOPMENT !== 'devMode') {
-        return;
-    }
+// async function enableMock() {
+//     if (import.meta.env.VITE_DEVELOPMENT !== 'devMode') {
+//         return;
+//     }
 
-    return worker.start();
-}
+//     return worker.start();
+// }
 
-enableMock().then(() => {
-    const router = createBrowserRouter(routes);
-    ReactDOM.createRoot(document.getElementById('root')!).render(
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <RouterProvider router={router} />
-            <ToastProvider />
-        </LocalizationProvider>,
-    );
-});
+// enableMock().then(() => {
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault('Asia/Seoul');
+const router = createBrowserRouter(routes);
+ReactDOM.createRoot(document.getElementById('root')!).render(
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <RouterProvider router={router} />
+        <ToastProvider />
+    </LocalizationProvider>,
+);
+// });

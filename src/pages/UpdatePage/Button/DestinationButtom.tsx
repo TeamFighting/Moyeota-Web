@@ -5,11 +5,13 @@ function DestinationButton() {
     const navigate = useNavigate();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
-    const destination = searchParams.get('destination');
+    const postId = searchParams.get('postId');
 
     const navigateToCreateComplete = () => {
-        if (destination) {
-            navigate(`/updatePotPage?destination=${destination}`);
+        console.log(postId);
+        if (postId) {
+            
+            navigate(`/updatePotPage/${postId}`);
         } else {
             alert('도착지를 입력해주세요');
         }

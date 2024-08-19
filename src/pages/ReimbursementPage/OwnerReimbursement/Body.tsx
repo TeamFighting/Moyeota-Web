@@ -480,7 +480,7 @@ function Body() {
                     )}
                     {calcType === 'N' ? <S.PartyOne>{Nrender}</S.PartyOne> : <S.PartyOne>{Irender}</S.PartyOne>}
                 </S.Money>
-                <S.SelectAccount isClicked={isOpenAccountLists} onClick={selectAccount}>
+                <S.SelectAccount isOpenAccountLists={isOpenAccountLists} onClick={selectAccount}>
                     <S.SelectAccountText>계좌 선택하기</S.SelectAccountText>
                     <div style={{ display: 'flex', flexDirection: 'row', marginRight: '16px', gap: '10px' }}>
                         <S.SelectAccountLength>

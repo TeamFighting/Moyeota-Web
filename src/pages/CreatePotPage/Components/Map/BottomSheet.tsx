@@ -2,23 +2,27 @@ import styled from 'styled-components';
 import LocationMarkerGreen from '@assets/svg/LocationMarkerGreen';
 import { BOTTOM_SHEET_HEIGHT, WINDOW_HEIGHT } from '@constants';
 import DestinationStore from '@stores/DestinationResult';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { DestinationMarkerClickStore } from '@stores/DestinationMarkerClickStore';
+import PotCreateStore from '@stores/PotCreateStore';
 
 function BottomSheet() {
     const { destinationResult } = DestinationStore((state) => state);
     const { clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
     const { setFinalDestination } = DestinationStore((state) => state);
-    const [destinationName, setDestinationName] = useState<string | null>(null);
-
+    const { setDestination, destination } = PotCreateStore();
     useEffect(() => {
         if (destinationResult?.place_name !== null && destinationResult?.place_name !== undefined) {
+            setDestination(destinationResult?.place_name);
             setFinalDestination(destinationResult?.place_name);
-            setDestinationName(destinationResult?.place_name);
+            console.log('NEW', destinationResult?.place_name);
+            // setDestinationName(destinationResult?.place_name);
         }
         if (clickedDestinationMarker) {
+            setDestination(clickedDestinationMarker.title);
             setFinalDestination(clickedDestinationMarker.title);
-            setDestinationName(clickedDestinationMarker.title);
+            console.log('NEW', clickedDestinationMarker.title);
+            // setDestinationName(clickedDestinationMarker.title);
         }
         // console.log(finalDestination);
     }, [destinationResult, clickedDestinationMarker]);
@@ -30,10 +34,10 @@ function BottomSheet() {
             <TextWrapper>
                 <Title>도착지를 설정해주세요</Title>
                 <DestinationWrapper>
-                    {destinationName && (
+                    {destination && (
                         <>
                             <LocationMarkerGreen style={{ width: 24, height: 24, paddingRight: 4 }} />
-                            <Destination>{destinationName}</Destination>
+                            <Destination>{destination}</Destination>
                         </>
                     )}
                 </DestinationWrapper>

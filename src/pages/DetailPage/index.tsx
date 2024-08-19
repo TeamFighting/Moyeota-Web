@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
-import DetailBody from './DetailBody';
-import DetailHeader from './DetailHeader';
-import DetailBottom from './DetailBottom';
-import DetailPartySection from './DetailPartySection';
-import FixDetailHeader from '../CreatePotPage/Components/DetailPage/DetailHeader';
+import DetailBody from './views/DetailBody';
+import DetailHeader from './components/DetailHeader';
+import DetailBottom from './views/DetailBottom';
+import DetailPartySection from './views/DetailPartySection';
+import FixDetailHeader from './components/FixDetailHeader';
 import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
 import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
 import instance from '@apis';
 import ModalStore from '@stores/ModalStore';
-import { useMyPotStore } from '@stores/MyPotStore';
-import { useMyPotContentStore } from '@stores/MyPotPage';
+import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import getDays from '@utils/getDays';
 import ISOto12 from '@utils/ISOto12';
 import * as S from './style';
@@ -46,63 +45,38 @@ function DetailPage() {
     const [scroll, setScroll] = useState(0);
     const [dividerHeight, setDividerHeight] = useState(6);
     const { modalOpen } = ModalStore();
-    const { MyPot } = useMyPotStore();
     const [data, setData] = useState<DetailPageProps>({} as DetailPageProps);
     const [isFixDetailHeader, setIsFixDetailHeader] = useState(false);
     const [splitedTime, setSplitedTime] = useState(['', '', '', '']);
     const [timePart, setTimePart] = useState('');
     const { postId } = useParams();
-    const { setMyPotContent } = useMyPotContentStore();
-    const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
+    const { MyPotContent } = useMyPotContentStore();
 
-    const getMyPot = async () => {
-        try {
-            const res = await instance.get(`/posts/users/${id}`, {
-                params: {
-                    page: 0,
-                },
-            });
-            setMyPotContent(res.data.data.content);
-        } catch (e) {
-            // //console.log(e);
-        }
-    };
-    const getAppliedPot = async () => {
-        try {
-            const res = await instance.get(`/posts/users/${id}`, {
-                params: {
-                    page: 0,
-                },
-            });
-            setMyPotContent(res.data.data.content);
-        } catch (e) {
-            //console.log(e);
-        }
-    };
     const getDetailData = async () => {
-        const res = await instance.get(`/posts/${postId}`);
-        setData(res.data.data);
-        // console.log('RES', res.data.data);
-        if (res.data.data.numberOfParticipants == res.data.data.numberOfRecruitment) {
-            setIsFull(true);
-        }
-        if (res.data.data.departureTime !== undefined) {
-            setSplitedTime(getDays(res.data.data.departureTime));
-            setTimePart(ISOto12(res.data.data.departureTime));
-        }
-        MyPot.forEach((element) => {
-            // console.log(element);
-            if (element === res.data.data.postId) {
-                setIsFixDetailHeader(true);
+        try {
+            const res = await instance.get(`/posts/${postId}`);
+            setData(res.data.data);
+            if (res.data.data.numberOfParticipants == res.data.data.numberOfRecruitment) {
+                setIsFull(true);
             }
-        });
-        // console.log(res);
+            if (res.data.data.departureTime !== undefined) {
+                setSplitedTime(getDays(res.data.data.departureTime));
+                setTimePart(ISOto12(res.data.data.departureTime));
+            }
+            MyPotContent.forEach((element: any) => {
+                if (element.postId == parseInt(postId!)) {
+                    setIsFixDetailHeader(true);
+                }
+            });
+            console.log('detail', res);
+        } catch (e) {
+            console.log(e);
+        }
     };
+    // console.log(res);
 
     useEffect(() => {
         getDetailData();
-        getAppliedPot();
-        getMyPot();
     }, []);
 
     useEffect(() => {

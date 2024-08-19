@@ -1,28 +1,29 @@
 import { ChevronRight, LocationFrom, LocationMarker } from '@assets/svg';
 import * as S from './style';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import type { ChangeEvent } from 'react';
 import { useEffect } from 'react';
 import DurationFareStore from '@stores/DurationFareStore';
 import PotCreateStore from '@stores/PotCreateStore';
-import DetailMap from '../DetailPage/DetailMap';
+import DetailMap from '../DetailPage/views/DetailMap';
 import CurrentLocationStore from '@stores/CurrentLocation';
 import DestinationStore from '@stores/DestinationResult';
 import instance from '@apis';
 
 function CreateBody() {
     const navigate = useNavigate();
-    const { postId } = useParams();
     const NavigateToDestination = () => {
-        navigate(`/destinationPage/create/${postId}`);
+        navigate(`/destinationPage/create`);
     };
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
     const { title, setTitle, setDistance, setDestination } = PotCreateStore();
     const { currentLocation } = CurrentLocationStore();
+
     const curLocation = sessionStorage.getItem('address');
     const curLat = sessionStorage.getItem('latitude');
     const curLng = sessionStorage.getItem('longitude');
     const { finalDestination: destination } = DestinationStore((state) => state);
+    console.log('destination:', destination);
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {
         return instance

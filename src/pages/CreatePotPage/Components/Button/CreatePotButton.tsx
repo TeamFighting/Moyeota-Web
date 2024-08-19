@@ -6,7 +6,7 @@ import PotCreateStore from '@stores/PotCreateStore';
 import DurationFareStore from '@stores/DurationFareStore';
 import instance from '@apis';
 
-function CreatePotButton({ totalPeople }: { totalPeople: number }) {
+function CreatePotButton() {
     const potCreateStore = PotCreateStore();
     const durationFareStore = DurationFareStore();
     const navigate = useNavigate();
@@ -15,12 +15,13 @@ function CreatePotButton({ totalPeople }: { totalPeople: number }) {
     const userData = JSON.parse(localStorage.getItem('myInfo') as string);
     const {
         title,
-        description: content,
+        content: content,
         distance,
         destination,
         VehicleType: vehicle,
-        sameGenderRide: sameGenderStatus,
+        sameGenderStatus,
         selectedTime,
+        totalPeople,
     } = potCreateStore;
     const { estimatedDuration, estimatedFare } = durationFareStore;
     const currentLat = sessionStorage.getItem('latitude');

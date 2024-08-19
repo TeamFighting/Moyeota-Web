@@ -1,55 +1,53 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import Check from '@assets/svg/Check';
 import Minus from '@assets/svg/Minus';
 import Plus from '@assets/svg/Plus';
 import SelectedOff from '@assets/svg/SelectedOff';
+import PotCreateStore from '@stores/PotCreateStore';
+import { useEffect, useState } from 'react';
 
 interface TimeModalProps {
     closeModal: () => void;
-    selectedVehicle: string;
-    totalPeople: number;
-    isSameGenderRide: boolean;
-    onVehicleSelection: (vehicle: string) => void;
-    onTotalPeopleChange: (count: number) => void;
-    onSameGenderRideToggle: () => void;
 }
 
-function TimeModal({
-    closeModal,
-    totalPeople,
-    isSameGenderRide,
-    onVehicleSelection,
-    onTotalPeopleChange,
-    onSameGenderRideToggle,
-}: TimeModalProps) {
+function TaxiTypePersonnelModal({ closeModal }: TimeModalProps) {
+    const { VehicleType, setVehicleType, totalPeople, setTotalPeople, sameGenderStatus, setSameGenderStatus } =
+        PotCreateStore();
     const handleModalClose = () => {
         closeModal();
     };
-    const handlePlusClick = () => {
-        if (totalPeople < 5) {
-            onTotalPeopleChange(totalPeople + 1);
+    const [isSameGenderRide, setIsSameGenderRide] = useState(false);
 
-            if (totalPeople === 4) {
-                onVehicleSelection('밴 택시');
+    const handleSameGenderRideToggle = () => {
+        setIsSameGenderRide(!isSameGenderRide);
+        setSameGenderStatus(isSameGenderRide ? 'NO' : 'YES');
+    };
+    const handlePlusClick = () => {
+        if (VehicleType == '일반') {
+            if (totalPeople < 4) {
+                setTotalPeople(totalPeople + 1);
+            } else {
+                alert('일반 승용 택시는 최대 4인까지 탑승 가능합니다.');
             }
         } else {
-            alert('인원 초과');
+            if (totalPeople < 5) {
+                setTotalPeople(totalPeople + 1);
+            } else {
+                alert('밴 택시는 최대 5인까지 탑승 가능합니다.');
+            }
         }
     };
 
     const handleMinusClick = () => {
         if (totalPeople > 0) {
-            onTotalPeopleChange(totalPeople - 1);
-
-            if (totalPeople <= 4) {
-                onVehicleSelection('일반 승용 택시');
-            }
+            setTotalPeople(totalPeople - 1);
         }
     };
-    const [taxiCategory, setTaxiCategory] = useState('normalTaxi');
-    console.log(taxiCategory);
 
+    useEffect(() => {
+        console.log('vehicle:', VehicleType);
+        console.log('totalPeople:', totalPeople);
+    }, [VehicleType, totalPeople]);
     return (
         <ModalWrapper>
             <Modal>
@@ -59,14 +57,13 @@ function TimeModal({
                         <Explain>일반 승용 택시</Explain>
                         <SubExplain>최대 4인</SubExplain>
                     </Text>
-                    {taxiCategory == 'normalTaxi' ? (
+                    {VehicleType == '일반' ? (
                         <Check style={{ width: 24, height: 24, marginLeft: 120 }} />
                     ) : (
                         <SelectedOff
                             style={{ width: 24, height: 24, marginLeft: 120 }}
                             onClick={() => {
-                                setTaxiCategory('normalTaxi');
-                                onVehicleSelection('일반 승용 택시');
+                                setVehicleType('일반');
                             }}
                         />
                     )}
@@ -76,14 +73,13 @@ function TimeModal({
                         <Explain>밴 택시</Explain>
                         <SubExplain>최대 5인</SubExplain>
                     </Text>
-                    {taxiCategory == 'benTaxi' ? (
+                    {VehicleType == '밴' ? (
                         <Check style={{ width: 24, height: 24, marginLeft: 120 }} />
                     ) : (
                         <SelectedOff
                             style={{ width: 24, height: 24, marginLeft: 120 }}
                             onClick={() => {
-                                setTaxiCategory('benTaxi');
-                                onVehicleSelection('밴 택시');
+                                setVehicleType('밴');
                             }}
                         />
                     )}
@@ -110,8 +106,8 @@ function TimeModal({
                         <SwitchInput
                             type="checkbox"
                             id="genderSwitch"
-                            checked={isSameGenderRide}
-                            onChange={onSameGenderRideToggle}
+                            onChange={handleSameGenderRideToggle}
+                            checked={sameGenderStatus == 'YES'}
                         />
                     </SwitchWrapper>
                 </Box>
@@ -270,4 +266,4 @@ const Modal = styled.div`
     transition: all 400ms ease-in-out 2s;
 `;
 
-export default TimeModal;
+export default TaxiTypePersonnelModal;

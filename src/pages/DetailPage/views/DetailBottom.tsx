@@ -1,32 +1,29 @@
+import * as S from '../style';
 import { Calendar, Clock, Dollar } from '@assets/svg';
-import * as S from './style';
-import usePostDataStore from '@stores/PostDataStore';
+interface DetailBottomProps {
+    fare: number;
+    duration: number;
+    splitedTime: string[];
+    timePart: string;
 
-function DetailBottom() {
-    const { data } = usePostDataStore();
-    const departureDateTime = new Date(data.departureTime);
-
-    const formattedDateTime = departureDateTime
-        .toLocaleString('ko-KR', {
-            weekday: 'short',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true,
-        })
-        .replace('.', '');
+    data: any;
+    participants: number;
+    recruitment: number;
+}
+function DetailBottom({ data, participants, recruitment, splitedTime, fare, duration, timePart }: DetailBottomProps) {
     return (
         <S.Bottom>
             <S.DescriptionTag>
                 <S.Staus>
                     <S.Tags>
-                        <S.Tag>{data.vehicle === '일반' ? '일반택시' : '밴택시'}</S.Tag>
-                        <S.Tag>{data.sameGenderStatus === 'YES' ? '동성끼리' : '성별무관'}</S.Tag>
+                        <S.Tag>{data.vehicle}</S.Tag>
+                        {!data.sameGenderStatus && <S.Tag>성별무관</S.Tag>}
+                        {data.sameGenderStatus && data.userGender == '남' && <S.Tag>남자만</S.Tag>}
+                        {data.sameGenderStatus && data.userGender == '여' && <S.Tag>여자만</S.Tag>}
                         <S.Tag>{data.category}</S.Tag>
                     </S.Tags>
                     <S.GateringTag>
-                        모집중 {data.numberOfParticipants}/{data.numberOfRecruitment}
+                        모집중 {participants}/{recruitment}
                     </S.GateringTag>
                 </S.Staus>
             </S.DescriptionTag>
@@ -44,18 +41,20 @@ function DetailBottom() {
                     <div style={{ flexDirection: 'row', display: 'flex', gap: '11px' }}>
                         <Calendar width="16" height="16" />
                         <div>
-                            <div>{formattedDateTime} 출발</div>
+                            <div>
+                                {splitedTime[1]}월 {splitedTime[2]}일 ({splitedTime[3]}) {timePart} 출발
+                            </div>
                         </div>
                     </div>
                     <div style={{ flexDirection: 'row', display: 'flex', gap: '11px' }}>
                         <Clock width="16" height="16" />
-                        <div>{Math.floor(data.duration / 60)}분 소요</div>
+                        <div>{Math.floor(duration / 60)}분 소요</div>
                     </div>
                     <div style={{ flexDirection: 'row', display: 'flex', gap: '11px' }}>
                         <Dollar width="16" height="16" />
                         <div style={{ flexDirection: 'row', display: 'flex', gap: '5px' }}>
-                            <div style={{ color: '#7E7E7E' }}>예상 금액</div>총 {data.fare.toLocaleString()}원 - 1인당{' '}
-                            {(data.fare / data.numberOfRecruitment).toLocaleString()}원 ({data.numberOfRecruitment}인)
+                            <div style={{ color: '#7E7E7E' }}>예상 금액</div>총 {fare}원 - 1인당 {fare / recruitment}원
+                            ({data.numberOfRecruitment}인)
                         </div>
                     </div>
                 </div>
