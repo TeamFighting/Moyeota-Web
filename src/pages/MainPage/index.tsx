@@ -128,7 +128,9 @@ const Header = styled.div`
     z-index: 2;
 `;
 
-const Bottom = styled.div<{ isMarkerClicked: boolean }>`
+const Bottom = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'isMarkerClicked',
+})<{ isMarkerClicked: boolean }>`
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -136,7 +138,7 @@ const Bottom = styled.div<{ isMarkerClicked: boolean }>`
     bottom: 0;
     height: 258px;
     background-color: white;
-    visibility: ${(props) => (props.isMarkerClicked ? 'hidden' : 'visible')};
+    visibility: ${({ isMarkerClicked }) => (isMarkerClicked ? 'hidden' : 'visible')};
 `;
 
 const Body = styled.div`
