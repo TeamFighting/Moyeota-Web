@@ -1,9 +1,10 @@
 import useStore from '@stores/DurationFareStore';
 import * as S from './style';
+import PotCreateStore from '@stores/PotCreateStore';
 
-function CreatePrice({ totalPeople }: { totalPeople: number }) {
+function CreatePrice() {
     const { estimatedFare } = useStore();
-
+    const { totalPeople } = PotCreateStore();
     const totalAmount = estimatedFare !== null ? estimatedFare : 0;
 
     const farePerPerson = totalPeople > 0 && estimatedFare !== null ? estimatedFare / totalPeople : totalAmount;
