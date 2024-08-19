@@ -1,8 +1,7 @@
- import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 declare global {
     interface Window {
-         
         naver: any;
     }
 }
@@ -29,6 +28,13 @@ function DetailMap({ curLat, curLng }: Props) {
                     center: location,
                     zoom: 13,
                     zoomControl: false,
+                    draggable: false,
+                    pinchZoom: false,
+                    scrollWheel: false,
+                    keyboardShortcuts: false,
+                    disableDoubleTapZoom: true,
+                    disableDoubleClickZoom: true,
+                    disableTwoFingerTapZoom: true,
                 };
                 const map = new naver.maps.Map(mapElement.current, mapOptions);
 
