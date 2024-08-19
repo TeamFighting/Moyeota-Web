@@ -6,7 +6,7 @@ export const ROUTE = {
     DETAIL_PAGE: '/detailpage/:postId',
     CREATE_POT_PAGE: '/CreatePotPage',
     CREATE_COMPLETE: '/CreateComplete',
-    DESTINATION_PAGE: '/DestinationPage/:from/:postId',
+    DESTINATION_PAGE: '/DestinationPage/:from',
     UPDATE_DESTINATION_PAGE: '/UpdateDestinationPage',
     SEARCH_RESULTS: '/searchresults/:from/:postId',
     UPDATE_SEARCH_RESULTS: '/updatesearchresults',
