@@ -162,7 +162,7 @@ export const Title = styled.div`
     font-family: Pretendard;
 `;
 
-export const SelectAccount = styled.div<{ isClicked: boolean }>`
+export const SelectAccount = styled.div<{ isOpenAccountLists: boolean }>`
     display: flex;
     flex-direction: row;
     gap: 8px;
@@ -175,7 +175,7 @@ export const SelectAccount = styled.div<{ isClicked: boolean }>`
     background: var(--Gray-Icon-Solid, #f5f6f8);
 
     svg {
-        transform: ${(props) => (props.isClicked ? 'rotate(90deg)' : 'rotate(0deg)')};
+        transform: ${(props) => (props.isOpenAccountLists ? 'rotate(90deg)' : 'rotate(0deg)')};
         transition: all ease 0.3s;
     }
 `;
