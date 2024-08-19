@@ -2,11 +2,20 @@ import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import CheveronLeft from '../../assets/svg/Chevronleft';
+import PotCreateStore from '@stores/PotCreateStore';
+import DurationFareStore from '@stores/DurationFareStore';
+import DestinationStore from '@stores/DestinationResult';
 
 function UpdateHeader() {
     const navigate = useNavigate();
     const { postId } = useParams();
+    const { clearPotCreateStore } = PotCreateStore();
+    const { clearDestinationStore } = DestinationStore();
+    const { clearDurationFareStore } = DurationFareStore();
     const goBack = () => {
+        clearPotCreateStore();
+        clearDestinationStore();
+        clearDurationFareStore();
         navigate(`/detailpage/${postId}`);
     };
     return (
