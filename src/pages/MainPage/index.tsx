@@ -18,7 +18,7 @@ import MarkerClickContent from './MarkerClickContent';
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
-    const { clickedMarkerId, isClicked } = useClickedMarker();
+    const { clickedMarkerId, isMarkerClicked } = useClickedMarker();
     const accessToken = localStorage.getItem('accessToken');
     const { setMyInfo, userId, accountDtoList } = useMyInfoStore();
     const { setMyPot } = useMyPotIdStore();
@@ -94,8 +94,8 @@ function MainPage() {
             </Header>
             <Body>
                 <NaverMap from={'mainpage'} />
-                {isClicked && <MarkerClickContent postId={clickedMarkerId} />}
-                <Bottom isClicked={isClicked}>
+                {isMarkerClicked && <MarkerClickContent postId={clickedMarkerId} />}
+                <Bottom isMarkerClicked={isMarkerClicked}>
                     <BottomSheet />
                     <Buttons>
                         <CreatePotButton onClick={() => navigate('/quickMatch')}>빠른매칭</CreatePotButton>
@@ -128,7 +128,7 @@ const Header = styled.div`
     z-index: 2;
 `;
 
-const Bottom = styled.div<{ isClicked: boolean }>`
+const Bottom = styled.div<{ isMarkerClicked: boolean }>`
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -136,7 +136,7 @@ const Bottom = styled.div<{ isClicked: boolean }>`
     bottom: 0;
     height: 258px;
     background-color: white;
-    visibility: ${(props) => (props.isClicked ? 'hidden' : 'visible')};
+    visibility: ${(props) => (props.isMarkerClicked ? 'hidden' : 'visible')};
 `;
 
 const Body = styled.div`
