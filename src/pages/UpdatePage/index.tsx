@@ -6,11 +6,12 @@ import UpdatePrice from './UpdatePrice';
 import UpdateDescription from './UpdateDescription';
 import UpdatePotButton from './Button/UpdatePotButton';
 import UpdateNote from './UpdateNote';
-import type { SetStateAction } from 'react';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router';
 import instance from '@apis';
+import PotCreateStore from '@stores/PotCreateStore';
+import DestinationStore from '@stores/DestinationResult';
 
 interface PostProps {
     category: string;
@@ -42,24 +43,37 @@ function UpdatePotPage() {
     const [dividerHeight, setDividerHeight] = useState(6);
     const [scroll, setScroll] = useState(0);
     const { postId } = useParams();
-    const [, setNewDestination] = useState('');
-    const [totalPeople, setTotalPeople] = useState(0);
     const [postInfo, setPostInfo] = useState<PostProps | null>(null);
+    const { finalDestination } = DestinationStore();
+    const {
+        setTitle,
+        setPotCreateStore,
+        setDestination: setNewDestination,
+        destination: newDestination,
+        setTotalPeople,
+        totalPeople,
+        setVehicleType,
+        setSameGenderStatus,
+    } = PotCreateStore();
+    console.log('finalDestination:', finalDestination);
     const getPostInfo = async () => {
         try {
             const res = await instance.get(`/posts/${postId}`);
+            console.log(res.data.data);
+            setPotCreateStore(res.data.data);
             setPostInfo(res.data.data);
+            setTotalPeople(res.data.data.numberOfRecruitment);
+            setTitle(res.data.data.title);
+            setNewDestination(res.data.data.destination);
+            setVehicleType(res.data.data.vehicle);
+            setSameGenderStatus(res.data.data.sameGenderStatus);
         } catch (e) {
             console.log(e);
         }
     };
-    const handleTotalPeopleChange = (count: SetStateAction<number>) => {
-        setTotalPeople(count);
-    };
-    const newD = (new URLSearchParams(location.search).get('destination') || undefined) as string;
 
     useEffect(() => {
-        setNewDestination(newD);
+        setNewDestination(newDestination);
         const handleScroll = () => {
             const position = window.pageYOffset;
             setScroll(position);
@@ -70,7 +84,7 @@ function UpdatePotPage() {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, [newD]);
+    }, []);
 
     useEffect(() => {
         if (scroll > 720) {
@@ -89,11 +103,11 @@ function UpdatePotPage() {
                 <UpdateHeader />
                 <UpdateBody {...postInfo} />
                 <Divider style={{ height: '10px' }} />
-                <UpdateBottom data={postInfo} totalPeople={totalPeople} onTotalPeopleChange={handleTotalPeopleChange} />
+                <UpdateBottom data={postInfo} />
                 <Divider style={{ height: `${dividerHeight}px` }} />
                 <UpdatePrice totalPeople={totalPeople} />
                 <Divider style={{ height: '6px' }} />
-                <UpdatePotButton postId={postInfo.postId} roomId={postInfo.roomId} totalPeople={totalPeople} />
+                <UpdatePotButton postId={postInfo.postId} roomId={postInfo.roomId} />
                 <UpdateDescription />
                 <Divider style={{ height: '6px' }} />
                 <UpdateNote />
