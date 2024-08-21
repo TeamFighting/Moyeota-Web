@@ -19,3 +19,10 @@ export const OAUTH_REQUEST_URLS = {
         import.meta.env.VITE_GOOGLELOGIN_CLIENT_ID
     }&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}&response_type=code&scope=email%20profile`,
 } as const satisfies Record<TOauthProvider, string>;
+
+export const SIGNTYPE = {
+    SIGNIN: 'sign-in',
+    SIGNUP: 'sign-up',
+} as const;
+
+export type TSIGNTYPE = TValues<typeof SIGNTYPE>;
