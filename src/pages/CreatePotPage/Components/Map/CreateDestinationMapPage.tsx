@@ -14,7 +14,6 @@ function CreateDestinationMapPage() {
     const { from } = useParams();
     const postId = new URLSearchParams(window.location.search).get('postId');
 
-    console.log(postId);
     const { setDestination: updateNewDestination, destination: newDestination } = PotCreateStore();
 
     const goToSearchResults = () => {
