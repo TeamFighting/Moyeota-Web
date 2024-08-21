@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router';
-import { GoogleLogin, KakaoLogin, NaverLogin } from '@assets/svg';
+import { KakaologinWide } from '@assets/svg';
 import handleOAuth2Redirect from './OAuth';
-import { match } from 'ts-pattern';
 import { OAUTH_PROVIDER, OAUTH_REQUEST_URLS, type TOauthProvider } from './consts';
 import * as S from './style';
 
@@ -23,15 +22,9 @@ function Body() {
             </div>
             <S.LoginSection>
                 <S.LoginButtons>
-                    {Object.values(OAUTH_PROVIDER).map((provider) => (
-                        <S.Icon key={provider} onClick={() => navToLogin(provider)}>
-                            {match(provider)
-                                .with(OAUTH_PROVIDER.KAKAO, () => <KakaoLogin />)
-                                .with(OAUTH_PROVIDER.GOOGLE, () => <GoogleLogin />)
-                                .with(OAUTH_PROVIDER.NAVER, () => <NaverLogin />)
-                                .exhaustive()}
-                        </S.Icon>
-                    ))}
+                    <S.Icon onClick={() => navToLogin(OAUTH_PROVIDER.KAKAO)}>
+                        <KakaologinWide />
+                    </S.Icon>
                 </S.LoginButtons>
                 <S.LoginExplanation>SNS계정으로 시작하기</S.LoginExplanation>
             </S.LoginSection>

@@ -36,6 +36,7 @@ export { default as Group } from './Group';
 export { default as Heart } from './Heart';
 export { default as Home } from './Home';
 export { default as KakaoLogin } from './KakaoLogin';
+export { default as KakaologinWide } from './KakaologinWide';
 export { default as LionProfile } from './LionProfile';
 export { default as List } from './List';
 export { default as LocationFrom } from './LocationFrom';
