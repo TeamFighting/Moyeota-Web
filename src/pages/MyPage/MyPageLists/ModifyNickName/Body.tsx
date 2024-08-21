@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { WhiteCancelIcon } from '@assets/svg';
 import instance from '@apis';
 import * as S from './ModifyNickname_styles';
@@ -19,6 +19,7 @@ function Body({ userInfo }: BodyProps) {
     const { nickName, setMyInfo, name, age, gender } = useMyInfoStore();
     const [nickNameState, setNickNameState] = useState<string>(nickName ?? '');
     const accessToken = localStorage.getItem('accessToken');
+    const inputRef = useRef<HTMLInputElement>(null);
     if (userInfo == null) {
         alert('로그인이 필요합니다.');
         window.location.href = '/login';
@@ -90,8 +91,17 @@ function Body({ userInfo }: BodyProps) {
                 </S.Tags>
             </S.UserInfo>
             <S.StyledInputWrapper>
-                <S.StyledInput onChange={onChangeNickName} defaultValue={nickName ?? name} />
+                <S.StyledInput
+                    ref={inputRef}
+                    value={nickNameState}
+                    onChange={onChangeNickName}
+                    defaultValue={nickName ?? name}
+                />
                 <S.Icon
+                    onClick={() => {
+                        setNickNameState('');
+                        inputRef.current?.focus();
+                    }}
                     style={{
                         border: 'none',
                         backgroundColor: '#9A9A9A',
