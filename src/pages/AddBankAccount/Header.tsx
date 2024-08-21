@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router';
 import { Chevronleft } from '@assets/svg';
 import { ChatHeader } from '@pages/FirebaseChat/views/ChatLists';
 import { match } from 'ts-pattern';
-import type { TAddAccountFrom } from './constants';
+import { ADD_ACCOUNT_FROM, type TAddAccountFrom } from './constants';
 import { useAccountStore } from '@stores/AccountStore';
 
 function Header() {
@@ -12,8 +12,8 @@ function Header() {
     const handleGoback = () => {
         clearAccount();
         match(from as TAddAccountFrom)
-            .with('createPot', () => navigate('/createPotPage'))
-            .with('mypage', () => navigate(`/mypage/${userId}`)).exhaustive;
+            .with(ADD_ACCOUNT_FROM.CREATE_POT, () => navigate('/createPotPage'))
+            .with(ADD_ACCOUNT_FROM.MY_PAGE, () => navigate(`/mypage/${userId}`)).exhaustive;
     };
     return (
         <ChatHeader style={{ height: '64px', width: '100%', paddingLeft: '10px', boxSizing: 'border-box' }}>
