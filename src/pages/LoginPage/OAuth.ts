@@ -1,6 +1,6 @@
 import instance from '@apis';
 import type { NavigateFunction } from 'react-router';
-import { OAUTH_PROVIDER, type TSIGNTYPE, type TOauthProvider } from './consts';
+import { OAUTH_PROVIDER, SIGNTYPE, type TSIGNTYPE, type TOauthProvider } from './consts';
 import { match } from 'ts-pattern';
 
 async function requestToken(code: string, from: TOauthProvider) {
@@ -35,10 +35,8 @@ export async function handleOAuth2Redirect({ from, navigate }: OAuth2RedirectHan
     }
     const signType = await requestToken(AuthToken, from);
     match(signType as TSIGNTYPE)
-    .with(signType, () => navigate('/mainpage'))
-    .with('sign-up', () => navigate('/selectgenderage')).exhaustive;
-
-   
+        .with(SIGNTYPE.SIGNIN, () => navigate('/mainpage'))
+        .with(SIGNTYPE.SIGNUP, () => navigate('/selectgenderage')).exhaustive;
 }
 
 export default handleOAuth2Redirect;
