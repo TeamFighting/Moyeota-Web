@@ -11,7 +11,7 @@ interface EachAmount {
 }
 
 interface BodyProps {
-    data: {
+    reimburseData: {
         EachAmount: EachAmount[];
         isPartyOwner: boolean;
         account: { accountNumber: string; bankName: string };
@@ -23,18 +23,17 @@ interface BodyProps {
     setModalOpen: (value: boolean) => void;
 }
 
-function Body({ data, setModalOpen }: BodyProps) {
+function Body({ reimburseData, setModalOpen }: BodyProps) {
     const CurrentReimburseStoreState = JSON.parse(localStorage.getItem('current-reimburse-storage') as string);
-    const { CurrentReimbursement } = CurrentReimburseStoreState.state;
+    const { CurrentReimbursement } = CurrentReimburseStoreState;
     // const { updatePaymentStatusForUserId } = CurrentReimburseStore();
     const [clickedUsers, setClickedUsers] = useState<number[]>([]);
     const [userIds, setUserIds] = useState<number[]>([]);
     useEffect(() => {
-         
         CurrentReimbursement.forEach((element: any) => {
             if (!userIds.includes(element.isPayed.userId)) setUserIds((prev) => [...prev, element.isPayed.userId]);
             userIds.sort((a, b) => a - b);
-            if (element.postId === data.postId) {
+            if (element.postId === reimburseData.postId) {
                 if (element.isPayed.isPayed) {
                     setClickedUsers((prev) => [...prev, element.isPayed.userId]);
                 } else {
@@ -51,10 +50,10 @@ function Body({ data, setModalOpen }: BodyProps) {
                 cnt++;
             }
         });
-        if (cnt === data.totalPeople) {
+        if (cnt === reimburseData.totalPeople) {
             setModalOpen(true);
         }
-    }, [clickedUsers, userIds, data.totalPeople, setModalOpen]);
+    }, [clickedUsers, userIds, reimburseData.totalPeople, setModalOpen]);
     const isUserClicked = (userId: number) => clickedUsers.includes(userId);
     // const handlePaymentStateChange = (userId: number) => {
     //     const isPayed = !isUserClicked(userId);
@@ -63,7 +62,7 @@ function Body({ data, setModalOpen }: BodyProps) {
     // };
 
     const render = () =>
-        data.EachAmount.map((each) => (
+        reimburseData.EachAmount.map((each) => (
             <St.PartyOneRow key={each.userId}>
                 <St.MoneyLeft>
                     <St.PartyOneImage src={each.profileImage} />
@@ -87,8 +86,8 @@ function Body({ data, setModalOpen }: BodyProps) {
     return (
         <S.Wrapper>
             <S.Content>
-                <S.PotName>{data.potName}</S.PotName>
-                <S.TotalAmount>{data.totalAmount}</S.TotalAmount>
+                <S.PotName>{reimburseData.potName}</S.PotName>
+                <S.TotalAmount>{reimburseData.totalAmount}</S.TotalAmount>
                 <S.RequestDate>요청일 24.01.17(수) 오후 07:02</S.RequestDate>
                 <S.ManagementWrapper>{/* <div>파티원 편집</div> */}</S.ManagementWrapper>
                 {render()}
