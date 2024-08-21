@@ -29,19 +29,20 @@ interface ChatReimbursementProps {
 
     navigate: any;
 }
-function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate }: ChatReimbursementProps) {
+function ChatReimbursement({ JSONMessage, user, displayTime, timeValue }: ChatReimbursementProps) {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const data: JSONType = JSON.parse(JSONMessage);
+    console.log(data);
     const isMe = user.id == Number(id);
     const jusify = isMe ? 'end' : 'start';
-    const navigateToApplierReimbursement = () => {
-        // console.log('navigateToApplierReimbursement');
-        navigate(`/reimbursement/${data.postId}/${id}`, { state: { data } });
-    };
-    const navigateToCurrentReimbursement = () => {
-        // console.log('navigateToCurrentReimbursement');
-        navigate(`/reimbursement/current/${data.postId}/${id}`, { state: { data } });
-    };
+    // const navigateToApplierReimbursement = () => {
+    //     // console.log('navigateToApplierReimbursement');
+    //     navigate(`/reimbursement/${data.postId}/${id}`, { state: { data } });
+    // };
+    // const navigateToCurrentReimbursement = () => {
+    //     // console.log('navigateToCurrentReimbursement');
+    //     navigate(`/reimbursement/current/${data.postId}/${id}`, { state: { data } });
+    // };
     const handleCopyClipBoard = async (text: string) => {
         try {
             await navigator.clipboard.writeText(text);
@@ -200,7 +201,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                             </Warning>
                         </Body>
                         <Bottom>
-                            {isMe ? (
+                            {/* {isMe ? (
                                 <PotOwner onClick={navigateToCurrentReimbursement}>
                                     <Status>정산 현황</Status>
                                 </PotOwner>
@@ -210,7 +211,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                                         <BTNText>정산목록</BTNText>
                                     </ParticipantsBTN>
                                 </Participants>
-                            )}
+                            )} */}
                         </Bottom>
                     </Wrapper>
                 </div>
