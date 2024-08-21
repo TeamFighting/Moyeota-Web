@@ -92,7 +92,7 @@ function FirebaseChat() {
 
     if (postId === undefined || roomId == undefined) return;
     return (
-        <>
+        <div style={{ height: '100dvh' }}>
             <S.Header>
                 <S.Icon style={{ alignSelf: 'center' }} onClick={handleBack}>
                     <Chevronleft width="24" height="24" />
@@ -138,7 +138,7 @@ function FirebaseChat() {
                     </S.ChatBottomDrawerIcon>
                 </S.ChatBottomDrawerContent>
             </S.ChatBottomDrawer>
-        </>
+        </div>
     );
 }
 
