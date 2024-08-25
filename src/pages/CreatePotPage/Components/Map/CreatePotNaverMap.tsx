@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import LatLngAddStore from '@stores/LatLngAddstore';
 import { DestinationMarkerClickStore } from '@stores/DestinationMarkerClickStore';
+import DestinationStore from '@stores/DestinationResult';
+import PotCreateStore from '@stores/PotCreateStore';
 
 declare global {
     interface Window {
@@ -15,6 +17,8 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
     const mapElement = useRef(null);
     const { naver } = window;
     const { currentLat, currentLng } = LatLngAddStore((state) => state);
+    const { setFinalDestination } = DestinationStore();
+    const { setDestination, setLatitude, setLongitude } = PotCreateStore();
     const { setClickedDestinationMarker, clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
     const [bounds, setBounds] = useState<any>(null);
     const mapOptions = {
@@ -38,6 +42,12 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
         if (status === kakao.maps.services.Status.OK) {
             const boundsArr = [];
             map.setCenter(new naver.maps.LatLng(data[0].y, data[0].x));
+            console.log('data:', data);
+            setFinalDestination(data[0].place_name);
+            setLatitude(data[0].y);
+            setLongitude(data[0].x);
+            setDestination(data[0].place_name);
+            console.log('destination:', destination);
             for (let i = 0; i < data.length; i++) {
                 boundsArr.push(new naver.maps.LatLng(data[i].y, data[i].x));
             }
@@ -48,7 +58,9 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
             displayPlaces(data);
             const getClickHandler = (seq: any) => {
                 return function () {
-                    console.log('seq', seq);
+                    console.log('seq:', seq.place_name);
+                    setDestination(seq.place_name);
+                    setFinalDestination(seq.place_name);
                     setClickedDestinationMarker(seq.icon);
                 };
             };
@@ -61,7 +73,6 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
     const markers: any = [];
 
     const displayPlaces = (places: any) => {
-        console.log('displayPlaces:', places);
         for (let key = 0; key < places.length; key++) {
             const position = new naver.maps.LatLng(places[key].y, places[key].x);
             let selectedMarkerSize = new naver.maps.Size(30, 36);
