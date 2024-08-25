@@ -3,15 +3,17 @@ import { useNavigate } from 'react-router';
 import { Chat, Home, ClickedChat, ClickedHome, ClickedUser, User } from '@assets/svg';
 import { ClickedBottomTab } from '@stores/ClickedBottomTab';
 import { useClickedMarker } from '@stores/ClickedMarker';
+import { useQuickPotStore } from '@stores/QuickPotStore';
 
 function BottomNav() {
     const { clicked, setClicked } = ClickedBottomTab();
     const naviagte = useNavigate();
     const { clearClickedMarker } = useClickedMarker();
-
+    const { clearQuickPot } = useQuickPotStore();
     if (localStorage.getItem('myInfo') === null) return;
     const userId = JSON.parse(localStorage.getItem('myInfo') as string).id;
     const handleHomeClick = () => {
+        clearQuickPot();
         naviagte('/mainpage');
         setClicked('home');
         clearClickedMarker();
