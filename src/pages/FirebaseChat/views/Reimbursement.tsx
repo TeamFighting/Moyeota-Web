@@ -3,7 +3,6 @@ import { CharacterCrown, ChatSeeU, CheckCircle } from '@assets/svg';
 import { Image } from 'react-bootstrap';
 import { Time } from './style';
 import toast from 'react-hot-toast';
-import { PotOwner } from '@pages/ReimbursementPage/styles';
 import SvgCopyIcon from '@assets/svg/CopyIcon';
 
 interface JSONType {
@@ -230,11 +229,7 @@ const CopyText = styled.div`
     line-height: 157%; /* 12.56px */
     text-decoration-line: none;
 `;
-const Participants = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-`;
+
 const CharacterIcon = styled.div`
     width: 56px;
     height: 66px;
@@ -339,45 +334,6 @@ const Bottom = styled.div`
     flex-direction: column;
     padding-bottom: 16px;
     gap: 14px;
-`;
-
-const Status = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 12px;
-    background: var(--Gray-Button, #f1f1f1);
-    width: 217px;
-    height: 34px;
-    flex-shrink: 0;
-    color: #5d5d5d;
-    text-align: center;
-    font-family: Pretendard;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-`;
-const ParticipantsBTN = styled.div`
-    width: 217px;
-    height: 34px;
-    flex-shrink: 0;
-    border-radius: 12px;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--Green-Button, #1edd81);
-`;
-
-const BTNText = styled.div`
-    color: #fff;
-    text-align: center;
-    font-family: Pretendard;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 `;
 
 const AccountNumber = styled.div`

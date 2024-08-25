@@ -11,7 +11,6 @@ import styled from 'styled-components';
 import { useParams } from 'react-router';
 import instance from '@apis';
 import PotCreateStore from '@stores/PotCreateStore';
-import DestinationStore from '@stores/DestinationResult';
 
 interface PostProps {
     category: string;

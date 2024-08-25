@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import { ref as dbRef, query, onValue } from 'firebase/database';
 import { db } from 'firebase';
-import { Chevronleft, Plus } from '@assets/svg';
+import { Chevronleft } from '@assets/svg';
 import moment from 'moment';
 import { NoneReadChatStore } from '@stores/NoneReadChat';
 import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
@@ -402,7 +402,7 @@ function ChatLists() {
             <ChatHeader>
                 <Chevronleft onClick={handleClick} width={24} height={24} />
                 채팅
-                <Plus width={18} height={18} />
+                <div></div>
             </ChatHeader>
             <Body>{renderChatRooms()}</Body>
             <BottomNav />
@@ -462,7 +462,6 @@ export const ChatHeader = styled.div`
     height: 63px;
     background-color: white;
     display: flex;
-
     align-items: center;
     justify-content: space-between;
     font-size: 18px;
@@ -481,9 +480,7 @@ const Body = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
-    /* margin: 0 16px; */
-    height: 100%;
+    height: 90%;
 `;
 const RoomName = styled.div`
     color: #0f1828;

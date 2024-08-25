@@ -5,6 +5,7 @@ import PotCreateStore from '@stores/PotCreateStore';
 function DestinationButton({ from }: { from: string }) {
     const navigate = useNavigate();
     const { setDestination } = PotCreateStore();
+
     const navigateToCreateComplete = () => {
         if (from === 'create') {
             navigate(`/createPotPage`);
