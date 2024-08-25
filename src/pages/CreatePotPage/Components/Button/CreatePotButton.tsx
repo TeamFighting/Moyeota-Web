@@ -3,17 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { ref, push, update, child } from 'firebase/database';
 import { db } from 'firebase';
 import PotCreateStore from '@stores/PotCreateStore';
-import DurationFareStore from '@stores/DurationFareStore';
 import instance from '@apis';
-import clearPotCreateStore from '@stores/PotCreateStore';
-import clearDestinationStore from '@stores/DestinationResult';
-import clearDurationFareStore from '@stores/DurationFareStore';
-
+import DurationFareStore from '@stores/DurationFareStore';
+import DestinationResult from '@stores/DestinationResult';
 function CreatePotButton() {
     const potCreateStore = PotCreateStore();
-    const durationFareStore = DurationFareStore();
     const navigate = useNavigate();
-
+    const { clearDestinationStore } = DestinationResult();
     const chatRoomsRef = ref(db, 'chatRooms');
     const userData = JSON.parse(localStorage.getItem('myInfo') as string);
     const {
@@ -25,8 +21,9 @@ function CreatePotButton() {
         sameGenderStatus,
         selectedTime,
         totalPeople,
+        clearPotCreateStore,
     } = potCreateStore;
-    const { estimatedDuration, estimatedFare } = durationFareStore;
+    const { estimatedDuration, estimatedFare, clearDurationFareStore } = DurationFareStore();
     const currentLat = sessionStorage.getItem('latitude');
     const currentLng = sessionStorage.getItem('longitude');
     const accessToken = localStorage.getItem('accessToken');
@@ -90,7 +87,14 @@ function CreatePotButton() {
 
     return (
         <Wrapper>
-            <Button type="button" onClick={createPost}>
+            <Button
+                type="button"
+                onClick={() => {
+                    createPost();
+
+                    console.log('hi');
+                }}
+            >
                 팟 생성 완료
             </Button>
         </Wrapper>
