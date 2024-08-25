@@ -5,6 +5,9 @@ import { db } from 'firebase';
 import PotCreateStore from '@stores/PotCreateStore';
 import DurationFareStore from '@stores/DurationFareStore';
 import instance from '@apis';
+import clearPotCreateStore from '@stores/PotCreateStore';
+import clearDestinationStore from '@stores/DestinationResult';
+import clearDurationFareStore from '@stores/DurationFareStore';
 
 function CreatePotButton() {
     const potCreateStore = PotCreateStore();
@@ -72,8 +75,10 @@ function CreatePotButton() {
                     },
                 },
             );
-            // console.log(response);
             if (response.status === 200) {
+                clearPotCreateStore();
+                clearDestinationStore();
+                clearDurationFareStore();
                 navigate('/createComplete');
             } else {
                 alert('API 요청 실패');
