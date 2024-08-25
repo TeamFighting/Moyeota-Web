@@ -25,7 +25,6 @@ function BottomSheet() {
                 }}
             >
                 <BottomSheetHandle />
-                {/* <ContentHeader /> */}
                 <BottomSheetContentWrapper refheight={refheight}>
                     <BottomSheetContent content={content} />
                 </BottomSheetContentWrapper>
