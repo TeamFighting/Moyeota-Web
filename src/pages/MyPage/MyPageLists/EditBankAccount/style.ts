@@ -30,7 +30,7 @@ export const BankAccountInfo = styled.div`
     justify-content: center;
     box-sizing: border-box;
 `;
-export const BankLogo = styled.image`
+export const BankLogo = styled.img`
     width: 24px;
     height: 24px;
     border-radius: 50%;
