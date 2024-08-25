@@ -9,7 +9,7 @@ const MainPage = lazy(() => import('./pages/MainPage'));
 const DetailPage = lazy(() => import('./pages/DetailPage'));
 const CreatePotPage = lazy(() => import('./pages/CreatePotPage'));
 const CreateComplete = lazy(() => import('./pages/CreatePotPage/CreateComplete'));
-const DestinationPage = lazy(() => import('./pages/CreatePotPage/Components/Map/CreateDestinationMapPage'));
+const DestinationPage = lazy(() => import('./pages/CreatePotPage/Components/Map/DestinationMapPage'));
 const QuickMatch = lazy(() => import('./pages/QuickMatch/QuickMatch'));
 const QuickMatchFinding = lazy(() => import('./pages/QuickMatch/QuickMatchFinding'));
 const FirebaseChat = lazy(() => import('./pages/FirebaseChat/views'));

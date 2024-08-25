@@ -7,13 +7,14 @@ import CreatePotNaverMap from './CreatePotNaverMap';
 import { useEffect, useRef } from 'react';
 import SvgMy_location from '@assets/svg/My_location';
 import PotCreateStore from '@stores/PotCreateStore';
+import DestinationStore from '@stores/DestinationResult';
 
 function CreateDestinationMapPage() {
     const navigate = useNavigate();
     const inputRef = useRef<HTMLInputElement>(null);
     const { from } = useParams();
     const postId = new URLSearchParams(window.location.search).get('postId');
-
+    const { finalDestination } = DestinationStore();
     const { setDestination: updateNewDestination, destination: newDestination } = PotCreateStore();
 
     const goToSearchResults = () => {
