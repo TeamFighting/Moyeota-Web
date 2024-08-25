@@ -44,7 +44,6 @@ function UpdatePotPage() {
     const [scroll, setScroll] = useState(0);
     const { postId } = useParams();
     const [postInfo, setPostInfo] = useState<PostProps | null>(null);
-    const { finalDestination } = DestinationStore();
     const {
         setTitle,
         setPotCreateStore,
@@ -54,8 +53,10 @@ function UpdatePotPage() {
         totalPeople,
         setVehicleType,
         setSameGenderStatus,
+        setLatitude,
+        setLongitude,
+        setDeparture,
     } = PotCreateStore();
-    console.log('finalDestination:', finalDestination);
     const getPostInfo = async () => {
         try {
             const res = await instance.get(`/posts/${postId}`);
@@ -67,6 +68,9 @@ function UpdatePotPage() {
             setNewDestination(res.data.data.destination);
             setVehicleType(res.data.data.vehicle);
             setSameGenderStatus(res.data.data.sameGenderStatus);
+            setLatitude(res.data.data.latitude);
+            setLongitude(res.data.data.longitude);
+            setDeparture(res.data.data.departure);
         } catch (e) {
             console.log(e);
         }

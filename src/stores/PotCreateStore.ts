@@ -11,6 +11,8 @@ interface PotInfo {
     selectedTime: string;
     postId: number;
     departure: string;
+    latitude: string;
+    longitude: string;
 }
 interface StoreState {
     content: string;
@@ -35,6 +37,10 @@ interface StoreState {
     setPostId: (value: number) => void;
     clearPotCreateStore: () => void;
     setPotCreateStore: (value: PotInfo) => void;
+    latitude: string;
+    longitude: string;
+    setLatitude: (value: string) => void;
+    setLongitude: (value: string) => void;
 }
 
 const PotCreateStore = create<StoreState>((set) => ({
@@ -49,6 +55,8 @@ const PotCreateStore = create<StoreState>((set) => ({
     postId: 0,
     departure: '',
     departureTime: '',
+    latitude: '',
+    longitude: '',
     setPotCreateStore: (value: PotInfo) =>
         set({
             title: value.title,
@@ -61,6 +69,8 @@ const PotCreateStore = create<StoreState>((set) => ({
             selectedTime: value.selectedTime,
             postId: value.postId,
             departure: value.departure,
+            latitude: value.latitude,
+            longitude: value.longitude,
         }),
     setTitle: (value) => set({ title: value }),
     setContent: (value) => set({ content: value }),
@@ -72,6 +82,8 @@ const PotCreateStore = create<StoreState>((set) => ({
     setSelectedTime: (value) => set({ selectedTime: value }),
     setPostId: (value: number) => set({ postId: value }),
     setDeparture: (value: string) => set({ departure: value }),
+    setLatitude: (value: string) => set({ latitude: value }),
+    setLongitude: (value: string) => set({ longitude: value }),
     clearPotCreateStore: () =>
         set({
             title: '',
@@ -83,6 +95,8 @@ const PotCreateStore = create<StoreState>((set) => ({
             selectedTime: '',
             postId: 0,
             departure: '',
+            latitude: '',
+            longitude: '',
         }),
 }));
 
