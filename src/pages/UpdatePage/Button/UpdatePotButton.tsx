@@ -11,17 +11,14 @@ function CreatePotButton({ roomId, postId }: { roomId: string; postId: number })
     const { finalDestination } = DestinationStore();
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString();
-    const { distance, selectedTime, content, totalPeople } = PotCreateStore();
+    const { departure, distance, selectedTime, content, totalPeople, longitude, latitude } = PotCreateStore();
     const { estimatedDuration, estimatedFare } = DurationFareStore();
     const numberOfRecruitment = totalPeople;
-    const departure = sessionStorage.getItem('address');
     const accessToken = localStorage.getItem('accessToken');
-    const latitude = sessionStorage.getItem('latitude');
-    const longitude = sessionStorage.getItem('longitude');
 
     const updatePost = async () => {
         try {
-            const response = await instance.patch(
+            const response = await instance.put(
                 `/posts/${postId}`,
                 {
                     category: 'LIFE',
