@@ -8,11 +8,12 @@ import DestinationStore from '@stores/DestinationResult';
 function CreatePotButton({ roomId, postId }: { roomId: string; postId: number }) {
     const navigate = useNavigate();
     const { title, sameGenderStatus, destination, VehicleType } = PotCreateStore();
-    const { finalDestination } = DestinationStore();
+    const { finalDestination, clearDestinationStore } = DestinationStore();
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString();
-    const { departure, distance, selectedTime, content, totalPeople, longitude, latitude } = PotCreateStore();
-    const { estimatedDuration, estimatedFare } = DurationFareStore();
+    const { departure, distance, selectedTime, content, totalPeople, longitude, latitude, clearPotCreateStore } =
+        PotCreateStore();
+    const { estimatedDuration, estimatedFare, clearDurationFareStore } = DurationFareStore();
     const numberOfRecruitment = totalPeople;
     const accessToken = localStorage.getItem('accessToken');
 
@@ -48,6 +49,9 @@ function CreatePotButton({ roomId, postId }: { roomId: string; postId: number })
             );
             console.log('response:', response);
             if (response.status == 200) {
+                clearPotCreateStore();
+                clearDestinationStore();
+                clearDurationFareStore();
                 alert('팟이 성공적으로 수정되었습니다.');
                 navigate(`/detailPage/${postId}`);
             } else {
