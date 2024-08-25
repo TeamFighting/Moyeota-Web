@@ -15,12 +15,10 @@ function BottomSheet() {
         if (destinationResult?.place_name !== null && destinationResult?.place_name !== undefined) {
             setDestination(destinationResult?.place_name);
             setFinalDestination(destinationResult?.place_name);
-            console.log('NEW', destinationResult?.place_name);
         }
         if (clickedDestinationMarker) {
             setDestination(clickedDestinationMarker.title);
             setFinalDestination(clickedDestinationMarker.title);
-            console.log('NEW', clickedDestinationMarker.title);
         }
     }, [destinationResult, clickedDestinationMarker]);
     return (
