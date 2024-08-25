@@ -56,7 +56,6 @@ function CreateDestinationMapPage() {
                     ref={inputRef}
                     type="text"
                     placeholder="도착지를 검색해보세요"
-                    onClick={goToSearchResults}
                     defaultValue={newDestination ? newDestination : ''}
                 ></InputStyle>
                 <SvgMy_location
