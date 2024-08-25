@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import LatLngAddStore from '@stores/LatLngAddstore';
-import DestinationStore from '@stores/DestinationResult';
 import { DestinationMarkerClickStore } from '@stores/DestinationMarkerClickStore';
-import PotCreateStore from '@stores/PotCreateStore';
 
 declare global {
     interface Window {
@@ -17,16 +15,13 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
     const mapElement = useRef(null);
     const { naver } = window;
     const { currentLat, currentLng } = LatLngAddStore((state) => state);
-    const { setDestination } = PotCreateStore();
-    const { destinationResult, setDestinationResult } = DestinationStore((state) => state);
     const { setClickedDestinationMarker, clickedDestinationMarker } = DestinationMarkerClickStore((state) => state);
-    const [changeCenter, setChangeCenter] = useState({ lat: currentLat, lng: currentLng, title: '' });
     const [bounds, setBounds] = useState<any>(null);
     const mapOptions = {
         zoomControl: false,
         minZoom: 0,
         maxZoom: 100,
-        center: new naver.maps.LatLng(changeCenter.lat, changeCenter.lng),
+        center: new naver.maps.LatLng(currentLat, currentLng),
     };
 
     let map: any = null;
@@ -46,7 +41,6 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
             for (let i = 0; i < data.length; i++) {
                 boundsArr.push(new naver.maps.LatLng(data[i].y, data[i].x));
             }
-            setDestinationResult(data[0]);
             if (bounds == null) {
                 setBounds(new naver.maps.LatLngBounds(boundsArr));
             }
@@ -54,6 +48,7 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
             displayPlaces(data);
             const getClickHandler = (seq: any) => {
                 return function () {
+                    console.log('seq', seq);
                     setClickedDestinationMarker(seq.icon);
                 };
             };
@@ -66,20 +61,15 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
     const markers: any = [];
 
     const displayPlaces = (places: any) => {
+        console.log('displayPlaces:', places);
         for (let key = 0; key < places.length; key++) {
             const position = new naver.maps.LatLng(places[key].y, places[key].x);
             let selectedMarkerSize = new naver.maps.Size(30, 36);
             let selectedMarkerUrl = '/svg/NotSelectedDestinationMarker.svg';
-            if (clickedDestinationMarker !== null && clickedDestinationMarker.title == places[key].place_name) {
-                selectedMarkerSize = new naver.maps.Size(50, 52);
-                selectedMarkerUrl = '/svg/DestinationMarker.svg';
-            } else if (
-                clickedDestinationMarker == null &&
-                changeCenter.title == places[key].place_name &&
-                changeCenter.lat == places[key].y &&
-                changeCenter.lng == places[key].x
+            if (
+                (clickedDestinationMarker !== null && clickedDestinationMarker.title == places[key].place_name) ||
+                key == 0
             ) {
-                setDestinationResult(places[key].icon);
                 selectedMarkerSize = new naver.maps.Size(50, 52);
                 selectedMarkerUrl = '/svg/DestinationMarker.svg';
             }
@@ -102,7 +92,6 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
                 },
             });
 
-          
             markers.push(marker);
         }
     };
@@ -115,19 +104,19 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
         if (destination) {
             placeSearch(destination);
         }
-    }, [destination, bounds, clickedDestinationMarker]);
+    }, [destination]);
 
-    useEffect(() => {
-        if (!destinationResult) return;
-        setDestination(destinationResult.place_name);
+    // useEffect(() => {
+    //     if (!destinationResult) return;
+    //     setDestination(destinationResult.place_name);
 
-        console.log('destinationResult:', destinationResult);
-        setChangeCenter({
-            lat: parseFloat(destinationResult.y),
-            lng: parseFloat(destinationResult.x),
-            title: destinationResult.place_name,
-        });
-    }, [destinationResult]);
+    //     console.log('destinationResult:', destinationResult);
+    //     // setChangeCenter({
+    //     //     lat: parseFloat(destinationResult.y),
+    //     //     lng: parseFloat(destinationResult.x),
+    //     //     title: destinationResult.place_name,
+    //     // });
+    // }, [destinationResult]);
     return (
         <>
             <div ref={mapElement} style={{ height: '100%' }} />
