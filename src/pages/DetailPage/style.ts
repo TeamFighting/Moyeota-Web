@@ -83,14 +83,14 @@ export const TextDescription = styled.div`
     margin-top: 28px;
 `;
 
-export const GateringTag = styled.div`
+export const GateringTag = styled.div<{ isFull: boolean }>`
     border-radius: 4px;
     border: 1px solid #ebebeb;
     background-color: #ffffff;
     width: 74px;
     height: 25px;
     flex-shrink: 0;
-    color: var(--Green-Text, #139b59);
+    color: ${({ isFull }) => (isFull ? '#ff0000' : '#139b59')};
     font-family: Pretendard;
     font-size: 12px;
     font-style: normal;

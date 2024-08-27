@@ -33,7 +33,7 @@ const Header = styled.div`
     width: 92.5%;
     padding: 0 3.75%;
     background-color: white;
-    z-index: 100000001;
+    z-index: 100;
 `;
 const Icon = styled.div`
     cursor: pointer;

@@ -168,7 +168,7 @@ const ModalWrapper = styled.div`
 `;
 
 const Modal = styled.div`
-    width: 309px;
+    width: 335px;
     position: relative;
     height: 161px;
     flex-direction: column;

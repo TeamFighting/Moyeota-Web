@@ -4,7 +4,7 @@ import Minus from '@assets/svg/Minus';
 import Plus from '@assets/svg/Plus';
 import SelectedOff from '@assets/svg/SelectedOff';
 import PotCreateStore from '@stores/PotCreateStore';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface TimeModalProps {
     closeModal: () => void;
@@ -44,12 +44,8 @@ function TaxiTypePersonnelModal({ closeModal }: TimeModalProps) {
         }
     };
 
-    useEffect(() => {
-        console.log('vehicle:', VehicleType);
-        console.log('totalPeople:', totalPeople);
-    }, [VehicleType, totalPeople]);
     return (
-        <ModalWrapper>
+        <ModalWrapper onClick={() => closeModal()}>
             <Modal>
                 <Title>이동 수단 및 인원</Title>
                 <CarWrapper>
@@ -111,7 +107,18 @@ function TaxiTypePersonnelModal({ closeModal }: TimeModalProps) {
                         />
                     </SwitchWrapper>
                 </Box>
-                <CloseButton onClick={handleModalClose}>선택완료</CloseButton>
+                <CloseButton
+                    disabled={totalPeople == 1}
+                    onClick={() => {
+                        if (totalPeople == 1) {
+                            alert('총 인원은 1명 이상이어야 합니다.');
+                            return;
+                        }
+                        handleModalClose();
+                    }}
+                >
+                    선택완료
+                </CloseButton>
             </Modal>
         </ModalWrapper>
     );
@@ -220,7 +227,7 @@ const SubExplain = styled.div`
     line-height: 157%; /* 18.84px */
     margin-top: 2px;
 `;
-const CloseButton = styled.button`
+const CloseButton = styled.div<{ disabled: boolean }>`
     width: 287px;
     height: 48px;
     flex-shrink: 0;
@@ -235,7 +242,10 @@ const CloseButton = styled.button`
     line-height: normal;
     letter-spacing: 0.54px;
     border: none;
-    background: var(--Green-Button, #1edd81);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: ${(props) => (props.disabled ? '#DCE0EB' : ' #1edd81')};
 `;
 const ModalWrapper = styled.div`
     width: 100vw;
