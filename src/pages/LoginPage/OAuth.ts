@@ -11,6 +11,7 @@ async function requestToken(code: string, from: TOauthProvider) {
         console.log(data);
         if (data.data?.accessToken) {
             localStorage.setItem('accessToken', data.data.accessToken);
+            document.cookie = `refreshToken=${data.data.refreshToken}; path=/;`;
             return data.data.signType;
         } else {
             throw new Error('토큰이 없습니다.');
