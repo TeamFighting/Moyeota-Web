@@ -77,7 +77,6 @@ function NaverMap({ from }: { from: string }) {
                     size: new naver.maps.Size(50, 52),
                     origin: new naver.maps.Point(0, 0),
                     anchor: new naver.maps.Point(25, 26),
-                    // title: finalArray[key].data.place_name,
                 },
                 postId: finalArray[key].postId,
             });

@@ -24,9 +24,9 @@ export const Icon = styled.div`
     justify-content: center;
 `;
 export const SlideWrapper = styled.div<{ isOpen: boolean }>`
-    height: 100dvh;
+    height: 100vh;
     /* 맨위에 안보일때 */
-    /* height: ${(props) => (props.isOpen ? 'calc(100dvh - 100px)' : '100dvh')}; */
+    height: ${(props) => (props.isOpen ? 'calc(100dvh - 150px)' : '100dvh')};
     overflow-y: scroll;
     transform: ${(props) => (props.isOpen ? 'translateY(0px)' : `translateY(${HEADER_HEIGHT}px)`)};
     transition: all ease 0.3s;
@@ -34,7 +34,7 @@ export const SlideWrapper = styled.div<{ isOpen: boolean }>`
 `;
 export const Body = styled.div`
     margin-bottom: 110px;
-    /* height: calc(100dvh - ${HEADER_HEIGHT}px - 100); */
+    height: calc(100dvh - ${HEADER_HEIGHT}px - 150);
     padding-top: ${HEADER_HEIGHT + 20}px;
     width: 100vw;
     flex-direction: column;
@@ -169,7 +169,7 @@ export const Description = styled.div`
 `;
 export const Bottom = styled.div<{ isOpen: boolean }>`
     position: fixed;
-    bottom: ${(props) => (props.isOpen ? `${HEADER_HEIGHT}px` : '0px')};
+    bottom: ${(props) => (props.isOpen ? `${150}px` : '0px')};
     transition: all ease 0.3s;
     display: flex;
     height: 100px;
@@ -214,9 +214,9 @@ export const StyledInput = styled.input`
 
 export const ChatBottomDrawer = styled.div<{ isOpen: boolean }>`
     position: fixed;
-    bottom: ${(props) => (props.isOpen ? '0' : `-${HEADER_HEIGHT}px`)};
+    bottom: ${(props) => (props.isOpen ? '0' : `-${150}px`)};
     transition: all ease 0.3s;
-    height: ${HEADER_HEIGHT}px;
+    height: 150px;
     width: 100vw;
     background-color: white;
 `;

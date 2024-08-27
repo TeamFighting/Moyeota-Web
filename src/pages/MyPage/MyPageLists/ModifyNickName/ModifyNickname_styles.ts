@@ -104,6 +104,10 @@ export const StyledInput = styled.input`
     font-weight: 500;
     line-height: 157%; /* 25.12px */
     color: #000;
+
+    &:focus {
+        outline: none;
+    }
 `;
 
 export const ButtonWrapper = styled.div`

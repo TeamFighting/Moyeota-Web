@@ -53,8 +53,8 @@ function DetailBottom({ data, participants, recruitment, splitedTime, fare, dura
                     <div style={{ flexDirection: 'row', display: 'flex', gap: '11px' }}>
                         <Dollar width="16" height="16" />
                         <div style={{ flexDirection: 'row', display: 'flex', gap: '5px' }}>
-                            <div style={{ color: '#7E7E7E' }}>예상 금액</div>총 {fare}원 - 1인당 {fare / recruitment}원
-                            ({data.numberOfRecruitment}인)
+                            <div style={{ color: '#7E7E7E' }}>예상 금액</div>총 {fare}원 - 1인당 약{' '}
+                            {Math.ceil(fare / recruitment)}원 ({data.numberOfRecruitment}인)
                         </div>
                     </div>
                 </div>

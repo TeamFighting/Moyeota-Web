@@ -1,12 +1,3 @@
-import { useNavigate } from 'react-router-dom';
-
-const useAuth = () => {
-    const navigate = useNavigate();
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-        navigate('/login');
-        return;
-    }
+export const useIsAuthenticated = (): boolean => {
+    return !!localStorage.getItem('accessToken');
 };
-
-export default useAuth;

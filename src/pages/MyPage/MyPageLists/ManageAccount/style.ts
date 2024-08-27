@@ -105,7 +105,7 @@ export const BTN = styled.div`
     border-radius: 12px;
     background: var(--Gray-Icon-Solid, #f5f6f8);
     height: 48px;
-    width: 335px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

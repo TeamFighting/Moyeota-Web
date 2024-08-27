@@ -3,7 +3,6 @@ import { CharacterCrown, ChatSeeU, CheckCircle } from '@assets/svg';
 import { Image } from 'react-bootstrap';
 import { Time } from './style';
 import toast from 'react-hot-toast';
-import { PotOwner } from '@pages/ReimbursementPage/styles';
 import SvgCopyIcon from '@assets/svg/CopyIcon';
 
 interface JSONType {
@@ -29,19 +28,20 @@ interface ChatReimbursementProps {
 
     navigate: any;
 }
-function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate }: ChatReimbursementProps) {
+function ChatReimbursement({ JSONMessage, user, displayTime, timeValue }: ChatReimbursementProps) {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const data: JSONType = JSON.parse(JSONMessage);
+    console.log(data);
     const isMe = user.id == Number(id);
     const jusify = isMe ? 'end' : 'start';
-    const navigateToApplierReimbursement = () => {
-        // console.log('navigateToApplierReimbursement');
-        navigate(`/reimbursement/${data.postId}/${id}`, { state: { data } });
-    };
-    const navigateToCurrentReimbursement = () => {
-        // console.log('navigateToCurrentReimbursement');
-        navigate(`/reimbursement/current/${data.postId}/${id}`, { state: { data } });
-    };
+    // const navigateToApplierReimbursement = () => {
+    //     // console.log('navigateToApplierReimbursement');
+    //     navigate(`/reimbursement/${data.postId}/${id}`, { state: { data } });
+    // };
+    // const navigateToCurrentReimbursement = () => {
+    //     // console.log('navigateToCurrentReimbursement');
+    //     navigate(`/reimbursement/current/${data.postId}/${id}`, { state: { data } });
+    // };
     const handleCopyClipBoard = async (text: string) => {
         try {
             await navigator.clipboard.writeText(text);
@@ -200,7 +200,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                             </Warning>
                         </Body>
                         <Bottom>
-                            {isMe ? (
+                            {/* {isMe ? (
                                 <PotOwner onClick={navigateToCurrentReimbursement}>
                                     <Status>정산 현황</Status>
                                 </PotOwner>
@@ -210,7 +210,7 @@ function ChatReimbursement({ JSONMessage, user, displayTime, timeValue, navigate
                                         <BTNText>정산목록</BTNText>
                                     </ParticipantsBTN>
                                 </Participants>
-                            )}
+                            )} */}
                         </Bottom>
                     </Wrapper>
                 </div>
@@ -229,11 +229,7 @@ const CopyText = styled.div`
     line-height: 157%; /* 12.56px */
     text-decoration-line: none;
 `;
-const Participants = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-`;
+
 const CharacterIcon = styled.div`
     width: 56px;
     height: 66px;
@@ -338,45 +334,6 @@ const Bottom = styled.div`
     flex-direction: column;
     padding-bottom: 16px;
     gap: 14px;
-`;
-
-const Status = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 12px;
-    background: var(--Gray-Button, #f1f1f1);
-    width: 217px;
-    height: 34px;
-    flex-shrink: 0;
-    color: #5d5d5d;
-    text-align: center;
-    font-family: Pretendard;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-`;
-const ParticipantsBTN = styled.div`
-    width: 217px;
-    height: 34px;
-    flex-shrink: 0;
-    border-radius: 12px;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--Green-Button, #1edd81);
-`;
-
-const BTNText = styled.div`
-    color: #fff;
-    text-align: center;
-    font-family: Pretendard;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
 `;
 
 const AccountNumber = styled.div`

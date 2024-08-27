@@ -53,7 +53,7 @@ function CurrentReimbursement() {
             }}
         >
             <Header />
-            <Body setModalOpen={setModalOpen} data={data} />
+            <Body setModalOpen={setModalOpen} reimburseData={data} />
             <Bottom reimburseData={data} />
             {/* <Buttons
                 style={{

@@ -1,20 +1,23 @@
 import instance from '@apis';
 import type { NavigateFunction } from 'react-router';
-import { OAUTH_PROVIDER, type TOauthProvider } from './consts';
+import { OAUTH_PROVIDER, SIGNTYPE, type TSIGNTYPE, type TOauthProvider } from './consts';
+import { match } from 'ts-pattern';
 
 async function requestToken(code: string, from: TOauthProvider) {
     try {
         const { data } = await instance.post(`/oauth/${from}`, {
             authorizationCode: code,
         });
-
+        console.log(data);
         if (data.data?.accessToken) {
             localStorage.setItem('accessToken', data.data.accessToken);
+            document.cookie = `refreshToken=${data.data.refreshToken}; path=/;`;
+            return data.data.signType;
         } else {
             throw new Error('토큰이 없습니다.');
         }
     } catch {
-        alert('로그인에 실패했습니다.');
+        alert('로그인에 실패했습니다. 관리자에게 문의주세요.');
     }
 }
 
@@ -31,8 +34,10 @@ export async function handleOAuth2Redirect({ from, navigate }: OAuth2RedirectHan
     if (from == OAUTH_PROVIDER.GOOGLE) {
         AuthToken = code.substring(3, code.length);
     }
-    await requestToken(AuthToken, from);
-    navigate('/selectgenderage');
+    const signType = await requestToken(AuthToken, from);
+    match(signType as TSIGNTYPE)
+        .with(SIGNTYPE.SIGNIN, () => navigate('/mainpage'))
+        .with(SIGNTYPE.SIGNUP, () => navigate('/selectgenderage')).exhaustive;
 }
 
 export default handleOAuth2Redirect;

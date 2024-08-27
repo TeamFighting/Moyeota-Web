@@ -61,9 +61,11 @@ function Body() {
             <S.ManageAccountWrapper>
                 <S.Title style={{ marginBottom: '15px' }}>계정 관리</S.Title>
                 <S.ManageAccount style={{ gap: '16px' }}>
-                    <S.BTN>로그아웃</S.BTN>
-                    <S.BTN>회원탈퇴</S.BTN>
-                    <S.BTN onClick={modifyEmail}>수정하기</S.BTN>
+                    <S.BTN style={{ width: '335px' }}>로그아웃</S.BTN>
+                    <S.BTN style={{ width: '335px' }}>회원탈퇴</S.BTN>
+                    <S.BTN style={{ width: '335px' }} onClick={modifyEmail}>
+                        수정하기
+                    </S.BTN>
                 </S.ManageAccount>
             </S.ManageAccountWrapper>
         </div>

@@ -14,6 +14,7 @@ import { useReimbursementMessageStore } from '@stores/ReimbursementMessage';
 import useBottomSheet from '@hooks/UI/useBottonSheet';
 import 'moment/locale/ko';
 import * as S from '../styles';
+import BottomButton from '@components/Buttons/BottomButton';
 
 interface PartyOneProps {
     nickname: string;
@@ -47,6 +48,14 @@ function Body() {
     const [selectSingleAccount, setSelectSingleAccount] = useState(-1);
     // 선택된 계좌 정보 (메시지 전송시 사용)
     const [selectedAccount, setSelectedAccount] = useState({ bankName: '', accountNumber: '' });
+    const [isBottomButtonDisabled, setIsBottomButtonDisabled] = useState(false);
+
+    useEffect(() => {
+        if (money !== '' && selectSingleAccount !== -1) {
+            setIsBottomButtonDisabled(true);
+        }
+    }, [money, selectSingleAccount, isOpenAccountLists]);
+
     const { setReimbursementMessage, setEachAmount } = useReimbursementMessageStore();
     const roomId = potInfo.roomId;
     const name = potInfo.userName;
@@ -645,8 +654,8 @@ function Body() {
                         </div>
                     </div>
                 </Wrapper>
+                <BottomButton text="확인" onClick={handleData} isDisabled={isBottomButtonDisabled} />
             </Bottom>
-            <div onClick={handleData}>확인</div>
         </div>
     );
 }

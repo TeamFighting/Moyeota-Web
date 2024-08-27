@@ -8,20 +8,18 @@ import DestinationStore from '@stores/DestinationResult';
 function CreatePotButton({ roomId, postId }: { roomId: string; postId: number }) {
     const navigate = useNavigate();
     const { title, sameGenderStatus, destination, VehicleType } = PotCreateStore();
-    const { finalDestination } = DestinationStore();
+    const { finalDestination, clearDestinationStore } = DestinationStore();
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString();
-    const { distance, selectedTime, content, totalPeople } = PotCreateStore();
-    const { estimatedDuration, estimatedFare } = DurationFareStore();
+    const { departure, distance, selectedTime, content, totalPeople, longitude, latitude, clearPotCreateStore } =
+        PotCreateStore();
+    const { estimatedDuration, estimatedFare, clearDurationFareStore } = DurationFareStore();
     const numberOfRecruitment = totalPeople;
-    const departure = sessionStorage.getItem('address');
     const accessToken = localStorage.getItem('accessToken');
-    const latitude = sessionStorage.getItem('latitude');
-    const longitude = sessionStorage.getItem('longitude');
 
     const updatePost = async () => {
         try {
-            const response = await instance.patch(
+            const response = await instance.put(
                 `/posts/${postId}`,
                 {
                     category: 'LIFE',
@@ -51,6 +49,9 @@ function CreatePotButton({ roomId, postId }: { roomId: string; postId: number })
             );
             console.log('response:', response);
             if (response.status == 200) {
+                clearPotCreateStore();
+                clearDestinationStore();
+                clearDurationFareStore();
                 alert('팟이 성공적으로 수정되었습니다.');
                 navigate(`/detailPage/${postId}`);
             } else {

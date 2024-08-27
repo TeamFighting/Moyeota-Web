@@ -1,6 +1,6 @@
 import { GreenSendBtn } from '@assets/svg';
 import * as S from './style';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Plus } from '@assets/svg';
 import { db } from 'firebase';
 import { serverTimestamp, set, ref as dbRef, push, child } from 'firebase/database';
@@ -44,6 +44,9 @@ function ChatBottom({ isOpen, roomId, userId, profileImage, toggleOpen }: ChatBo
         }
     };
 
+    useEffect(() => {
+        console.log('isOpen', isOpen);
+    }, [isOpen]);
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             sendMessage();

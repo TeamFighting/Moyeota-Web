@@ -1,17 +1,19 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
-import { Chat, Home, User, ClickedChat, ClickedHome, ClickedUser } from '@assets/svg';
+import { Chat, Home, ClickedChat, ClickedHome, ClickedUser, User } from '@assets/svg';
 import { ClickedBottomTab } from '@stores/ClickedBottomTab';
 import { useClickedMarker } from '@stores/ClickedMarker';
+import { useQuickPotStore } from '@stores/QuickPotStore';
 
 function BottomNav() {
     const { clicked, setClicked } = ClickedBottomTab();
     const naviagte = useNavigate();
     const { clearClickedMarker } = useClickedMarker();
-
+    const { clearQuickPot } = useQuickPotStore();
     if (localStorage.getItem('myInfo') === null) return;
     const userId = JSON.parse(localStorage.getItem('myInfo') as string).id;
     const handleHomeClick = () => {
+        clearQuickPot();
         naviagte('/mainpage');
         setClicked('home');
         clearClickedMarker();
@@ -27,15 +29,21 @@ function BottomNav() {
     return (
         <Wrapper>
             <Section onClick={handleHomeClick}>
-                <Icon>{clicked == 'home' ? <ClickedHome /> : <Home />}</Icon>
+                <Icon>
+                    {clicked == 'home' ? <ClickedHome width={26} height={26} /> : <Home width={26} height={26} />}
+                </Icon>
                 <Text>홈</Text>
             </Section>
             <Section onClick={handleChatClick}>
-                <Icon>{clicked == 'chat' ? <ClickedChat /> : <Chat />}</Icon>
+                <Icon>
+                    {clicked == 'chat' ? <ClickedChat width={26} height={26} /> : <Chat width={26} height={26} />}
+                </Icon>
                 <Text>채팅</Text>
             </Section>
             <Section onClick={handleMyPageClick}>
-                <Icon>{clicked === 'mypage' ? <ClickedUser width={21} height={21} /> : <User />}</Icon>
+                <Icon>
+                    {clicked === 'mypage' ? <ClickedUser width={26} height={26} /> : <User width={26} height={26} />}
+                </Icon>
                 <Text>내정보</Text>
             </Section>
         </Wrapper>

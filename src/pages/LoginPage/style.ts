@@ -34,7 +34,6 @@ export const LoginButtons = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    gap: 27px;
     background-color: white;
 `;
 export const LoginSection = styled.div`
@@ -53,8 +52,9 @@ export const LoginExplanation = styled.div`
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
+    margin-top: 20px;
 `;
 export const Icon = styled.div`
-    width: 40px;
-    height: 40px;
+    height: 20px;
+    width: 300px;
 `;

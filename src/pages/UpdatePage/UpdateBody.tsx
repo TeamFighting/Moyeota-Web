@@ -38,17 +38,18 @@ interface PostProps {
 
 function UpdateBody(data: PostProps) {
     const navigate = useNavigate();
+
+    const { setDistance, destination: newDestination, setTitle, latitude, longitude } = PotCreateStore();
     const NavigateToDestination = () => {
-        navigate(`/DestinationPage/Update?postId=${data.postId}&longitude=${data.longitude}&latitude=${data.latitude}`);
+        navigate(`/DestinationPage/Update?postId=${data.postId}&longitude=${longitude}&latitude=${latitude}`);
     };
     const { currentLocation } = CurrentLocationStore();
     const { finalDestination } = DestinationStore();
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
-    const { setDistance, destination: newDestination, setTitle } = PotCreateStore();
     const curLat = data.latitude;
     const curLng = data.longitude;
     console.log('nd', newDestination);
-
+    console.log('finalDestination', finalDestination);
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {
         return instance

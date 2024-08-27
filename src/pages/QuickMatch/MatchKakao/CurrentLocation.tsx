@@ -9,12 +9,9 @@ function CurrentLocation() {
 
     const { setLatLngAdd } = useStore((state) => state);
 
-    // useEffect(() => {
-    // const intervalId = setInterval(() => {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(success, error);
     }
-    // }, 500000);
 
     function success(position: GeolocationPosition) {
         setLocation({
@@ -32,8 +29,6 @@ function CurrentLocation() {
         });
         alert('위치받기 실패');
     }
-    // return () => clearInterval(intervalId);
-    // }, [location, setLatLngAdd]);
 
     return location;
 }

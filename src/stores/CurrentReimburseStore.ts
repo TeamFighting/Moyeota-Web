@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
 interface IsPayed {
     userId: number;
@@ -43,8 +43,6 @@ export const CurrentReimburseStore = create(
                 // CurrentReimbursement.every((data) => data.isPayed.isPayed),
             },
         }),
-        {
-            name: 'current-reimburse-storage',
-        },
+        { name: 'current-reimburse-storage', storage: createJSONStorage(() => localStorage) },
     ),
 );

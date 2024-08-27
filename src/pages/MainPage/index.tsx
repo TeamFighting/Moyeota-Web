@@ -44,6 +44,9 @@ function MainPage() {
         watchPositionHook();
         fetchData();
         usersInfo();
+        if (localStorage.getItem('myInfo') === null) {
+            return;
+        }
         const userId = JSON.parse(localStorage.getItem('myInfo')!).id;
         if (userId) {
             getMyPost(userId.toString());

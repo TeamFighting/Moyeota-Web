@@ -57,7 +57,9 @@ function QuickMatch() {
                         어디로 <br />
                         떠날까요?
                     </Title>
-                    <ContentDetail>출발시간 및 도착지를 입력해주세요</ContentDetail>
+                    <ContentDetail>
+                        출발시간 및 도착지를 입력해주세요 <br /> 관련된 팟이 없다면 전체 팟을 보여줘요.
+                    </ContentDetail>
                 </S.Discription>
                 <S.Inputs onChange={handleTime}>
                     <S.Text>출발시간</S.Text>

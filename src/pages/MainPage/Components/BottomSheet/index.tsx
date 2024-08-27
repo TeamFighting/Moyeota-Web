@@ -25,7 +25,6 @@ function BottomSheet() {
                 }}
             >
                 <BottomSheetHandle />
-                {/* <ContentHeader /> */}
                 <BottomSheetContentWrapper refheight={refheight}>
                     <BottomSheetContent content={content} />
                 </BottomSheetContentWrapper>
@@ -68,7 +67,7 @@ const BottomSheetContentWrapper = styled.div<{ refheight: number }>`
     width: 100%;
     height: ${(props) => props.refheight + 15}px;
     overflow-y: scroll;
-    background-color: blue;
+    background-color: white;
     z-index: 1;
 `;
 export default BottomSheet;
