@@ -6,6 +6,8 @@ import PotCreateStore from '@stores/PotCreateStore';
 import instance from '@apis';
 import DurationFareStore from '@stores/DurationFareStore';
 import DestinationResult from '@stores/DestinationResult';
+import { useEffect, useState } from 'react';
+
 function CreatePotButton() {
     const potCreateStore = PotCreateStore();
     const navigate = useNavigate();
@@ -27,6 +29,44 @@ function CreatePotButton() {
     const currentLat = sessionStorage.getItem('latitude');
     const currentLng = sessionStorage.getItem('longitude');
     const accessToken = localStorage.getItem('accessToken');
+    const [isFull, setIsFull] = useState(false);
+
+    const isInputFull = () => {
+        if (
+            title &&
+            content.length > 10 &&
+            distance &&
+            destination &&
+            vehicle &&
+            sameGenderStatus &&
+            selectedTime &&
+            totalPeople &&
+            estimatedDuration &&
+            estimatedFare
+        ) {
+            return true;
+        }
+        return false;
+    };
+
+    useEffect(() => {
+        if (isInputFull()) {
+            setIsFull(true);
+        } else {
+            setIsFull(false);
+        }
+    }, [
+        title,
+        content,
+        distance,
+        destination,
+        vehicle,
+        sameGenderStatus,
+        selectedTime,
+        totalPeople,
+        estimatedDuration,
+        estimatedFare,
+    ]);
 
     const createPost = async () => {
         const key = push(chatRoomsRef).key;
@@ -88,11 +128,9 @@ function CreatePotButton() {
     return (
         <Wrapper>
             <Button
-                type="button"
+                disabled={!isFull}
                 onClick={() => {
                     createPost();
-
-                    console.log('hi');
                 }}
             >
                 팟 생성 완료
@@ -113,12 +151,12 @@ const Wrapper = styled.div`
     z-index: 2;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ disabled: boolean }>`
     width: 335px;
     height: 48px;
     flex-shrink: 0;
     border-radius: 12px;
-    background: var(--Green-Button, #1edd81);
+    background: ${(props) => (props.disabled ? '#DCE0EB' : ' #1edd81')};
     border: none;
     font-size: 16px;
     color: white;
