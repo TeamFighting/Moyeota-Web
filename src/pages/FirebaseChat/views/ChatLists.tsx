@@ -400,15 +400,24 @@ function ChatLists() {
             )}
 
             <ChatHeader>
-                <Chevronleft onClick={handleClick} width={24} height={24} />
+                <Icon>
+                    <Chevronleft onClick={handleClick} width={24} height={24} />
+                </Icon>
                 채팅
-                <div></div>
             </ChatHeader>
             <Body>{renderChatRooms()}</Body>
             <BottomNav />
         </div>
     );
 }
+
+const Icon = styled.div`
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 14px;
+`;
 const Modal = styled.div`
     position: absolute;
     width: 334px;
@@ -429,7 +438,7 @@ const ModalBackGround = styled.div`
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 2;
+    z-index: 10;
     display: flex;
 `;
 const LeaveChatRoom = styled(motion.div)`
@@ -463,11 +472,12 @@ export const ChatHeader = styled.div`
     background-color: white;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     font-size: 18px;
     font-weight: bold;
     padding: 0 14px;
     z-index: 1;
+    justify-content: center;
+    position: relative;
 `;
 const ChatList = styled.div`
     display: flex;
