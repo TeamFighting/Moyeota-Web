@@ -7,7 +7,7 @@ import watchPositionHook from '@hooks/useWatchPositionHook';
 function LoginPage() {
     watchPositionHook();
     useEffect(() => {
-        const haveToken = sessionStorage.getItem('accessToken');
+        const haveToken = localStorage.getItem('accessToken');
         if (haveToken !== null) {
             window.location.href = '/mainpage';
         }
