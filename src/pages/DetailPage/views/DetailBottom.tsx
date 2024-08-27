@@ -22,8 +22,9 @@ function DetailBottom({ data, participants, recruitment, splitedTime, fare, dura
                         {data.sameGenderStatus && data.userGender == '여' && <S.Tag>여자만</S.Tag>}
                         <S.Tag>{data.category}</S.Tag>
                     </S.Tags>
-                    <S.GateringTag>
-                        모집중 {participants}/{recruitment}
+                    <S.GateringTag isFull={participants === recruitment}>
+                        {participants === recruitment ? '모집완료' : '모집중'}
+                        {participants}/{recruitment}
                     </S.GateringTag>
                 </S.Staus>
             </S.DescriptionTag>
