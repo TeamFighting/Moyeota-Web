@@ -5,11 +5,11 @@ export const ModalContent = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    overflow-y: scroll;
     height: 100%;
     font-family: Pretendard;
     z-index: 1;
     background-color: white;
+    overflow-y: scroll;
 `;
 
 export const ContentWrapper = styled.div`

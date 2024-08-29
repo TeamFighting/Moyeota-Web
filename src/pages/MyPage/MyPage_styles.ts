@@ -114,7 +114,8 @@ export const ListWrapper = styled.div`
     gap: 32px;
     align-items: center;
     padding-top: 16px;
-    height: ${WINDOW_HEIGHT - HEADER_HEIGHT - BOTTOM_NAV_HEIGHT}px;
+    height: 100%;
+    /* height: ${WINDOW_HEIGHT - HEADER_HEIGHT - BOTTOM_NAV_HEIGHT}px; */
     overflow-y: scroll;
 `;
 export const List = styled.div`
