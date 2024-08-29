@@ -5,6 +5,7 @@ export type CurrentLocation = {
     region_1depth_name: string;
     region_2depth_name: string;
     building_name?: string;
+    locationTitle?: string;
 };
 
 interface CurrentLocationStore {
@@ -14,7 +15,10 @@ interface CurrentLocationStore {
 
 const CurrentLocationStore = create<CurrentLocationStore>((set) => ({
     currentLocation: null,
-    setCurrentLocation: (currentLocation: CurrentLocation | null) => set({ currentLocation }),
+    setCurrentLocation: (currentLocation: CurrentLocation | null) =>
+        set({
+            currentLocation,
+        }),
 }));
 
 export default CurrentLocationStore;

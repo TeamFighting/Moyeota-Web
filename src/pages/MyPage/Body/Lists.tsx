@@ -7,12 +7,11 @@ interface Props {
 }
 
 function Lists({ userId }: Props) {
-    console.log('userId: ', userId);
     const navigate = useNavigate();
     const lists1 = [
         { id: 1, title: '계정 관리', icon: <User width={24} />, link: `/mypage/manageprofile/${userId}` },
         { id: 2, title: '계좌 관리', icon: <Creditcard width={24} />, link: `/mypage/editAccount/${userId}` },
-        { id: 3, title: '팟 이용내역', icon: <Taxi width={24} />, link: '' },
+        { id: 3, title: '팟 이용내역', icon: <Taxi width={24} />, link: `/mypot/${userId}` },
     ];
 
     const navigateTo = (link: string) => {

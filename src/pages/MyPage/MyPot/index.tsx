@@ -6,29 +6,29 @@ import styled from 'styled-components';
 import { Chevronleft } from '@assets/svg';
 import { Icon } from '../../DetailPage/style';
 import SingleContent from '@pages/MainPage/Components/SingleContent';
-function PotPage() {
+function MyPotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { MyAppliedPotContent, MyPotContent, setMyPotContent, setMyAppliedPotContent, setTotalMyPotContent } =
-        useMyPotContentStore((state) => state);
+        useMyPotContentStore();
     const [pageName, setPageName] = useState('MyPot');
     const accessToken = localStorage.getItem('accessToken');
     useEffect(() => {
         getMyPot();
         getAppliedPot();
     }, []);
+
     useEffect(() => {
         setTotalMyPotContent([...MyAppliedPotContent, ...MyPotContent]);
     }, [MyAppliedPotContent, MyPotContent]);
+
     const getMyPot = async () => {
         try {
-            const res = await instance.get(`/posts/users/${id}`, {
-                params: {
-                    page: 0,
-                },
-            });
-            setMyPotContent(res.data.data.content);
+            const res = await instance.get(`/posts/users/${id}`);
+            console.log(res);
+
+            setMyPotContent(res.data.data);
         } catch (e) {
-            //console.log(e);
+            console.log(e);
         }
     };
     const getAppliedPot = async () => {
@@ -37,7 +37,7 @@ function PotPage() {
                 headers: { Authorization: `Bearer ${accessToken}` },
             });
             if (res.status === 200) {
-                console.log(res.data.data);
+                console.log('applied', res.data.data);
                 setMyAppliedPotContent(res.data.data);
             }
         } catch (e: any) {
@@ -56,6 +56,7 @@ function PotPage() {
     const [isTotalActive, setIsTotalActive] = useState(false);
     const [isMyPotActive, setIsMyPotActive] = useState(true);
     const [isAppliedActive, setIsAppliedActive] = useState(false);
+    if (!MyPotContent && !MyAppliedPotContent) return;
     return (
         <div>
             <S.ModalContent>
@@ -100,21 +101,23 @@ function PotPage() {
                         내가 신청한 팟
                     </Category>
                 </CategoryWrapper>
-                {pageName == 'Total' && (
-                    <S.ContentWrapper>
-                        <SingleContent from={'Total'} />
-                    </S.ContentWrapper>
-                )}
-                {pageName == 'MyPot' && (
-                    <S.ContentWrapper>
-                        <SingleContent from={'MyPot'} />
-                    </S.ContentWrapper>
-                )}
-                {pageName == 'AppliedPot' && (
-                    <S.ContentWrapper>
-                        <SingleContent from={'AppliedPot'} />
-                    </S.ContentWrapper>
-                )}
+                <div>
+                    {pageName == 'Total' && (
+                        <S.ContentWrapper>
+                            <SingleContent from={'Total'} />
+                        </S.ContentWrapper>
+                    )}
+                    {pageName == 'MyPot' && (
+                        <S.ContentWrapper>
+                            <SingleContent from={'MyPot'} />
+                        </S.ContentWrapper>
+                    )}
+                    {pageName == 'AppliedPot' && (
+                        <S.ContentWrapper>
+                            <SingleContent from={'AppliedPot'} />
+                        </S.ContentWrapper>
+                    )}
+                </div>
             </S.ModalContent>
         </div>
     );
@@ -175,4 +178,4 @@ const Category = styled.div<{ isActivate?: boolean }>`
     }
 `;
 
-export default PotPage;
+export default MyPotPage;

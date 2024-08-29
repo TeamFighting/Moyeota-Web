@@ -31,6 +31,7 @@ export const ROUTE = {
     MYPAGE_EDIT_ACCOUNT: '/mypage/editAccount/:userId',
     MYPAGE_MANAGE_PROFILE: '/mypage/manageprofile/:userId',
     SELECT_GENDER_AGE: '/selectgenderage',
+    MY_POT: '/mypot/:userId',
 } as const;
 
 export type TRoute = TValues<typeof ROUTE>;
