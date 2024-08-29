@@ -130,7 +130,7 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
     // }, [destinationResult]);
     return (
         <>
-            <div ref={mapElement} style={{ height: '100%' }} />
+            <div ref={mapElement} style={{ zIndex: '-1', height: '100%' }} />
         </>
     );
 }
