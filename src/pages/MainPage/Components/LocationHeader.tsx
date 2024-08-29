@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import CurrentLocationStore from '../../../stores/CurrentLocation';
 import LatLngAddStore from '@stores/LatLngAddstore';
