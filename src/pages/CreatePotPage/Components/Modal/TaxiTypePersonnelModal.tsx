@@ -39,13 +39,13 @@ function TaxiTypePersonnelModal({ closeModal }: TimeModalProps) {
     };
 
     const handleMinusClick = () => {
-        if (totalPeople > 0) {
+        if (totalPeople > 1) {
             setTotalPeople(totalPeople - 1);
         }
     };
 
     return (
-        <ModalWrapper onClick={() => closeModal()}>
+        <ModalWrapper>
             <Modal>
                 <Title>이동 수단 및 인원</Title>
                 <CarWrapper>
@@ -268,7 +268,7 @@ const Modal = styled.div`
     background-color: white;
     align-items: center;
     border-radius: 11px;
-    z-index: 100;
+    z-index: 1001;
     display: flex;
     box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14),
         0px 1px 14px 0px rgba(0, 0, 0, 0.12);
