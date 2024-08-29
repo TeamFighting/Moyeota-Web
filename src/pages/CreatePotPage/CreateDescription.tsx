@@ -7,7 +7,7 @@ function CreateDescription() {
 
     const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const inputValue = e.target.value;
-
+        console.log(content.length > 10);
         if (inputValue.length <= 100) {
             setContent(inputValue);
         } else {
@@ -17,7 +17,7 @@ function CreateDescription() {
 
     return (
         <S.Bottom>
-            <S.Subtitle>팟 설명을 작성해주세요 (선택)</S.Subtitle>
+            <S.Subtitle>팟 설명을 작성해주세요 (10자 이상)</S.Subtitle>
             <S.InputDescriptionWrapper>
                 <S.InputDescription
                     placeholder={`팟 설명을 자유롭게 작성해주세요
@@ -26,7 +26,9 @@ function CreateDescription() {
                     value={content}
                     onChange={handleDescriptionChange}
                 />
-                <S.CharacterCount>{content?.length}/100</S.CharacterCount>
+                <S.CharacterCount>
+                    <S.ContentLength isOverTen={content.length > 10}>{content?.length}</S.ContentLength>/100
+                </S.CharacterCount>
             </S.InputDescriptionWrapper>
         </S.Bottom>
     );

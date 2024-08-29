@@ -245,8 +245,15 @@ export const CharacterCount = styled.div`
     right: 30px;
     bottom: 16px;
     font-size: 12px;
+    display: flex;
+    flex-direction: row;
 `;
 
+export const ContentLength = styled.div<{ isOverTen: boolean }>`
+    font-size: 12px;
+    font-family: Pretendard;
+    color: ${(props) => (props.isOverTen ? '#9a9a9a' : 'red')};
+`;
 export const CompleteNote = styled.div`
     color: #9a9a9a;
     font-size: 14px;
