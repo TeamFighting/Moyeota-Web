@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Chevronleft } from '@assets/svg';
 import { Icon } from '../../DetailPage/style';
 import SingleContent from '@pages/MainPage/Components/SingleContent';
+import BottomNav from '@components/BottomNav';
 function MyPotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { MyAppliedPotContent, MyPotContent, setMyPotContent, setMyAppliedPotContent, setTotalMyPotContent } =
@@ -58,68 +59,67 @@ function MyPotPage() {
     const [isAppliedActive, setIsAppliedActive] = useState(false);
     if (!MyPotContent && !MyAppliedPotContent) return;
     return (
-        <div>
-            <S.ModalContent>
-                <Top>
-                    <IconWrapper>
-                        <Chevronleft width={24} />
-                    </IconWrapper>
-                    <Title>팟 이용내역</Title>
-                </Top>
-                <CategoryWrapper>
-                    <Category
-                        isActivate={isTotalActive}
-                        onClick={() => {
-                            navigateTotal();
-                            setIsTotalActive(true);
-                            setIsMyPotActive(false);
-                            setIsAppliedActive(false);
-                        }}
-                    >
-                        전체
-                    </Category>
-                    <Category
-                        isActivate={isMyPotActive}
-                        onClick={() => {
-                            navigateMypot();
-                            setIsMyPotActive(true);
-                            setIsTotalActive(false);
-                            setIsAppliedActive(false);
-                        }}
-                    >
-                        내 팟
-                    </Category>
-                    <Category
-                        isActivate={isAppliedActive}
-                        onClick={() => {
-                            navigateMyAppliedpot();
-                            setIsAppliedActive(true);
-                            setIsTotalActive(false);
-                            setIsMyPotActive(false);
-                        }}
-                    >
-                        내가 신청한 팟
-                    </Category>
-                </CategoryWrapper>
-                <div>
-                    {pageName == 'Total' && (
-                        <S.ContentWrapper>
-                            <SingleContent from={'Total'} />
-                        </S.ContentWrapper>
-                    )}
-                    {pageName == 'MyPot' && (
-                        <S.ContentWrapper>
-                            <SingleContent from={'MyPot'} />
-                        </S.ContentWrapper>
-                    )}
-                    {pageName == 'AppliedPot' && (
-                        <S.ContentWrapper>
-                            <SingleContent from={'AppliedPot'} />
-                        </S.ContentWrapper>
-                    )}
-                </div>
-            </S.ModalContent>
-        </div>
+        <S.ModalContent>
+            <Top>
+                <IconWrapper>
+                    <Chevronleft width={24} />
+                </IconWrapper>
+                <Title>팟 이용내역</Title>
+            </Top>
+            <CategoryWrapper>
+                <Category
+                    isActivate={isTotalActive}
+                    onClick={() => {
+                        navigateTotal();
+                        setIsTotalActive(true);
+                        setIsMyPotActive(false);
+                        setIsAppliedActive(false);
+                    }}
+                >
+                    전체
+                </Category>
+                <Category
+                    isActivate={isMyPotActive}
+                    onClick={() => {
+                        navigateMypot();
+                        setIsMyPotActive(true);
+                        setIsTotalActive(false);
+                        setIsAppliedActive(false);
+                    }}
+                >
+                    내 팟
+                </Category>
+                <Category
+                    isActivate={isAppliedActive}
+                    onClick={() => {
+                        navigateMyAppliedpot();
+                        setIsAppliedActive(true);
+                        setIsTotalActive(false);
+                        setIsMyPotActive(false);
+                    }}
+                >
+                    내가 신청한 팟
+                </Category>
+            </CategoryWrapper>
+            <div style={{ height: '80vh', overflowY: 'scroll' }}>
+                {pageName == 'Total' && (
+                    <S.ContentWrapper>
+                        <SingleContent from={'Total'} />
+                    </S.ContentWrapper>
+                )}
+                {pageName == 'MyPot' && (
+                    <S.ContentWrapper>
+                        <SingleContent from={'MyPot'} />
+                    </S.ContentWrapper>
+                )}
+                {pageName == 'AppliedPot' && (
+                    <S.ContentWrapper>
+                        <SingleContent from={'AppliedPot'} />
+                    </S.ContentWrapper>
+                )}
+            </div>
+            <BottomNav />
+        </S.ModalContent>
     );
 }
 const Top = styled.div`
