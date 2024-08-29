@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import CurrentLocationStore from '../../../stores/CurrentLocation';
+import LatLngAddStore from '@stores/LatLngAddstore';
 declare global {
     interface Window {
         kakao: {
@@ -15,12 +16,9 @@ declare global {
 }
 
 function LocationHeader() {
-    const latitude = Number(sessionStorage.getItem('latitude'));
-    const longitude = Number(sessionStorage.getItem('longitude'));
-
-    const [location, setLocation] = useState<string>('');
-    const { setCurrentLocation } = CurrentLocationStore();
-
+    const { currentLat, currentLng } = LatLngAddStore();
+    const { currentLocation, setCurrentLocation } = CurrentLocationStore();
+    console.log(currentLocation);
     const callback = function (
         result: {
             address: {
@@ -38,8 +36,13 @@ function LocationHeader() {
     ) {
         if (status === kakao.maps.services.Status.OK) {
             const location = result[0].address?.region_1depth_name + ' ' + result[0].address?.region_2depth_name;
-            setLocation(location);
-            setCurrentLocation(result[0].address);
+            console.log(result[0].address);
+            setCurrentLocation({
+                address_name: result[0].address.address_name,
+                region_1depth_name: result[0].address.region_1depth_name,
+                region_2depth_name: result[0].address.region_2depth_name,
+                locationTitle: location,
+            });
             sessionStorage.setItem('address', result[0].address.address_name);
         }
     };
@@ -47,11 +50,11 @@ function LocationHeader() {
     useEffect(() => {
         if (window.kakao && window.kakao.maps) {
             const geocoder = new kakao.maps.services.Geocoder();
-            geocoder.coord2Address(longitude, latitude, callback);
+            geocoder.coord2Address(currentLng, currentLat, callback);
         }
-    }, [latitude, longitude]);
+    }, [currentLat, currentLng]);
 
-    return <Location>{location}</Location>;
+    return <Location>{currentLocation?.locationTitle}</Location>;
 }
 
 const Location = styled.div`
