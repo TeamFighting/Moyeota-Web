@@ -29,6 +29,7 @@ const EditAccount = lazy(() => import('./pages/MyPage/MyPageLists/EditBankAccoun
 const ModifyProfile = lazy(() => import('./pages/MyPage/MyPageLists/ModifyNickName'));
 const ManageProfile = lazy(() => import('./pages/MyPage/MyPageLists/ManageAccount'));
 const SelectGenderAge = lazy(() => import('@pages/SelectGenderAge'));
+const MyPot = lazy(() => import('./pages/MyPage/MyPot'));
 
 export const Router = () => {
     return (
@@ -66,6 +67,7 @@ export const Router = () => {
                 <Route path={ROUTE.MYPAGE_EDIT_ACCOUNT} element={<ProtectedRoute element={<EditAccount />} />} />
                 <Route path={ROUTE.MYPAGE_MANAGE_PROFILE} element={<ProtectedRoute element={<ManageProfile />} />} />
                 <Route path={ROUTE.SELECT_GENDER_AGE} element={<ProtectedRoute element={<SelectGenderAge />} />} />
+                <Route path={ROUTE.MY_POT} element={<ProtectedRoute element={<MyPot />} />} />
             </Routes>
         </Suspense>
     );
