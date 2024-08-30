@@ -3,6 +3,7 @@ import * as S from '../style';
 import { useEffect, useState } from 'react';
 import instance from '@apis';
 import { AuthStore } from '@stores/AuthStore';
+import { getPartyOne } from '../\bapis/getPartyOne';
 
 interface Props {
     leaderName: string;
@@ -22,32 +23,10 @@ interface PARTYINFO {
 }
 
 function DetailPartySection({ profileImage, leaderName, content, gender, postId }: Props) {
-    const { accessToken } = AuthStore();
     const [onlyParty, setonlyParty] = useState<PARTYINFO[]>([]);
-    async function getPartyOne(postId: number) {
-        if (postId == undefined) return;
-        try {
-            await instance
-                .get(`/posts/${postId}/members`, {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                })
-                .then(async (res: any) => {
-                    if (res.status == 200) {
-                        const partyInfo: PARTYINFO[] = res.data.data;
-                        const participants = partyInfo.filter((value) => {
-                            return value.userName !== leaderName;
-                        });
-                        setonlyParty(participants);
-                    }
-                });
-        } catch (e: any) {
-            console.log(e);
-        }
-    }
+
     useEffect(() => {
-        getPartyOne(postId);
+        getPartyOne({ postId, leaderName, setonlyParty });
     }, [postId]);
 
     return (
