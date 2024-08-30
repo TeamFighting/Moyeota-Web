@@ -191,7 +191,7 @@ export const MapSample = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 100dvw;
     height: 100dvh;
     overflow: scroll;
 `;
