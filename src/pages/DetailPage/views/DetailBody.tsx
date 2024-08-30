@@ -1,4 +1,4 @@
-import { ChevronRight, LionProfile, LocationFrom, LocationMarker } from '@assets/svg';
+import { ChevronRight, LocationFrom, LocationMarker } from '@assets/svg';
 import * as S from '../style';
 import createAgo from '@utils/createAgo';
 import DetailMap from './DetailMap';
@@ -45,11 +45,7 @@ function DetailBody(data: DetailPageProps) {
     return (
         <S.Body>
             <S.Profile>
-                {data.profileImage ? (
-                    <img src={data.profileImage} style={{ borderRadius: '100%' }} width="86px" height="86px" />
-                ) : (
-                    <LionProfile width="86px" height="86px" />
-                )}
+                <img src={data.profileImage} style={{ borderRadius: '100%' }} width="86px" height="86px" />
             </S.Profile>
             <S.Content>
                 <S.Explanation>
