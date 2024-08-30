@@ -110,7 +110,7 @@ function UpdateBody(data: PostProps) {
                             setDistance(distance);
                         })
                         .catch((error) => {
-                            console.error('API 호출 오류:', error);
+                            alert('거리 계산 오류');
                         });
                 }
             });
