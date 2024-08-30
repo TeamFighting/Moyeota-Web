@@ -1,9 +1,9 @@
-import useStore from '@stores/DurationFareStore';
+import DurationFareStore from '@stores/DurationFareStore';
 import * as S from './style';
 import PotCreateStore from '@stores/PotCreateStore';
 
 function CreatePrice() {
-    const { estimatedFare } = useStore();
+    const { estimatedFare } = DurationFareStore();
     const { totalPeople } = PotCreateStore();
     const totalAmount = estimatedFare !== null ? estimatedFare : 0;
 
