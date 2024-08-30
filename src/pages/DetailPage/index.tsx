@@ -7,13 +7,13 @@ import DetailBottom from './views/DetailBottom';
 import DetailPartySection from './views/DetailPartySection';
 import FixDetailHeader from './components/FixDetailHeader';
 import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
-import MatchApplyButton from '../MainPage/Components/MatchApplyButton/MatchApplyButton';
 import instance from '@apis';
 import ModalStore from '@stores/ModalStore';
 import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import getDays from '@utils/getDays';
 import ISOto12 from '@utils/ISOto12';
 import * as S from './style';
+import MatchApplyButton from '@pages/MainPage/Components/MatchApplyButton/MatchApplyButton';
 interface DetailPageProps {
     category: string;
     content: string;
@@ -46,6 +46,7 @@ function DetailPage() {
     const [dividerHeight, setDividerHeight] = useState(6);
     const { modalOpen } = ModalStore();
     const [data, setData] = useState<DetailPageProps>({} as DetailPageProps);
+    const [isLoading, setLoading] = useState(false);
     const [isFixDetailHeader, setIsFixDetailHeader] = useState(false);
     const [splitedTime, setSplitedTime] = useState(['', '', '', '']);
     const [timePart, setTimePart] = useState('');
@@ -54,6 +55,7 @@ function DetailPage() {
 
     const getDetailData = async () => {
         try {
+            setLoading(true);
             const res = await instance.get(`/posts/${postId}`);
             setData(res.data.data);
             if (res.data.data.numberOfParticipants == res.data.data.numberOfRecruitment) {
@@ -71,6 +73,8 @@ function DetailPage() {
             console.log('detail', res);
         } catch (e) {
             console.log(e);
+        } finally {
+            setLoading(false);
         }
     };
     // console.log(res);
@@ -100,7 +104,13 @@ function DetailPage() {
             setDividerHeight(6);
         }
     }, [scroll]);
-    return (
+
+    return isLoading ? (
+        <S.Container>
+            {isFixDetailHeader ? <FixDetailHeader postId={data.postId} /> : <DetailHeader />}
+            <Loading />
+        </S.Container>
+    ) : (
         <S.Container>
             {isFixDetailHeader ? <FixDetailHeader postId={data.postId} /> : <DetailHeader />}
             <DetailBody {...data} />
@@ -133,3 +143,25 @@ const Divider = styled.div`
     background-color: #f5f6f8;
 `;
 export default DetailPage;
+
+const Loading = styled.div`
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 48px;
+    height: 48px;
+    background-image: url('/png/loading.png');
+    background-size: cover;
+    background-position: center;
+    animation: spin 1s infinite ease-in-out;
+
+    @keyframes spin {
+        0% {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg);
+        }
+    }
+`;
