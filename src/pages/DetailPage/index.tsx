@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import styled from 'styled-components';
 import DetailBody from './views/DetailBody';
 import DetailHeader from './components/DetailHeader';
@@ -52,7 +52,9 @@ function DetailPage() {
     const [timePart, setTimePart] = useState('');
     const { postId } = useParams();
     const { MyPotContent } = useMyPotContentStore();
-
+    const location = useLocation();
+    const routeState = location.state;
+    console.log('ROUTE', routeState.from);
     const getDetailData = async () => {
         try {
             setLoading(true);
@@ -107,12 +109,12 @@ function DetailPage() {
 
     return isLoading ? (
         <S.Container>
-            {isFixDetailHeader ? <FixDetailHeader postId={data.postId} /> : <DetailHeader />}
+            {isFixDetailHeader ? <FixDetailHeader postId={data.postId} /> : <DetailHeader from={routeState.from} />}
             <Loading />
         </S.Container>
     ) : (
         <S.Container>
-            {isFixDetailHeader ? <FixDetailHeader postId={data.postId} /> : <DetailHeader />}
+            {isFixDetailHeader ? <FixDetailHeader postId={data.postId} /> : <DetailHeader from={routeState.from} />}
             <DetailBody {...data} />
             <Divider style={{ height: '10px' }} />
             <DetailBottom

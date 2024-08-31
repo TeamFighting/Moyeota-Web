@@ -7,6 +7,7 @@ import { Chevronleft } from '@assets/svg';
 import { Icon } from '../../DetailPage/style';
 import SingleContent from '@pages/MainPage/Components/SingleContent';
 import BottomNav from '@components/BottomNav';
+import { useNavigate } from 'react-router';
 function MyPotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { MyAppliedPotContent, MyPotContent, setMyPotContent, setMyAppliedPotContent, setTotalMyPotContent } =
@@ -57,11 +58,12 @@ function MyPotPage() {
     const [isTotalActive, setIsTotalActive] = useState(false);
     const [isMyPotActive, setIsMyPotActive] = useState(true);
     const [isAppliedActive, setIsAppliedActive] = useState(false);
+    const navigate = useNavigate();
     if (!MyPotContent && !MyAppliedPotContent) return;
     return (
         <S.ModalContent>
             <Top>
-                <IconWrapper>
+                <IconWrapper onClick={() => navigate(`/mypage/${id}`)}>
                     <Chevronleft width={24} />
                 </IconWrapper>
                 <Title>팟 이용내역</Title>
