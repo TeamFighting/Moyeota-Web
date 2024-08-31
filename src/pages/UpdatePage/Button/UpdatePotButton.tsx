@@ -47,7 +47,6 @@ function CreatePotButton({ roomId, postId }: { roomId: string; postId: number })
                     },
                 },
             );
-            console.log('response:', response);
             if (response.status == 200) {
                 clearPotCreateStore();
                 clearDestinationStore();

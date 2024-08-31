@@ -26,8 +26,6 @@ function MyPotPage() {
     const getMyPot = async () => {
         try {
             const res = await instance.get(`/posts/users/${id}`);
-            console.log(res);
-
             setMyPotContent(res.data.data);
         } catch (e) {
             console.log(e);
@@ -39,7 +37,6 @@ function MyPotPage() {
                 headers: { Authorization: `Bearer ${accessToken}` },
             });
             if (res.status === 200) {
-                console.log('applied', res.data.data);
                 setMyAppliedPotContent(res.data.data);
             }
         } catch (e: any) {

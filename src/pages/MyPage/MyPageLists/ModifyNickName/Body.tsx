@@ -35,7 +35,6 @@ function Body({ userInfo }: BodyProps) {
                 },
             });
             if (res.status === 200) {
-                console.log('res', res);
                 setMyInfo(res.data.data);
             }
         } catch (e: any) {
@@ -55,7 +54,6 @@ function Body({ userInfo }: BodyProps) {
                     },
                 },
             );
-            console.log(res);
             if (res.status === 200) {
                 usersInfo();
                 alert('닉네임이 수정되었습니다.');

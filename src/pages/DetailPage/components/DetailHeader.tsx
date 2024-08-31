@@ -8,7 +8,6 @@ interface DetailHeaderProps {
     from: string;
 }
 function DetailHeader(routeState: DetailHeaderProps) {
-    console.log('header', routeState.from);
     const navigate = useNavigate();
     const userId = JSON.parse(localStorage.getItem('myInfo') as string).id;
     const goBack = () => {

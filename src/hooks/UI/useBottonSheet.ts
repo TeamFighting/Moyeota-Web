@@ -123,7 +123,6 @@ export default function useBottomSheet({ from, setIsBottomSheetOpen }: BottomShe
             if (currentSheetY !== MIN_Y) {
                 if (touchMove.movingDirection === 'down' && content.current!.scrollTop <= 0) {
                     if (setIsBottomSheetOpen) setIsBottomSheetOpen(false);
-                    console.log('snap down');
                     sheet.current!.style.setProperty('transform', 'translateY(0)');
                 }
 

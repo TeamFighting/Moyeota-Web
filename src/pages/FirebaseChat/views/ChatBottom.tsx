@@ -44,9 +44,6 @@ function ChatBottom({ isOpen, roomId, userId, profileImage, toggleOpen }: ChatBo
         }
     };
 
-    useEffect(() => {
-        console.log('isOpen', isOpen);
-    }, [isOpen]);
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             sendMessage();

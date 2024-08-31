@@ -66,7 +66,6 @@ function AddBankAccount() {
 
             if (res.status === 200) {
                 clearAccount();
-                console.log(accountNumber, accountName);
                 toast(<SuccessToast message="계좌가 등록되었습니다." />, {
                     style: SuccessToastStyle,
                     duration: 1000,

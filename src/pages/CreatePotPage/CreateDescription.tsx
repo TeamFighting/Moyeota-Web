@@ -7,7 +7,6 @@ function CreateDescription() {
 
     const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const inputValue = e.target.value;
-        console.log(content.length > 10);
         if (inputValue.length <= 100) {
             setContent(inputValue);
         } else {

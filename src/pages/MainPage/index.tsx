@@ -37,7 +37,7 @@ function MainPage() {
                 setMyPot(newArr);
             }
         } catch (e: any) {
-            console.log('getMyPost', e);
+            // console.log('getMyPost', e);
         }
     };
     useEffect(() => {

@@ -27,7 +27,6 @@ instance.interceptors.response.use(
                 };
                 try {
                     const originalResponse = await instance.request(error.config);
-                    console.log(originalResponse);
                     return originalResponse;
                 } catch (e: unknown) {
                     if (e instanceof CustomError_Class && e.response?.status === 401) {

@@ -54,7 +54,6 @@ function DetailPage() {
     const { MyPotContent } = useMyPotContentStore();
     const location = useLocation();
     const routeState = location.state;
-    console.log('ROUTE', routeState.from);
     const getDetailData = async () => {
         try {
             setLoading(true);
@@ -72,14 +71,12 @@ function DetailPage() {
                     setIsFixDetailHeader(true);
                 }
             });
-            console.log('detail', res);
         } catch (e) {
             console.log(e);
         } finally {
             setLoading(false);
         }
     };
-    // console.log(res);
 
     useEffect(() => {
         getDetailData();

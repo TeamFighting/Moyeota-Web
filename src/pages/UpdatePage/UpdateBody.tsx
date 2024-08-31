@@ -48,8 +48,6 @@ function UpdateBody(data: PostProps) {
     const { setEstimatedDuration, setEstimatedFare } = DurationFareStore();
     const curLat = data.latitude;
     const curLng = data.longitude;
-    console.log('nd', newDestination);
-    console.log('finalDestination', finalDestination);
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {
         return instance
@@ -79,7 +77,6 @@ function UpdateBody(data: PostProps) {
                     })
                     .then((response) => {
                         const data = response.data;
-                        console.log(data);
                         setEstimatedDuration(data.data.duration);
                         setEstimatedFare(data.data.fare);
                     })
@@ -92,8 +89,6 @@ function UpdateBody(data: PostProps) {
 
     //거리 계산
     useEffect(() => {
-        console.log('new', newDestination);
-        // console.log('UPDATE BODY', data.departure, destination, newD);
         if (data.departure && newDestination) {
             convertDestinationToRoadAddress(newDestination).then((roadDestination) => {
                 if (roadDestination) {
