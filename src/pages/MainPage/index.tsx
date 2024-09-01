@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import NaverMap from './NaverMap';
 import instance from '@apis';
 import { HEADER_HEIGHT } from '@constants';
-import watchPositionHook from '@hooks/useWatchPositionHook';
 import { useMyInfoStore } from '@stores/MyInfo';
 import { useMyPotIdStore } from '@stores/MyPotIdStore';
 import { useClickedMarker } from '@stores/ClickedMarker';
@@ -41,11 +40,21 @@ function MainPage() {
         }
     };
     useEffect(() => {
-        watchPositionHook();
+        // watchPositionHook();
+        navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
+            if (result.state === 'granted') {
+                console.log('geolocation is granted');
+            } else if (result.state === 'prompt') {
+                console.log('geolocation is prompt');
+            } else if (result.state === 'denied') {
+                console.log('geolocation is denied');
+            }
+        });
         fetchData();
         usersInfo();
         if (localStorage.getItem('myInfo') === null) {
             navigate('/login');
+            return;
         }
         const userId = JSON.parse(localStorage.getItem('myInfo')!).id;
         if (userId) {
