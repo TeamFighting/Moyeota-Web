@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import * as S from '../style';
 import { useEffect, useState } from 'react';
-import instance from '@apis';
-import { AuthStore } from '@stores/AuthStore';
 import { getPartyOne } from '../\bapis/getPartyOne';
 
 interface Props {

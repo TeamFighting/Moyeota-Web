@@ -104,7 +104,7 @@ function UpdateBody(data: PostProps) {
                             const distance = parseFloat(data);
                             setDistance(distance);
                         })
-                        .catch((error) => {
+                        .catch(() => {
                             alert('거리 계산 오류');
                         });
                 }
