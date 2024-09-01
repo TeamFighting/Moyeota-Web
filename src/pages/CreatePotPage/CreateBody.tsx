@@ -23,7 +23,6 @@ function CreateBody() {
     const curLat = sessionStorage.getItem('latitude');
     const curLng = sessionStorage.getItem('longitude');
     const { finalDestination: destination } = DestinationStore((state) => state);
-    console.log('destination:', destination);
     //destination값 키워드에서 도로명주소로 변경
     const convertDestinationToRoadAddress = (destination: string) => {
         return instance
@@ -77,7 +76,6 @@ function CreateBody() {
                         .then((response: any) => {
                             const data = response.data.data;
                             const distance = parseFloat(data);
-                            // console.log('distance:', distance);
                             setDistance(distance);
                         })
                         .catch((error: any) => {

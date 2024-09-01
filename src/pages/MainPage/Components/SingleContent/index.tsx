@@ -14,7 +14,7 @@ function SingleContent({ from }: { from: string }) {
     const navigate = useNavigate();
     const { totalData } = useStore((state) => state);
     const navigateToDetail = (postId: number) => {
-        navigate(`/detailpage/${postId}`);
+        navigate(`/detailpage/${postId}`, { state: { postId, from } });
     };
     const { quickPot } = useQuickPotStore();
     const { MyPotContent, MyAppliedPotContent, TotalMyPotContent } = useMyPotContentStore();

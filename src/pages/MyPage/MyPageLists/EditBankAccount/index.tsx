@@ -27,7 +27,6 @@ function EditBankAccount() {
                     Authorization: 'Bearer ' + accessToken,
                 },
             });
-            console.log(re.data.data);
             setBankAccount(re.data.data);
         } catch (e) {
             console.log(e);

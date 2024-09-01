@@ -8,7 +8,6 @@ function DestinationButton() {
     const postId = searchParams.get('postId');
 
     const navigateToCreateComplete = () => {
-        console.log(postId);
         if (postId) {
             
             navigate(`/updatePotPage/${postId}`);

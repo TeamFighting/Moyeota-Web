@@ -42,12 +42,10 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
         if (status === kakao.maps.services.Status.OK) {
             const boundsArr = [];
             map.setCenter(new naver.maps.LatLng(data[0].y, data[0].x));
-            console.log('data:', data);
             setFinalDestination(data[0].place_name);
             setLatitude(data[0].y);
             setLongitude(data[0].x);
             setDestination(data[0].place_name);
-            console.log('destination:', destination);
             for (let i = 0; i < data.length; i++) {
                 boundsArr.push(new naver.maps.LatLng(data[i].y, data[i].x));
             }
@@ -58,7 +56,6 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
             displayPlaces(data);
             const getClickHandler = (seq: any) => {
                 return function () {
-                    console.log('seq:', seq.place_name);
                     setDestination(seq.place_name);
                     setFinalDestination(seq.place_name);
                     setClickedDestinationMarker(seq.icon);

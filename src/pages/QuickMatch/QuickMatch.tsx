@@ -35,7 +35,6 @@ function QuickMatch() {
             .map((data: object) => {
                 return data;
             });
-        console.log(pot);
         setQuickPot(pot);
         if (destination !== '' && time !== '') {
             navigate('/quickMatchFinding', {
@@ -50,7 +49,7 @@ function QuickMatch() {
 
     return (
         <div>
-            <DetailHeader />
+            <DetailHeader from={'BottomSheet'} />
             <S.Container>
                 <S.Discription>
                     <Title>

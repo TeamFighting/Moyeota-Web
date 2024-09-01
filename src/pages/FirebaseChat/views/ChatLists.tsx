@@ -106,7 +106,6 @@ function ChatLists() {
                             const messageKeys = Object.keys(data[key]);
                             const latestKey = messageKeys[messageKeys.length - 1];
                             const latestMessage = data[key][latestKey];
-                            console.log(latestMessage);
                             messages.push({ ...latestMessage, key });
                         }
                     }

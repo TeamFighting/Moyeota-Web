@@ -4,10 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '@assets/svg/CancelIcon';
 import CheveronLeft from '@assets/svg/Chevronleft';
 
-function DetailHeader() {
+interface DetailHeaderProps {
+    from: string;
+}
+function DetailHeader(routeState: DetailHeaderProps) {
     const navigate = useNavigate();
+    const userId = JSON.parse(localStorage.getItem('myInfo') as string).id;
     const goBack = () => {
-        navigate('/mainpage');
+        if (routeState.from === 'BottomSheet') {
+            navigate('/mainpage');
+        } else if (routeState.from === 'MyPot') {
+            navigate(`/mypot/${userId}`);
+        }
     };
     return (
         <Header>

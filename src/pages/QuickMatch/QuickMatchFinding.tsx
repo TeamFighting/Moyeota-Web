@@ -22,7 +22,7 @@ function QuickMatchFinding() {
 
     return (
         <div>
-            <DetailHeader />
+            <DetailHeader from={'BottomSheet'} />
             <S.Container style={{ gap: '9px' }}>
                 <S.Discription style={{ marginTop: '10px', zIndex: 3 }}>
                     <Title>

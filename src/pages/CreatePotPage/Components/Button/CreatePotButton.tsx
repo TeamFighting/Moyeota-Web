@@ -116,7 +116,11 @@ function CreatePotButton() {
                 clearPotCreateStore();
                 clearDestinationStore();
                 clearDurationFareStore();
-                navigate('/createComplete');
+                if (response.data.data.compelet) {
+                    navigate(`/mypot/${userData.userId}`);
+                } else {
+                    navigate('/createComplete');
+                }
             } else {
                 alert('API 요청 실패');
             }

@@ -18,7 +18,6 @@ declare global {
 function LocationHeader() {
     const { currentLat, currentLng } = LatLngAddStore();
     const { currentLocation, setCurrentLocation } = CurrentLocationStore();
-    console.log(currentLocation);
     const callback = function (
         result: {
             address: {
@@ -36,7 +35,6 @@ function LocationHeader() {
     ) {
         if (status === kakao.maps.services.Status.OK) {
             const location = result[0].address?.region_1depth_name + ' ' + result[0].address?.region_2depth_name;
-            console.log(result[0].address);
             setCurrentLocation({
                 address_name: result[0].address.address_name,
                 region_1depth_name: result[0].address.region_1depth_name,

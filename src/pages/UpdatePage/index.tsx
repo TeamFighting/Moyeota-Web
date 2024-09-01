@@ -59,7 +59,6 @@ function UpdatePotPage() {
     const getPostInfo = async () => {
         try {
             const res = await instance.get(`/posts/${postId}`);
-            console.log(res.data.data);
             setPotCreateStore(res.data.data);
             setPostInfo(res.data.data);
             setTotalPeople(res.data.data.numberOfRecruitment);
