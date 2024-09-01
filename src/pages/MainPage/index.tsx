@@ -45,7 +45,7 @@ function MainPage() {
         fetchData();
         usersInfo();
         if (localStorage.getItem('myInfo') === null) {
-            return;
+            navigate('/login');
         }
         const userId = JSON.parse(localStorage.getItem('myInfo')!).id;
         if (userId) {
