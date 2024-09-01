@@ -10,7 +10,6 @@ function BottomNav() {
     const naviagte = useNavigate();
     const { clearClickedMarker } = useClickedMarker();
     const { clearQuickPot } = useQuickPotStore();
-    if (localStorage.getItem('myInfo') === null) return;
     const userId = JSON.parse(localStorage.getItem('myInfo') as string).id;
     const handleHomeClick = () => {
         clearQuickPot();
