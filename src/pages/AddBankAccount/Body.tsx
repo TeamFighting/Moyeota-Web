@@ -6,7 +6,6 @@ import { useAccountStore } from '@stores/AccountStore';
 
 function Body() {
     const inputRef = useRef(null);
-    const [isFocused, setIsFocused] = useState(false);
     const [bankNameListClicked, setBankNameListClicked] = useState(false);
     const { setAccountNumber, accountName, setIsOpenedAccountList: setClickedAccountList } = useAccountStore();
 
@@ -35,14 +34,7 @@ function Body() {
                 <Text>
                     계좌번호를 <br /> 입력해주세요
                 </Text>
-                <StyledInput
-                    isFocused={isFocused}
-                    ref={inputRef}
-                    onFocus={() => setIsFocused(true)}
-                    placeholder="계좌번호 입력"
-                    type="number"
-                    onChange={handleBankName}
-                />
+                <StyledInput ref={inputRef} placeholder="계좌번호 입력" type="number" onChange={handleBankName} />
                 <SelectBankNameBtn onClick={handleBankNameList}>
                     {accountName == null ? (
                         <SelectBankNameText
@@ -50,7 +42,7 @@ function Body() {
                                 color: '#9a9a9a',
                             }}
                         >
-                            <div>은행 선택</div> <ChevronDown width={24} />
+                            은행 선택 <ChevronDown width={24} />
                         </SelectBankNameText>
                     ) : (
                         <SelectBankNameText style={{ justifyContent: 'space-between' }}>
@@ -97,22 +89,15 @@ const Text = styled.div`
     line-height: normal;
 `;
 
-const StyledInput = styled.input<{ isFocused: boolean }>`
+const StyledInput = styled.input`
     width: 100%;
     height: 35px;
     font-size: 20px;
     border: none;
     border-bottom: 2px solid #9a9a9a;
     margin-top: 25px;
-    background-image: ${(props) => (props.isFocused ? 'linear-gradient(to right, #1edd81, #1edd81)' : 'none')};
-    background-repeat: ${(props) => (props.isFocused ? 'no-repeat' : 'none')};
-    background-position: ${(props) => (props.isFocused ? 'left bottom' : 'none')};
-    background-size: 0% 2px;
-    transition: ${(props) => (props.isFocused ? 'background-size 0.3s ease' : 'none')};
     &:focus {
         outline: none;
-        background-size: 100% 2px;
-        border: none;
     }
 
     color: #1d1d1d;
@@ -124,7 +109,7 @@ const StyledInput = styled.input<{ isFocused: boolean }>`
 `;
 
 const SelectBankNameBtn = styled.button`
-    width: 100%;
+    width: 90vw;
     height: 35px;
     margin-top: 42px;
     border: none;
