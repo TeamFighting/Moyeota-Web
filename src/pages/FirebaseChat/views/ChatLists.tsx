@@ -130,27 +130,8 @@ function ChatLists() {
     }, [roomIds]);
 
     const { profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
-    const itemx = useMotionValue(0);
-    const bgColor = useTransform(itemx, [-82, 0, 82], ['white', 'blue', 'white']);
     const [animateRef] = useAnimate();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [, setLeaveChatRoomName] = useState<string>('');
-    const [leaveChatRoomId, setLeaveChatRoomId] = useState<number>(0);
-    const handleleaveChatRoom = (i: number) => {
-        setLeaveChatRoomName(chatRooms[i].roomName);
-        setLeaveChatRoomId(chatRooms[i].postId);
-        setIsModalOpen(true);
-    };
-    const leaveChatRoom = async (i: number) => {
-        await instance.delete(`/chat-rooms/${i}`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-        });
-        setIsModalOpen(false);
-        totalChatRooms();
-        // console.log('leave chat room', res);
-    };
+
     const renderChatRooms = () => {
         if (chatRooms.length === 0) {
             return (
@@ -200,11 +181,7 @@ function ChatLists() {
                                     if (chatRoom.roomId === message.key) {
                                         return (
                                             <SwipeableContainer key={i}>
-                                                <motion.div
-                                                    ref={animateRef}
-                                                    dragControls={dragControls}
-                                                    dragConstraints={{ left: -82, right: 0 }}
-                                                    drag="x"
+                                                <div
                                                     onClick={() => handleChatRoom(chatRoom.roomId, chatRoom.postId)}
                                                     style={{
                                                         height: '84px',
@@ -212,7 +189,7 @@ function ChatLists() {
                                                         gap: '26px',
                                                         width: '100%',
                                                         alignItems: 'center',
-                                                        backgroundColor: bgColor,
+                                                        backgroundColor: 'white',
                                                         zIndex: 1,
                                                     }}
                                                 >
@@ -284,15 +261,7 @@ function ChatLists() {
                                                             backgroundColor: 'white',
                                                         }}
                                                     />
-                                                </motion.div>
-                                                <LeaveChatRoom
-                                                    initial="disappear"
-                                                    onClick={() => {
-                                                        handleleaveChatRoom(i);
-                                                    }}
-                                                >
-                                                    나가기
-                                                </LeaveChatRoom>
+                                                </div>
                                             </SwipeableContainer>
                                         );
                                     }
@@ -313,91 +282,6 @@ function ChatLists() {
     const height = window.innerHeight - 126;
     return (
         <div style={{ height: height, width: '100vw' }}>
-            {isModalOpen && (
-                <ModalBackGround>
-                    <Modal>
-                        <div
-                            style={{
-                                paddingTop: '35px',
-                                width: '100%',
-                                textAlign: 'center',
-                                justifyContent: 'center',
-                                display: 'flex',
-                                alignItems: 'center',
-                                flexDirection: 'column',
-                            }}
-                        >
-                            <div
-                                style={{
-                                    color: '#343434',
-                                    textAlign: 'center',
-                                    fontFamily: 'Pretendard',
-                                    fontSize: '18px',
-                                    fontStyle: 'normal',
-                                    fontWeight: '700',
-                                    lineHeight: '157%',
-                                }}
-                            >
-                                정말로 나가시겠습니까?
-                            </div>
-                        </div>
-                        <div
-                            style={{
-                                width: '100%',
-                                height: '100px',
-                                display: 'flex',
-                                gap: '15px',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <div
-                                onClick={() => setIsModalOpen(false)}
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    height: '48px',
-                                    width: '142px',
-                                    color: '#5D5D5D',
-                                    fontFamily: 'Pretendard',
-                                    fontSize: '18px',
-                                    fontStyle: 'normal',
-                                    fontWeight: '500',
-                                    lineHeight: 'normal',
-                                    backgroundColor: '#F5F6F8',
-                                    borderRadius: '12px',
-                                }}
-                            >
-                                취소
-                            </div>
-                            <div
-                                onClick={() => leaveChatRoom(leaveChatRoomId)}
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    textAlign: 'center',
-                                    height: '48px',
-                                    width: '142px',
-                                    borderRadius: '12px',
-                                    color: 'white',
-                                    fontFamily: 'Pretendard',
-                                    fontSize: '18px',
-                                    fontStyle: 'normal',
-                                    fontWeight: '700',
-                                    lineHeight: 'normal',
-                                    backgroundColor: '#1EDD81',
-                                }}
-                            >
-                                나가기
-                            </div>
-                        </div>
-                    </Modal>
-                </ModalBackGround>
-            )}
-
             <ChatHeader>
                 <Icon>
                     <Chevronleft onClick={handleClick} width={24} height={24} />
@@ -417,48 +301,8 @@ const Icon = styled.div`
     position: absolute;
     left: 14px;
 `;
-const Modal = styled.div`
-    position: absolute;
-    width: 334px;
-    height: 161px;
-    z-index: 100;
-    display: flex;
-    background-color: white;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    border-radius: 10px;
-`;
-const ModalBackGround = styled.div`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 10;
-    display: flex;
-`;
-const LeaveChatRoom = styled(motion.div)`
-    background-color: #ec5829;
-    display: grid;
-    place-content: center;
-    height: 100%;
-    width: 82px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    aspect-ratio: 1 /1;
-    background: red;
-    color: #fff;
-    font-family: Pretendard;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 157%; /* 28.26px */
-`;
-const SwipeableContainer = styled(motion.div)`
+
+const SwipeableContainer = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -497,7 +341,6 @@ const RoomName = styled.div`
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    /* white-space: nowrap; */
     line-height: 24px; /* 150% */
 `;
 const Time = styled.div`
@@ -506,7 +349,7 @@ const Time = styled.div`
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
-    line-height: 160%; /* 19.2px */
+    line-height: 160%;
 `;
 const LastestMessage = styled.div`
     color: var(--Typo-Color_, #2c2c2c);
@@ -514,6 +357,6 @@ const LastestMessage = styled.div`
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
-    line-height: 20px; /* 142.857% */
+    line-height: 20px;
 `;
 export default ChatLists;
