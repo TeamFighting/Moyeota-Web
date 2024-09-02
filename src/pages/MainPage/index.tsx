@@ -13,6 +13,7 @@ import useStore from '@stores/ContentStore';
 import BottomNav from '@components/BottomNav';
 import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import MarkerClickContent from './MarkerClickContent';
+import watchPositionHook from '@hooks/useWatchPositionHook';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -40,7 +41,7 @@ function MainPage() {
         }
     };
     useEffect(() => {
-        // watchPositionHook();
+        watchPositionHook();
         navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
             if (result.state === 'granted') {
                 console.log('geolocation is granted');
