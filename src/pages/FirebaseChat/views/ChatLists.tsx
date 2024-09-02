@@ -276,9 +276,8 @@ function ChatLists() {
     const handleClick = () => {
         navigate('/Mainpage');
     };
-    const height = window.innerHeight - 126;
     return (
-        <div style={{ height: height, width: '100vw' }}>
+        <div style={{ height: '100vh', width: '100vw' }}>
             <ChatHeader>
                 <Icon>
                     <Chevronleft onClick={handleClick} width={24} height={24} />

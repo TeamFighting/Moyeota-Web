@@ -114,17 +114,6 @@ function CreatePotNaverMap({ destination }: NaverMapProps) {
         }
     }, [destination]);
 
-    // useEffect(() => {
-    //     if (!destinationResult) return;
-    //     setDestination(destinationResult.place_name);
-
-    //     console.log('destinationResult:', destinationResult);
-    //     // setChangeCenter({
-    //     //     lat: parseFloat(destinationResult.y),
-    //     //     lng: parseFloat(destinationResult.x),
-    //     //     title: destinationResult.place_name,
-    //     // });
-    // }, [destinationResult]);
     return (
         <>
             <div ref={mapElement} style={{ zIndex: '-1', height: '100%' }} />
