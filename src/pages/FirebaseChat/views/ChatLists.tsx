@@ -7,7 +7,6 @@ import { db } from 'firebase';
 import { Chevronleft } from '@assets/svg';
 import moment from 'moment';
 import { NoneReadChatStore } from '@stores/NoneReadChat';
-import { motion, useAnimate, useDragControls, useMotionValue, useTransform } from 'framer-motion';
 import { ChatTime } from '@utils/chatTime';
 import BottomNav from '@components/BottomNav';
 
@@ -38,7 +37,6 @@ function ChatLists() {
     const navigate = useNavigate();
     const { lastMessage, setLastMessage, noneReadChat, lastReadTime, setNoneReadChat, setLastReadTime } =
         NoneReadChatStore();
-    const dragControls = useDragControls();
     useEffect(() => {
         totalChatRooms();
         for (let i = 0; i < chatRooms.length; i++) {
@@ -130,7 +128,6 @@ function ChatLists() {
     }, [roomIds]);
 
     const { profileImage } = JSON.parse(localStorage.getItem('myInfo') as string);
-    const [animateRef] = useAnimate();
 
     const renderChatRooms = () => {
         if (chatRooms.length === 0) {
@@ -211,7 +208,7 @@ function ChatLists() {
                                                         src={profileImage}
                                                     />
                                                     <div style={{ flex: 1 }}>
-                                                        <motion.div
+                                                        <div
                                                             style={{
                                                                 display: 'flex',
                                                                 alignItems: 'center',
@@ -221,7 +218,7 @@ function ChatLists() {
                                                         >
                                                             <RoomName>{chatRoom.roomName}</RoomName>{' '}
                                                             <Time style={{ whiteSpace: 'nowrap' }}>{time}</Time>
-                                                        </motion.div>
+                                                        </div>
                                                         <div
                                                             style={{
                                                                 display: 'flex',
