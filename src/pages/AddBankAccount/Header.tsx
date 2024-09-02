@@ -16,7 +16,15 @@ function Header() {
             .with(ADD_ACCOUNT_FROM.MY_PAGE, () => navigate(`/mypage/${userId}`)).exhaustive;
     };
     return (
-        <ChatHeader style={{ height: '64px', width: '100%', paddingLeft: '10px', boxSizing: 'border-box' }}>
+        <ChatHeader
+            style={{
+                height: '64px',
+                width: '100%',
+                paddingLeft: '10px',
+                boxSizing: 'border-box',
+                justifyContent: 'flex-start',
+            }}
+        >
             <Chevronleft onClick={handleGoback} width={24} height={24} />
         </ChatHeader>
     );
