@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import NaverMap from './NaverMap';
 import instance from '@apis';
 import { HEADER_HEIGHT } from '@constants';
-import { useMyInfoStore } from '@stores/MyInfo';
 import { useMyPotIdStore } from '@stores/MyPotIdStore';
 import { useClickedMarker } from '@stores/ClickedMarker';
 import useStore from '@stores/ContentStore';
@@ -14,13 +13,14 @@ import BottomNav from '@components/BottomNav';
 import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import MarkerClickContent from './MarkerClickContent';
 import watchPositionHook from '@hooks/useWatchPositionHook';
+import { useUserInfo } from '@pages/LoginPage/utils/userInfo';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isMarkerClicked } = useClickedMarker();
     const accessToken = localStorage.getItem('accessToken');
-    const { setMyInfo, userId, accountDtoList } = useMyInfoStore();
+    const { fetchUserInfo } = useUserInfo();
     const { setMyPot } = useMyPotIdStore();
     const { setMyPotContent } = useMyPotContentStore();
     const getMyPost = async (userId: string) => {
@@ -40,6 +40,7 @@ function MainPage() {
             // console.log('getMyPost', e);
         }
     };
+
     useEffect(() => {
         watchPositionHook();
         navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
@@ -52,32 +53,13 @@ function MainPage() {
             }
         });
         fetchData();
-        usersInfo();
-        if (localStorage.getItem('myInfo') === null) {
-            navigate('/login');
-            return;
-        }
+        fetchUserInfo();
         const userId = JSON.parse(localStorage.getItem('myInfo')!).id;
+        console.log(userId);
         if (userId) {
             getMyPost(userId.toString());
         }
     }, []);
-
-    async function usersInfo() {
-        try {
-            const res = await instance.get('/users', {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            if (res.status === 200) {
-                setMyInfo(res.data.data);
-                localStorage.setItem('myInfo', JSON.stringify(res.data.data));
-            }
-        } catch (e: any) {
-            // alert(e + '에러');
-        }
-    }
 
     async function fetchData() {
         try {
@@ -93,6 +75,8 @@ function MainPage() {
     }
 
     const navigateToCreatePot = () => {
+        const accountDtoList = JSON.parse(localStorage.getItem('myInfo')!).accountDtoList;
+        const userId = JSON.parse(localStorage.getItem('myInfo')!).id;
         if (accountDtoList.length === 0) {
             navigate(`/createPot/addAccount/${userId}`);
         } else {
