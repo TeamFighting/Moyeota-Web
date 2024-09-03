@@ -6,7 +6,6 @@ import { getAccessToken } from '@utils/getAccessToken';
 
 async function fetchLoginUserInfo() {
     const accessToken = getAccessToken();
-    alert('alertAccessToken: ' + accessToken);
     try {
         const res = await instance.get('/users', {
             headers: {

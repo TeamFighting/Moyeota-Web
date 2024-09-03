@@ -7,6 +7,7 @@ export function useUserInfo() {
 
     async function fetchUserInfo() {
         const accessToken = getAccessToken();
+        alert('alertAccessToken: ' + accessToken);
         try {
             const res = await instance.get('/users', {
                 headers: {
