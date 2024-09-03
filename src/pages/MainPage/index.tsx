@@ -14,13 +14,15 @@ import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import MarkerClickContent from './MarkerClickContent';
 import watchPositionHook from '@hooks/useWatchPositionHook';
 import { useUserInfo } from '@pages/LoginPage/utils/userInfo';
+import { getAccessToken } from '@utils/getAccessToken';
+import { useMyInfoStore } from '@stores/MyInfo';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
     const navigate = useNavigate();
     const { clickedMarkerId, isMarkerClicked } = useClickedMarker();
     const accessToken = localStorage.getItem('accessToken');
-    const { fetchUserInfo } = useUserInfo();
+    const { setMyInfo } = useMyInfoStore();
     const { setMyPot } = useMyPotIdStore();
     const { setMyPotContent } = useMyPotContentStore();
     const getMyPost = async (userId: string) => {
@@ -40,7 +42,22 @@ function MainPage() {
             // console.log('getMyPost', e);
         }
     };
-
+    async function fetchUserInfo() {
+        const accessToken = getAccessToken();
+        try {
+            const res = await instance.get('/users', {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            if (res.status === 200) {
+                setMyInfo(res.data.data);
+                localStorage.setItem('myInfo', JSON.stringify(res.data.data));
+            }
+        } catch (e: any) {
+            alert('사용자 정보를 불러오는데 실패했습니다.');
+        }
+    }
     useEffect(() => {
         watchPositionHook();
         navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
@@ -55,7 +72,6 @@ function MainPage() {
         fetchData();
         fetchUserInfo();
         const userId = JSON.parse(localStorage.getItem('myInfo')!).id;
-        console.log(userId);
         if (userId) {
             getMyPost(userId.toString());
         }
