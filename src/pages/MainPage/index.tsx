@@ -13,7 +13,6 @@ import BottomNav from '@components/BottomNav';
 import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import MarkerClickContent from './MarkerClickContent';
 import watchPositionHook from '@hooks/useWatchPositionHook';
-import { useUserInfo } from '@pages/LoginPage/utils/userInfo';
 import { getAccessToken } from '@utils/getAccessToken';
 import { useMyInfoStore } from '@stores/MyInfo';
 
