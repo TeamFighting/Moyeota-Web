@@ -101,6 +101,7 @@ function MainPage() {
 
     return (
         <Container>
+            <button onClick={() => localStorage.clear()}>clear</button>
             <Header>
                 <LocationHeader />
             </Header>
