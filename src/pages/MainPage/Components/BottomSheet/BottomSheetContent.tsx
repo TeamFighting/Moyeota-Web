@@ -7,10 +7,10 @@ interface BottomSheetContentProps {
 }
 const BottomSheetContent = ({ content }: BottomSheetContentProps) => {
     const { totalData } = useStore((state) => state);
-    console.log(totalData);
     if (totalData.length === 0) {
         return (
             <div
+                ref={content}
                 style={{
                     width: '100%',
                     justifyContent: 'center',
