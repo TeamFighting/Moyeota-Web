@@ -476,7 +476,7 @@ function Body() {
                         <S.PartyOne>
                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <S.MoneyLeft>
-                                    <S.PartyOneImage src="/public/png/RobotProfile.png" />
+                                    <S.PartyOneImage src="/png/RobotProfile.png" />
                                     <S.PartyOneName>모여타가 쏜다</S.PartyOneName>
                                 </S.MoneyLeft>
                                 <S.MoneyRight>
