@@ -31,7 +31,6 @@ instance.interceptors.response.use(
                 } catch (e: unknown) {
                     if (e instanceof CustomError_Class && e.response?.status === 401) {
                         localStorage.removeItem('accessToken');
-                        localStorage.removeItem('refreshToken');
                         alert('세션이 만료되었습니다. 재로그인해주세요');
                         window.location.href = '/login';
                     }
