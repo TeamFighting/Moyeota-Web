@@ -1,7 +1,6 @@
+import LocationMarkerGreen from '@assets/svg/LocationMarkerGreen';
+import { BOTTOM_SHEET_HEIGHT, WINDOW_HEIGHT } from '@constants';
 import styled from 'styled-components';
-
-import LocationMarkerGreen from '../../../assets/svg/LocationMarkerGreen';
-import { BOTTOM_SHEET_HEIGHT, WINDOW_HEIGHT } from '../../../constants';
 
 interface BottomSheetProps {
     destination?: string;

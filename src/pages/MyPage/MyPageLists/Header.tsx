@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import SvgCancelIcon from '../../../assets/svg/CancelIcon';
-import CheveronLeft from '../../../assets/svg/Chevronleft';
+import SvgCancelIcon from '@assets/svg/CancelIcon';
+import CheveronLeft from '@assets/svg/Chevronleft';
 interface HeaderProps {
     title: string;
 }

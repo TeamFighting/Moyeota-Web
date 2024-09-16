@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { useClickedMarker } from '../../stores/ClickedMarker';
-import ContentStore from '../../stores/ContentStore';
-import LatLngAddStore from '../../stores/LatLngAddstore';
-import { useQuickPotStore } from '../../stores/QuickPotStore';
+import { useClickedMarker } from '@stores/ClickedMarker';
+import ContentStore from '@stores/ContentStore';
+import LatLngAddStore from '@stores/LatLngAddstore';
+import { useQuickPotStore } from '@stores/QuickPotStore';
 
 declare global {
     interface Window {

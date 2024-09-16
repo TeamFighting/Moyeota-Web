@@ -2,8 +2,8 @@ import instance from '@apis';
 import useOnclickOutside from 'react-cool-onclickoutside';
 import styled from 'styled-components';
 
-import { useAppliedPartyStore } from '../../../../stores/AppliedPartyStore';
-import ModalStore from '../../../../stores/ModalStore';
+import { useAppliedPartyStore } from '@stores/AppliedPartyStore';
+import ModalStore from '@stores/ModalStore';
 
 interface ModalProps {
     isFull: boolean;
@@ -179,7 +179,9 @@ const Modal = styled.div`
     gap: 22px;
     z-index: 100;
     display: flex;
-    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14),
+    box-shadow:
+        0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0px 5px 8px 0px rgba(0, 0, 0, 0.14),
         0px 1px 14px 0px rgba(0, 0, 0, 0.12);
 `;
 const Text = styled.div`

@@ -1,6 +1,6 @@
 import type { ChangeEvent } from 'react';
 
-import usePostDataStore from '../../stores/PostDataStore';
+import usePostDataStore from '@stores/PostDataStore';
 import * as S from '../CreatePotPage/style';
 
 function UpdateDescription() {

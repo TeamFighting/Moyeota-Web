@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 
 import * as S from './style';
-import { WhiteCancelIcon } from '../../../../assets/svg';
-import { useMyInfoStore } from '../../../../stores/MyInfo';
+import { WhiteCancelIcon } from '@assets/svg';
+import { useMyInfoStore } from '@stores/MyInfo';
 import { handleSignOut, modifyEmail } from '../apis';
 import { handleLogout } from '../utils/handleLogout';
 

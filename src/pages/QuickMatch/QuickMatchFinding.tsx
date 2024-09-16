@@ -2,8 +2,8 @@ import { useLocation, useNavigate } from 'react-router';
 import styled, { keyframes } from 'styled-components';
 
 import * as S from './style';
-import { ChevronRight, CurrentLocationIcon, LocationFrom, LocationMarker, ToTriangle } from '../../assets/svg';
-import { useQuickMathDestinationStore } from '../../stores/QuickMathDestinationStore';
+import { ChevronRight, CurrentLocationIcon, LocationFrom, LocationMarker, ToTriangle } from '@assets/svg';
+import { useQuickMathDestinationStore } from '@stores/QuickMathDestinationStore';
 import DetailHeader from '../DetailPage/components/DetailHeader';
 import { ContentDetail, From, Icon, Route, StartPoint, StartPointLocation, Title, Text } from '../DetailPage/style';
 import NaverMap from '../MainPage/NaverMap';

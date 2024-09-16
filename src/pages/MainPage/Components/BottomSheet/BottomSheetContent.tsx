@@ -1,4 +1,5 @@
-import useStore from '../../../../stores/ContentStore';
+import useStore from '@stores/ContentStore';
+
 import * as S from '../../style';
 import SingleContent from '../SingleContent';
 

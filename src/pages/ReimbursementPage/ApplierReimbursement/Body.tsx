@@ -2,10 +2,10 @@ import { toast } from 'react-hot-toast';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 
-import { CheckCircle, PotOwnerCrown } from '../../../assets/svg';
-import SvgCopyIcon from '../../../assets/svg/CopyIcon';
-import SvgDollar from '../../../assets/svg/Dollar';
-import { useMyInfoStore } from '../../../stores/MyInfo';
+import { CheckCircle, PotOwnerCrown } from '@assets/svg';
+import SvgCopyIcon from '@assets/svg/CopyIcon';
+import SvgDollar from '@assets/svg/Dollar';
+import { useMyInfoStore } from '@stores/MyInfo';
 import { BottomSheetBTN } from '../OwnerReimbursement/Body';
 import * as S from '../styles';
 function Body() {

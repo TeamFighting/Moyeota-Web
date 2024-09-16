@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import * as S from './style';
-import { DeleteButton } from '../../assets/svg';
-import ContentStore from '../../stores/ContentStore';
-import { useQuickMathDestinationStore } from '../../stores/QuickMathDestinationStore';
-import { useQuickPotStore } from '../../stores/QuickPotStore';
+import { DeleteButton } from '@assets/svg';
+import ContentStore from '@stores/ContentStore';
+import { useQuickMathDestinationStore } from '@stores/QuickMathDestinationStore';
+import { useQuickPotStore } from '@stores/QuickPotStore';
 import { Icon } from '../CreatePotPage/style';
 import DetailHeader from '../DetailPage/components/DetailHeader';
 import { ContentDetail, Title } from '../DetailPage/style';

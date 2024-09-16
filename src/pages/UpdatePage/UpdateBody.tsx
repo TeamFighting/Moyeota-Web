@@ -4,14 +4,13 @@ import type { ChangeEvent } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ChevronRight, LocationFrom, LocationMarker } from '../../assets/svg';
-import CurrentLocationStore from '../../stores/CurrentLocation';
-import DurationFareStore from '../../stores/DurationFareStore';
-import usePostDataStore from '../../stores/PostDataStore';
-import PotCreateStore from '../../stores/PotCreateStore';
+import { ChevronRight, LocationFrom, LocationMarker } from '@assets/svg';
+import CurrentLocationStore from '@stores/CurrentLocation';
+import DurationFareStore from '@stores/DurationFareStore';
+import usePostDataStore from '@stores/PostDataStore';
+import PotCreateStore from '@stores/PotCreateStore';
 import * as S from '../CreatePotPage/style';
 import DetailMap from '../DetailPage/views/DetailMap';
-
 
 interface PostProps {
     category: string;

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { BankLists } from '../../../assets/BankLists';
+import { BankLists } from '@assets/BankLists';
 
 function BankListSheet({ handleClickUp }: { handleClickUp: boolean }) {
     const { setAccountName, isOpenedAccountList, setIsOpenedAccountList } = useAccountStore();
