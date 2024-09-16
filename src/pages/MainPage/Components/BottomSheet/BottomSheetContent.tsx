@@ -7,10 +7,10 @@ interface BottomSheetContentProps {
 }
 const BottomSheetContent = ({ content }: BottomSheetContentProps) => {
     const { totalData } = useStore((state) => state);
-
-    if (totalData === undefined || null) {
+    if (totalData.length === 0) {
         return (
             <div
+                ref={content}
                 style={{
                     width: '100%',
                     justifyContent: 'center',
@@ -24,13 +24,15 @@ const BottomSheetContent = ({ content }: BottomSheetContentProps) => {
                 <img src="/public/png/Simbol.png" />
                 <p
                     style={{
-                        fontSize: '32px',
+                        fontSize: '24px',
                         fontFamily: 'pretendard',
                         color: ' #9A9A9A',
                         fontWeight: 500,
+                        textAlign: 'center',
                     }}
                 >
-                    데이터가 없습니다 :(
+                    아직 팟이 없어요 ! <br />
+                    팟을 만들어 택시비를 아껴보세요 :)
                 </p>
             </div>
         );
