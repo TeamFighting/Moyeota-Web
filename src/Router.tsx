@@ -1,5 +1,6 @@
 import ProtectedRoute from '@components/ProtectRoute/ProtectRoute';
 import { ROUTE } from '@constants/route';
+import NotFound from '@pages/404Page';
 import LoginPage from '@pages/LoginPage';
 import LoginLoading from '@pages/LoginPage/LoadingLogin';
 import { lazy, Suspense } from 'react';
@@ -68,7 +69,7 @@ export const Router = () => {
                 <Route path={ROUTE.MYPAGE_MANAGE_PROFILE} element={<ProtectedRoute element={<ManageProfile />} />} />
                 <Route path={ROUTE.SELECT_GENDER_AGE} element={<ProtectedRoute element={<SelectGenderAge />} />} />
                 <Route path={ROUTE.MY_POT} element={<ProtectedRoute element={<MyPot />} />} />
-                <Route path="*" element={<div>404</div>} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </Suspense>
     );
