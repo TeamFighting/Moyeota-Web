@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router';
 import { Chat, Home, ClickedChat, ClickedHome, ClickedUser, User } from '@assets/svg';
 import { ClickedBottomTab } from '@stores/ClickedBottomTab';
 import { useClickedMarker } from '@stores/ClickedMarker';
 import { useQuickPotStore } from '@stores/QuickPotStore';
+import { useNavigate } from 'react-router';
+import styled from 'styled-components';
 
 function BottomNav() {
     const { clicked, setClicked } = ClickedBottomTab();

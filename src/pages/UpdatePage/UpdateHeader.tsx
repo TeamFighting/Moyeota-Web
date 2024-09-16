@@ -1,10 +1,12 @@
-import styled from 'styled-components';
+import DestinationStore from '@stores/DestinationResult';
+import DurationFareStore from '@stores/DurationFareStore';
+import PotCreateStore from '@stores/PotCreateStore';
 import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+
 import SvgCancelIcon from '../../assets/svg/CancelIcon';
 import CheveronLeft from '../../assets/svg/Chevronleft';
-import PotCreateStore from '@stores/PotCreateStore';
-import DurationFareStore from '@stores/DurationFareStore';
-import DestinationStore from '@stores/DestinationResult';
+
 
 function UpdateHeader() {
     const navigate = useNavigate();

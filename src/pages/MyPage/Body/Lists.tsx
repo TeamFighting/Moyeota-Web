@@ -1,5 +1,6 @@
-import { useNavigate } from 'react-router';
 import { Creditcard, Taxi, User, ChevronRight } from '@assets/svg';
+import { useNavigate } from 'react-router';
+
 import * as S from '../MyPage_styles';
 
 interface Props {

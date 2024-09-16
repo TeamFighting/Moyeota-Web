@@ -1,13 +1,14 @@
-import Profile from './SingleProfile';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import ISOto12 from '@utils/ISOto12';
-import getDays from '@utils/getDays';
-import createAgo from '@utils/createAgo';
-import { useQuickPotStore } from '@stores/QuickPotStore';
+import { ArrowRight, LocationMarker, Clock } from '@assets/svg';
 import useStore from '@stores/ContentStore';
 import { useMyPotContentStore } from '@stores/MyPotContentStore';
-import { ArrowRight, LocationMarker, Clock } from '@assets/svg';
+import { useQuickPotStore } from '@stores/QuickPotStore';
+import createAgo from '@utils/createAgo';
+import getDays from '@utils/getDays';
+import ISOto12 from '@utils/ISOto12';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+import Profile from './SingleProfile';
 import * as S from '../../style';
 
 function SingleContent({ from }: { from: string }) {

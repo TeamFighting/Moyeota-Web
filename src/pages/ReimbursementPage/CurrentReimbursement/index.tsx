@@ -1,10 +1,11 @@
-import Header from './Header';
-import Body from './Body';
-import { useLocation } from 'react-router';
 import { CurrentReimburseStore } from '@stores/CurrentReimburseStore';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 import styled from 'styled-components';
+
+import Body from './Body';
 import Bottom from './Bottom';
+import Header from './Header';
 interface EachAmount {
     userId: number;
     amount: number;

@@ -1,20 +1,21 @@
-import styled from 'styled-components';
-import { useEffect } from 'react';
-import LocationHeader from './Components/LocationHeader';
-import BottomSheet from './Components/BottomSheet';
-import { useNavigate } from 'react-router-dom';
-import NaverMap from './NaverMap';
 import instance from '@apis';
+import BottomNav from '@components/BottomNav';
 import { HEADER_HEIGHT } from '@constants';
-import { useMyPotIdStore } from '@stores/MyPotIdStore';
+import watchPositionHook from '@hooks/useWatchPositionHook';
 import { useClickedMarker } from '@stores/ClickedMarker';
 import useStore from '@stores/ContentStore';
-import BottomNav from '@components/BottomNav';
-import { useMyPotContentStore } from '@stores/MyPotContentStore';
-import MarkerClickContent from './MarkerClickContent';
-import watchPositionHook from '@hooks/useWatchPositionHook';
-import { getAccessToken } from '@utils/getAccessToken';
 import { useMyInfoStore } from '@stores/MyInfo';
+import { useMyPotContentStore } from '@stores/MyPotContentStore';
+import { useMyPotIdStore } from '@stores/MyPotIdStore';
+import { getAccessToken } from '@utils/getAccessToken';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+import BottomSheet from './Components/BottomSheet';
+import LocationHeader from './Components/LocationHeader';
+import MarkerClickContent from './MarkerClickContent';
+import NaverMap from './NaverMap';
 
 function MainPage() {
     const { updateTotalData } = useStore((state) => state);
@@ -101,11 +102,11 @@ function MainPage() {
 
     return (
         <Container>
-            <button onClick={() => localStorage.clear()}>clear</button>
             <Header>
                 <LocationHeader />
             </Header>
             <Body>
+                <button onClick={() => localStorage.clear()}>clear</button>
                 <NaverMap from={'mainpage'} />
                 {isMarkerClicked && <MarkerClickContent postId={clickedMarkerId} />}
                 <Bottom isMarkerClicked={isMarkerClicked}>

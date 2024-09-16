@@ -1,11 +1,12 @@
-import styled from 'styled-components';
-import { HEADER_HEIGHT } from '@constants';
-import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '@assets/svg/CancelIcon';
 import CheveronLeft from '@assets/svg/Chevronleft';
 import ThreeDots from '@assets/svg/ThreeDots';
-import EditDeleteModal from './EditDeleteBottomSheet';
+import { HEADER_HEIGHT } from '@constants';
 import useEditDeleteBottomSheetStore from '@stores/useEditDeleteBottomSheetStore';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+import EditDeleteModal from './EditDeleteBottomSheet';
 
 function FixDetailHeader({ postId }: { postId: number }) {
     const navigate = useNavigate();

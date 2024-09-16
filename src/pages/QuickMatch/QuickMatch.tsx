@@ -1,13 +1,14 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import * as S from './style';
+import { DeleteButton } from '../../assets/svg';
+import ContentStore from '../../stores/ContentStore';
+import { useQuickMathDestinationStore } from '../../stores/QuickMathDestinationStore';
+import { useQuickPotStore } from '../../stores/QuickPotStore';
+import { Icon } from '../CreatePotPage/style';
 import DetailHeader from '../DetailPage/components/DetailHeader';
 import { ContentDetail, Title } from '../DetailPage/style';
-import { DeleteButton } from '../../assets/svg';
-import { Icon } from '../CreatePotPage/style';
-import { useNavigate } from 'react-router';
-import * as S from './style';
-import { useState } from 'react';
-import ContentStore from '../../stores/ContentStore';
-import { useQuickPotStore } from '../../stores/QuickPotStore';
-import { useQuickMathDestinationStore } from '../../stores/QuickMathDestinationStore';
 
 function QuickMatch() {
     const navigate = useNavigate();

@@ -1,8 +1,10 @@
-import { useRef, useState } from 'react';
-import { WhiteCancelIcon } from '@assets/svg';
 import instance from '@apis';
-import * as S from './ModifyNickname_styles';
+import { WhiteCancelIcon } from '@assets/svg';
 import { useMyInfoStore } from '@stores/MyInfo';
+import { useRef, useState } from 'react';
+
+import * as S from './ModifyNickname_styles';
+
 
 interface BodyProps {
     userInfo: string | null;

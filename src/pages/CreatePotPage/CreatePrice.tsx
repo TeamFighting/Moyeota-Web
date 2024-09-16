@@ -1,6 +1,7 @@
 import DurationFareStore from '@stores/DurationFareStore';
-import * as S from './style';
 import PotCreateStore from '@stores/PotCreateStore';
+
+import * as S from './style';
 
 function CreatePrice() {
     const { estimatedFare } = DurationFareStore();

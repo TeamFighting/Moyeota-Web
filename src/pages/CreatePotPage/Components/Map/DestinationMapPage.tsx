@@ -1,12 +1,14 @@
-import styled from 'styled-components';
 import { Chevronleft } from '@assets/svg';
-import { useNavigate, useParams } from 'react-router-dom';
-import BottomSheet from './BottomSheet';
-import DestinationButton from '../Button/DestinationButtom';
-import CreatePotNaverMap from './CreatePotNaverMap';
-import { useEffect, useRef } from 'react';
 import SvgMy_location from '@assets/svg/My_location';
 import PotCreateStore from '@stores/PotCreateStore';
+import { useEffect, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+
+import BottomSheet from './BottomSheet';
+import CreatePotNaverMap from './CreatePotNaverMap';
+import DestinationButton from '../Button/DestinationButtom';
+
 
 function CreateDestinationMapPage() {
     const navigate = useNavigate();

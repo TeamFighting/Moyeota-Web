@@ -1,10 +1,12 @@
+import instance from '@apis';
+import { NoneReadChatStore } from '@stores/NoneReadChat';
+import { db } from 'firebase';
+import { ref as dbRef, child, onChildAdded } from 'firebase/database';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { ref as dbRef, child, onChildAdded } from 'firebase/database';
+
 import type { IPostInfo, IMessage } from '../constants';
-import { NoneReadChatStore } from '@stores/NoneReadChat';
-import instance from '@apis';
-import { db } from 'firebase';
+
 
 const useChat = () => {
     const { postId, roomId } = useParams();

@@ -1,10 +1,10 @@
-import styled from 'styled-components';
 import LocationMarkerGreen from '@assets/svg/LocationMarkerGreen';
 import { BOTTOM_SHEET_HEIGHT, WINDOW_HEIGHT } from '@constants';
-import DestinationStore from '@stores/DestinationResult';
-import { useEffect } from 'react';
 import { DestinationMarkerClickStore } from '@stores/DestinationMarkerClickStore';
+import DestinationStore from '@stores/DestinationResult';
 import PotCreateStore from '@stores/PotCreateStore';
+import { useEffect } from 'react';
+import styled from 'styled-components';
 
 function BottomSheet() {
     const { destinationResult } = DestinationStore((state) => state);

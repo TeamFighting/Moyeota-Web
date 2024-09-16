@@ -1,11 +1,11 @@
-import styled from 'styled-components';
-import { HEADER_HEIGHT } from '@constants';
-import { useNavigate } from 'react-router-dom';
 import SvgCancelIcon from '@assets/svg/CancelIcon';
 import CheveronLeft from '@assets/svg/Chevronleft';
-import PotCreateStore from '@stores/PotCreateStore';
+import { HEADER_HEIGHT } from '@constants';
 import DestinationStore from '@stores/DestinationResult';
 import DurationFareStore from '@stores/DurationFareStore';
+import PotCreateStore from '@stores/PotCreateStore';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 function CreateHeader() {
     const navigate = useNavigate();

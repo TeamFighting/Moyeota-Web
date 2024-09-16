@@ -1,5 +1,6 @@
-import * as S from '../style';
 import { Calendar, Clock, Dollar } from '@assets/svg';
+
+import * as S from '../style';
 interface DetailBottomProps {
     fare: number;
     duration: number;

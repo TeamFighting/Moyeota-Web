@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
 import instance from '@apis';
-import { useMyPotContentStore } from '@stores/MyPotContentStore';
-import * as S from '../../MainPage/style';
-import styled from 'styled-components';
 import { Chevronleft } from '@assets/svg';
-import { Icon } from '../../DetailPage/style';
-import SingleContent from '@pages/MainPage/Components/SingleContent';
 import BottomNav from '@components/BottomNav';
+import SingleContent from '@pages/MainPage/Components/SingleContent';
+import { useMyPotContentStore } from '@stores/MyPotContentStore';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import styled from 'styled-components';
+
+import { Icon } from '../../DetailPage/style';
+import * as S from '../../MainPage/style';
 function MyPotPage() {
     const { id } = JSON.parse(localStorage.getItem('myInfo') as string);
     const { MyAppliedPotContent, MyPotContent, setMyPotContent, setMyAppliedPotContent, setTotalMyPotContent } =

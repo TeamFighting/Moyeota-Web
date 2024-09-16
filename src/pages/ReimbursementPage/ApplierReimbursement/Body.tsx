@@ -1,12 +1,13 @@
-import { useLocation } from 'react-router';
-import * as S from '../styles';
-import { useMyInfoStore } from '../../../stores/MyInfo';
-import { CheckCircle, PotOwnerCrown } from '../../../assets/svg';
-import styled from 'styled-components';
 import { toast } from 'react-hot-toast';
-import SvgDollar from '../../../assets/svg/Dollar';
-import { BottomSheetBTN } from '../OwnerReimbursement/Body';
+import { useLocation } from 'react-router';
+import styled from 'styled-components';
+
+import { CheckCircle, PotOwnerCrown } from '../../../assets/svg';
 import SvgCopyIcon from '../../../assets/svg/CopyIcon';
+import SvgDollar from '../../../assets/svg/Dollar';
+import { useMyInfoStore } from '../../../stores/MyInfo';
+import { BottomSheetBTN } from '../OwnerReimbursement/Body';
+import * as S from '../styles';
 function Body() {
     const width = window.innerWidth - 40;
     const { userId } = useMyInfoStore();

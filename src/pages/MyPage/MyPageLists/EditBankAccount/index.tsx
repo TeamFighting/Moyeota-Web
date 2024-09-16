@@ -1,11 +1,13 @@
-import Header from '../Header';
-import { useEffect, useState } from 'react';
-import { BankAccountInfo, BankAccountNumber, BankInfoTop, BankListWrapper, BankLogo, BankName, Wrapper } from './style';
-import { useNavigate, useParams } from 'react-router';
-import BottomNav from '@components/BottomNav';
-import { FloatingBottomButton } from '@components/Buttons/FloatingBottomButton';
 import instance from '@apis/index';
 import { BankLists } from '@assets/BankLists';
+import BottomNav from '@components/BottomNav';
+import { FloatingBottomButton } from '@components/Buttons/FloatingBottomButton';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
+
+import Header from '../Header';
+import { BankAccountInfo, BankAccountNumber, BankInfoTop, BankListWrapper, BankLogo, BankName, Wrapper } from './style';
+
 
 type BankAccount = {
     bankName: string;

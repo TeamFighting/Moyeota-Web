@@ -1,5 +1,5 @@
-import React from 'react';
 import { CheckCircle } from '@assets/svg';
+import React from 'react';
 import styled from 'styled-components';
 
 export const ErrorToast: React.FC<{ message: string }> = ({ message }) => (

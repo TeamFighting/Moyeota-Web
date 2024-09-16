@@ -1,9 +1,9 @@
 import ProtectedRoute from '@components/ProtectRoute/ProtectRoute';
 import { ROUTE } from '@constants/route';
 import LoginPage from '@pages/LoginPage';
+import LoginLoading from '@pages/LoginPage/LoadingLogin';
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router';
-import LoginLoading from '@pages/LoginPage/LoadingLogin';
 
 const MainPage = lazy(() => import('./pages/MainPage'));
 const DetailPage = lazy(() => import('./pages/DetailPage'));

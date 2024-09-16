@@ -1,5 +1,5 @@
-import { ChatHeader } from '@pages/FirebaseChat/views/ChatLists';
 import { CancelIcon, Chevronleft } from '@assets/svg';
+import { ChatHeader } from '@pages/FirebaseChat/views/ChatLists';
 
 function Header() {
     const handleGoback = () => {

@@ -1,16 +1,17 @@
-import * as S from '../CreatePotPage/style';
-import UpdateHeader from './UpdateHeader';
-import UpdateBody from './UpdateBody';
-import UpdateBottom from './UpdateBottom';
-import UpdatePrice from './UpdatePrice';
-import UpdateDescription from './UpdateDescription';
-import UpdatePotButton from './Button/UpdatePotButton';
-import UpdateNote from './UpdateNote';
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { useParams } from 'react-router';
 import instance from '@apis';
 import PotCreateStore from '@stores/PotCreateStore';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
+import styled from 'styled-components';
+
+import UpdatePotButton from './Button/UpdatePotButton';
+import UpdateBody from './UpdateBody';
+import UpdateBottom from './UpdateBottom';
+import UpdateDescription from './UpdateDescription';
+import UpdateHeader from './UpdateHeader';
+import UpdateNote from './UpdateNote';
+import UpdatePrice from './UpdatePrice';
+import * as S from '../CreatePotPage/style';
 
 interface PostProps {
     category: string;

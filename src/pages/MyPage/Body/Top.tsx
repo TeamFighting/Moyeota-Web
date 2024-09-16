@@ -1,7 +1,9 @@
-import { useNavigate } from 'react-router';
 import { PencilIcon } from '@assets/svg';
-import * as S from '../MyPage_styles';
 import { useMyInfoStore } from '@stores/MyInfo';
+import { useNavigate } from 'react-router';
+
+import * as S from '../MyPage_styles';
+
 
 function BodyTop() {
     const userInfo = useMyInfoStore();

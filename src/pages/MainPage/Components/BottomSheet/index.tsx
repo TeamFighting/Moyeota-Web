@@ -1,10 +1,12 @@
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import useBottomSheet from '@hooks/UI/useBottonSheet';
-import BottomSheetContent from './BottomSheetContent';
-import BottomSheetHandle from './BottomSheetHandle';
 import { List } from '@assets/svg';
 import { HEADER_HEIGHT, WINDOW_HEIGHT, BOTTOM_NAV_HEIGHT } from '@constants';
+import useBottomSheet from '@hooks/UI/useBottonSheet';
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
+
+import BottomSheetContent from './BottomSheetContent';
+import BottomSheetHandle from './BottomSheetHandle';
+
 
 function BottomSheet() {
     const { sheet, handleUp, content } = useBottomSheet({ from: 'Mainpage', setIsBottomSheetOpen: () => {} });
