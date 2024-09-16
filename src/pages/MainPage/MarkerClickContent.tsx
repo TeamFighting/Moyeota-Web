@@ -1,10 +1,11 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router';
 import { ArrowRight, LocationMarker, Clock } from '@assets/svg';
 import ContentStore from '@stores/ContentStore';
 import createAgo from '@utils/createAgo';
 import getDays from '@utils/getDays';
 import ISOto12 from '@utils/ISOto12';
+import { useNavigate } from 'react-router';
+import styled from 'styled-components';
+
 import * as S from './style';
 
 function MarkerClickContent({ postId }: { postId: number }) {

@@ -1,11 +1,12 @@
-import Header from '@components/Header';
-import { BirthInputWrapper, Container, RadioButtonWrap, SubTitle, Title, Input, Icon } from './style';
-import { useEffect, useRef, useState } from 'react';
+import instance from '@apis/index';
 import { RadioButtonNotSelected, RadioButtonSelected } from '@assets/svg';
 import BottomButton from '@components/Buttons/BottomButton';
-import instance from '@apis/index';
-import { useNavigate } from 'react-router';
+import Header from '@components/Header';
 import watchPositionHook from '@hooks/useWatchPositionHook';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router';
+
+import { BirthInputWrapper, Container, RadioButtonWrap, SubTitle, Title, Input, Icon } from './style';
 
 function SelectGenderAge() {
     const [gender, setGender] = useState('남');

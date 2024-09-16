@@ -1,19 +1,21 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router';
-import styled from 'styled-components';
-import DetailBody from './views/DetailBody';
-import DetailHeader from './components/DetailHeader';
-import DetailBottom from './views/DetailBottom';
-import DetailPartySection from './views/DetailPartySection';
-import FixDetailHeader from './components/FixDetailHeader';
-import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
 import instance from '@apis';
+import MatchApplyButton from '@pages/MainPage/Components/MatchApplyButton/MatchApplyButton';
 import ModalStore from '@stores/ModalStore';
 import { useMyPotContentStore } from '@stores/MyPotContentStore';
 import getDays from '@utils/getDays';
 import ISOto12 from '@utils/ISOto12';
+import { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router';
+import styled from 'styled-components';
+
+import DetailHeader from './components/DetailHeader';
+import FixDetailHeader from './components/FixDetailHeader';
 import * as S from './style';
-import MatchApplyButton from '@pages/MainPage/Components/MatchApplyButton/MatchApplyButton';
+import DetailBody from './views/DetailBody';
+import DetailBottom from './views/DetailBottom';
+import DetailPartySection from './views/DetailPartySection';
+import MatchApplyModal from '../MainPage/Components/MatchApplyButton/MatchApplyModal';
+
 interface DetailPageProps {
     category: string;
     content: string;

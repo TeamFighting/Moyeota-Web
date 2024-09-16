@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
 import PotCreateStore from '@stores/PotCreateStore';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 function DestinationButton({ from }: { from: string }) {
     const navigate = useNavigate();

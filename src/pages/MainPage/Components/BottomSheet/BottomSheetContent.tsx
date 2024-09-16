@@ -1,6 +1,6 @@
+import useStore from '../../../../stores/ContentStore';
 import * as S from '../../style';
 import SingleContent from '../SingleContent';
-import useStore from '../../../../stores/ContentStore';
 
 interface BottomSheetContentProps {
     content: any;

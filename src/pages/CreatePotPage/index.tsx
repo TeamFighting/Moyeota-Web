@@ -1,13 +1,14 @@
-import * as S from './style';
-import CreateHeader from './CreateHeader';
-import CreateBody from './CreateBody';
-import CreateBottom from './CreateBottom';
-import CreatePrice from './CreatePrice';
-import CreateDescription from './CreateDescription';
-import CreatePotButton from './Components/Button/CreatePotButton';
-import CreateNote from './CreateNote';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+
+import CreatePotButton from './Components/Button/CreatePotButton';
+import CreateBody from './CreateBody';
+import CreateBottom from './CreateBottom';
+import CreateDescription from './CreateDescription';
+import CreateHeader from './CreateHeader';
+import CreateNote from './CreateNote';
+import CreatePrice from './CreatePrice';
+import * as S from './style';
 
 function CreatePotPage() {
     const [dividerHeight, setDividerHeight] = useState(6);

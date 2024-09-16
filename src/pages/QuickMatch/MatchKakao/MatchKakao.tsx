@@ -2,6 +2,7 @@
  
 import type { MutableRefObject} from 'react';
 import { useEffect, useState } from 'react';
+
 import CurrentLocation from './CurrentLocation';
 // import SlideModal from '../SlideModal/SlideModal';
 declare global {

@@ -1,13 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import styled from 'styled-components';
-import React, { useState } from 'react';
-import DeleteModal from './DeleteModal';
-import { useNavigate } from 'react-router-dom';
 import { PencilIcon, TrashIcon } from '@assets/svg';
-import BottomSheetHandle from '../../MainPage/Components/BottomSheet/BottomSheetHandle';
-import useEditDeleteBottomSheetStore from '@stores/useEditDeleteBottomSheetStore';
 import { UpdateBottomSheetMenuWrapper, UpdateIcon } from '@pages/CreatePotPage/style';
+import useEditDeleteBottomSheetStore from '@stores/useEditDeleteBottomSheetStore';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+import DeleteModal from './DeleteModal';
+import BottomSheetHandle from '../../MainPage/Components/BottomSheet/BottomSheetHandle';
+
 
 interface EditDeleteModalProps {
     children: React.ReactNode;

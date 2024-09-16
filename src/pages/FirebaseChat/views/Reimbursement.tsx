@@ -1,9 +1,11 @@
-import styled from 'styled-components';
 import { CharacterCrown, ChatSeeU, CheckCircle } from '@assets/svg';
-import { Image } from 'react-bootstrap';
-import { Time } from './style';
-import toast from 'react-hot-toast';
 import SvgCopyIcon from '@assets/svg/CopyIcon';
+import { Image } from 'react-bootstrap';
+import toast from 'react-hot-toast';
+import styled from 'styled-components';
+
+import { Time } from './style';
+
 
 interface JSONType {
     account: {

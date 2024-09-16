@@ -1,8 +1,10 @@
+import { ChevronDown } from '@assets/svg';
+import { useAccountStore } from '@stores/AccountStore';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
-import { ChevronDown } from '@assets/svg';
+
 import BankListSheet from './BankListSheet';
-import { useAccountStore } from '@stores/AccountStore';
+
 
 function Body() {
     const inputRef = useRef(null);

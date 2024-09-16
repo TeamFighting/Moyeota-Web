@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 
 function DestinationButton() {
     const navigate = useNavigate();

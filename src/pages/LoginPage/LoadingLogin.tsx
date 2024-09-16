@@ -1,5 +1,6 @@
 import { OAUTH_PROVIDER } from '@pages/LoginPage/consts';
 import { useNavigate } from 'react-router';
+
 import handleOAuth2Redirect from './OAuth';
 function LoginLoading() {
     const navigate = useNavigate();

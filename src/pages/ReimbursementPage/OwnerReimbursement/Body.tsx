@@ -1,20 +1,21 @@
-import { useRef, useEffect, useState } from 'react';
-import { db } from 'firebase';
-import { serverTimestamp, ref as dbRef, set, push, child } from 'firebase/database';
-import { useNavigate, useParams } from 'react-router';
-import { motion } from 'framer-motion';
-import styled from 'styled-components';
-import BottomSheetHandle from '../../AddBankAccount/BankListSheet/BankListSheetHandle';
-import { ChevronRight, WhiteCancelIcon } from '@assets/svg';
+import instance from '@apis';
 import ANIM from '@assets/ANIM.gif';
 import { BankLists } from '@assets/BankLists';
-import instance from '@apis';
+import { ChevronRight, WhiteCancelIcon } from '@assets/svg';
+import BottomButton from '@components/Buttons/BottomButton';
+import useBottomSheet from '@hooks/UI/useBottonSheet';
 import { useMyInfoStore } from '@stores/MyInfo';
 import { useReimbursementMessageStore } from '@stores/ReimbursementMessage';
-import useBottomSheet from '@hooks/UI/useBottonSheet';
+import { db } from 'firebase';
+import { serverTimestamp, ref as dbRef, set, push, child } from 'firebase/database';
+import { motion } from 'framer-motion';
+import { useRef, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
+import styled from 'styled-components';
+
+import BottomSheetHandle from '../../AddBankAccount/BankListSheet/BankListSheetHandle';
 import 'moment/locale/ko';
 import * as S from '../styles';
-import BottomButton from '@components/Buttons/BottomButton';
 
 interface PartyOneProps {
     nickname: string;

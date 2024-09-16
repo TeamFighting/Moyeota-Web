@@ -1,8 +1,9 @@
 import instance from '@apis';
-import type { NavigateFunction } from 'react-router';
-import { OAUTH_PROVIDER, SIGNTYPE, type TSIGNTYPE, type TOauthProvider } from './consts';
-import { match } from 'ts-pattern';
 import { getAccessToken } from '@utils/getAccessToken';
+import type { NavigateFunction } from 'react-router';
+import { match } from 'ts-pattern';
+
+import { OAUTH_PROVIDER, SIGNTYPE, type TSIGNTYPE, type TOauthProvider } from './consts';
 
 async function fetchLoginUserInfo() {
     const accessToken = getAccessToken();

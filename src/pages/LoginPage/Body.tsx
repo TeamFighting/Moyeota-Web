@@ -1,7 +1,8 @@
-import { useNavigate } from 'react-router';
 import { KakaologinWide } from '@assets/svg';
-import handleOAuth2Redirect from './OAuth';
+import { useNavigate } from 'react-router';
+
 import { OAUTH_PROVIDER, OAUTH_REQUEST_URLS, type TOauthProvider } from './consts';
+import handleOAuth2Redirect from './OAuth';
 import * as S from './style';
 
 function Body() {

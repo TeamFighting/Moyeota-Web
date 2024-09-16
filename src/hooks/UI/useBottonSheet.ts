@@ -1,5 +1,5 @@
-import { useRef, useEffect } from 'react';
 import { BOTTOM_SHEET_MIN_Y, BOTTOM_SHEET_MAX_Y, BANKLIST_SHEET_MIN_Y, BANKLIST_SHEET_MAX_Y } from '@constants';
+import { useRef, useEffect } from 'react';
 import { match } from 'ts-pattern';
 
 interface BottomSheetMetrics {

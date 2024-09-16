@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
+
 import * as S from './style';
 import * as St from '../styles';
-import { useEffect, useState } from 'react';
 
 interface EachAmount {
     userId: number;

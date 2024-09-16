@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
 import instance from '@apis';
-import { useNavigate } from 'react-router';
-import styled from 'styled-components';
-import { ref as dbRef, query, onValue } from 'firebase/database';
-import { db } from 'firebase';
 import { Chevronleft } from '@assets/svg';
-import moment from 'moment';
+import BottomNav from '@components/BottomNav';
 import { NoneReadChatStore } from '@stores/NoneReadChat';
 import { ChatTime } from '@utils/chatTime';
-import BottomNav from '@components/BottomNav';
+import { db } from 'firebase';
+import { ref as dbRef, query, onValue } from 'firebase/database';
+import moment from 'moment';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
+import styled from 'styled-components';
 
 export interface myMessageProps {
     text: string;
@@ -37,6 +37,7 @@ function ChatLists() {
     const navigate = useNavigate();
     const { lastMessage, setLastMessage, noneReadChat, lastReadTime, setNoneReadChat, setLastReadTime } =
         NoneReadChatStore();
+
     useEffect(() => {
         totalChatRooms();
         for (let i = 0; i < chatRooms.length; i++) {

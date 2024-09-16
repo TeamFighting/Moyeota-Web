@@ -1,7 +1,9 @@
-import * as S from './style';
-import CreateHeader from './CreateHeader';
-import CreateExitButton from './Components/Button/CreateExitButton';
 import styled from 'styled-components';
+
+import CreateExitButton from './Components/Button/CreateExitButton';
+import CreateHeader from './CreateHeader';
+import * as S from './style';
+
 
 function createComplete() {
      

@@ -1,8 +1,9 @@
+import instance from '@apis';
 import { useState } from 'react';
+
+import * as S from './style';
 import { WhiteCancelIcon } from '../../../../assets/svg';
 import { useMyInfoStore } from '../../../../stores/MyInfo';
-import * as S from './style';
-import instance from '@apis';
 function Body() {
     const { email, name } = useMyInfoStore();
 

@@ -9,8 +9,7 @@ interface AuthStore {
 export const AuthStore = create(
     persist<AuthStore>(
         (set) => ({
-            accessToken:
-                'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzOSIsImV4cCI6MTcxNDcxNzU4OH0.U2QuxO2SZhMWBlvwJ3awmboRPlsh4uCxOCX5ueeFgZg',
+            accessToken: '',
             setAccessToken: (token: string) => set(() => ({ accessToken: token })),
         }),
         {

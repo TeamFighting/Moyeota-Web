@@ -1,9 +1,11 @@
-import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
-import PotCreateStore from '../../../stores/PotCreateStore';
-import DurationFareStore from '../../../stores/DurationFareStore';
 import instance from '@apis/index';
 import DestinationStore from '@stores/DestinationResult';
+import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
+import DurationFareStore from '../../../stores/DurationFareStore';
+import PotCreateStore from '../../../stores/PotCreateStore';
+
 
 function CreatePotButton({ roomId, postId }: { roomId: string; postId: number }) {
     const navigate = useNavigate();

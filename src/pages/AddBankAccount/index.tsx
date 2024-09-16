@@ -1,14 +1,16 @@
-import styled from 'styled-components';
-import Body from './Body';
-import Header from './Header';
+import instance from '@apis';
+import { ErrorToast, SuccessToast } from '@components/ToastMessages';
 import { useAccountStore } from '@stores/AccountStore';
 import toast, { useToasterStore } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router';
-import instance from '@apis';
+import styled from 'styled-components';
+import { match } from 'ts-pattern';
+
+import Body from './Body';
 import { ADD_ACCOUNT_FROM, SuccessToastStyle } from './constants';
 import type { TAddAccountFrom } from './constants';
-import { match } from 'ts-pattern';
-import { ErrorToast, SuccessToast } from '@components/ToastMessages';
+import Header from './Header';
+
 
 const ErrorToastStyle = {
     background: 'red',
