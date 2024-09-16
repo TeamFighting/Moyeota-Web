@@ -3,7 +3,8 @@ import { useRef } from 'react';
 import * as S from './style';
 import { WhiteCancelIcon } from '../../../../assets/svg';
 import { useMyInfoStore } from '../../../../stores/MyInfo';
-import { modifyEmail } from '../apis';
+import { handleSignOut, modifyEmail } from '../apis';
+import { handleLogout } from '../utils/handleLogout';
 
 function Body() {
     const { email, name } = useMyInfoStore();
@@ -11,6 +12,11 @@ function Body() {
     const handleEmailSubmit = () => {
         if (emailRef.current && emailRef.current.value !== email) {
             modifyEmail(emailRef.current.value);
+        }
+    };
+    const alertSignOut = () => {
+        if (window.confirm('정말로 탈퇴하시겠습니까?')) {
+            handleSignOut();
         }
     };
     return (
@@ -42,8 +48,12 @@ function Body() {
             <S.ManageAccountWrapper>
                 <S.Title style={{ marginBottom: '15px' }}>계정 관리</S.Title>
                 <S.ManageAccount style={{ gap: '16px' }}>
-                    <S.BTN style={{ width: '335px' }}>로그아웃</S.BTN>
-                    <S.BTN style={{ width: '335px' }}>회원탈퇴</S.BTN>
+                    <S.BTN style={{ width: '335px' }} onClick={handleLogout}>
+                        로그아웃
+                    </S.BTN>
+                    <S.BTN style={{ width: '335px' }} onClick={alertSignOut}>
+                        회원탈퇴
+                    </S.BTN>
                     <S.BTN style={{ width: '335px' }} onClick={handleEmailSubmit}>
                         수정하기
                     </S.BTN>
