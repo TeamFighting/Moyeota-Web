@@ -106,7 +106,6 @@ function MainPage() {
                 <LocationHeader />
             </Header>
             <Body>
-                <button onClick={() => localStorage.clear()}>clear</button>
                 <NaverMap from={'mainpage'} />
                 {isMarkerClicked && <MarkerClickContent postId={clickedMarkerId} />}
                 <Bottom isMarkerClicked={isMarkerClicked}>
