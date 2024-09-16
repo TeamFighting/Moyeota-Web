@@ -68,6 +68,7 @@ export const Router = () => {
                 <Route path={ROUTE.MYPAGE_MANAGE_PROFILE} element={<ProtectedRoute element={<ManageProfile />} />} />
                 <Route path={ROUTE.SELECT_GENDER_AGE} element={<ProtectedRoute element={<SelectGenderAge />} />} />
                 <Route path={ROUTE.MY_POT} element={<ProtectedRoute element={<MyPot />} />} />
+                <Route path="*" element={<div>404</div>} />
             </Routes>
         </Suspense>
     );
