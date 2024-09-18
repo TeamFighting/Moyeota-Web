@@ -1,17 +1,13 @@
- 
 import { create } from 'zustand';
 
 interface ContentStore {
-     
-    totalData: any[];
-
-     
-    updateTotalData: (data: any[]) => void;
+    totalData: MyPotType[];
+    updateTotalData: (data: MyPotType[]) => void;
 }
 
 const ContentStore = create<ContentStore>((set) => ({
     totalData: [],
-    updateTotalData: (data: any[]) => set(() => ({ totalData: data })),
+    updateTotalData: (data: MyPotType[]) => set(() => ({ totalData: data })),
 }));
 
 export default ContentStore;

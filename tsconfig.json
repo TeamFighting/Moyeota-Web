@@ -1,4 +1,6 @@
 {
+    "include": ["src", "custom.d.ts", "global.d.ts", "mocks"],
+    "references": [{ "path": "./tsconfig.node.json" }],
     "compilerOptions": {
         "target": "ES2020",
         "useDefineForClassFields": true,
@@ -21,28 +23,10 @@
         "noFallthroughCasesInSwitch": true,
         "types": ["kakao.maps.d.ts", "prop-types"],
 
-        "baseUrl": "src",
-        "paths": {
-            "@apis/*": ["apis/*"],
-            "@apis": ["apis"],
-            "@assets/*": ["assets/*"],
-            "@assets": ["assets"],
-            "@components/*": ["components/*"],
-            "@components": ["components"],
-            "@constants/*": ["constants/*"],
-            "@constants": ["constants"],
-            "@hooks/*": ["hooks/*"],
-            "@hooks": ["hooks"],
-            "@pages/*": ["pages/*"],
-            "@pages": ["pages"],
-            "@stores/*": ["stores/*"],
-            "@stores": ["stores"],
-            "@utils/*": ["utils/*"],
-            "@utils": ["utils"],
-            "@types/*": ["types/*"],
-            "@types": ["types"],
-        }
+        "baseUrl": "./src",
+	    "paths": {
+	      "@*": ["*"]
+	    }
     },
-    "include": ["src", "custom.d.ts", "global.d.ts", "mocks"],
-    "references": [{ "path": "./tsconfig.node.json" }]
+
 }

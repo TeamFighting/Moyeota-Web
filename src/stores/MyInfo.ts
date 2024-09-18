@@ -1,27 +1,6 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-interface accountDtoList {
-    accountNumber: string;
-    bankName: string;
-}
-interface MyInfo {
-    name: string;
-    age: string;
-    averageStarRate: number | null;
-    email: string | null;
-    loginId: string | null;
-    nickName: string | null;
-    phoneNumber: string | null;
-    profileImage: string;
-    userId: number;
-    school: string | null;
-    status: string;
-    gender: string;
-    accountDtoList: accountDtoList[];
-    setMyInfo: (data: MyInfo) => void;
-}
-
 export const useMyInfoStore = create(
     persist<MyInfo>(
         (set) => ({
@@ -42,6 +21,7 @@ export const useMyInfoStore = create(
         }),
         {
             name: 'my-info',
-            storage: createJSONStorage(() => localStorage)        },
+            storage: createJSONStorage(() => localStorage),
+        },
     ),
 );

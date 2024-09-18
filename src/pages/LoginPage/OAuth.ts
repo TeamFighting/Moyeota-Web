@@ -1,5 +1,5 @@
 import instance from '@apis';
-import { getAccessToken } from '@utils/getAccessToken';
+import { getAccessToken } from '@utils/getInfoFromLocalStorage';
 import type { NavigateFunction } from 'react-router';
 import { match } from 'ts-pattern';
 
